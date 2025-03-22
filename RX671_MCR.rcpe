@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<MicomToolCommonProjectFile Version="1.00">
+  <CreatorType Name="CubeSuite+" Version="V8.12.00  [06 Jun 2024]" />
+  <Placeholders>
+    <PlaceholderPrefix>%</PlaceholderPrefix>
+    <PlaceholderPostfix>%</PlaceholderPostfix>
+  </Placeholders>
+  <Project Name="RX671_MCR" Type="Application">
+    <Files>
+      <Path>dbsct.c</Path>
+      <Path>intprg.c</Path>
+      <Path>resetprg.c</Path>
+      <Path>RX671_MCR.c</Path>
+      <Path>sbrk.c</Path>
+      <Path>vecttbl.c</Path>
+      <Path>iodefine.h</Path>
+      <Path>sbrk.h</Path>
+      <Path>stacksct.h</Path>
+      <Path>typedefine.h</Path>
+      <Path>vect.h</Path>
+    </Files>
+    <DebugOptions>
+      <DebugTool>Simulator</DebugTool>
+      <ConnectSettings />
+      <DebugToolSettings />
+    </DebugOptions>
+    <Device Series="RX">R5F5671EHxLE</Device>
+    <BuildOptions Name="CC-RX" Version="V3.06.00">
+      <BuildMode Name="DefaultBuild" Active="True">
+        <GeneralOptions>
+          <SimultaneouslyBuild>false</SimultaneouslyBuild>
+        </GeneralOptions>
+        <CompileOptions>
+          <Option>-isa=rxv3</Option>
+          <Option>-fpu</Option>
+          <Option>-dpfpu</Option>
+          <Option>-lang=c</Option>
+          <Option>-debug</Option>
+          <Option>-g_line</Option>
+          <Option>-nologo</Option>
+          <Option>-asmopt=-bank</Option>
+          <Option>-output=obj=%BuildModeName%\%FileLeaf%.obj</Option>
+        </CompileOptions>
+        <AssembleOptions>
+          <Option>-isa=rxv3</Option>
+          <Option>-fpu</Option>
+          <Option>-dpfpu</Option>
+          <Option>-debug</Option>
+          <Option>-nologo</Option>
+          <Option>-bank</Option>
+          <Option>-output=%BuildModeName%\%FileLeaf%.obj</Option>
+        </AssembleOptions>
+        <LinkOptions>
+          <Option>-output=%BuildModeName%\%ProjectName%.abs</Option>
+          <Option>-list=%BuildModeName%\%ProjectName%.map</Option>
+          <Option>-show=symbol,total_size</Option>
+          <Option>-nooptimize</Option>
+          <Option>-start=B_1,R_1,B_2,R_2,B,R,B_8,R_8,SU,SI/04,PResetPRG/0FFE00000,C_1,C_2,C,C_8,C$DSEC,C$BSEC,C$INIT,C$VTBL,C$VECT,D_1,D_2,D,D_8,P,PIntPRG,W_1,W_2,W,L/0FFE00100,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
+          <Option>-rom=D=R,D_1=R_1,D_2=R_2,D_8=R_8</Option>
+          <Option>-nologo</Option>
+          <Option>-end</Option>
+          <Option>-input=%BuildModeName%\%ProjectName%.abs</Option>
+          <Option>-output=%BuildModeName%\%ProjectName%.mot</Option>
+          <Option>-form=stype</Option>
+          <Option>-exit</Option>
+          <PreLinker>Auto</PreLinker>
+        </LinkOptions>
+        <LibraryGenerateOptions>
+          <Option>-isa=rxv3</Option>
+          <Option>-fpu</Option>
+          <Option>-dpfpu</Option>
+          <Option>-head=runtime,stdio,stdlib,string,new</Option>
+          <Option>-output=%BuildModeName%\%ProjectName%.lib</Option>
+          <Option>-nologo</Option>
+          <GenerateMode>BuildOptionChanged</GenerateMode>
+        </LibraryGenerateOptions>
+        <LinkOrder>
+          <Path>DefaultBuild\dbsct.obj</Path>
+          <Path>DefaultBuild\intprg.obj</Path>
+          <Path>DefaultBuild\resetprg.obj</Path>
+          <Path>DefaultBuild\sbrk.obj</Path>
+          <Path>DefaultBuild\vecttbl.obj</Path>
+          <Path>DefaultBuild\RX671_MCR.obj</Path>
+        </LinkOrder>
+        <CommonOptions />
+      </BuildMode>
+    </BuildOptions>
+    <Extension_SmcCodePart>
+      <CodeGeneratorData></CodeGeneratorData>
+      <GenerateFileFolder>C:\Users\Natsuki\Dropbox\Document\MCR\RX66N_MCR_ver1.0</GenerateFileFolder>
+      <SCFGFile>RX66N_MCR_ver1.0.scfg</SCFGFile>
+      <SmcExePath>C:\Program Files (x86)\Renesas Electronics\SmartConfigurator\RX\eclipse\SmartConfigurator.exe</SmcExePath>
+      <CodeGeneratorFilesGuid>9b695efe-050e-438e-a0fc-1530cba9eea8</CodeGeneratorFilesGuid>
+    </Extension_SmcCodePart>
+  </Project>
+</MicomToolCommonProjectFile>

@@ -1,0 +1,13 @@
+#build files
+DefaultBuild/
+DepFiles/
+DepFilesTemp/
+DepFilesTmp/
+
+# smartManual
+SmartManual Docs/
+
+# circuit
+circuit/jlcpcb/
+circuit/mcr_MotorDriver Ver.3-backups/
+circuit/資料/
