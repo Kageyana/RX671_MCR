@@ -1,13 +1,22 @@
-#build files
+# build files
 DefaultBuild/
 DepFiles/
 DepFilesTemp/
 DepFilesTmp/
+*.mtud
 
-# smartManual
+# auto generation files
+trash/
+品質記録*
+
+# douments
 SmartManual Docs/
+資料/
 
 # circuit
 circuit/jlcpcb/
 circuit/mcr_MotorDriver Ver.3-backups/
-circuit/資料/
+circuit/~_autosave*
+
+# smartconfigrator
+#src/smc_gen
