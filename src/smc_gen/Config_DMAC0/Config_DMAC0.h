@@ -39,7 +39,6 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _A4_DMAC0_ACTIVATION_SOURCE                             (0xA4U) /* Activation source select */
 #define _00000000_DMAC0_SRC_ADDR                                (0x00000000UL) /* Source address */
 #define _00000000_DMAC0_DST_ADDR                                (0x00000000UL) /* Destination address */
 #define _00000001_DMAC0_DMCRA_COUNT                             (0x00000001UL) /* Transfer count */
@@ -57,6 +56,8 @@ void R_Config_DMAC0_Create(void);
 void R_Config_DMAC0_Create_UserInit(void);
 void R_Config_DMAC0_Start(void);
 void R_Config_DMAC0_Stop(void);
+void R_Config_DMAC0_Set_SoftwareTrigger(void);
+void R_Config_DMAC0_Clear_SoftwareTrigger(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

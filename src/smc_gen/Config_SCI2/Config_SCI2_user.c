@@ -45,6 +45,9 @@ Global variables and functions
 ***********************************************************************************************************************/
 extern volatile uint8_t * gp_sci2_tx_address;               /* SCI2 transmit buffer address */
 extern volatile uint16_t  g_sci2_tx_count;                  /* SCI2 transmit data number */
+extern volatile uint8_t * gp_sci2_rx_address;               /* SCI2 receive buffer address */
+extern volatile uint16_t  g_sci2_rx_count;                  /* SCI2 receive data number */
+extern volatile uint16_t  g_sci2_rx_length;                 /* SCI2 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -110,6 +113,61 @@ void r_Config_SCI2_transmitend_interrupt(void)
 }
 
 /***********************************************************************************************************************
+* Function Name: r_Config_SCI2_receive_interrupt
+* Description  : This function is RXI2 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+#if FAST_INTERRUPT_VECTOR == VECT_SCI2_RXI2
+#pragma interrupt r_Config_SCI2_receive_interrupt(vect=VECT(SCI2,RXI2),fint)
+#else
+#pragma interrupt r_Config_SCI2_receive_interrupt(vect=VECT(SCI2,RXI2))
+#endif
+static void r_Config_SCI2_receive_interrupt(void)
+{
+    if (g_sci2_rx_length > g_sci2_rx_count)
+    {
+        *gp_sci2_rx_address = SCI2.RDR;
+        gp_sci2_rx_address++;
+        g_sci2_rx_count++;
+
+        if (g_sci2_rx_length == g_sci2_rx_count)
+        {
+            SCI2.SCR.BIT.RIE = 0;
+
+            /* Clear TE and RE bits */
+            if((0U == SCI2.SCR.BIT.TIE) && (0U == SCI2.SCR.BIT.TEIE))
+            {
+                SCI2.SCR.BYTE &= 0xCFU;
+            }
+
+            r_Config_SCI2_callback_receiveend();
+        }
+    }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI2_receiveerror_interrupt
+* Description  : This function is ERI2 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void r_Config_SCI2_receiveerror_interrupt(void)
+{
+    uint8_t err_type;
+
+    r_Config_SCI2_callback_receiveerror();
+
+    /* Clear overrun error flag */
+    err_type = SCI2.SSR.BYTE;
+    err_type &= 0xDFU;
+    err_type |= 0xC0U;
+    SCI2.SSR.BYTE = err_type;
+}
+
+/***********************************************************************************************************************
 * Function Name: r_Config_SCI2_callback_transmitend
 * Description  : This function is a callback function when SCI2 finishes transmission
 * Arguments    : None
@@ -121,6 +179,32 @@ static void r_Config_SCI2_callback_transmitend(void)
     /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
     spi_tx_done = true;
 	/* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI2_callback_receiveend
+* Description  : This function is a callback function when SCI2 finishes reception
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_SCI2_callback_receiveend(void)
+{
+    /* Start user code for r_Config_SCI2_callback_receiveend. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI2_callback_receiveerror
+* Description  : This function is a callback function when SCI2 reception encounters error
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_SCI2_callback_receiveerror(void)
+{
+    /* Start user code for r_Config_SCI2_callback_receiveerror. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

@@ -211,8 +211,6 @@ void R_Config_PORT_Create(void)
     PORTJ.PDR.BYTE = _00_Pm5_MODE_INPUT | _D7_PDRJ_DEFAULT;
 
     /* Set all unused pins to output 1 */
-    PORT5.PDR.BYTE |= _04_Pm2_MODE_OUTPUT;
-    PORT5.PODR.BYTE |= _04_Pm2_OUTPUT_1;
     PORT6.PDR.BYTE |= _20_Pm5_MODE_OUTPUT;
     PORT6.PODR.BYTE |= _20_Pm5_OUTPUT_1;
     PORTA.PDR.BYTE |= _04_Pm2_MODE_OUTPUT;

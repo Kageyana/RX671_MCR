@@ -147,6 +147,9 @@ void R_Systeminit(void)
     /* Register group BL0 interrupt TEI2 (SCI2) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI2_TEI2,(bsp_int_cb_t)r_Config_SCI2_transmitend_interrupt);
 
+    /* Register group BL0 interrupt ERI2 (SCI2) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI2_ERI2,(bsp_int_cb_t)r_Config_SCI2_receiveerror_interrupt);
+
     /* Register group AL0 interrupt TEI10 (SCI10) */
     R_BSP_InterruptWrite(BSP_INT_SRC_AL0_SCI10_TEI10,(bsp_int_cb_t)r_Config_SCI10_transmitend_interrupt);
 

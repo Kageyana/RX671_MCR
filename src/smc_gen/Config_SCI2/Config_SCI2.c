@@ -44,6 +44,9 @@ Global variables and functions
 ***********************************************************************************************************************/
 volatile uint8_t * gp_sci2_tx_address;               /* SCI2 transmit buffer address */
 volatile uint16_t  g_sci2_tx_count;                  /* SCI2 transmit data number */
+volatile uint8_t * gp_sci2_rx_address;               /* SCI2 receive buffer address */
+volatile uint16_t  g_sci2_rx_count;                  /* SCI2 receive data number */
+volatile uint16_t  g_sci2_rx_length;                 /* SCI2 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -61,6 +64,7 @@ void R_Config_SCI2_Create(void)
 
     /* Set interrupt priority */
     IPR(SCI2,TXI2) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI2,RXI2) = _0F_SCI_PRIORITY_LEVEL15;
 
     /* Clear the control register */
     SCI2.SCR.BYTE = 0x00U;
@@ -80,7 +84,11 @@ void R_Config_SCI2_Create(void)
     SCI2.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
 
     /* Set bit rate */
-    SCI2.BRR = 0x0EU;
+    SCI2.BRR = 0x01U;
+
+    /* Set SMISO2 pin */
+    MPC.P52PFS.BYTE = 0x0AU;
+    PORT5.PMR.BYTE |= 0x04U;
 
     /* Set SMOSI2 pin */
     MPC.P50PFS.BYTE = 0x0AU;
@@ -106,6 +114,13 @@ void R_Config_SCI2_Start(void)
     IR(SCI2,TXI2) = 0U;
     IEN(SCI2,TXI2) = 1U;
     ICU.GENBL0.BIT.EN4 = 1U;
+
+    /* Enable RXI interrupt */
+    IR(SCI2,RXI2) = 0U;
+    IEN(SCI2,RXI2) = 1U;
+
+    /* Enable ERI interrupt */
+    ICU.GENBL0.BIT.EN5 = 1U;
 }
 
 /***********************************************************************************************************************
@@ -124,23 +139,33 @@ void R_Config_SCI2_Stop(void)
     IEN(SCI2,TXI2) = 0U;
     ICU.GENBL0.BIT.EN4 = 0U;
 
+    /* Disable RXI interrupt */
+    IEN(SCI2,RXI2) = 0U;
+
+    /* Disable ERI interrupt */
+    ICU.GENBL0.BIT.EN5 = 0U;
+
     /* Clear interrupt flags */
     IR(SCI2,TXI2) = 0U;
     IR(SCI2,RXI2) = 0U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI2_SPI_Master_Send
-* Description  : This function sends SCI2 data to slave device
+* Function Name: R_Config_SCI2_SPI_Master_Send_Receive
+* Description  : This function sends and receives SCI2 data to and from slave device
 * Arguments    : tx_buf -
-*                    transfer buffer pointer (not used when data is handled by DMAC/DTC
+*                    transfer buffer pointer (not used when data is handled by DMAC/DTC)
 *                tx_num -
 *                    transfer buffer size
+*                rx_buf -
+*                    receive buffer pointer (not used when data is handled by DMAC/DTC)
+*                rx_num -
+*                    receive buffer size
 * Return Value : status -
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
 
-MD_STATUS R_Config_SCI2_SPI_Master_Send(uint8_t * const tx_buf, uint16_t tx_num)
+MD_STATUS R_Config_SCI2_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num)
 {
     MD_STATUS status = MD_OK;
 
@@ -150,11 +175,14 @@ MD_STATUS R_Config_SCI2_SPI_Master_Send(uint8_t * const tx_buf, uint16_t tx_num)
     }
     else
     {
-        gp_sci2_tx_address = tx_buf;
         g_sci2_tx_count = tx_num;
+        gp_sci2_tx_address = tx_buf;
+        gp_sci2_rx_address = rx_buf;
+        g_sci2_rx_count = 0U;
+        g_sci2_rx_length = rx_num;
 
-        SCI2.SCR.BIT.TIE = 1U;
-        SCI2.SCR.BIT.TE = 1U;
+        /* Set TE, TIE, RE, RIE bits simultaneously */
+        SCI2.SCR.BYTE |= 0xF0U;
     }
 
     return (status);

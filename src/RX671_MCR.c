@@ -66,53 +66,55 @@ void main(void)
 		SSD1351_DrawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
 	}
 
-	// R_BSP_SoftwareDelay(3000,BSP_DELAY_MILLISECS);
+	R_BSP_SoftwareDelay(3000,BSP_DELAY_MILLISECS);
 
-	// // Check fonts
-	// SSD1351_FillScreen(SSD1351_BLACK);
-	// SSD1351_WriteString(0, 0, "Font_7x10, red on black, lorem ipsum dolor sit amet", Font_7x10, SSD1351_RED, SSD1351_BLACK);
-	// SSD1351_WriteString(0, 3*10, "Font_11x18, green, lorem ipsum", Font_11x18, SSD1351_GREEN, SSD1351_BLACK);
-	// SSD1351_WriteString(0, 3*10+3*18, "Font_16x26, blue, lorem ipsum dolor sit amet", Font_16x26, SSD1351_BLUE, SSD1351_BLACK);
+	// Check fonts
+	SSD1351_FillScreen(SSD1351_BLACK);
+	SSD1351_WriteString(0, 0, "Font_7x10, red on black, lorem ipsum dolor sit amet", Font_7x10, SSD1351_RED, SSD1351_BLACK);
+	SSD1351_WriteString(0, 3*10, "Font_11x18, green, lorem ipsum", Font_11x18, SSD1351_GREEN, SSD1351_BLACK);
+	SSD1351_WriteString(0, 3*10+3*18, "Font_16x26, blue, lorem ipsum dolor sit amet", Font_16x26, SSD1351_BLUE, SSD1351_BLACK);
 
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// SSD1351_InvertColors(true);
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// SSD1351_InvertColors(false);
+	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	SSD1351_InvertColors(true);
+	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	SSD1351_InvertColors(false);
 
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
 
-	// // Check colors
-	// SSD1351_FillScreen(SSD1351_WHITE);
-	// SSD1351_WriteString(0, 0, "WHITE", Font_11x18, SSD1351_BLACK, SSD1351_WHITE);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	// Check colors
+	SSD1351_FillScreen(SSD1351_WHITE);
+	SSD1351_WriteString(0, 0, "WHITE", Font_11x18, SSD1351_BLACK, SSD1351_WHITE);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_BLUE);
-	// SSD1351_WriteString(0, 0, "BLUE", Font_11x18, SSD1351_BLACK, SSD1351_BLUE);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_BLUE);
+	SSD1351_WriteString(0, 0, "BLUE", Font_11x18, SSD1351_BLACK, SSD1351_BLUE);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_RED);
-	// SSD1351_WriteString(0, 0, "RED", Font_11x18, SSD1351_BLACK, SSD1351_RED);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_RED);
+	SSD1351_WriteString(0, 0, "RED", Font_11x18, SSD1351_BLACK, SSD1351_RED);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_GREEN);
-	// SSD1351_WriteString(0, 0, "GREEN", Font_11x18, SSD1351_BLACK, SSD1351_GREEN);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_GREEN);
+	SSD1351_WriteString(0, 0, "GREEN", Font_11x18, SSD1351_BLACK, SSD1351_GREEN);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_CYAN);
-	// SSD1351_WriteString(0, 0, "CYAN", Font_11x18, SSD1351_BLACK, SSD1351_CYAN);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_CYAN);
+	SSD1351_WriteString(0, 0, "CYAN", Font_11x18, SSD1351_BLACK, SSD1351_CYAN);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_MAGENTA);
-	// SSD1351_WriteString(0, 0, "MAGENTA", Font_11x18, SSD1351_BLACK, SSD1351_MAGENTA);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_MAGENTA);
+	SSD1351_WriteString(0, 0, "MAGENTA", Font_11x18, SSD1351_BLACK, SSD1351_MAGENTA);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_YELLOW);
-	// SSD1351_WriteString(0, 0, "YELLOW", Font_11x18, SSD1351_BLACK, SSD1351_YELLOW);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_YELLOW);
+	SSD1351_WriteString(0, 0, "YELLOW", Font_11x18, SSD1351_BLACK, SSD1351_YELLOW);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 
-	// SSD1351_FillScreen(SSD1351_BLACK);
-	// SSD1351_WriteString(0, 0, "BLACK", Font_11x18, SSD1351_WHITE, SSD1351_BLACK);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	SSD1351_FillScreen(SSD1351_BLACK);
+	SSD1351_WriteString(0, 0, "BLACK", Font_11x18, SSD1351_WHITE, SSD1351_BLACK);
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+
+	SSD1351_DrawImage(0, 0, 128, 128, (const uint16_t*)test_img_128x128);
 
 	while (1)
 	{

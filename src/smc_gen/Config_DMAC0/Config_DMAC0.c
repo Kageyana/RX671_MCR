@@ -63,19 +63,16 @@ void R_Config_DMAC0_Create(void)
     /* Disable DMAC0 transfer */
     DMAC0.DMCNT.BIT.DTE = 0U;
 
-    /* Set DMAC0 activation source */
-    ICU.DMRSR0 = _A4_DMAC0_ACTIVATION_SOURCE;
-
     /* Set DMAC0 transfer address update and extended repeat setting */
     DMAC0.DMAMD.WORD = _0000_DMAC_SRC_ADDR_UPDATE_FIXED | _0000_DMAC_DST_ADDR_UPDATE_FIXED | 
                        _0000_DMAC0_SRC_EXT_RPT_AREA | _0000_DMAC0_DST_EXT_RPT_AREA;
 
     /* Set DMAC0 transfer mode, data size and repeat area */
     DMAC0.DMTMD.WORD = _0000_DMAC_TRANS_MODE_NORMAL | _2000_DMAC_REPEAT_AREA_NONE | _0100_DMAC_TRANS_DATA_SIZE_16 | 
-                       _0001_DMAC_TRANS_REQ_SOURCE_INT;
+                       _0000_DMAC_TRANS_REQ_SOURCE_SOFTWARE;
 
-    /* Set DMAC0 interrupt flag control */
-    DMAC0.DMCSL.BYTE = _00_DMAC_INT_TRIGGER_FLAG_CLEAR;
+    /* Set DMAC0 software start bit auto clear */
+    DMAC0.DMREQ.BYTE = _00_DMAC_TRIGGER_SOFTWARE_CLEAR_AUTO;
 
     /* Set DMAC0 source address */
     DMAC0.DMSAR = (void *)_00000000_DMAC0_SRC_ADDR;
@@ -114,6 +111,30 @@ void R_Config_DMAC0_Start(void)
 void R_Config_DMAC0_Stop(void)
 {
     DMAC0.DMCNT.BIT.DTE = 0U;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_DMAC0_Set_SoftwareTrigger
+* Description  : This function set the DMAC0 software trigger
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_DMAC0_Set_SoftwareTrigger(void)
+{
+    DMAC0.DMREQ.BIT.SWREQ = 1U;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_DMAC0_Clear_SoftwareTrigger
+* Description  : This function clear the DMAC0 software trigger
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_DMAC0_Clear_SoftwareTrigger(void)
+{
+    DMAC0.DMREQ.BIT.SWREQ = 0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

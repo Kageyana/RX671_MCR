@@ -249,6 +249,10 @@ void R_Pins_Create(void)
     MPC.P21PFS.BYTE = 0x0AU;
     PORT2.PMR.BYTE |= 0x02U;
 
+    /* Set SMISO2 pin */
+    MPC.P52PFS.BYTE = 0x0AU;
+    PORT5.PMR.BYTE |= 0x04U;
+
     /* Set SMOSI0 pin */
     MPC.P20PFS.BYTE = 0x0AU;
     PORT2.PMR.BYTE |= 0x01U;
