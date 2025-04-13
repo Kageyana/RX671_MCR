@@ -5,7 +5,7 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
-volatile bool spi_tx_done = false;
+volatile bool spi_ssd1351_tx_done = false;
 
 const uint16_t test_img_128x128[][128] = {
 	{0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,},
@@ -138,15 +138,31 @@ const uint16_t test_img_128x128[][128] = {
 	{0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,},
 	};
 
-static void SSD1351_Select() {
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_Select
+// 処理概要     SSD1351を通信可能状態にする(CS端子をLOWにする)
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+static void SSD1351_Select(void) {
 	SSD1351_CS_PORT = 0;
 }
-
-void SSD1351_Unselect() {
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_Unselect
+// 処理概要     SSD1351を通信不能状態にする(CS端子をHIGHにする)
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_Unselect(void) {
 	SSD1351_CS_PORT = 1;
 }
-
-static void SSD1351_Reset() {
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_Reset
+// 処理概要     SSD1351をリセットする
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+static void SSD1351_Reset(void) {
     SSD1351_RES_PORT = 1;
 	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
     SSD1351_RES_PORT = 0;
@@ -154,34 +170,49 @@ static void SSD1351_Reset() {
     SSD1351_RES_PORT = 1;
     R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteCommand
+// 処理概要     コマンド送信
+// 引数         cmd:コマンドデータ
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 static void SSD1351_WriteCommand(uint8_t cmd) {
 	uint8_t rxData[1];
 
 	SSD1351_DC_PORT = 0;
 	SSD1351_SPI_FUNC(&cmd, sizeof(cmd), rxData, sizeof(cmd));
-	spi_tx_done = false;
-	while(!spi_tx_done);
+	spi_ssd1351_tx_done = false;
+	while(!spi_ssd1351_tx_done);
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteData
+// 処理概要     データ送信
+// 引数         buff:データ配列 buff_size:データ数
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 static void SSD1351_WriteData(uint8_t* buff, size_t buff_size) {
 	uint8_t rxData[1024];
 
 	SSD1351_DC_PORT = 1;
 
-    // split data in small chunks because HAL can't send more then 64K at once
+    // split data in small chunks because SMC can't send more then 1K at once
     while(buff_size > 0) {
         uint16_t chunk_size = buff_size > 1024 ? 1024 : buff_size;
 		
 		SSD1351_SPI_FUNC(buff, chunk_size, rxData, chunk_size);
-		spi_tx_done = false;
-		while(!spi_tx_done);
+		spi_ssd1351_tx_done = false;
+		while(!spi_ssd1351_tx_done);
         
 		buff += chunk_size;
         buff_size -= chunk_size;
     }
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_SetAddressWindow
+// 処理概要     表示開始位置の設定
+// 引数         x0 y0:開始座標(左上) x1 y1:終了座標(右下)
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 static void SSD1351_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
     // column address set
     SSD1351_WriteCommand(0x15); // SETCOLUMN
@@ -200,8 +231,13 @@ static void SSD1351_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint
     // write to RAM
     SSD1351_WriteCommand(0x5C); // WRITERAM
 }
-
-void SSD1351_Init() {
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_Init
+// 処理概要     初期化
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_Init(void) {
     SSD1351_Select();
     SSD1351_Reset();
 
@@ -295,7 +331,12 @@ void SSD1351_Init() {
 
     SSD1351_Unselect();
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_DrawPixel
+// 処理概要     指定座標に1pixel表示する
+// 引数         x y:座標 color:16bitカラーコード
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
     if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT))
         return;
@@ -308,7 +349,13 @@ void SSD1351_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
 
     SSD1351_Unselect();
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteChar
+// 処理概要     指定座標に文字を表示する
+// 引数         x y:座標 ch:文字コード(ascii) font: フォントサイズ 
+//              color:文字の16bitカラーコード bgcolor:背景色の16bitカラーコード 
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 static void SSD1351_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
     uint32_t i, b, j;
 
@@ -327,7 +374,13 @@ static void SSD1351_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uin
         }
     }
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteString
+// 処理概要     指定座標に文字列を表示する
+// 引数         x y:座標 str:文字列配列 font: フォントサイズ 
+//              color:文字の16bitカラーコード bgcolor:背景色の16bitカラーコード 
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor) {
     SSD1351_Select();
 
@@ -353,7 +406,12 @@ void SSD1351_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, 
 
     SSD1351_Unselect();
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_FillRectangle
+// 処理概要     指定サイズの四角形を表示する
+// 引数         x y:座標 w:幅 h:高さ color:16bitカラーコード 
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color) {
 	// clipping
     if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT)) return;
@@ -371,18 +429,28 @@ void SSD1351_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint1
         for(x = w; x > 0; x--) {
 			
 			SSD1351_SPI_FUNC(data, sizeof(data), rxData, sizeof(data));
-			spi_tx_done = false;
-			while(!spi_tx_done);
+			spi_ssd1351_tx_done = false;
+			while(!spi_ssd1351_tx_done);
         }
     }
 
     SSD1351_Unselect();
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_FillScreen
+// 処理概要     指定カラーで画面を埋める
+// 引数         color:16bitカラーコード 
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_FillScreen(uint16_t color) {
     SSD1351_FillRectangle(0, 0, SSD1351_WIDTH, SSD1351_HEIGHT, color);
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_DrawImage
+// 処理概要     指定座標、サイズの画像を表示する
+// 引数         x y:開始座標 w:幅 h:高さ data:画像配列
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data) {
     if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT)) return;
     if((x + w - 1) >= SSD1351_WIDTH) return;
@@ -393,10 +461,26 @@ void SSD1351_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uin
     SSD1351_WriteData((uint8_t*)data, sizeof(uint16_t)*w*h);
     SSD1351_Unselect();
 }
-
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_InvertColors
+// 処理概要     画面全体の色を反転させる
+// 引数         true:色反転 false:色反転なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
 void SSD1351_InvertColors(bool invert) {
     SSD1351_Select();
     SSD1351_WriteCommand(invert ? 0xA7 /* INVERTDISPLAY */ : 0xA6 /* NORMALDISPLAY */);
     SSD1351_Unselect();
 }
 
+void ssd1351_printf(uint16_t x, uint16_t y, FontDef Font, uint16_t color, uint16_t bgcolor, uint8_t *format, ...)
+{
+	va_list argptr;
+	uint8_t str[SSD1351_WIDTH / 7 + 10];
+
+	va_start(argptr, format);
+	vsprintf(str, format, argptr);
+	va_end(argptr);
+
+	SSD1351_WriteString(x, y, str, Font, color, bgcolor);
+}

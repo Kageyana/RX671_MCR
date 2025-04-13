@@ -5,6 +5,7 @@
 //=====================================//
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdarg.h>
 #include "r_smc_entry.h"
 #include "fonts.h"
 //=====================================//
@@ -15,9 +16,6 @@
 #define SSD1351_CS_PORT		PORT6.PODR.BIT.B0
 #define SSD1351_DC_PORT		PORT6.PODR.BIT.B4
 #define SSD1351_SPI_FUNC	R_Config_SCI2_SPI_Master_Send_Receive
-
-#define BUS_DISPLAY_FREE 			0		// 通信可能
-#define BUS_DISPLAY_BUSY 			1		// 通信中
 //=====================================//
 
 // default orientation
@@ -38,7 +36,7 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
-extern volatile bool spi_tx_done;
+extern volatile bool spi_ssd1351_tx_done;
 extern const uint16_t test_img_128x128[][128];
 
 //====================================//
@@ -53,5 +51,6 @@ void SSD1351_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint1
 void SSD1351_FillScreen(uint16_t color);
 void SSD1351_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 void SSD1351_InvertColors(bool invert);
+void ssd1351_printf(uint16_t x, uint16_t y, FontDef Font, uint16_t color, uint16_t bgcolor, uint8_t *format, ...);
 
 #endif // SSD1351_H__

@@ -177,7 +177,7 @@ void r_Config_SCI2_receiveerror_interrupt(void)
 static void r_Config_SCI2_callback_transmitend(void)
 {
     /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
-    spi_tx_done = true;
+    spi_ssd1351_tx_done = true;
 	/* End user code. Do not edit comment generated here */
 }
 
