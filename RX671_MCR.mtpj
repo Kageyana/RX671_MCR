@@ -1420,6 +1420,13 @@
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
     </Instance>
+    <Instance Guid="4839a33c-23f9-4f62-ad38-770deb107459">
+      <Name>BMI088.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\BMI088.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
+    </Instance>
     <Instance Guid="9e837762-cda8-4617-8a52-cdc8e6fa9905">
       <Name>timer.h</Name>
       <Type>File</Type>
@@ -1438,6 +1445,13 @@
       <Name>ssd1351.h</Name>
       <Type>File</Type>
       <RelativePath>inc\ssd1351.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
+    </Instance>
+    <Instance Guid="69c74c54-4d91-49a0-a15c-dead16be2316">
+      <Name>BMI088.h</Name>
+      <Type>File</Type>
+      <RelativePath>inc\BMI088.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
     </Instance>
@@ -1663,7 +1677,9 @@
       <SourceItemType82>CSource</SourceItemType82>
       <SourceItemGuid83>862faf83-7187-439a-9abc-83f6a15621d5</SourceItemGuid83>
       <SourceItemType83>CSource</SourceItemType83>
-      <SourceItemCount>84</SourceItemCount>
+      <SourceItemGuid84>4839a33c-23f9-4f62-ad38-770deb107459</SourceItemGuid84>
+      <SourceItemType84>CSource</SourceItemType84>
+      <SourceItemCount>85</SourceItemCount>
       <LastDeviceChangedCounter>1</LastDeviceChangedCounter>
     </Instance>
     <Instance Guid="9e208646-ccba-4100-a676-29b1efe6545f">
@@ -1887,7 +1903,6 @@
 -include=src\smc_gen\Config_DMAC0
 -debug
 -g_line
--optimize=0
 -nologo
 -asmopt=-bank
 -output=obj=%BuildModeName%\%FileLeaf%.obj
@@ -1963,12 +1978,12 @@
       <COptionFloatOrder-DefaultValue>False</COptionFloatOrder-DefaultValue>
       <COptionBranchChaining-DefaultValue>None</COptionBranchChaining-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584580891354518858</TimeTagModified--0>
+      <TimeTagModified--0>-8584571270008600807</TimeTagModified--0>
       <COptionLangC-0>C99</COptionLangC-0>
       <COptionListfile-0>False</COptionListfile-0>
       <COptionLogo-0>False</COptionLogo-0>
       <COptionMisra-0>Misra2012</COptionMisra-0>
-      <COptionOptimize-0>Level0</COptionOptimize-0>
+      <COptionOptimize-0>Level2</COptionOptimize-0>
       <COptionOutput-0>Object</COptionOutput-0>
       <COptionOutputAssembly-0>False</COptionOutputAssembly-0>
       <COptionOutputDepOrOutputObj-0>-output=obj</COptionOutputDepOrOutputObj-0>
@@ -2070,7 +2085,6 @@ src\smc_gen\Config_DMAC0
 -include=src\smc_gen\Config_DMAC0
 -debug
 -g_line
--optimize=0
 -nologo
 -asmopt=-bank
 -output=obj=%BuildModeName%\%FileLeaf%.obj
@@ -2307,7 +2321,7 @@ D_8=R_8
 </LinkOptionCommandLine-DefaultValue>
       <LinkOptionSplitVect-DefaultValue>False</LinkOptionSplitVect-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584588781225231378</TimeTagModified--0>
+      <TimeTagModified--0>-8584571486772357568</TimeTagModified--0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionForm-0>Absolute</LinkOptionForm-0>
       <LinkOptionFormConvert-0>Stype</LinkOptionFormConvert-0>
@@ -3418,6 +3432,14 @@ D_8=R_8
       <ItemAddTime>638788971398638185</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="69c74c54-4d91-49a0-a15c-dead16be2316">
+      <ItemAddTime>638801538758119356</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="4839a33c-23f9-4f62-ad38-770deb107459">
+      <ItemAddTime>638801538247983645</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="a7be515f-f007-45ed-9059-4e1500c0f74d">
       <TimeTagModified-SourceItem0--0>-8584589662428742177</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -3755,6 +3777,10 @@ D_8=R_8
       <SourceItem83-IsLockedByUser>False</SourceItem83-IsLockedByUser>
       <SourceItem83-BuildingTarget-0>True</SourceItem83-BuildingTarget-0>
       <SourceItem83-IndividualCompileOption-0>False</SourceItem83-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem84--0>-8584570786606792163</TimeTagModified-SourceItem84--0>
+      <SourceItem84-IsLockedByUser>False</SourceItem84-IsLockedByUser>
+      <SourceItem84-BuildingTarget-0>True</SourceItem84-BuildingTarget-0>
+      <SourceItem84-IndividualCompileOption-0>False</SourceItem84-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
@@ -5121,7 +5147,7 @@ D_8=R_8
       <DebuggerProperty-OptionalProperty-Memory-MemoryMappings-MemoryMapItem25-Endian>Little</DebuggerProperty-OptionalProperty-Memory-MemoryMappings-MemoryMapItem25-Endian>
       <DebuggerProperty-OptionalProperty-Memory-MemoryMappings-MemoryMapItem25-EndianMCUSetting>Same</DebuggerProperty-OptionalProperty-Memory-MemoryMappings-MemoryMapItem25-EndianMCUSetting>
       <DebuggerProperty-OptionalProperty-Memory-VerifyCheck>Yes</DebuggerProperty-OptionalProperty-Memory-VerifyCheck>
-      <DebuggerProperty-OptionalProperty-MemoryAccess-PermitToStopAndRead>No</DebuggerProperty-OptionalProperty-MemoryAccess-PermitToStopAndRead>
+      <DebuggerProperty-OptionalProperty-MemoryAccess-PermitToStopAndRead>Yes</DebuggerProperty-OptionalProperty-MemoryAccess-PermitToStopAndRead>
       <DebuggerProperty-OptionalProperty-AccessMemory-UpdateDisplayInExecution>Yes</DebuggerProperty-OptionalProperty-AccessMemory-UpdateDisplayInExecution>
       <DebuggerProperty-OptionalProperty-AccessMemory-UpdateInterval>500</DebuggerProperty-OptionalProperty-AccessMemory-UpdateInterval>
       <DebuggerProperty-OptionalProperty-AccessMemory-AutoSetRrmArea>Yes</DebuggerProperty-OptionalProperty-AccessMemory-AutoSetRrmArea>

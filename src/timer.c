@@ -18,9 +18,14 @@ void Interrupt1ms(void)
 	cnt0++;
 	cnt10++;
 
+	
+
 	switch (cnt10)
 	{
 	case 1:
+		calcDegrees();	 // Šp“xŒvŽZ
+		BMI088_getGyro(); // Šp‘¬“xŽæ“¾
+		
 		break;
 	case 10:
 		cnt10 = 0;

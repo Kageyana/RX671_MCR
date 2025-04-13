@@ -269,11 +269,13 @@
         <Path>src\timer.c</Path>
         <Path>src\fonts.c</Path>
         <Path>src\ssd1351.c</Path>
+        <Path>src\BMI088.c</Path>
       </Category>
       <Category Name="inc">
         <Path>inc\timer.h</Path>
         <Path>inc\fonts.h</Path>
         <Path>inc\ssd1351.h</Path>
+        <Path>inc\BMI088.h</Path>
       </Category>
     </Files>
     <DebugOptions>
@@ -328,7 +330,6 @@
           <Option>-include=src\smc_gen\Config_DMAC0</Option>
           <Option>-debug</Option>
           <Option>-g_line</Option>
-          <Option>-optimize=0</Option>
           <Option>-nologo</Option>
           <Option>-asmopt=-bank</Option>
           <Option>-output=obj=%BuildModeName%\%FileLeaf%.obj</Option>
@@ -453,6 +454,7 @@
           <Path>DefaultBuild\timer.obj</Path>
           <Path>DefaultBuild\fonts.obj</Path>
           <Path>DefaultBuild\ssd1351.obj</Path>
+          <Path>DefaultBuild\BMI088.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>src\smc_gen\Config_CMT0</IncludePathForC>

@@ -37,6 +37,7 @@ Includes
 #include "Config_SCI2.h"
 /* Start user code for include. Do not edit comment generated here */
 #include "ssd1351.h"
+#include "BMI088.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -178,6 +179,7 @@ static void r_Config_SCI2_callback_transmitend(void)
 {
     /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
     spi_ssd1351_tx_done = true;
+	spi_BMI088_tx_done = true;
 	/* End user code. Do not edit comment generated here */
 }
 
@@ -191,7 +193,8 @@ static void r_Config_SCI2_callback_transmitend(void)
 static void r_Config_SCI2_callback_receiveend(void)
 {
     /* Start user code for r_Config_SCI2_callback_receiveend. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    spi_BMI088_rx_done = true;
+	/* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************

@@ -67,7 +67,7 @@ void R_Config_CMT0_Create(void)
     CMT0.CMCOR = _1D4B_CMT0_CMCOR_VALUE;
 
     /* Set CMI0 priority level */
-    IPR(CMT0,CMI0) = _0F_CMT_PRIORITY_LEVEL15;
+    IPR(CMT0,CMI0) = _0A_CMT_PRIORITY_LEVEL10;
 
     R_Config_CMT0_Create_UserInit();
 }

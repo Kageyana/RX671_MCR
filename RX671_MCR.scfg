@@ -313,7 +313,7 @@
         <Item currentVect="23" id="FCU_FRDYI" priority="15" usedState="未使用"/>
         <Item currentVect="26" id="ICU_SWINT2" priority="15" usedState="未使用"/>
         <Item currentVect="27" id="ICU_SWINT" priority="15" usedState="未使用"/>
-        <Item currentVect="28" id="CMT0_CMI0" priority="15" usedState="使用中"/>
+        <Item currentVect="28" id="CMT0_CMI0" priority="10" usedState="使用中"/>
         <Item currentVect="29" id="CMT1_CMI1" priority="15" usedState="未使用"/>
         <Item currentVect="30" id="CMTW0_CMWI0" priority="15" usedState="未使用"/>
         <Item currentVect="31" id="CMTW1_CMWI1" priority="15" usedState="未使用"/>
@@ -8321,7 +8321,7 @@
                     <item id="Check" input="" vlaue="0"/>
                     <item id="UnCheck" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IntCMWIPriority" selection="Level15">
+                <option enabled="true" id="IntCMWIPriority" selection="Level10">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
