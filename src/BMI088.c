@@ -81,9 +81,9 @@ void BMI088_WriteByte(bool sensorType, uint8_t reg, uint8_t val)
 /////////////////////////////////////////////////////////////////////
 void BMI088_ReadAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t rxNum)
 {
-	uint8_t txData[7] = {0};
+	uint8_t txData[20] = {0}, rxDatabuff[20];
 
-	txData[0] = reg | 0x80;
+	txData[0] = reg | 0x80; // 送信用データに変換
 
 	if(sensorType == ACCELE)
 	{
@@ -92,15 +92,11 @@ void BMI088_ReadAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t 
 		BMI088_CSB2 = 0;
 	}
 
-	BMI088_SPI_FUNC(txData, 7, rxData, 7);
+	BMI088_SPI_FUNC(txData, rxNum+1, rxDatabuff, rxNum+1);
 	spi_BMI088_tx_done = false;
 	while(!spi_BMI088_tx_done);
 
-	// txData[0] = 0xff;
-
-	// BMI088_SPI_FUNC(txData, rxNum, rxData, rxNum);
-	// spi_BMI088_rx_done = false;
-	// while(!spi_BMI088_rx_done);
+	memcpy(rxData,rxDatabuff+1,rxNum); // レジスタ送信時の受信データを除いてコピー
 
 	if(sensorType == ACCELE)
 	{
@@ -169,17 +165,15 @@ void BMI088_getGyro(void)
 	int16_t gyroVal[3];
 
 	// 角速度の生データを取得
-	BMI088_ReadAxisData(GYRO, REG_RATE_Z_LSB, rawData, 2);
-	// rawData[0] = BMI088_ReadByte(GYRO, REG_RATE_Z_LSB);
-	// rawData[1] = BMI088_ReadByte(GYRO, REG_RATE_Z_MSB);
+	BMI088_ReadAxisData(GYRO, REG_RATE_X_LSB, rawData, 6);
 
 	// LSBとMSBを結合
-	// gyroVal[0] = ((rawData[1] << 8) | rawData[0]) - angleOffset[0];
-	// gyroVal[1] = ((rawData[3] << 8) | rawData[2]) - angleOffset[1];
-	gyroVal[2] = ((rawData[1] << 8) | rawData[0]) - angleOffset[2];
+	gyroVal[0] = ((rawData[1] << 8) | rawData[0]) - angleOffset[0];
+	gyroVal[1] = ((rawData[3] << 8) | rawData[2]) - angleOffset[1];
+	gyroVal[2] = ((rawData[5] << 8) | rawData[4]) - angleOffset[2];
 
-	// BMI088val.gyro.x = (float)gyroVal[0] / GYROLSB * COEFF_DPD;
-	// BMI088val.gyro.y = (float)gyroVal[1] / GYROLSB * COEFF_DPD;
+	BMI088val.gyro.x = (float)gyroVal[0] / GYROLSB * COEFF_DPD;
+	BMI088val.gyro.y = (float)gyroVal[1] / GYROLSB * COEFF_DPD;
 	BMI088val.gyro.z = (float)gyroVal[2] / GYROLSB * COEFF_DPD;
 }
 /////////////////////////////////////////////////////////////////////

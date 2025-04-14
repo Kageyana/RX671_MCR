@@ -130,8 +130,8 @@ void main(void)
 		if(cnt0 > 500) {
 			PORT8.PODR.BIT.B0 = 1;
 			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "%dtest", PORT8.PODR.BIT.B0);
-			ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zg:%6.1f", BMI088val.gyro.z);
-			ssd1351_printf(0, 10, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zd:%6.1f", BMI088val.angle.z);
+			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zg:%6.1f", BMI088val.gyro.z);
+			// ssd1351_printf(0, 10, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zd:%6.1f", BMI088val.angle.z);
 			} else {
 			PORT8.PODR.BIT.B0 = 0;
 			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "%dtest", PORT8.PODR.BIT.B0);

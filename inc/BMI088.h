@@ -6,6 +6,7 @@
 //====================================//
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 #include "r_smc_entry.h"
 //====================================//
 // ƒVƒ“ƒ{ƒ‹’è‹`

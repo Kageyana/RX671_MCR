@@ -23,8 +23,9 @@ void Interrupt1ms(void)
 	switch (cnt10)
 	{
 	case 1:
-		calcDegrees();	 // Šp“xŒvZ
+		
 		BMI088_getGyro(); // Šp‘¬“xæ“¾
+		calcDegrees();	 // Šp“xŒvZ
 		
 		break;
 	case 10:
