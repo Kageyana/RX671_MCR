@@ -267,15 +267,16 @@
       <Category Name="src">
         <Path>src\RX671_MCR.c</Path>
         <Path>src\timer.c</Path>
+        <Path>src\BMI088.c</Path>
         <Path>src\fonts.c</Path>
         <Path>src\ssd1351.c</Path>
-        <Path>src\BMI088.c</Path>
       </Category>
       <Category Name="inc">
         <Path>inc\timer.h</Path>
+        <Path>inc\BMI088.h</Path>
+        <Path>inc\ssd1306.h</Path>
         <Path>inc\fonts.h</Path>
         <Path>inc\ssd1351.h</Path>
-        <Path>inc\BMI088.h</Path>
       </Category>
     </Files>
     <DebugOptions>
@@ -364,7 +365,7 @@
           <Option>-fpu</Option>
           <Option>-dpfpu</Option>
           <Option>-lang=c99</Option>
-          <Option>-head=runtime,stdio,stdlib,string,new</Option>
+          <Option>-head=runtime,math,stdarg,stdio,stdlib,string,new</Option>
           <Option>-output=%BuildModeName%\%ProjectName%.lib</Option>
           <Option>-nologo</Option>
           <GenerateMode>BuildOptionChanged</GenerateMode>
@@ -452,9 +453,9 @@
           <Path>DefaultBuild\Config_CMT0.obj</Path>
           <Path>DefaultBuild\Config_CMT0_user.obj</Path>
           <Path>DefaultBuild\timer.obj</Path>
+          <Path>DefaultBuild\BMI088.obj</Path>
           <Path>DefaultBuild\fonts.obj</Path>
           <Path>DefaultBuild\ssd1351.obj</Path>
-          <Path>DefaultBuild\BMI088.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>src\smc_gen\Config_CMT0</IncludePathForC>

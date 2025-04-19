@@ -33,8 +33,8 @@
 //#include "ssd1351.h"
 //#include "fonts.h"
 #include "BMI088.h"
-#include "ssd1306.h"
-#include "ssd1306_fonts.h"
+#include "ssd1351.h"
+#include "fonts.h"
 
 #ifdef __cplusplus
 //#include <ios>                        // Remove the comment when you use ios
@@ -52,81 +52,9 @@ void main(void)
 {
 	
 	R_Config_SCI2_Start();
+	R_Config_CMT0_Start();
 
-	ssd1306_Init();
-	ssd1306_Fill(0x0000);
-	ssd1306_UpdateScreen();
-
-	// calibratIMU = BMI088_init();
-	// R_Config_CMT0_Start();
-
-	// SSD1351_Unselect();
-    // SSD1351_Init();
-
-	// // Check border
-	// SSD1351_FillScreen(SSD1351_BLACK);
-
-	// for(int x = 0; x < SSD1351_WIDTH; x++) {
-	// 	SSD1351_DrawPixel(x, 0, SSD1351_RED);
-	// 	SSD1351_DrawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
-	// }
-
-	// for(int y = 0; y < SSD1351_HEIGHT; y++) {
-	// 	SSD1351_DrawPixel(0, y, SSD1351_RED);
-	// 	SSD1351_DrawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
-	// }
-
-	// R_BSP_SoftwareDelay(3000,BSP_DELAY_MILLISECS);
-
-	// // Check fonts
-	// SSD1351_FillScreen(SSD1351_BLACK);
-	// SSD1351_WriteString(0, 0, "Font_7x10, red on black, lorem ipsum dolor sit amet", Font_7x10, SSD1351_RED, SSD1351_BLACK);
-	// SSD1351_WriteString(0, 3*10, "Font_11x18, green, lorem ipsum", Font_11x18, SSD1351_GREEN, SSD1351_BLACK);
-	// SSD1351_WriteString(0, 3*10+3*18, "Font_16x26, blue, lorem ipsum dolor sit amet", Font_16x26, SSD1351_BLUE, SSD1351_BLACK);
-
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// SSD1351_InvertColors(true);
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// SSD1351_InvertColors(false);
-
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_BLACK);
-
-	// Check colors
-	// SSD1351_FillScreen(SSD1351_WHITE);
-	// SSD1351_WriteString(0, 0, "WHITE", Font_11x18, SSD1351_BLACK, SSD1351_WHITE);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_BLUE);
-	// SSD1351_WriteString(0, 0, "BLUE", Font_11x18, SSD1351_BLACK, SSD1351_BLUE);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_RED);
-	// SSD1351_WriteString(0, 0, "RED", Font_11x18, SSD1351_BLACK, SSD1351_RED);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_GREEN);
-	// SSD1351_WriteString(0, 0, "GREEN", Font_11x18, SSD1351_BLACK, SSD1351_GREEN);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_CYAN);
-	// SSD1351_WriteString(0, 0, "CYAN", Font_11x18, SSD1351_BLACK, SSD1351_CYAN);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_MAGENTA);
-	// SSD1351_WriteString(0, 0, "MAGENTA", Font_11x18, SSD1351_BLACK, SSD1351_MAGENTA);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_YELLOW);
-	// SSD1351_WriteString(0, 0, "YELLOW", Font_11x18, SSD1351_BLACK, SSD1351_YELLOW);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_FillScreen(SSD1351_BLACK);
-	// SSD1351_WriteString(0, 0, "BLACK", Font_11x18, SSD1351_WHITE, SSD1351_BLACK);
-	// R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
-
-	// SSD1351_DrawImage(0, 0, 128, 128, (const uint16_t*)test_img_128x128);
+	SSD1351_Init();
 
 	while (1)
 	{
@@ -135,14 +63,15 @@ void main(void)
 		}
 		if(cnt0 > 500) {
 			PORT8.PODR.BIT.B0 = 1;
-			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "%dtest", PORT8.PODR.BIT.B0);
-			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zg:%6.1f", BMI088val.gyro.z);
-			// ssd1351_printf(0, 10, Font_6x8, SSD1351_RED, SSD1351_BLACK, "zd:%6.1f", BMI088val.angle.z);
-			} else {
-			PORT8.PODR.BIT.B0 = 0;
-			// ssd1351_printf(0, 0, Font_6x8, SSD1351_RED, SSD1351_BLACK, "%dtest", PORT8.PODR.BIT.B0);
-		}
 
+			SSD1351_Fill(0x00ff);
+			SSD1351_UpdateScreen();
+		} else {
+			PORT8.PODR.BIT.B0 = 0;
+			
+			SSD1351_Fill(0x0ff0);
+			SSD1351_UpdateScreen();
+		}
 	}
 }
 

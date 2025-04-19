@@ -1406,24 +1406,24 @@
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
     </Instance>
-    <Instance Guid="7e4b5d07-eda1-41ab-b9ab-311cfe93e3b1">
+    <Instance Guid="4839a33c-23f9-4f62-ad38-770deb107459">
+      <Name>BMI088.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\BMI088.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
+    </Instance>
+    <Instance Guid="00c4bfb6-8699-4f32-aa5e-1427a29ac439">
       <Name>fonts.c</Name>
       <Type>File</Type>
       <RelativePath>src\fonts.c</RelativePath>
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
     </Instance>
-    <Instance Guid="862faf83-7187-439a-9abc-83f6a15621d5">
+    <Instance Guid="b32fca05-dcce-4d02-a2e6-2b13ba998872">
       <Name>ssd1351.c</Name>
       <Type>File</Type>
       <RelativePath>src\ssd1351.c</RelativePath>
-      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
-      <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
-    </Instance>
-    <Instance Guid="4839a33c-23f9-4f62-ad38-770deb107459">
-      <Name>BMI088.c</Name>
-      <Type>File</Type>
-      <RelativePath>src\BMI088.c</RelativePath>
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>5ee1e185-58dc-4bd1-8333-d88b96ae2a4d</ParentItem>
     </Instance>
@@ -1434,24 +1434,31 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
     </Instance>
-    <Instance Guid="f0c09878-3ea7-4073-9aa1-3ae6ab812864">
+    <Instance Guid="69c74c54-4d91-49a0-a15c-dead16be2316">
+      <Name>BMI088.h</Name>
+      <Type>File</Type>
+      <RelativePath>inc\BMI088.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
+    </Instance>
+    <Instance Guid="2fa2169b-0151-403d-bdea-3f79c76a42f8">
+      <Name>ssd1306.h</Name>
+      <Type>File</Type>
+      <RelativePath>inc\ssd1306.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
+    </Instance>
+    <Instance Guid="0a233af9-ff36-4a55-8b61-203edb14cf17">
       <Name>fonts.h</Name>
       <Type>File</Type>
       <RelativePath>inc\fonts.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
     </Instance>
-    <Instance Guid="5bb27032-280b-4405-b104-56e3e1c27a0f">
+    <Instance Guid="abf82458-8558-4f53-9e77-ba91f019f0cb">
       <Name>ssd1351.h</Name>
       <Type>File</Type>
       <RelativePath>inc\ssd1351.h</RelativePath>
-      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
-      <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
-    </Instance>
-    <Instance Guid="69c74c54-4d91-49a0-a15c-dead16be2316">
-      <Name>BMI088.h</Name>
-      <Type>File</Type>
-      <RelativePath>inc\BMI088.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>8f69e8f2-442b-4ca3-936a-9274fc04c74b</ParentItem>
     </Instance>
@@ -1673,11 +1680,11 @@
       <SourceItemType80>CSource</SourceItemType80>
       <SourceItemGuid81>9e201c82-befc-4967-a58c-7fb6572173e4</SourceItemGuid81>
       <SourceItemType81>CSource</SourceItemType81>
-      <SourceItemGuid82>7e4b5d07-eda1-41ab-b9ab-311cfe93e3b1</SourceItemGuid82>
+      <SourceItemGuid82>4839a33c-23f9-4f62-ad38-770deb107459</SourceItemGuid82>
       <SourceItemType82>CSource</SourceItemType82>
-      <SourceItemGuid83>862faf83-7187-439a-9abc-83f6a15621d5</SourceItemGuid83>
+      <SourceItemGuid83>b32fca05-dcce-4d02-a2e6-2b13ba998872</SourceItemGuid83>
       <SourceItemType83>CSource</SourceItemType83>
-      <SourceItemGuid84>4839a33c-23f9-4f62-ad38-770deb107459</SourceItemGuid84>
+      <SourceItemGuid84>00c4bfb6-8699-4f32-aa5e-1427a29ac439</SourceItemGuid84>
       <SourceItemType84>CSource</SourceItemType84>
       <SourceItemCount>85</SourceItemCount>
       <LastDeviceChangedCounter>1</LastDeviceChangedCounter>
@@ -2321,7 +2328,7 @@ D_8=R_8
 </LinkOptionCommandLine-DefaultValue>
       <LinkOptionSplitVect-DefaultValue>False</LinkOptionSplitVect-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584571486772357568</TimeTagModified--0>
+      <TimeTagModified--0>-8584565634203586856</TimeTagModified--0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionForm-0>Absolute</LinkOptionForm-0>
       <LinkOptionFormConvert-0>Stype</LinkOptionFormConvert-0>
@@ -2603,7 +2610,7 @@ D_8=R_8
 -fpu
 -dpfpu
 -lang=c99
--head=runtime,stdio,stdlib,string,new
+-head=runtime,math,stdarg,stdio,stdlib,string,new
 -output=%BuildModeName%\%ProjectName%.lib
 -nologo
 -MAKEUD_LBG
@@ -2658,7 +2665,7 @@ D_8=R_8
       <LbgOptionFloatOrder-DefaultValue>False</LbgOptionFloatOrder-DefaultValue>
       <LbgOptionBranchChaining-DefaultValue>None</LbgOptionBranchChaining-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584584913610175224</TimeTagModified--0>
+      <TimeTagModified--0>-8584565793497805616</TimeTagModified--0>
       <LbgOptionLanguage-0>C99</LbgOptionLanguage-0>
       <LbgOptionLibraryMode-0>MakeOptionChanged</LbgOptionLibraryMode-0>
       <LbgOptionLogo-0>False</LbgOptionLogo-0>
@@ -2679,18 +2686,18 @@ D_8=R_8
 -fpu
 -dpfpu
 -lang=c99
--head=runtime,stdio,stdlib,string,new
+-head=runtime,math,stdarg,stdio,stdlib,string,new
 -output=%BuildModeName%\%ProjectName%.lib
 -nologo
 -MAKEUD_LBG
 </LbgOptionCommandLine-0>
-      <LbgOptionHeadMathH-0>False</LbgOptionHeadMathH-0>
+      <LbgOptionHeadMathH-0>True</LbgOptionHeadMathH-0>
       <LbgOptionLoop-0>Auto</LbgOptionLoop-0>
       <LbgOptionSecureMalloc-0>False</LbgOptionSecureMalloc-0>
       <LbgOptionHeadMathfH-0>False</LbgOptionHeadMathfH-0>
       <LbgOptionLoopValue-0>2</LbgOptionLoopValue-0>
       <LbgOptionUseSameObjectRelatedSettingsAsCompileOptions-0>False</LbgOptionUseSameObjectRelatedSettingsAsCompileOptions-0>
-      <LbgOptionHeadStdargH-0>False</LbgOptionHeadStdargH-0>
+      <LbgOptionHeadStdargH-0>True</LbgOptionHeadStdargH-0>
       <LbgOptionInline-0>Auto</LbgOptionInline-0>
       <LbgOptionSectionP-0>P</LbgOptionSectionP-0>
       <LbgOptionHeadStdioH-0>True</LbgOptionHeadStdioH-0>
@@ -3416,20 +3423,20 @@ D_8=R_8
       <ItemAddTime>638788496239503269</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
-    <Instance Guid="7e4b5d07-eda1-41ab-b9ab-311cfe93e3b1">
-      <ItemAddTime>638788970957740550</ItemAddTime>
-      <ItemAddTimeCount>0</ItemAddTimeCount>
-    </Instance>
-    <Instance Guid="862faf83-7187-439a-9abc-83f6a15621d5">
-      <ItemAddTime>638788970957740550</ItemAddTime>
+    <Instance Guid="b32fca05-dcce-4d02-a2e6-2b13ba998872">
+      <ItemAddTime>638806690890669213</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
-    <Instance Guid="f0c09878-3ea7-4073-9aa1-3ae6ab812864">
-      <ItemAddTime>638788971398638185</ItemAddTime>
+    <Instance Guid="2fa2169b-0151-403d-bdea-3f79c76a42f8">
+      <ItemAddTime>638806530880603220</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
-    <Instance Guid="5bb27032-280b-4405-b104-56e3e1c27a0f">
-      <ItemAddTime>638788971398638185</ItemAddTime>
+    <Instance Guid="0a233af9-ff36-4a55-8b61-203edb14cf17">
+      <ItemAddTime>638806691385962747</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="abf82458-8558-4f53-9e77-ba91f019f0cb">
+      <ItemAddTime>638806691385962747</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
     <Instance Guid="69c74c54-4d91-49a0-a15c-dead16be2316">
@@ -3438,6 +3445,10 @@ D_8=R_8
     </Instance>
     <Instance Guid="4839a33c-23f9-4f62-ad38-770deb107459">
       <ItemAddTime>638801538247983645</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="00c4bfb6-8699-4f32-aa5e-1427a29ac439">
+      <ItemAddTime>638806690890669213</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
     <Instance Guid="a7be515f-f007-45ed-9059-4e1500c0f74d">
@@ -3769,15 +3780,15 @@ D_8=R_8
       <SourceItem81-IsLockedByUser>False</SourceItem81-IsLockedByUser>
       <SourceItem81-BuildingTarget-0>True</SourceItem81-BuildingTarget-0>
       <SourceItem81-IndividualCompileOption-0>False</SourceItem81-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem82--0>-8584583353897035258</TimeTagModified-SourceItem82--0>
+      <TimeTagModified-SourceItem82--0>-8584570786606792163</TimeTagModified-SourceItem82--0>
       <SourceItem82-IsLockedByUser>False</SourceItem82-IsLockedByUser>
       <SourceItem82-BuildingTarget-0>True</SourceItem82-BuildingTarget-0>
       <SourceItem82-IndividualCompileOption-0>False</SourceItem82-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem83--0>-8584583353897035258</TimeTagModified-SourceItem83--0>
+      <TimeTagModified-SourceItem83--0>-8584565633964106595</TimeTagModified-SourceItem83--0>
       <SourceItem83-IsLockedByUser>False</SourceItem83-IsLockedByUser>
       <SourceItem83-BuildingTarget-0>True</SourceItem83-BuildingTarget-0>
       <SourceItem83-IndividualCompileOption-0>False</SourceItem83-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem84--0>-8584570786606792163</TimeTagModified-SourceItem84--0>
+      <TimeTagModified-SourceItem84--0>-8584565633964106595</TimeTagModified-SourceItem84--0>
       <SourceItem84-IsLockedByUser>False</SourceItem84-IsLockedByUser>
       <SourceItem84-BuildingTarget-0>True</SourceItem84-BuildingTarget-0>
       <SourceItem84-IndividualCompileOption-0>False</SourceItem84-IndividualCompileOption-0>
@@ -5199,7 +5210,6 @@ D_8=R_8
       <DebuggerProperty-HookProperty-HookTransaction-Broke-Length>0</DebuggerProperty-HookProperty-HookTransaction-Broke-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Connected-Length>0</DebuggerProperty-HookProperty-HookTransaction-Connected-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>0</DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>
-      <DebuggerProperty-EssentialProperty-EmulatorConnect-SerialNumber />
     </Instance>
   </Class>
   <Class Guid="100f3761-3d7e-4559-b1d8-375a0c7bf682">

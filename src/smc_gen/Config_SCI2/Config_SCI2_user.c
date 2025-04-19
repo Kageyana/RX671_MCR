@@ -38,7 +38,7 @@ Includes
 /* Start user code for include. Do not edit comment generated here */
 //#include "ssd1351.h"
 #include "BMI088.h"
-#include "ssd1306.h"
+#include "ssd1351.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
