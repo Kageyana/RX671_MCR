@@ -36,8 +36,9 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_SCI2.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "ssd1351.h"
+//#include "ssd1351.h"
 #include "BMI088.h"
+#include "ssd1306.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 

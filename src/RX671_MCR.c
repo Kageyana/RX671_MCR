@@ -30,9 +30,11 @@
 #include <stdint.h>
 #include "r_smc_entry.h"
 #include "timer.h"
-#include "ssd1351.h"
-#include "fonts.h"
+//#include "ssd1351.h"
+//#include "fonts.h"
 #include "BMI088.h"
+#include "ssd1306.h"
+#include "ssd1306_fonts.h"
 
 #ifdef __cplusplus
 //#include <ios>                        // Remove the comment when you use ios
@@ -51,9 +53,13 @@ void main(void)
 	
 	R_Config_SCI2_Start();
 
-	calibratIMU = BMI088_init();
-	
-	R_Config_CMT0_Start();
+	ssd1306_Init();
+	ssd1306_Fill(0x0000);
+	ssd1306_UpdateScreen();
+
+	// calibratIMU = BMI088_init();
+	// R_Config_CMT0_Start();
+
 	// SSD1351_Unselect();
     // SSD1351_Init();
 

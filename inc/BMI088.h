@@ -66,8 +66,8 @@ typedef struct
 	float temp;
 	uint8_t Aid;
 	uint8_t Gid;
-	uint8_t a;
-	uint8_t b;
+	uint8_t aaa;
+	uint8_t bbb;
 } IMUval;
 //====================================//
 // ƒOƒ[ƒoƒ‹•Ï”‚ÌéŒ¾

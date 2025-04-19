@@ -24,8 +24,9 @@ void Interrupt1ms(void)
 	{
 	case 1:
 		
-		BMI088_getGyro(); // Šp‘¬“xŽæ“¾
-		calcDegrees();	 // Šp“xŒvŽZ
+		// BMI088_getGyro(); // Šp‘¬“xŽæ“¾
+		// BMI088_getAccele();
+		// calcDegrees();	 // Šp“xŒvŽZ
 		
 		break;
 	case 10:
