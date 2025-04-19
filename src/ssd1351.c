@@ -13,6 +13,7 @@ typedef union {
 } U16ToU8_Union;
 
 U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
+static SSD1351_t SSD1351;	/// Screen object
 
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_Reset
@@ -190,7 +191,20 @@ void SSD1351_Init(void) {
         uint8_t data[] = { 0x01 };
         SSD1351_WriteData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xAF); // DISPLAYON
+
+    SSD1351_SetDisplayOn(1);	//--turn on SSD1315 panel
+
+	// Clear screen
+	SSD1351_Fill(SSD1351_BLACK);
+
+	// Flush buffer to screen
+	SSD1351_UpdateScreen();
+
+	// Set default values for screen object
+	SSD1351.CurrentX = 0;
+	SSD1351.CurrentY = 0;
+
+	SSD1351.Initialized = 1;
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_Fill
@@ -208,15 +222,37 @@ void SSD1351_Fill(uint16_t color)
 	}
 }
 /////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_unionReverse
+// 処理概要     送信用バッファのバイト順を反転させる(リトルエンディアン時のみ必要)
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+#ifdef SSD1351_LITTLEENDIAN
+void SSD1351_unionReverse(void)
+{
+	// 送信用の8bitバッファに16bitデータを反転してセット
+    for (uint32_t i = 0; i < SSD1351_BUFFER_SIZE; i++) {
+        uint16_t color = SSD1351_Buffer.u16[i];  // 16bit値を取り出し
+
+        // 16bitのバイト順を反転して8bit配列に格納
+        SSD1351_Buffer.u8[i * 2]     = (color >> 8) & 0xFF;  // 上位バイト
+        SSD1351_Buffer.u8[i * 2 + 1] = color & 0xFF;         // 下位バイト
+    }
+}
+#endif
+/////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_UpdateScreen
 // 処理概要     バッファを送信する
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-/* Write the screenbuffer with changed to the screen */
 void SSD1351_UpdateScreen(void)
 {
 	SSD1351_SetAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
+
+	#ifdef SSD1351_LITTLEENDIAN
+	SSD1351_unionReverse(); //バイト順を反転
+	#endif
 
 	uint16_t buff_size = SSD1351_BUFFER_SIZE*2;
 	uint8_t dummy_rx[SSD1351_DUMMYRX_SIZE];
@@ -240,4 +276,137 @@ void SSD1351_UpdateScreen(void)
 	SSD1351_CS_PORT = 1;	// select OLED
 
 }
+/////////////////////////////////////////////////////////////////////
+// モジュール名 ssd1306_DrawPixel
+// 処理概要     指定座標に指定カラーを表示する
+// 引数         x y:指定座標 color:16bitカラー
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color)
+{
+	if (x >= SSD1351_WIDTH || y >= SSD1351_HEIGHT)
+	{
+		// Don't write outside the buffer
+		return;
+	}
 
+	// Draw in the right color
+	SSD1351_Buffer.u16[x + y * SSD1351_WIDTH] = color;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteChar
+// 処理概要     指定座標に文字を表示する
+// 引数         ch:文字(ascii) Font:フォントサイズ color:16bitカラーコード
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
+{
+	uint32_t i, b, j;
+
+	// Check if character is valid
+	if (ch < 32 || ch > 126)
+		return 0;
+
+	// Check remaining space on current line
+	if (SSD1351_WIDTH < (SSD1351.CurrentX + Font.FontWidth) ||
+		SSD1351_HEIGHT < (SSD1351.CurrentY + Font.FontHeight))
+	{
+		// Not enough space on current line
+		return 0;
+	}
+
+	// Use the font to write
+	for (i = 0; i < Font.FontHeight; i++)
+	{
+		b = Font.data[(ch - 32) * Font.FontHeight + i];
+		for (j = 0; j < Font.FontWidth; j++)
+		{
+			if ((b << j) & 0x8000)
+			{
+				SSD1351_DrawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), color);
+			}
+			else
+			{
+				SSD1351_DrawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), 0x0000);
+			}
+		}
+	}
+
+	// The current space is now taken
+	SSD1351.CurrentX += Font.FontWidth;
+
+	// Return written char for validation
+	return ch;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_WriteString
+// 処理概要     CurrentX,Yに文字列を表示する 画面端から飛び出ると改行する
+// 引数         str:文字列配列 Font:フォントサイズ color:16bitカラーコード
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+char SSD1351_WriteString(char *str, FontDef Font, uint16_t color)
+{
+	while(*str) {
+        if(SSD1351.CurrentX + Font.FontWidth >= SSD1351_WIDTH) {
+            SSD1351.CurrentX = 0;
+            SSD1351.CurrentY += Font.FontHeight;
+            if(SSD1351.CurrentY + Font.FontHeight >= SSD1351_HEIGHT) {
+                break;
+            }
+
+            if(*str == ' ') {
+                // skip spaces in the beginning of the new line
+                str++;
+                continue;
+            }
+        }
+
+        SSD1351_WriteChar(*str, Font, color);
+        str++;
+    }
+
+	// Everything ok
+	return *str;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_SetCursor
+// 処理概要     CurrentX,Yを設定
+// 引数         x y:指定座標(文字の左上の座標)
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_SetCursor(uint8_t x, uint8_t y)
+{
+	SSD1351.CurrentX = x;
+	SSD1351.CurrentY = y;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_SetDisplayOn
+// 処理概要     ディスプレイ表示のON/OFF
+// 引数         0:非表示 1:表示
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_SetDisplayOn(const uint8_t on)
+{
+	uint8_t value;
+	if (on)
+	{
+		value = 0xAF; // Display on
+		SSD1351.DisplayOn = 1;
+	}
+	else
+	{
+		value = 0xAE; // Display off
+		SSD1351.DisplayOn = 0;
+	}
+	SSD1351_WriteCommand(value);
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_GetDisplayOn
+// 処理概要     ディスプレイ表示状態を取得
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+uint8_t SSD1351_GetDisplayOn(void)
+{
+	return SSD1351.DisplayOn;
+}

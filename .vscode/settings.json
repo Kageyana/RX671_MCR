@@ -2,8 +2,14 @@
     "files.encoding": "shiftjis",
     "files.eol": "\n",
     "files.associations": {
-        "*.h": "c"
-    },
+		"*.cps": "javascript",
+		"*.h": "c",
+		"typeinfo": "c",
+		"cstdio": "c",
+		"compare": "c",
+		"r_cg_macrodriver.h": "c",
+		"ios": "c"
+	},
     "C_Cpp.default.defines": [
         "_DEBUG",
         "UNICODE",

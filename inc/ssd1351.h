@@ -18,6 +18,11 @@
 #define SSD1351_SPI_FUNC	R_Config_SCI2_SPI_Master_Send_Receive
 //=====================================//
 
+// マイコンのエンディアンを選択
+#define SSD1351_LITTLEENDIAN
+// #define SSD1351_BIGEENDIAN
+
+
 // default orientation
 #define SSD1351_WIDTH  128
 #define SSD1351_HEIGHT 128
@@ -39,6 +44,14 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
+// Struct to store transformations
+typedef struct {
+    uint16_t CurrentX;
+    uint16_t CurrentY;
+    uint8_t Initialized;
+    uint8_t DisplayOn;
+} SSD1351_t;
+
 extern volatile bool spi_ssd1351_tx_done;
 
 //====================================//
@@ -49,7 +62,12 @@ void SSD1351_Unselect();
 void SSD1351_Init(void);
 void SSD1351_Fill(uint16_t color);
 void SSD1351_UpdateScreen(void);
-void SSD1351_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
-void SSD1351_FillScreen(uint16_t color);
+void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color);
+char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color);
+char SSD1351_WriteString(char *str, FontDef Font, uint16_t color);
+void SSD1351_SetCursor(uint8_t x, uint8_t y);
+void SSD1351_SetDisplayOn(const uint8_t on);
+uint8_t SSD1351_GetDisplayOn(void);
+
 
 #endif // SSD1351_H__

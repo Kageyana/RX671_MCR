@@ -56,22 +56,35 @@ void main(void)
 
 	SSD1351_Init();
 
+	for(int x = 0; x < SSD1351_WIDTH; x++) {
+        SSD1351_DrawPixel(x, 0, SSD1351_RED);
+        SSD1351_DrawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
+    }
+
+    for(int y = 0; y < SSD1351_HEIGHT; y++) {
+        SSD1351_DrawPixel(0, y, SSD1351_RED);
+        SSD1351_DrawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
+    }
+	SSD1351_SetCursor(0,0);
+	SSD1351_WriteString("Hello world",Font_7x10,SSD1351_BLUE);
+	SSD1351_UpdateScreen();
+
 	while (1)
 	{
-		if(cnt0 > 1000) {
-			cnt0 = 0;
-		}
-		if(cnt0 > 500) {
-			PORT8.PODR.BIT.B0 = 1;
+		// if(cnt0 > 1000) {
+		// 	cnt0 = 0;
+		// }
+		// if(cnt0 > 500) {
+		// 	PORT8.PODR.BIT.B0 = 1;
 
-			SSD1351_Fill(0x00ff);
-			SSD1351_UpdateScreen();
-		} else {
-			PORT8.PODR.BIT.B0 = 0;
+		// 	SSD1351_Fill(0x00ff);
+		// 	SSD1351_UpdateScreen();
+		// } else {
+		// 	PORT8.PODR.BIT.B0 = 0;
 			
-			SSD1351_Fill(0x0ff0);
-			SSD1351_UpdateScreen();
-		}
+		// 	SSD1351_Fill(0x0ff0);
+		// 	SSD1351_UpdateScreen();
+		// }
 	}
 }
 
