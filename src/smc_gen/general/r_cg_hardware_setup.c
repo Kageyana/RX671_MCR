@@ -42,7 +42,6 @@ Includes
 #include "Config_MTU2.h"
 #include "Config_S12AD0.h"
 #include "Config_S12AD1.h"
-#include "Config_DMAC0.h"
 #include "Config_PORT.h"
 #include "Config_ICU.h"
 #include "Config_MTU1.h"
@@ -114,7 +113,6 @@ void R_Systeminit(void)
     R_Config_MTU2_Create();
     R_Config_S12AD0_Create();
     R_Config_S12AD1_Create();
-    R_Config_DMAC0_Create();
     R_Config_ICU_Create();
     R_Config_MTU1_Create();
     R_Config_SCI0_Create();
@@ -146,9 +144,6 @@ void R_Systeminit(void)
 
     /* Register group BL0 interrupt TEI2 (SCI2) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI2_TEI2,(bsp_int_cb_t)r_Config_SCI2_transmitend_interrupt);
-
-    /* Register group BL0 interrupt ERI2 (SCI2) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI2_ERI2,(bsp_int_cb_t)r_Config_SCI2_receiveerror_interrupt);
 
     /* Register group AL0 interrupt TEI10 (SCI10) */
     R_BSP_InterruptWrite(BSP_INT_SRC_AL0_SCI10_TEI10,(bsp_int_cb_t)r_Config_SCI10_transmitend_interrupt);

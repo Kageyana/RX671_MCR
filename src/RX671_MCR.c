@@ -52,8 +52,9 @@ void main(void)
 {
 	
 	R_Config_SCI2_Start();
-	R_Config_CMT0_Start();
+	
 
+	BMI088_init();
 	SSD1351_Init();
 
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
@@ -65,25 +66,41 @@ void main(void)
         SSD1351_DrawPixel(0, y, SSD1351_RED);
         SSD1351_DrawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
     }
-	SSD1351_SetCursor(0,0);
-	SSD1351_WriteString("Hello world",Font_7x10,SSD1351_BLUE);
-	SSD1351_UpdateScreen();
+	// SSD1351_SetCursor(0,0);
+	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"addr = 0x%08lX\n", (uint32_t)SSD1351_Buffer.u8,10);
+	// SSD1351_Fill(0xffff);
+	// SSD1351_UpdateScreen_DiffLineFast();
 
+	R_Config_CMT0_Start();
 	while (1)
 	{
-		// if(cnt0 > 1000) {
+		SSD1351_SetCursor(2,2);
+		SSD1351_printf(Font_7x10,SSD1351_BLUE,"x:%6.1f",BMI088val.angle.x);
+		SSD1351_SetCursor(2,11);
+		SSD1351_printf(Font_7x10,SSD1351_BLUE,"y:%6.1f",BMI088val.angle.y);
+		SSD1351_SetCursor(2,19);
+		SSD1351_printf(Font_7x10,SSD1351_BLUE,"z:%6.1f",BMI088val.angle.z);
+
+		// if(cnt0 > 500) {
 		// 	cnt0 = 0;
 		// }
-		// if(cnt0 > 500) {
+		// if(cnt0 > 250) {
 		// 	PORT8.PODR.BIT.B0 = 1;
+		// 	SSD1351_SetCursor(0,0);
+		// 	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
 
-		// 	SSD1351_Fill(0x00ff);
-		// 	SSD1351_UpdateScreen();
+			
+		// 	// SSD1351_Fill(0x00ff);
+		// 	// SSD1351_UpdateScreen();
+		// 	// SSD1351_SetCursor(0,0);
+		// 	SSD1351_printf(Font_7x10,SSD1351_BLUE,"%6.1f",BMI088val.angle.z);
 		// } else {
 		// 	PORT8.PODR.BIT.B0 = 0;
-			
-		// 	SSD1351_Fill(0x0ff0);
-		// 	SSD1351_UpdateScreen();
+		// 	// SSD1351_SetCursor(0,0);
+		// 	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
+
+		// 	// SSD1351_Fill(0x0ff0);
+		// 	// SSD1351_UpdateScreen();
 		// }
 	}
 }

@@ -8,11 +8,6 @@
   <Project Name="RX671_MCR" Type="Application">
     <Files>
       <Category Name="Smart Configurator">
-        <Category Name="Config_DMAC0">
-          <Path>src\smc_gen\Config_DMAC0\Config_DMAC0.c</Path>
-          <Path>src\smc_gen\Config_DMAC0\Config_DMAC0.h</Path>
-          <Path>src\smc_gen\Config_DMAC0\Config_DMAC0_user.c</Path>
-        </Category>
         <Category Name="Config_ICU">
           <Path>src\smc_gen\Config_ICU\Config_ICU.c</Path>
           <Path>src\smc_gen\Config_ICU\Config_ICU.h</Path>
@@ -89,8 +84,6 @@
           <Path>src\smc_gen\Config_TPU5\Config_TPU5_user.c</Path>
         </Category>
         <Category Name="general">
-          <Path>src\smc_gen\general\r_cg_dmac.h</Path>
-          <Path>src\smc_gen\general\r_cg_dmac_user.c</Path>
           <Path>src\smc_gen\general\r_cg_hardware_setup.c</Path>
           <Path>src\smc_gen\general\r_cg_icu.h</Path>
           <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
@@ -274,7 +267,6 @@
       <Category Name="inc">
         <Path>inc\timer.h</Path>
         <Path>inc\BMI088.h</Path>
-        <Path>inc\ssd1306.h</Path>
         <Path>inc\fonts.h</Path>
         <Path>inc\ssd1351.h</Path>
       </Category>
@@ -328,7 +320,6 @@
           <Option>-include=src\smc_gen\Config_MTU1</Option>
           <Option>-include=src\smc_gen\Config_MTU0</Option>
           <Option>-include=src\smc_gen\Config_ICU</Option>
-          <Option>-include=src\smc_gen\Config_DMAC0</Option>
           <Option>-debug</Option>
           <Option>-g_line</Option>
           <Option>-nologo</Option>
@@ -371,8 +362,6 @@
           <GenerateMode>BuildOptionChanged</GenerateMode>
         </LibraryGenerateOptions>
         <LinkOrder>
-          <Path>DefaultBuild\Config_DMAC0.obj</Path>
-          <Path>DefaultBuild\Config_DMAC0_user.obj</Path>
           <Path>DefaultBuild\Config_ICU.obj</Path>
           <Path>DefaultBuild\Config_ICU_user.obj</Path>
           <Path>DefaultBuild\Config_MTU0.obj</Path>
@@ -403,7 +392,6 @@
           <Path>DefaultBuild\Config_SCI2_user.obj</Path>
           <Path>DefaultBuild\Config_TPU5.obj</Path>
           <Path>DefaultBuild\Config_TPU5_user.obj</Path>
-          <Path>DefaultBuild\r_cg_dmac_user.obj</Path>
           <Path>DefaultBuild\r_cg_hardware_setup.obj</Path>
           <Path>DefaultBuild\r_smc_cgc.obj</Path>
           <Path>DefaultBuild\r_smc_cgc_user.obj</Path>
@@ -490,7 +478,6 @@
           <IncludePathForC>src\smc_gen\Config_MTU1</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_MTU0</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_ICU</IncludePathForC>
-          <IncludePathForC>src\smc_gen\Config_DMAC0</IncludePathForC>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>

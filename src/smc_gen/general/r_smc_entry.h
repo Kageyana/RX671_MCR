@@ -40,7 +40,6 @@ Includes
 #include "Config_MTU2.h"
 #include "Config_S12AD0.h"
 #include "Config_S12AD1.h"
-#include "Config_DMAC0.h"
 #include "Config_PORT.h"
 #include "Config_ICU.h"
 #include "Config_MTU1.h"

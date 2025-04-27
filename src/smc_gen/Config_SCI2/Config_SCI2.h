@@ -53,10 +53,8 @@ void R_Config_SCI2_Start(void);
 void R_Config_SCI2_Stop(void);
 MD_STATUS R_Config_SCI2_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num);
 void r_Config_SCI2_transmitend_interrupt(void);
-void r_Config_SCI2_receiveerror_interrupt(void);
 static void r_Config_SCI2_callback_transmitend(void);
 static void r_Config_SCI2_callback_receiveend(void);
-static void r_Config_SCI2_callback_receiveerror(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

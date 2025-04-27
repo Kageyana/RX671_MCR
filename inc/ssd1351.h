@@ -15,12 +15,15 @@
 #define SSD1351_RES_PORT	PORT5.PODR.BIT.B3
 #define SSD1351_CS_PORT		PORT6.PODR.BIT.B0
 #define SSD1351_DC_PORT		PORT6.PODR.BIT.B4
+#define SSD1351_SPI_CHANNEL SCI2
 #define SSD1351_SPI_FUNC	R_Config_SCI2_SPI_Master_Send_Receive
 //=====================================//
 
 // マイコンのエンディアンを選択
 #define SSD1351_LITTLEENDIAN
 // #define SSD1351_BIGEENDIAN
+
+#define LINES_PER_FRAME 4
 
 
 // default orientation
@@ -52,8 +55,14 @@ typedef struct {
     uint8_t DisplayOn;
 } SSD1351_t;
 
-extern volatile bool spi_ssd1351_tx_done;
+typedef union {
+    uint16_t u16[SSD1351_BUFFER_SIZE];
+    uint8_t u8[SSD1351_BUFFER_SIZE*2];
+} U16ToU8_Union;
 
+extern volatile bool spi_ssd1351_tx_done;
+extern volatile bool g_dma_transfer_done;
+extern U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
 //====================================//
 // プロトタイプ宣言
 //====================================//
@@ -62,9 +71,11 @@ void SSD1351_Unselect();
 void SSD1351_Init(void);
 void SSD1351_Fill(uint16_t color);
 void SSD1351_UpdateScreen(void);
+void SSD1351_UpdateScreen_Chunked(void);
 void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color);
 char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color);
 char SSD1351_WriteString(char *str, FontDef Font, uint16_t color);
+void SSD1351_printf(FontDef Font, uint16_t color, uint8_t *format, ...);
 void SSD1351_SetCursor(uint8_t x, uint8_t y);
 void SSD1351_SetDisplayOn(const uint8_t on);
 uint8_t SSD1351_GetDisplayOn(void);

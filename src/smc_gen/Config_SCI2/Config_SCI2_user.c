@@ -150,26 +150,6 @@ static void r_Config_SCI2_receive_interrupt(void)
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI2_receiveerror_interrupt
-* Description  : This function is ERI2 interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void r_Config_SCI2_receiveerror_interrupt(void)
-{
-    uint8_t err_type;
-
-    r_Config_SCI2_callback_receiveerror();
-
-    /* Clear overrun error flag */
-    err_type = SCI2.SSR.BYTE;
-    err_type &= 0xDFU;
-    err_type |= 0xC0U;
-    SCI2.SSR.BYTE = err_type;
-}
-
-/***********************************************************************************************************************
 * Function Name: r_Config_SCI2_callback_transmitend
 * Description  : This function is a callback function when SCI2 finishes transmission
 * Arguments    : None
@@ -196,19 +176,6 @@ static void r_Config_SCI2_callback_receiveend(void)
     /* Start user code for r_Config_SCI2_callback_receiveend. Do not edit comment generated here */
     spi_BMI088_rx_done = true;
 	/* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_SCI2_callback_receiveerror
-* Description  : This function is a callback function when SCI2 reception encounters error
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-static void r_Config_SCI2_callback_receiveerror(void)
-{
-    /* Start user code for r_Config_SCI2_callback_receiveerror. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

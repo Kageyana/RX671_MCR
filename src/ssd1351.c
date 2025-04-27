@@ -6,14 +6,12 @@
 // グローバル変数の宣言
 //====================================//
 volatile bool spi_ssd1351_tx_done = false;
-
-typedef union {
-    uint16_t u16[SSD1351_BUFFER_SIZE];
-    uint8_t u8[SSD1351_BUFFER_SIZE*2];
-} U16ToU8_Union;
+volatile bool g_dma_transfer_done = false;
 
 U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
+U16ToU8_Union SSD1351_BufferBefore;	// Screenbuffer
 static SSD1351_t SSD1351;	/// Screen object
+static uint16_t draw_line_index = 0;
 
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_Reset
@@ -251,7 +249,7 @@ void SSD1351_UpdateScreen(void)
 	SSD1351_SetAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
 
 	#ifdef SSD1351_LITTLEENDIAN
-	SSD1351_unionReverse(); //バイト順を反転
+	// SSD1351_unionReverse(); //バイト順を反転
 	#endif
 
 	uint16_t buff_size = SSD1351_BUFFER_SIZE*2;
@@ -273,8 +271,57 @@ void SSD1351_UpdateScreen(void)
         buff_size -= chunk_size;
     }
 
-	SSD1351_CS_PORT = 1;	// select OLED
+	SSD1351_CS_PORT = 1;	// Unselect OLED
 
+	for (uint16_t i = 0; i <= SSD1351_BUFFER_SIZE; i++) {
+		SSD1351_BufferBefore.u16[i] = SSD1351_Buffer.u16[i];
+	}
+
+}
+
+void SSD1351_UpdateScreen_Chunked(void)
+{
+    uint8_t line_buffer[SSD1351_WIDTH * 2];
+    uint8_t dummy_rx[SSD1351_WIDTH * 2];
+
+    for (uint16_t l = 0; l < LINES_PER_FRAME; l++) {
+        if (draw_line_index >= SSD1351_HEIGHT) {
+            draw_line_index = 0;
+            break;
+        }
+
+        uint16_t y = draw_line_index;
+		uint16_t cntsame = 0;
+
+        for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
+            uint32_t i = y * SSD1351_WIDTH + x;
+            if (SSD1351_Buffer.u16[i] != SSD1351_BufferBefore.u16[i]) {
+                uint16_t color = SSD1351_Buffer.u16[i];
+                line_buffer[x * 2]     = color >> 8;
+                line_buffer[x * 2 + 1] = color & 0xFF;
+                SSD1351_BufferBefore.u16[i] = color;
+            } else {
+                line_buffer[x * 2] = SSD1351_BufferBefore.u8[i * 2];
+                line_buffer[x * 2 + 1] = SSD1351_BufferBefore.u8[i * 2 + 1];
+				cntsame++;
+            }
+        }
+
+		if(cntsame < SSD1351_WIDTH-1)
+		{
+			SSD1351_SetAddressWindow(0, y, SSD1351_WIDTH - 1, y);
+			SSD1351_CS_PORT = 0;
+			SSD1351_DC_PORT = 1;
+
+			SSD1351_SPI_FUNC(line_buffer, SSD1351_WIDTH * 2, dummy_rx, SSD1351_WIDTH * 2);
+			spi_ssd1351_tx_done = false;
+			while(!spi_ssd1351_tx_done);
+
+			SSD1351_CS_PORT = 1;
+		}
+        
+        draw_line_index++;
+    }
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 ssd1306_DrawPixel
@@ -297,7 +344,7 @@ void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color)
 // モジュール名 SSD1351_WriteChar
 // 処理概要     指定座標に文字を表示する
 // 引数         ch:文字(ascii) Font:フォントサイズ color:16bitカラーコード
-// 戻り値       なし
+// 戻り値       文字データ
 ////////////////////////////////////////////////////////////////////
 char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
 {
@@ -342,7 +389,7 @@ char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
 // モジュール名 SSD1351_WriteString
 // 処理概要     CurrentX,Yに文字列を表示する 画面端から飛び出ると改行する
 // 引数         str:文字列配列 Font:フォントサイズ color:16bitカラーコード
-// 戻り値       なし
+// 戻り値       文字列のアドレス
 ////////////////////////////////////////////////////////////////////
 char SSD1351_WriteString(char *str, FontDef Font, uint16_t color)
 {
@@ -378,6 +425,23 @@ void SSD1351_SetCursor(uint8_t x, uint8_t y)
 {
 	SSD1351.CurrentX = x;
 	SSD1351.CurrentY = y;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_printf
+// 処理概要     SSD1351用のprintf
+// 引数         Font:フォントサイズ color:16bitカラーコード
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351_printf(FontDef Font, uint16_t color, uint8_t *format, ...)
+{
+	va_list argptr;
+	uint8_t str[SSD1351_WIDTH / 6]; // 最小フォント幅での最大文字数
+
+	va_start(argptr, format);
+	vsprintf(str, format, argptr);
+	va_end(argptr);
+
+	SSD1351_WriteString(str, Font, color);
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_SetDisplayOn

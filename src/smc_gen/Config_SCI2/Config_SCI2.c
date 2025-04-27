@@ -118,9 +118,6 @@ void R_Config_SCI2_Start(void)
     /* Enable RXI interrupt */
     IR(SCI2,RXI2) = 0U;
     IEN(SCI2,RXI2) = 1U;
-
-    /* Enable ERI interrupt */
-    ICU.GENBL0.BIT.EN5 = 1U;
 }
 
 /***********************************************************************************************************************
@@ -141,9 +138,6 @@ void R_Config_SCI2_Stop(void)
 
     /* Disable RXI interrupt */
     IEN(SCI2,RXI2) = 0U;
-
-    /* Disable ERI interrupt */
-    ICU.GENBL0.BIT.EN5 = 0U;
 
     /* Clear interrupt flags */
     IR(SCI2,TXI2) = 0U;
