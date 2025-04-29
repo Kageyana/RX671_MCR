@@ -4,19 +4,21 @@ DepFiles/
 DepFilesTemp/
 DepFilesTmp/
 *.mtud
+HardwareDebug/
 
 # auto generation files
 trash/
-品質記録*
+.metadata
 
 # douments
 SmartManual Docs/
+doc/
 資料/
 
 # circuit
-circuit/jlcpcb/
-circuit/mcr_MotorDriver Ver.3-backups/
-circuit/~_autosave*
+Circuit/jlcpcb/
+Circuit/mcr_MotorDriver Ver.3-backups/
+Circuit/~_autosave*
 
 # smartconfigrator
 #src/smc_gen
