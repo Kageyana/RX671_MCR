@@ -5,10 +5,12 @@ DepFilesTemp/
 DepFilesTmp/
 *.mtud
 HardwareDebug/
+build/
 
 # auto generation files
 trash/
-.metadata
+.metadata/
+.vscode/
 
 # douments
 SmartManual Docs/
