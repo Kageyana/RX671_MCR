@@ -1,0 +1,21 @@
+{
+	// IntelliSense を使用して利用可能な属性を学べます。
+	// 既存の属性の説明をホバーして表示します。
+	// 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "renesas-hardware",
+			"request": "launch",
+			"name": "Renesas GDB Hardware Debugging",
+			"target": {
+				"deviceFamily": "RX",
+				"device": "R5F5671E",
+				"debuggerType": "E2LITE",
+				"serverParameters": ["-t","R5F5671E","-uConnectionTimeout=","30","-uClockSrcHoco=","0","-uInputClock=","16","-uPTimerClock=","120000000","-uAllowClockSourceInternal=","1","-uUseFine=","1","-uFineBaudRate=","1.50","-w","0","-z","0","-uRegisterSetting=","0","-uModePin=","0","-uChangeStartupBank=","0","-uStartupBank=","0","-uDebugMode=","0","-uExecuteProgram=","0","-uIdCode=","FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF","-uresetOnReload=","1","-n","0","-uWorkRamAddress=","1000","-uverifyOnWritingMemory=","0","-uProgReWriteIRom=","0","-uProgReWriteDFlash=","0","-uhookWorkRamAddr=","0x5fb40","-uhookWorkRamSize=","0x4c0","-uOSRestriction=","0","-l","-uCore=","SINGLE_CORE|enabled|1|main","-uSyncMode=","async","-uFirstGDB=","main","--japanese","--gdbVersion=","12.1"]
+
+			}
+		}
+
+	]
+}
