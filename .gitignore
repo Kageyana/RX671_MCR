@@ -10,7 +10,6 @@ build/
 # auto generation files
 trash/
 .metadata/
-.vscode/
 
 # douments
 SmartManual Docs/

@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Project",
+      "group": "build",
+      "type": "renesas-build",
+      "command": "build",
+      "deviceFamily": "RX",
+      "toolchain": "gcc"
+    }
+  ]
+}
