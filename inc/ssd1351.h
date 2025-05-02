@@ -68,17 +68,17 @@ extern U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
 //====================================//
 void SSD1351_Unselect();
 
-void SSD1351_Init(void);
-void SSD1351_Fill(uint16_t color);
-void SSD1351_UpdateScreen(void);
-void SSD1351_UpdateScreen_Chunked(void);
-void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color);
-char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color);
-char SSD1351_WriteString(char *str, FontDef Font, uint16_t color);
-void SSD1351_printf(FontDef Font, uint16_t color, uint8_t *format, ...);
-void SSD1351_SetCursor(uint8_t x, uint8_t y);
-void SSD1351_SetDisplayOn(const uint8_t on);
-uint8_t SSD1351_GetDisplayOn(void);
+void SSD1351init(void);
+void SSD1351fill(uint16_t color);
+void SSD1351updateScreen(void);
+void SSD1351updateScreenChunked(void);
+void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color);
+char SSD1351writeChar(char ch, FontDef Font, uint16_t color);
+char SSD1351writeString(char *str, FontDef Font, uint16_t color);
+void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...);
+void SSD1351setCursor(uint8_t x, uint8_t y);
+void SSD1351setDisplayOn(const uint8_t on);
+uint8_t SSD1351getDisplayOn(void);
 
 
 #endif // SSD1351_H__

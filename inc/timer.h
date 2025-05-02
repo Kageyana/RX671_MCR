@@ -20,6 +20,6 @@ extern volatile bool update_display;
 //====================================//
 // プロトタイプ宣言
 //====================================//
-void Interrupt1ms(void);
+void interrupt1ms(void);
 
 #endif // TIME_H_

@@ -79,13 +79,13 @@ extern bool calibratIMU;
 //====================================//
 // プロトタイプ宣言
 //====================================//
-uint8_t BMI088_ReadByte(bool sensorType, uint8_t reg);
-void BMI088_WriteByte(bool sensorType, uint8_t reg, uint8_t val);
-void BMI088_ReadAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t rxNum);
-bool BMI088_init(void);
-void BMI088_getGyro(void);
-void BMI088_getAccele(void);
-void BMI088_getTemp(void);
+uint8_t BMI088readByte(bool sensorType, uint8_t reg);
+void BMI088writeByte(bool sensorType, uint8_t reg, uint8_t val);
+void BMI088readAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t rxNum);
+bool BMI088init(void);
+void BMI088getGyro(void);
+void BMI088getAccele(void);
+void BMI088getTemp(void);
 void calcDegrees(void);
 void calibrationIMU(void);
 

@@ -21,7 +21,7 @@ bool calibratIMU = false;
 // 引数         reg: レジスタのアドレス
 // 戻り値       読み出した値
 ////////////////////////////////////////////////////////////////////
-uint8_t BMI088_ReadByte(bool sensorType, uint8_t reg)
+uint8_t BMI088readByte(bool sensorType, uint8_t reg)
 {
 	uint8_t txData[2]={reg | 0x80, 0x0}, rxData[2] = {0x0};
 
@@ -51,7 +51,7 @@ uint8_t BMI088_ReadByte(bool sensorType, uint8_t reg)
 // 引数         reg: レジスタのアドレス val: 書き込む値
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void BMI088_WriteByte(bool sensorType, uint8_t reg, uint8_t val)
+void BMI088writeByte(bool sensorType, uint8_t reg, uint8_t val)
 {
 	uint8_t txData[2] = {reg, val}, rxData[2];
 
@@ -79,7 +79,7 @@ void BMI088_WriteByte(bool sensorType, uint8_t reg, uint8_t val)
 // 引数         reg:レジスタアドレス
 // 戻り値       読み出したデータ
 /////////////////////////////////////////////////////////////////////
-void BMI088_ReadAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t rxNum)
+void BMI088readAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t rxNum)
 {
 	uint8_t txData[20] = {0}, rxDatabuff[20];
 
@@ -111,43 +111,43 @@ void BMI088_ReadAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t 
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-bool BMI088_init(void)
+bool BMI088init(void)
 {
-	BMI088_ReadByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
+	BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
 	R_BSP_SoftwareDelay(2,BSP_DELAY_MILLISECS);
-	// BMI088_WriteByte(ACCELE, REG_ACC_SOFTRESET, 0xB6); // 加速度センサ ソフトウェアリセット
-	// BMI088_ReadByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
-	BMI088_WriteByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
+	// BMI088writeByte(ACCELE, REG_ACC_SOFTRESET, 0xB6); // 加速度センサ ソフトウェアリセット
+	// BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
+	BMI088writeByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
 	R_BSP_SoftwareDelay(450,BSP_DELAY_MILLISECS);
 	
-	BMI088val.Aid = BMI088_ReadByte(ACCELE, REG_ACC_CHIP_ID);
+	BMI088val.Aid = BMI088readByte(ACCELE, REG_ACC_CHIP_ID);
 
-	BMI088_WriteByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ジャイロセンサ ソフトウェアリセット
+	BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ジャイロセンサ ソフトウェアリセット
 	R_BSP_SoftwareDelay(20,BSP_DELAY_MILLISECS);
-	BMI088val.Gid = BMI088_ReadByte(GYRO, REG_GYRO_CHIP_ID);
+	BMI088val.Gid = BMI088readByte(GYRO, REG_GYRO_CHIP_ID);
 	
 	if (BMI088val.Aid == 0x1e && BMI088val.Gid == 0x0f)
 	{
 		// コンフィグ設定
 
 		// 加速
-		// BMI088_ReadByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
-		// BMI088_WriteByte(ACCELE, REG_ACC_SOFTRESET, 0xB6); // ソフトウェアリセット
-		// BMI088_ReadByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
+		// BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
+		// BMI088writeByte(ACCELE, REG_ACC_SOFTRESET, 0xB6); // ソフトウェアリセット
+		// BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
 		
 
-		// BMI088_WriteByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
+		// BMI088writeByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
 		// R_BSP_SoftwareDelay(450,BSP_DELAY_MILLISECS);
 
-		BMI088_WriteByte(ACCELE, REG_ACC_RANGE, 0x01); // レンジを6gに設定
-		BMI088_WriteByte(ACCELE, REG_ACC_CONF, 0xA9);  // ODRを200Hzに設定
+		BMI088writeByte(ACCELE, REG_ACC_RANGE, 0x01); // レンジを6gに設定
+		BMI088writeByte(ACCELE, REG_ACC_CONF, 0xA9);  // ODRを200Hzに設定
 		
 		// ジャイロ
-		BMI088_WriteByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ソフトウェアリセット
-		BMI088_WriteByte(GYRO, REG_GYRO_BANDWISTH, 0x83); // ODRを200Hzに設定
+		BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ソフトウェアリセット
+		BMI088writeByte(GYRO, REG_GYRO_BANDWISTH, 0x83); // ODRを200Hzに設定
 
-		// BMI088val.aaa = BMI088_ReadByte(GYRO, REG_GYRO_BANDWISTH);
-		// BMI088val.bbb = BMI088_ReadByte(GYRO, 0x3e);
+		// BMI088val.aaa = BMI088readByte(GYRO, REG_GYRO_BANDWISTH);
+		// BMI088val.bbb = BMI088readByte(GYRO, 0x3e);
 		// モード変更
 
 		return true;
@@ -163,13 +163,13 @@ bool BMI088_init(void)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void BMI088_getGyro(void)
+void BMI088getGyro(void)
 {
 	uint8_t rawData[6];
 	int16_t gyroVal[3];
 
 	// 角速度の生データを取得
-	BMI088_ReadAxisData(GYRO, REG_RATE_X_LSB, rawData, 6);
+	BMI088readAxisData(GYRO, REG_RATE_X_LSB, rawData, 6);
 
 	// LSBとMSBを結合
 	gyroVal[0] = ((rawData[1] << 8) | rawData[0]) - angleOffset[0];
@@ -186,13 +186,13 @@ void BMI088_getGyro(void)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void BMI088_getAccele(void)
+void BMI088getAccele(void)
 {
 	uint8_t rawData[8];
 	int16_t accelVal[3];
 
 	// 加速度の生データを取得
-	BMI088_ReadAxisData(ACCELE, REG_ACC_X_LSB, rawData, 6);
+	BMI088readAxisData(ACCELE, REG_ACC_X_LSB, rawData, 6);
 	// LSBとMSBを結合
 	accelVal[0] = (rawData[1] << 8) | rawData[0];
 	accelVal[1] = (rawData[3] << 8) | rawData[2];
@@ -208,14 +208,14 @@ void BMI088_getAccele(void)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void BMI088_getTemp(void)
+void BMI088getTemp(void)
 {
 	uint8_t rawData[3];
 	uint16_t tempValu;
 	int16_t tempVal;
 
 	// 温度の生データを取得
-	BMI088_ReadAxisData(ACCELE, REG_TEMP_MSB, rawData, 2);
+	BMI088readAxisData(ACCELE, REG_TEMP_MSB, rawData, 2);
 	// LSBとMSBを結合
 	tempValu = (uint16_t)((rawData[0] << 3) | (rawData[1] >> 5));
 	if (tempValu > 1023)
@@ -257,7 +257,7 @@ void calibrationIMU(void)
 	if (i < (uint32_t)(1.0 / DEFF_TIME))
 	{
 		// 角速度の生データを取得
-		BMI088_ReadAxisData(GYRO, REG_RATE_X_LSB, rawData, 6);
+		BMI088readAxisData(GYRO, REG_RATE_X_LSB, rawData, 6);
 		// LSBとMSBを結合
 		gyroVal[0] = (rawData[1] << 8) | rawData[0];
 		gyroVal[1] = (rawData[3] << 8) | rawData[2];

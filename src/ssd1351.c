@@ -14,12 +14,12 @@ static SSD1351_t SSD1351;	/// Screen object
 static uint16_t draw_line_index = 0;
 
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_Reset
+// モジュール名 SSD1351reset
 // 処理概要     SSD1351をリセットする
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-static void SSD1351_Reset(void) {
+static void SSD1351reset(void) {
     SSD1351_RES_PORT = 1;
 	R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS);
     SSD1351_RES_PORT = 0;
@@ -28,12 +28,12 @@ static void SSD1351_Reset(void) {
     R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS);
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_WriteCommand
+// モジュール名 SSD1351writeCommand
 // 処理概要     コマンド送信
 // 引数         cmd:コマンドデータ
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-static void SSD1351_WriteCommand(uint8_t cmd) {
+static void SSD1351writeCommand(uint8_t cmd) {
 	uint8_t rxData[1];
 
 	SSD1351_CS_PORT = 0;
@@ -45,12 +45,12 @@ static void SSD1351_WriteCommand(uint8_t cmd) {
 	SSD1351_CS_PORT = 1;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_WriteData
+// モジュール名 SSD1351writeData
 // 処理概要     データ送信
 // 引数         buff:データ配列 buff_size:データ数
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-static void SSD1351_WriteData(uint8_t* buff, size_t buff_size) {
+static void SSD1351writeData(uint8_t* buff, size_t buff_size) {
 	uint8_t rxData[1024];
 
 	SSD1351_CS_PORT = 0;
@@ -71,132 +71,132 @@ static void SSD1351_WriteData(uint8_t* buff, size_t buff_size) {
 	SSD1351_CS_PORT = 1;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_SetAddressWindow
+// モジュール名 SSD1351setAddressWindow
 // 処理概要     表示開始位置の設定
 // 引数         x0 y0:開始座標(左上) x1 y1:終了座標(右下)
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-static void SSD1351_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
+static void SSD1351setAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
     // column address set
-    SSD1351_WriteCommand(0x15); // SETCOLUMN
+    SSD1351writeCommand(0x15); // SETCOLUMN
     {
         uint8_t data[] = { x0 & 0xFF, x1 & 0xFF };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
 
     // row address set
-    SSD1351_WriteCommand(0x75); // SETROW
+    SSD1351writeCommand(0x75); // SETROW
     {
         uint8_t data[] = { y0 & 0xFF, y1 & 0xFF };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
 
     // write to RAM
-    SSD1351_WriteCommand(0x5C); // WRITERAM
+    SSD1351writeCommand(0x5C); // WRITERAM
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_Init
+// モジュール名 SSD1351init
 // 処理概要     初期化
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_Init(void) {
-    SSD1351_Reset();
+void SSD1351init(void) {
+    SSD1351reset();
 
     // command list is based on https://github.com/adafruit/Adafruit-SSD1351-library
 
-    SSD1351_WriteCommand(0xFD); // COMMANDLOCK
+    SSD1351writeCommand(0xFD); // COMMANDLOCK
     {
         uint8_t data[] = { 0x12 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xFD); // COMMANDLOCK
+    SSD1351writeCommand(0xFD); // COMMANDLOCK
     {
         uint8_t data[] = { 0xB1 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xAE); // DISPLAYOFF
-    SSD1351_WriteCommand(0xB3); // CLOCKDIV
-    SSD1351_WriteCommand(0xF1); // 7:4 = Oscillator Frequency, 3:0 = CLK Div Ratio (A[3:0]+1 = 1..16)
-    SSD1351_WriteCommand(0xCA); // MUXRATIO
+    SSD1351writeCommand(0xAE); // DISPLAYOFF
+    SSD1351writeCommand(0xB3); // CLOCKDIV
+    SSD1351writeCommand(0xF1); // 7:4 = Oscillator Frequency, 3:0 = CLK Div Ratio (A[3:0]+1 = 1..16)
+    SSD1351writeCommand(0xCA); // MUXRATIO
     {
         uint8_t data[] = { 0x7F }; // 127
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xA0); // SETREMAP
+    SSD1351writeCommand(0xA0); // SETREMAP
     {
         uint8_t data[] = { 0x74 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0x15); // SETCOLUMN
+    SSD1351writeCommand(0x15); // SETCOLUMN
     {
         uint8_t data[] = { 0x00, 0x7F };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0x75); // SETROW
+    SSD1351writeCommand(0x75); // SETROW
     {
         uint8_t data[] = { 0x00, 0x7F };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xA1); // STARTLINE
+    SSD1351writeCommand(0xA1); // STARTLINE
     {
         uint8_t data[] = { 0x00 }; // 96 if display height == 96
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xA2); // DISPLAYOFFSET
+    SSD1351writeCommand(0xA2); // DISPLAYOFFSET
     {
         uint8_t data[] = { 0x00 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xB5); // SETGPIO
+    SSD1351writeCommand(0xB5); // SETGPIO
     {
         uint8_t data[] = { 0x00 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xAB); // FUNCTIONSELECT
+    SSD1351writeCommand(0xAB); // FUNCTIONSELECT
     {
         uint8_t data[] = { 0x01 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xB1); // PRECHARGE
+    SSD1351writeCommand(0xB1); // PRECHARGE
     {
         uint8_t data[] = { 0x32 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xBE); // VCOMH
+    SSD1351writeCommand(0xBE); // VCOMH
     {
         uint8_t data[] = { 0x05 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xA6); // NORMALDISPLAY (don't invert)
-    SSD1351_WriteCommand(0xC1); // CONTRASTABC
+    SSD1351writeCommand(0xA6); // NORMALDISPLAY (don't invert)
+    SSD1351writeCommand(0xC1); // CONTRASTABC
     {
         uint8_t data[] = { 0xC8, 0x80, 0xC8 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xC7); // CONTRASTMASTER
+    SSD1351writeCommand(0xC7); // CONTRASTMASTER
     {
         uint8_t data[] = { 0x0F };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xB4); // SETVSL
+    SSD1351writeCommand(0xB4); // SETVSL
     {
         uint8_t data[] = { 0xA0, 0xB5, 0x55 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
-    SSD1351_WriteCommand(0xB6); // PRECHARGE2
+    SSD1351writeCommand(0xB6); // PRECHARGE2
     {
         uint8_t data[] = { 0x01 };
-        SSD1351_WriteData(data, sizeof(data));
+        SSD1351writeData(data, sizeof(data));
     }
 
-    SSD1351_SetDisplayOn(1);	//--turn on SSD1315 panel
+    SSD1351setDisplayOn(1);	//--turn on SSD1315 panel
 
 	// Clear screen
-	SSD1351_Fill(SSD1351_BLACK);
+	SSD1351fill(SSD1351_BLACK);
 
 	// Flush buffer to screen
-	SSD1351_UpdateScreen();
+	SSD1351updateScreen();
 
 	// Set default values for screen object
 	SSD1351.CurrentX = 0;
@@ -205,12 +205,12 @@ void SSD1351_Init(void) {
 	SSD1351.Initialized = 1;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_Fill
+// モジュール名 SSD1351fill
 // 処理概要     バッファを単一の色で埋める
 // 引数         color:16bit色データ
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_Fill(uint16_t color)
+void SSD1351fill(uint16_t color)
 {
 	uint32_t i;
 
@@ -220,13 +220,13 @@ void SSD1351_Fill(uint16_t color)
 	}
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_unionReverse
+// モジュール名 SSD1351unionReverse
 // 処理概要     送信用バッファのバイト順を反転させる(リトルエンディアン時のみ必要)
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 #ifdef SSD1351_LITTLEENDIAN
-void SSD1351_unionReverse(void)
+void SSD1351unionReverse(void)
 {
 	// 送信用の8bitバッファに16bitデータを反転してセット
     for (uint32_t i = 0; i < SSD1351_BUFFER_SIZE; i++) {
@@ -239,17 +239,17 @@ void SSD1351_unionReverse(void)
 }
 #endif
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_UpdateScreen
+// モジュール名 SSD1351updateScreen
 // 処理概要     バッファを送信する
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_UpdateScreen(void)
+void SSD1351updateScreen(void)
 {
-	SSD1351_SetAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
+	SSD1351setAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
 
 	#ifdef SSD1351_LITTLEENDIAN
-	// SSD1351_unionReverse(); //バイト順を反転
+	// SSD1351unionReverse(); //バイト順を反転
 	#endif
 
 	uint16_t buff_size = SSD1351_BUFFER_SIZE*2;
@@ -279,7 +279,7 @@ void SSD1351_UpdateScreen(void)
 
 }
 
-void SSD1351_UpdateScreen_Chunked(void)
+void SSD1351updateScreenChunked(void)
 {
     uint8_t line_buffer[SSD1351_WIDTH * 2];
     uint8_t dummy_rx[SSD1351_WIDTH * 2];
@@ -309,7 +309,7 @@ void SSD1351_UpdateScreen_Chunked(void)
 
 		if(cntsame < SSD1351_WIDTH-1)
 		{
-			SSD1351_SetAddressWindow(0, y, SSD1351_WIDTH - 1, y);
+			SSD1351setAddressWindow(0, y, SSD1351_WIDTH - 1, y);
 			SSD1351_CS_PORT = 0;
 			SSD1351_DC_PORT = 1;
 
@@ -329,7 +329,7 @@ void SSD1351_UpdateScreen_Chunked(void)
 // 引数         x y:指定座標 color:16bitカラー
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color)
+void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color)
 {
 	if (x >= SSD1351_WIDTH || y >= SSD1351_HEIGHT)
 	{
@@ -341,12 +341,12 @@ void SSD1351_DrawPixel(uint8_t x, uint8_t y, uint16_t color)
 	SSD1351_Buffer.u16[x + y * SSD1351_WIDTH] = color;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_WriteChar
+// モジュール名 SSD1351writeChar
 // 処理概要     指定座標に文字を表示する
 // 引数         ch:文字(ascii) Font:フォントサイズ color:16bitカラーコード
 // 戻り値       文字データ
 ////////////////////////////////////////////////////////////////////
-char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
+char SSD1351writeChar(char ch, FontDef Font, uint16_t color)
 {
 	uint32_t i, b, j;
 
@@ -370,11 +370,11 @@ char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
 		{
 			if ((b << j) & 0x8000)
 			{
-				SSD1351_DrawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), color);
+				SSD1351drawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), color);
 			}
 			else
 			{
-				SSD1351_DrawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), 0x0000);
+				SSD1351drawPixel(SSD1351.CurrentX + j, (SSD1351.CurrentY + i), 0x0000);
 			}
 		}
 	}
@@ -386,12 +386,12 @@ char SSD1351_WriteChar(char ch, FontDef Font, uint16_t color)
 	return ch;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_WriteString
+// モジュール名 SSD1351writeString
 // 処理概要     CurrentX,Yに文字列を表示する 画面端から飛び出ると改行する
 // 引数         str:文字列配列 Font:フォントサイズ color:16bitカラーコード
 // 戻り値       文字列のアドレス
 ////////////////////////////////////////////////////////////////////
-char SSD1351_WriteString(char *str, FontDef Font, uint16_t color)
+char SSD1351writeString(char *str, FontDef Font, uint16_t color)
 {
 	while(*str) {
         if(SSD1351.CurrentX + Font.FontWidth >= SSD1351_WIDTH) {
@@ -408,7 +408,7 @@ char SSD1351_WriteString(char *str, FontDef Font, uint16_t color)
             }
         }
 
-        SSD1351_WriteChar(*str, Font, color);
+        SSD1351writeChar(*str, Font, color);
         str++;
     }
 
@@ -416,23 +416,23 @@ char SSD1351_WriteString(char *str, FontDef Font, uint16_t color)
 	return *str;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_SetCursor
+// モジュール名 SSD1351setCursor
 // 処理概要     CurrentX,Yを設定
 // 引数         x y:指定座標(文字の左上の座標)
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_SetCursor(uint8_t x, uint8_t y)
+void SSD1351setCursor(uint8_t x, uint8_t y)
 {
 	SSD1351.CurrentX = x;
 	SSD1351.CurrentY = y;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_printf
+// モジュール名 SSD1351printf
 // 処理概要     SSD1351用のprintf
 // 引数         Font:フォントサイズ color:16bitカラーコード
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_printf(FontDef Font, uint16_t color, uint8_t *format, ...)
+void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
 {
 	va_list argptr;
 	uint8_t str[SSD1351_WIDTH / 6]; // 最小フォント幅での最大文字数
@@ -441,15 +441,15 @@ void SSD1351_printf(FontDef Font, uint16_t color, uint8_t *format, ...)
 	vsprintf(str, format, argptr);
 	va_end(argptr);
 
-	SSD1351_WriteString(str, Font, color);
+	SSD1351writeString(str, Font, color);
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_SetDisplayOn
+// モジュール名 SSD1351setDisplayOn
 // 処理概要     ディスプレイ表示のON/OFF
 // 引数         0:非表示 1:表示
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-void SSD1351_SetDisplayOn(const uint8_t on)
+void SSD1351setDisplayOn(const uint8_t on)
 {
 	uint8_t value;
 	if (on)
@@ -462,15 +462,15 @@ void SSD1351_SetDisplayOn(const uint8_t on)
 		value = 0xAE; // Display off
 		SSD1351.DisplayOn = 0;
 	}
-	SSD1351_WriteCommand(value);
+	SSD1351writeCommand(value);
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351_GetDisplayOn
+// モジュール名 SSD1351getDisplayOn
 // 処理概要     ディスプレイ表示状態を取得
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
-uint8_t SSD1351_GetDisplayOn(void)
+uint8_t SSD1351getDisplayOn(void)
 {
 	return SSD1351.DisplayOn;
 }

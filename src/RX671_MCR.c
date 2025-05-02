@@ -23,53 +23,53 @@ void main(void)
 	R_Config_SCI2_Start();
 	
 
-	BMI088_init();
-	SSD1351_Init();
+	BMI088init();
+	SSD1351init();
 
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
-        SSD1351_DrawPixel(x, 0, SSD1351_RED);
-        SSD1351_DrawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
+        SSD1351drawPixel(x, 0, SSD1351_RED);
+        SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
     }
 
     for(int y = 0; y < SSD1351_HEIGHT; y++) {
-        SSD1351_DrawPixel(0, y, SSD1351_RED);
-        SSD1351_DrawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
+        SSD1351drawPixel(0, y, SSD1351_RED);
+        SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
     }
-	// SSD1351_SetCursor(0,0);
-	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"addr = 0x%08lX\n", (uint32_t)SSD1351_Buffer.u8,10);
-	// SSD1351_Fill(0xffff);
-	// SSD1351_UpdateScreen_DiffLineFast();
+	// SSD1351setCursor(0,0);
+	// SSD1351printf(Font_7x10,SSD1351_BLUE,"addr = 0x%08lX\n", (uint32_t)SSD1351_Buffer.u8,10);
+	// SSD1351fill(0xffff);
+	// SSD1351updateScreen_DiffLineFast();
 
 	R_Config_CMT0_Start();
 	while (1)
 	{
-		SSD1351_SetCursor(2,2);
-		SSD1351_printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		SSD1351_SetCursor(2,13);
-		SSD1351_printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		SSD1351_SetCursor(2,24);
-		SSD1351_printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
+		SSD1351setCursor(2,2);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
+		SSD1351setCursor(2,13);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
+		SSD1351setCursor(2,24);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
 
 		// if(cnt0 > 500) {
 		// 	cnt0 = 0;
 		// }
 		// if(cnt0 > 250) {
 		// 	PORT8.PODR.BIT.B0 = 1;
-		// 	SSD1351_SetCursor(0,0);
-		// 	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
+		// 	SSD1351setCursor(0,0);
+		// 	// SSD1351printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
 
 			
-		// 	// SSD1351_Fill(0x00ff);
-		// 	// SSD1351_UpdateScreen();
-		// 	// SSD1351_SetCursor(0,0);
-		// 	SSD1351_printf(Font_7x10,SSD1351_BLUE,"%d",round(BMI088val.angle.z));
+		// 	// SSD1351fill(0x00ff);
+		// 	// SSD1351updateScreen();
+		// 	// SSD1351setCursor(0,0);
+		// 	SSD1351printf(Font_7x10,SSD1351_BLUE,"%d",round(BMI088val.angle.z));
 		// } else {
 		// 	PORT8.PODR.BIT.B0 = 0;
-		// 	// SSD1351_SetCursor(0,0);
-		// 	// SSD1351_printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
+		// 	// SSD1351setCursor(0,0);
+		// 	// SSD1351printf(Font_7x10,SSD1351_BLUE,"PORT8.PODR.B0=%d", PORT8.PODR.BIT.B0);
 
-		// 	// SSD1351_Fill(0x0ff0);
-		// 	// SSD1351_UpdateScreen();
+		// 	// SSD1351fill(0x0ff0);
+		// 	// SSD1351updateScreen();
 		// }
 	}
 }

@@ -59,7 +59,7 @@ void r_Config_CMT0_cmi0_interrupt(void)
     R_BSP_SETPSW_I();
 
     /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
-	Interrupt1ms();
+	interrupt1ms();
     /* End user code. Do not edit comment generated here */
 }
 
