@@ -45,9 +45,9 @@ void main(void)
 	{
 		SSD1351_SetCursor(2,2);
 		SSD1351_printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		SSD1351_SetCursor(2,11);
+		SSD1351_SetCursor(2,13);
 		SSD1351_printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		SSD1351_SetCursor(2,19);
+		SSD1351_SetCursor(2,24);
 		SSD1351_printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
 
 		// if(cnt0 > 500) {

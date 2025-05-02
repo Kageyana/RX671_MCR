@@ -301,8 +301,8 @@ void SSD1351_UpdateScreen_Chunked(void)
                 line_buffer[x * 2 + 1] = color & 0xFF;
                 SSD1351_BufferBefore.u16[i] = color;
             } else {
-                line_buffer[x * 2] = SSD1351_BufferBefore.u8[i * 2];
-                line_buffer[x * 2 + 1] = SSD1351_BufferBefore.u8[i * 2 + 1];
+                line_buffer[x * 2] = SSD1351_BufferBefore.u8[i * 2 + 1];
+                line_buffer[x * 2 + 1] = SSD1351_BufferBefore.u8[i * 2];
 				cntsame++;
             }
         }
