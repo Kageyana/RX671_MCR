@@ -1,1 +1,36 @@
-CompileFlags: {CompilationDatabase: HardwareDebug}
+CompileFlags:
+  CompilationDatabase: HardwareDebug
+  Add:
+  - -std=gnu99
+  - -D__GNUC__
+  - -I./src/smc_gen/general
+  - -I./src/smc_gen/r_pincfg
+  - -I./src/smc_gen/r_config
+  - -I./src/smc_gen/r_bsp
+  - -I./src/smc_gen
+  - -I./src/smc_gen/Config_CMT0
+  - -I./src/smc_gen/Config_MTU1
+  - -I./src/smc_gen/Config_TPU5
+  - -I./src/smc_gen/Config_SCI10
+  - -I./src/smc_gen/Config_MTU3
+  - -I./src/smc_gen/Config_S12AD0
+  - -I./src/smc_gen/Config_MTU2
+  - -I./src/smc_gen/Config_SCI2
+  - -I./src/smc_gen/Config_MTU7
+  - -I./src/smc_gen/Config_PORT
+  - -I./src/smc_gen/Config_SCI1
+  - -I./src/smc_gen/Config_MTU4
+  - -I./src/smc_gen/Config_MTU0
+  - -I./src/smc_gen/Config_SCI0
+  - -I./src/smc_gen/Config_ICU
+  - -I./src/smc_gen/Config_S12AD1
+  - -I./inc
+  - -IC:/ProgramData/GCC for Renesas RX 8.3.0.202411-GNURX-ELF/rx-elf/rx-elf/rx-elf/include
+
+InlayHints:
+  Enabled: true        # InlayHintsスイッチ
+  Designators: false     # 位置指定子の表示
+  DeducedTypes: false   # 推論された型の表示
+  ParameterNames: false # 引数名の表示
+  BlockEnd: true       # ブロック単位の終了を表示
+  TypeNameLimit: 24   # 型名長さの限度

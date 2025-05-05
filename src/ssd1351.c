@@ -220,25 +220,6 @@ void SSD1351fill(uint16_t color)
 	}
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SSD1351unionReverse
-// 処理概要     送信用バッファのバイト順を反転させる(リトルエンディアン時のみ必要)
-// 引数         なし
-// 戻り値       なし
-////////////////////////////////////////////////////////////////////
-#ifdef SSD1351_LITTLEENDIAN
-void SSD1351unionReverse(void)
-{
-	// 送信用の8bitバッファに16bitデータを反転してセット
-    for (uint32_t i = 0; i < SSD1351_BUFFER_SIZE; i++) {
-        uint16_t color = SSD1351_Buffer.u16[i];  // 16bit値を取り出し
-
-        // 16bitのバイト順を反転して8bit配列に格納
-        SSD1351_Buffer.u8[i * 2]     = (color >> 8) & 0xFF;  // 上位バイト
-        SSD1351_Buffer.u8[i * 2 + 1] = color & 0xFF;         // 下位バイト
-    }
-}
-#endif
-/////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351updateScreen
 // 処理概要     バッファを送信する
 // 引数         なし
@@ -247,10 +228,6 @@ void SSD1351unionReverse(void)
 void SSD1351updateScreen(void)
 {
 	SSD1351setAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
-
-	#ifdef SSD1351_LITTLEENDIAN
-	// SSD1351unionReverse(); //バイト順を反転
-	#endif
 
 	uint16_t buff_size = SSD1351_BUFFER_SIZE*2;
 	uint8_t dummy_rx[SSD1351_DUMMYRX_SIZE];
@@ -281,7 +258,11 @@ void SSD1351updateScreen(void)
 
 void SSD1351updateScreenChunked(void)
 {
-    uint8_t line_buffer[SSD1351_WIDTH * 2];
+    // uint8_t line_buffer[SSD1351_WIDTH * 2];
+	union {
+		uint16_t u16[SSD1351_WIDTH];
+		uint8_t u8[SSD1351_WIDTH * 2];
+	} line_buffer;
     uint8_t dummy_rx[SSD1351_WIDTH * 2];
 
     for (uint16_t l = 0; l < LINES_PER_FRAME; l++) {
@@ -296,24 +277,24 @@ void SSD1351updateScreenChunked(void)
         for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
             uint32_t i = y * SSD1351_WIDTH + x;
             if (SSD1351_Buffer.u16[i] != SSD1351_BufferBefore.u16[i]) {
-                uint16_t color = SSD1351_Buffer.u16[i];
-                line_buffer[x * 2]     = color >> 8;
-                line_buffer[x * 2 + 1] = color & 0xFF;
-                SSD1351_BufferBefore.u16[i] = color;
+				uint16_t offset = y * SSD1351_WIDTH;
+				memcpy(line_buffer.u16,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
+				memcpy(SSD1351_BufferBefore.u16+offset,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
+				break;
             } else {
-                line_buffer[x * 2] = SSD1351_BufferBefore.u8[i * 2 + 1];
-                line_buffer[x * 2 + 1] = SSD1351_BufferBefore.u8[i * 2];
+				line_buffer.u16[x] = SSD1351_BufferBefore.u16[i];
 				cntsame++;
             }
         }
-
+	
+		// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
 		if(cntsame < SSD1351_WIDTH-1)
 		{
 			SSD1351setAddressWindow(0, y, SSD1351_WIDTH - 1, y);
 			SSD1351_CS_PORT = 0;
 			SSD1351_DC_PORT = 1;
 
-			SSD1351_SPI_FUNC(line_buffer, SSD1351_WIDTH * 2, dummy_rx, SSD1351_WIDTH * 2);
+			SSD1351_SPI_FUNC(line_buffer.u8, SSD1351_WIDTH * 2, dummy_rx, SSD1351_WIDTH * 2);
 			spi_ssd1351_tx_done = false;
 			while(!spi_ssd1351_tx_done);
 
@@ -338,7 +319,14 @@ void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color)
 	}
 
 	// Draw in the right color
+	#ifdef SSD1351_LITTLEENDIAN
+	// MSB LSBを逆転させる
+	SSD1351_Buffer.u8[(x + y * SSD1351_WIDTH)*2] = (color >> 8) & 0xFF;	//MSBを代入
+	SSD1351_Buffer.u8[(x + y * SSD1351_WIDTH)*2+1] = color & 0xFF;		//LSBを代入
+	#else
 	SSD1351_Buffer.u16[x + y * SSD1351_WIDTH] = color;
+	#endif
+	
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351writeChar

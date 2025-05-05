@@ -35,7 +35,7 @@ void interrupt1ms(void)
 			useIMU = 1;
 			BMI088getGyro(); // 角速度取得
 			// BMI088getTemp();
-			// BMI088getAccele();
+			BMI088getAccele();
 			calcDegrees();	 // 角度計算
 			useIMU = 0;
 		}

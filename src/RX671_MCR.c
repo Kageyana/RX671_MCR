@@ -49,6 +49,14 @@ void main(void)
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
 		SSD1351setCursor(2,24);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
+		SSD1351setCursor(2,35);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.accele.x);
+		SSD1351setCursor(2,46);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.accele.y);
+		SSD1351setCursor(2,57);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.accele.z);
+		SSD1351setCursor(2,68);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%4d",(int32_t)BMI088val.temp);
 
 		// if(cnt0 > 500) {
 		// 	cnt0 = 0;
