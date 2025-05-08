@@ -10,8 +10,6 @@ build/
 # auto generation files
 trash/
 .metadata/
-output/
-.cache/
 
 # douments
 SmartManual Docs/
