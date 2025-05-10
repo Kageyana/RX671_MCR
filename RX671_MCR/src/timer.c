@@ -4,14 +4,14 @@
 #include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
+#include <stdbool.h>
 #include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
 uint16_t cnt10 = 0;
 uint16_t cnt0 = 0;
-uint8_t useIMU = 0;
-uint8_t useDisplay = 0;
+bool initIMU = false;
 volatile bool update_display = false;
 /////////////////////////////////////////////////////////////////////
 // モジュール名 interrupt1ms
@@ -30,24 +30,21 @@ void interrupt1ms(void)
 	{
 	case 1:
 		
-		if(useDisplay == 0 && useIMU == 0)
+		if(initIMU && !calibratIMU)
 		{
-			useIMU = 1;
 			BMI088getGyro(); // 角速度取得
-			// BMI088getTemp();
+			BMI088getTemp();
 			BMI088getAccele();
 			calcDegrees();	 // 角度計算
-			useIMU = 0;
 		}
 		
 		break;
 	case 2:
-		// if(useIMU == 0 && useDisplay == 0)
-		// {
-		// 	useDisplay = 1;
-		// 	SSD1351updateScreenChunked();	
-		// 	useDisplay = 0;
-		// }
+		if(calibratIMU)
+		{
+			calibrationIMU();
+		}
+		
 		
 		break;
 	case 10:

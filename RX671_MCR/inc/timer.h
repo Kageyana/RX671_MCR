@@ -15,7 +15,7 @@
 //====================================//
 extern uint16_t cnt0;
 extern uint16_t cnt1;
-extern uint8_t useIMU, useDisplay;
+extern bool initIMU;
 extern volatile bool update_display;
 //====================================//
 // プロトタイプ宣言

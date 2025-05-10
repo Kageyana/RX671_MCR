@@ -75,7 +75,7 @@ typedef struct
 extern volatile bool spi_BMI088_tx_done;
 extern volatile bool spi_BMI088_rx_done;
 extern IMUval BMI088val;
-extern bool calibratIMU;
+extern volatile bool calibratIMU;
 //====================================//
 // プロトタイプ宣言
 //====================================//

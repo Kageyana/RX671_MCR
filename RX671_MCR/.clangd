@@ -3,6 +3,7 @@
 
 # As of tody, this file is tentative.
 CompileFlags:
+  CompilationDatabase: HardwareDebug
   Remove:
     - -^-
     - -cpu=*

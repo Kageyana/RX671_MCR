@@ -14,7 +14,7 @@ volatile bool spi_BMI088_tx_done = false;
 volatile bool spi_BMI088_rx_done = false;
 
 int16_t angleOffset[3] = {0, 0, 0};
-bool calibratIMU = false;
+volatile bool calibratIMU = false;
 /////////////////////////////////////////////////////////////////////
 // モジュール名 BMI088ReadByteG
 // 処理概要     指定レジスタの値を読み出す(ジャイロセンサ部)
@@ -113,27 +113,28 @@ void BMI088readAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t r
 /////////////////////////////////////////////////////////////////////
 bool BMI088init(void)
 {
+	R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS);
 	BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
-	R_BSP_SoftwareDelay(2,BSP_DELAY_MILLISECS);
-	BMI088writeByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
-	R_BSP_SoftwareDelay(450,BSP_DELAY_MILLISECS);
-	
-	BMI088val.Aid = BMI088readByte(ACCELE, REG_ACC_CHIP_ID);
+	R_BSP_SoftwareDelay(100,BSP_DELAY_MILLISECS);
+	BMI088val.Aid = BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // ノーマルモード移行前にチップIDを読む
 
 	BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ジャイロセンサ ソフトウェアリセット
-	R_BSP_SoftwareDelay(20,BSP_DELAY_MILLISECS);
+	R_BSP_SoftwareDelay(30,BSP_DELAY_MILLISECS);
 	BMI088val.Gid = BMI088readByte(GYRO, REG_GYRO_CHIP_ID);
 	
-	if (BMI088val.Aid == 0x1e && BMI088val.Gid == 0x0f)
+	if (BMI088val.Gid == 0x0f && BMI088val.Aid == 0x1e)
 	{
 		// コンフィグ設定
 
 		// 加速度
+		BMI088writeByte(ACCELE, REG_ACC_PWR_CTRL, 0x04); // 加速度センサノーマルモードに移行
+		R_BSP_SoftwareDelay(450,BSP_DELAY_MILLISECS);
 		BMI088writeByte(ACCELE, REG_ACC_RANGE, 0x01); // レンジを6gに設定
 		BMI088writeByte(ACCELE, REG_ACC_CONF, 0xA9);  // ODRを200Hzに設定
 		
 		// ジャイロ
 		BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ソフトウェアリセット
+		R_BSP_SoftwareDelay(100,BSP_DELAY_MILLISECS);
 		BMI088writeByte(GYRO, REG_GYRO_BANDWISTH, 0x83); // ODRを200Hzに設定
 
 		// モード変更
@@ -180,11 +181,12 @@ void BMI088getAccele(void)
 	int16_t accelVal[3];
 
 	// 加速度の生データを取得
-	BMI088readAxisData(ACCELE, REG_ACC_X_LSB, rawData, 6);
+	BMI088readAxisData(ACCELE, REG_ACC_X_LSB, rawData, 7);
 	// LSBとMSBを結合
-	accelVal[0] = (rawData[1] << 8) | rawData[0];
-	accelVal[1] = (rawData[3] << 8) | rawData[2];
-	accelVal[2] = (rawData[5] << 8) | rawData[4];
+	// 最初のデータは破棄する 
+	accelVal[0] = (rawData[2] << 8) | rawData[1];
+	accelVal[1] = (rawData[4] << 8) | rawData[3];
+	accelVal[2] = (rawData[6] << 8) | rawData[5];
 
 	BMI088val.accele.x = (float)accelVal[0] / ACCELELSB;
 	BMI088val.accele.y = (float)accelVal[1] / ACCELELSB;
@@ -203,9 +205,10 @@ void BMI088getTemp(void)
 	int16_t tempVal;
 
 	// 温度の生データを取得
-	BMI088readAxisData(ACCELE, REG_TEMP_MSB, rawData, 2);
+	BMI088readAxisData(ACCELE, REG_TEMP_MSB, rawData, 3);
 	// LSBとMSBを結合
-	tempValu = (uint16_t)((rawData[0] << 3) | (rawData[1] >> 5));
+	// 最初のデータは破棄する 
+	tempValu = (uint16_t)((rawData[1] << 3) | (rawData[2] >> 5));
 	if (tempValu > 1023)
 	{
 		tempVal = ~tempValu + 0x8000;

@@ -23,7 +23,7 @@ void main(void)
 	R_Config_SCI2_Start();
 	
 
-	BMI088init();
+	initIMU = BMI088init();
 	SSD1351init();
 
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
@@ -35,12 +35,12 @@ void main(void)
         SSD1351drawPixel(0, y, SSD1351_RED);
         SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
     }
-	// SSD1351setCursor(0,0);
-	// SSD1351printf(Font_7x10,SSD1351_BLUE,"addr = 0x%08lX\n", (uint32_t)SSD1351_Buffer.u8,10);
-	// SSD1351fill(0xffff);
-	// SSD1351updateScreen_DiffLineFast();
 
-	R_Config_CMT0_Start();
+	R_Config_CMT0_Start(); // タイマ割り込みスタート
+
+	calibratIMU = true;	// IMUキャリブレーション開始
+	while(calibratIMU);	// キャリブレーション完了待ち
+	
 	while (1)
 	{
 		SSD1351setCursor(2,2);
@@ -50,11 +50,11 @@ void main(void)
 		SSD1351setCursor(2,24);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
 		SSD1351setCursor(2,35);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.accele.x);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.accele.x*100);
 		SSD1351setCursor(2,46);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.accele.y);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.accele.y*100);
 		SSD1351setCursor(2,57);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.accele.z);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.accele.z*100);
 		SSD1351setCursor(2,68);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%4d",(int32_t)BMI088val.temp);
 
