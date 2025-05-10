@@ -1,0 +1,19 @@
+{
+  "C_Cpp.updateChannel": "Insiders",
+  "workbench.iconTheme": "vs-minimal",
+
+  "cmake.configureArgs": [
+    "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cross.cmake"
+  ],
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/generate/iodefine.h",
+    "${workspaceFolder}/generate/start.S"
+  ],
+  "cmake.sourceDirectory": "${workspaceFolder}",
+  "cmake.configureOnOpen": true,
+  "cmake.generator": "Ninja",
+"C_Cpp.intelliSenseEngineFallback": "enabled",
+"clangd.arguments": [
+	"--enable-config"
+]
+}
