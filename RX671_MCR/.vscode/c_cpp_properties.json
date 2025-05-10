@@ -4,7 +4,7 @@
       "name": "Generic",
       "includePath": ["${workspaceFolder}/generate", "${workspaceFolder}/src"],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
-      "intelliSenseMode": "clang-x64",
+	  "intelliSenseMode": "clang-x64",
       "compilerArgs": [],
       "browse": {
         "path": ["${workspaceFolder}/generate/**"],
