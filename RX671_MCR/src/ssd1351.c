@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "ssd1351.h"
+#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -194,9 +195,17 @@ void SSD1351init(void) {
 
 	// Clear screen
 	SSD1351fill(SSD1351_BLACK);
+	for(uint16_t i = 0; i < SSD1351_BUFFER_SIZE; i++)
+	{
+		SSD1351_BufferBefore.u16[i] = SSD1351_BLACK-1;
+	}
+	
 
 	// Flush buffer to screen
-	SSD1351updateScreen();
+	for(uint16_t i = 0; i < SSD1351_HEIGHT/LINES_PER_FRAME; i++)
+	{
+		SSD1351updateScreen();
+	}
 
 	// Set default values for screen object
 	SSD1351.CurrentX = 0;
@@ -216,46 +225,22 @@ void SSD1351fill(uint16_t color)
 
 	for (i = 0; i < sizeof(SSD1351_Buffer)/sizeof(uint16_t); i++)
 	{
+#ifdef SSD1351_LITTLEENDIAN
+		// MSB LSBを逆転させる
+		SSD1351_Buffer.u8[i*2] = (color >> 8) & 0xFF;	//MSBを代入
+		SSD1351_Buffer.u8[(i*2)+1] = color & 0xFF;		//LSBを代入
+#else
 		SSD1351_Buffer.u16[i] = color;
+#endif
 	}
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351updateScreen
-// 処理概要     バッファを送信する
+// 処理概要     バッファを数行ずつ送信する(タイマ割り込みで処理する)
 // 引数         なし
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351updateScreen(void)
-{
-	SSD1351setAddressWindow(0,0,SSD1351_WIDTH-1,SSD1351_HEIGHT-1);
-
-	uint16_t buff_size = SSD1351_BUFFER_SIZE*2;
-	uint8_t dummy_rx[SSD1351_DUMMYRX_SIZE];
-	uint8_t *buff = SSD1351_Buffer.u8;
-	
-	SSD1351_CS_PORT = 0;	// select OLED
-	SSD1351_DC_PORT = 1;	// data
-
-	// split data in small chunks because SMC can't send more then 1K at once
-	while(buff_size > 0) {
-        uint16_t chunk_size = buff_size > SSD1351_DUMMYRX_SIZE? SSD1351_DUMMYRX_SIZE : buff_size;
-		
-		SSD1351_SPI_FUNC(buff, chunk_size, dummy_rx, chunk_size);
-		spi_ssd1351_tx_done = false;
-		while(!spi_ssd1351_tx_done);
-        
-		buff += chunk_size;
-        buff_size -= chunk_size;
-    }
-
-	SSD1351_CS_PORT = 1;	// Unselect OLED
-
-	// 前回値を保存
-	memcpy(SSD1351_BufferBefore.u16,SSD1351_Buffer.u16,SSD1351_BUFFER_SIZE*sizeof(uint16_t));
-
-}
-
-void SSD1351updateScreenChunked(void)
 {
     // uint8_t line_buffer[SSD1351_WIDTH * 2];
 	union {

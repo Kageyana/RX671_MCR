@@ -24,7 +24,7 @@ void interrupt1ms(void)
 	cnt0++;
 	cnt10++;
 
-	SSD1351updateScreenChunked();	
+	SSD1351updateScreen();	
 
 	switch (cnt10)
 	{

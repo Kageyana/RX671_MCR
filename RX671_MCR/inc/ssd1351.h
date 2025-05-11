@@ -71,7 +71,6 @@ void SSD1351_Unselect();
 void SSD1351init(void);
 void SSD1351fill(uint16_t color);
 void SSD1351updateScreen(void);
-void SSD1351updateScreenChunked(void);
 void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color);
 char SSD1351writeChar(char ch, FontDef Font, uint16_t color);
 char SSD1351writeString(char *str, FontDef Font, uint16_t color);
