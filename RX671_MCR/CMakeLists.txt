@@ -53,7 +53,7 @@ SET(ASM_FILES generate/start.S)
 SET(ALL_FILES ${Source_Files})
 
 add_executable(${PROJECT_NAME}.elf ${ALL_FILES})
-
+target_link_libraries(${PROJECT_NAME}.elf m)
 add_custom_target(${PROJECT_NAME}.bin ALL DEPENDS ${PROJECT_NAME}.elf)
 add_custom_command(TARGET ${PROJECT_NAME}.bin POST_BUILD
 COMMAND ${CMAKE_C_OBJCOPY} ARGS -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin)
