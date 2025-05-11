@@ -117,6 +117,7 @@ bool BMI088init(void)
 	BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // 加速度センサSPIモードに切り替え(SPIダミーリード)
 	R_BSP_SoftwareDelay(100,BSP_DELAY_MILLISECS);
 	BMI088val.Aid = BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // ノーマルモード移行前にチップIDを読む
+	BMI088val.Aid = BMI088readByte(ACCELE, REG_ACC_CHIP_ID); // ノーマルモード移行前にチップIDを読む
 
 	BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ジャイロセンサ ソフトウェアリセット
 	R_BSP_SoftwareDelay(30,BSP_DELAY_MILLISECS);
@@ -228,9 +229,20 @@ void BMI088getTemp(void)
 /////////////////////////////////////////////////////////////////////
 void calcDegrees(void)
 {
-	BMI088val.angle.x += BMI088val.gyro.x * DEFF_TIME;
-	BMI088val.angle.y += BMI088val.gyro.y * DEFF_TIME;
-	BMI088val.angle.z += BMI088val.gyro.z * DEFF_TIME;
+	// ジャイロ積分による角度更新 ---
+    BMI088val.angle.x += BMI088val.gyro.x * DEFF_TIME;  // pitch
+    BMI088val.angle.y += BMI088val.gyro.y * DEFF_TIME;  // roll
+    BMI088val.angle.z += BMI088val.gyro.z * DEFF_TIME;  // yaw（補正しない）
+
+    // 加速度からのピッチ・ロール角算出 ---
+    float pitchAcc = atan2f(BMI088val.accele.x,sqrtf(BMI088val.accele.y * BMI088val.accele.y +BMI088val.accele.z * BMI088val.accele.z)) * 180.0f / M_PI;
+
+    float rollAcc = atan2f(BMI088val.accele.y, BMI088val.accele.z) * 180.0f / M_PI;
+
+    // 相補フィルタでドリフト補正 ---
+    BMI088val.angle.x = COEFF_COMPFILTER * BMI088val.angle.x + (1.0f - COEFF_COMPFILTER) * pitchAcc;
+    BMI088val.angle.y = COEFF_COMPFILTER * BMI088val.angle.y + (1.0f - COEFF_COMPFILTER) * rollAcc;
+    // Z軸（ヨー角）は加速度では補正できないのでそのまま
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 cariblationIMU

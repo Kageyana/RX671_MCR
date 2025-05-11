@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include <math.h>
 #include "r_smc_entry.h"
 //====================================//
 // シンボル定義
@@ -28,6 +29,7 @@
 
 #define DEFF_TIME 0.01F
 #define COEFF_DPD -1.00F
+#define COEFF_COMPFILTER 0.98F
 #define IMU_TRANSMIT true
 #define IMU_STOP false
 

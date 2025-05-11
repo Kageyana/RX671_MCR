@@ -47,12 +47,13 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/generate/linker_script.ld")
 else()
     SET(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/src/linker_script.ld")
 endif()
-SET(CMAKE_EXE_LINKER_FLAGS "-T ${LINKER_SCRIPT} -Wl,--start-group -lm -lc -lgcc -Wl,--end-group -nostartfiles -Wl,-e_PowerON_Reset -Wl,--Map=RX671_MCR.map -u _printf_float --specs=lnosys.specs")
+SET(CMAKE_EXE_LINKER_FLAGS "-T ${LINKER_SCRIPT} -Wl,--start-group -lm -lc -lgcc -Wl,--end-group -nostartfiles -Wl,-e_PowerON_Reset -v -Wl,--Map=${BuildArtifactFileBaseName}.map")
 
 SET(ASM_FILES generate/start.S)
 SET(ALL_FILES ${Source_Files})
 
 add_executable(${PROJECT_NAME}.elf ${ALL_FILES})
+
 add_custom_target(${PROJECT_NAME}.bin ALL DEPENDS ${PROJECT_NAME}.elf)
 add_custom_command(TARGET ${PROJECT_NAME}.bin POST_BUILD
 COMMAND ${CMAKE_C_OBJCOPY} ARGS -O binary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin)

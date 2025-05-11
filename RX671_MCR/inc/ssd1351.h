@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdarg.h>
-#include <string.h>?
+#include <string.h>
 #include "r_smc_entry.h"
 #include "fonts.h"
 //=====================================//
