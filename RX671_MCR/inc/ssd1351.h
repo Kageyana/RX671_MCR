@@ -63,7 +63,6 @@ typedef union {
 
 extern volatile bool spi_ssd1351_tx_done;
 extern volatile bool g_dma_transfer_done;
-extern U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
 //====================================//
 // プロトタイプ宣言
 //====================================//

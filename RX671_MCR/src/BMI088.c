@@ -136,7 +136,7 @@ bool BMI088init(void)
 		// ジャイロ
 		BMI088writeByte(GYRO, REG_GYRO_SOFTRESET, 0xB6); // ソフトウェアリセット
 		R_BSP_SoftwareDelay(100,BSP_DELAY_MILLISECS);
-		BMI088writeByte(GYRO, REG_GYRO_BANDWISTH, 0x83); // ODRを200Hzに設定
+		BMI088writeByte(GYRO, REG_GYRO_BANDWISTH, 0x03); // ODRを400Hz バンドフィルタ47Hzに設定
 
 		// モード変更
 
@@ -223,25 +223,25 @@ void BMI088getTemp(void)
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 calcDegrees
-// 処理概要     角度の計算
+// 処理概要     角度の計算(相補フィルタ)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
 void calcDegrees(void)
 {
-	// ジャイロ積分による角度更新 ---
+	// ジャイロ積分による角度更新 度数法
     BMI088val.angle.x += BMI088val.gyro.x * DEFF_TIME;  // pitch
     BMI088val.angle.y += BMI088val.gyro.y * DEFF_TIME;  // roll
     BMI088val.angle.z += BMI088val.gyro.z * DEFF_TIME;  // yaw（補正しない）
 
-    // 加速度からのピッチ・ロール角算出 ---
-    float pitchAcc = atan2f(BMI088val.accele.x,sqrtf(BMI088val.accele.y * BMI088val.accele.y +BMI088val.accele.z * BMI088val.accele.z)) * 180.0f / M_PI;
+    // 加速度からのピッチ・ロール角算出 度数法
+    float pitchAccele = atan2f(BMI088val.accele.x,sqrtf(BMI088val.accele.y * BMI088val.accele.y +BMI088val.accele.z * BMI088val.accele.z)) * 180.0f / M_PI;
 
-    float rollAcc = atan2f(BMI088val.accele.y, BMI088val.accele.z) * 180.0f / M_PI;
+    float rollAccele = atan2f(BMI088val.accele.y, BMI088val.accele.z) * 180.0f / M_PI;
 
-    // 相補フィルタでドリフト補正 ---
-    BMI088val.angle.x = COEFF_COMPFILTER * BMI088val.angle.x + (1.0f - COEFF_COMPFILTER) * pitchAcc;
-    BMI088val.angle.y = COEFF_COMPFILTER * BMI088val.angle.y + (1.0f - COEFF_COMPFILTER) * rollAcc;
+    // 相補フィルタでドリフト補正
+    BMI088val.angle.x = COEFF_COMPFILTER * BMI088val.angle.x + (1.0f - COEFF_COMPFILTER) * pitchAccele;
+    BMI088val.angle.y = COEFF_COMPFILTER * BMI088val.angle.y + (1.0f - COEFF_COMPFILTER) * rollAccele;
     // Z軸（ヨー角）は加速度では補正できないのでそのまま
 }
 /////////////////////////////////////////////////////////////////////

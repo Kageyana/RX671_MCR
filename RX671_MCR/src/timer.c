@@ -44,8 +44,6 @@ void interrupt1ms(void)
 		{
 			calibrationIMU();
 		}
-		
-		
 		break;
 	case 10:
 		cnt10 = 0;

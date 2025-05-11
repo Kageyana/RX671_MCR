@@ -8,8 +8,8 @@
 volatile bool spi_ssd1351_tx_done = false;
 volatile bool g_dma_transfer_done = false;
 
-U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
-U16ToU8_Union SSD1351_BufferBefore;	// Screenbuffer
+static U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
+static U16ToU8_Union SSD1351_BufferBefore;	// Screenbuffer
 static SSD1351_t SSD1351;	/// Screen object
 static uint16_t draw_line_index = 0;
 
@@ -250,9 +250,8 @@ void SSD1351updateScreen(void)
 
 	SSD1351_CS_PORT = 1;	// Unselect OLED
 
-	for (uint16_t i = 0; i <= SSD1351_BUFFER_SIZE; i++) {
-		SSD1351_BufferBefore.u16[i] = SSD1351_Buffer.u16[i];
-	}
+	// 前回値を保存
+	memcpy(SSD1351_BufferBefore.u16,SSD1351_Buffer.u16,SSD1351_BUFFER_SIZE*sizeof(uint16_t));
 
 }
 
@@ -272,29 +271,28 @@ void SSD1351updateScreenChunked(void)
         }
 
         uint16_t y = draw_line_index;
-		uint16_t cntsame = 0;
+		uint16_t offset = y * SSD1351_WIDTH;
 
+		bool changed = false;
+		// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
         for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
-            uint32_t i = y * SSD1351_WIDTH + x;
-            if (SSD1351_Buffer.u16[i] != SSD1351_BufferBefore.u16[i]) {
-				uint16_t offset = y * SSD1351_WIDTH;
-				memcpy(line_buffer.u16,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
-				memcpy(SSD1351_BufferBefore.u16+offset,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
-				break;
-            } else {
-				line_buffer.u16[x] = SSD1351_BufferBefore.u16[i];
-				cntsame++;
+            if (SSD1351_Buffer.u16[offset + x] != SSD1351_BufferBefore.u16[offset + x]) {
+                changed = true;
+                break;
             }
         }
-	
-		// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
-		if(cntsame < SSD1351_WIDTH-1)
+        
+		
+		if(changed)
 		{
+			memcpy(line_buffer.u16,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
+			memcpy(&SSD1351_BufferBefore.u16[offset],&SSD1351_Buffer.u16[offset],SSD1351_WIDTH * sizeof(uint16_t));
+		
 			SSD1351setAddressWindow(0, y, SSD1351_WIDTH - 1, y);
 			SSD1351_CS_PORT = 0;
 			SSD1351_DC_PORT = 1;
 
-			SSD1351_SPI_FUNC(line_buffer.u8, SSD1351_WIDTH * 2, dummy_rx, SSD1351_WIDTH * 2);
+			SSD1351_SPI_FUNC(line_buffer.u8, SSD1351_WIDTH * sizeof(uint16_t), dummy_rx, SSD1351_WIDTH * sizeof(uint16_t));
 			spi_ssd1351_tx_done = false;
 			while(!spi_ssd1351_tx_done);
 
