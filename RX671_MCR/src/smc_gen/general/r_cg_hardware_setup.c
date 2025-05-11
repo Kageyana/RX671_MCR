@@ -37,6 +37,7 @@ Includes
 #include "Config_MTU4.h"
 #include "Config_MTU7.h"
 #include "Config_TPU5.h"
+#include "Config_DMAC0.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -107,6 +108,7 @@ void R_Systeminit(void)
     R_Config_MTU4_Create();
     R_Config_MTU7_Create();
     R_Config_TPU5_Create();
+    R_Config_DMAC0_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();

@@ -399,7 +399,7 @@
         <Item currentVect="117" id="SCI12_TXI12" priority="15" usedState="未使用"/>
         <Item currentVect="118" id="RIICHS0_RXI" priority="15" usedState="未使用"/>
         <Item currentVect="119" id="RIICHS0_TXI" priority="15" usedState="未使用"/>
-        <Item currentVect="120" id="DMAC_DMAC0I" priority="15" usedState="未使用"/>
+        <Item currentVect="120" id="DMAC_DMAC0I" priority="15" usedState="使用中"/>
         <Item currentVect="121" id="DMAC_DMAC1I" priority="15" usedState="未使用"/>
         <Item currentVect="122" id="DMAC_DMAC2I" priority="15" usedState="未使用"/>
         <Item currentVect="123" id="DMAC_DMAC3I" priority="15" usedState="未使用"/>
@@ -443,7 +443,7 @@
         <Item currentVect="161" defaultVect="161" id="TPU4_TGI4B" priority="15" usedState="未使用"/>
         <Item currentVect="162" defaultVect="162" id="TPU4_TCI4V" priority="15" usedState="未使用"/>
         <Item currentVect="163" defaultVect="163" id="TPU4_TCI4U" priority="15" usedState="未使用"/>
-        <Item currentVect="164" defaultVect="164" id="TPU5_TGI5A" priority="15" usedState="未使用"/>
+        <Item currentVect="164" defaultVect="164" id="TPU5_TGI5A" priority="15" usedState="使用中"/>
         <Item currentVect="165" defaultVect="165" id="TPU5_TGI5B" priority="15" usedState="未使用"/>
         <Item currentVect="166" defaultVect="166" id="TPU5_TCI5V" priority="15" usedState="未使用"/>
         <Item currentVect="167" defaultVect="167" id="TPU5_TCI5U" priority="15" usedState="未使用"/>
@@ -7894,7 +7894,7 @@
                     <item id="Fall" input="" vlaue="0"/>
                     <item id="Both" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IOA" selection="Out01">
+                <option enabled="true" id="IOA" selection="Out11">
                     <item id="OutDis" input="" vlaue="0"/>
                     <item id="Out00" input="" vlaue="0"/>
                     <item id="Out01" input="" vlaue="0"/>
@@ -7903,13 +7903,13 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IOBtgrb" selection="OutT">
+                <option enabled="true" id="IOBtgrb" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="PeriodValue" selection="PeriodValue">
-                    <item id="PeriodValue" input="100" vlaue="5999"/>
+                    <item id="PeriodValue" input="1.25" vlaue="74"/>
                 </option>
                 <option enabled="true" id="Unit" selection="us">
                     <item id="ms" input="" vlaue="0"/>
@@ -7918,16 +7918,16 @@
                     <item id="cnt" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRAValue" selection="TGRAValue">
-                    <item id="TGRAValue" input="5999" vlaue="5999"/>
+                    <item id="TGRAValue" input="74" vlaue="74"/>
                 </option>
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
-                    <item id="TGRBValue" input="100" vlaue="100"/>
+                    <item id="TGRBValue" input="0" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Tgia" selection="Disable">
+                <option enabled="true" id="Tgia" selection="Enable">
                     <item id="Enable" input="" vlaue="0"/>
                     <item id="Disable" input="" vlaue="0"/>
                 </option>
-                <option enabled="false" id="PrioA" selection="Level15">
+                <option enabled="true" id="PrioA" selection="Level15">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
@@ -7989,7 +7989,7 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
-                <option enabled="false" id="MultiIntTgiaEnable" selection="UnCheck">
+                <option enabled="true" id="MultiIntTgiaEnable" selection="Check">
                     <item id="Check" input="" vlaue="0"/>
                     <item id="UnCheck" input="" vlaue="0"/>
                 </option>
@@ -8010,6 +8010,300 @@
                         <item enabled="true" id="Pwm2"/>
                     </option>
                 </context>
+            </allocator>
+            <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="c218ca1d-3490-4fdb-ba02-8732e51264f1" inuse="true" name="Config_DMAC0">
+            <allocatable id="DMAC0">
+                <option enabled="true" id="ActivationSource" selection="TPU5(TGI5A)">
+                    <item id="Software" input="" vlaue="0"/>
+                    <item id="CMT0(CMI0)" input="" vlaue="0"/>
+                    <item id="CMT1(CMI1)" input="" vlaue="0"/>
+                    <item id="CMTW0(CMWI0)" input="" vlaue="0"/>
+                    <item id="CMTW1(CMWI1)" input="" vlaue="0"/>
+                    <item id="RSCI10(RXI)" input="" vlaue="0"/>
+                    <item id="RSCI10(TXI)" input="" vlaue="0"/>
+                    <item id="USB0(D0FIFO0)" input="" vlaue="0"/>
+                    <item id="USB0(D1FIFO0)" input="" vlaue="0"/>
+                    <item id="USB1(D0FIFO1)" input="" vlaue="0"/>
+                    <item id="USB1(D1FIFO1)" input="" vlaue="0"/>
+                    <item id="RSPI0(SPRI0)" input="" vlaue="0"/>
+                    <item id="RSPI0(SPTI0)" input="" vlaue="0"/>
+                    <item id="RSPI1(SPRI1)" input="" vlaue="0"/>
+                    <item id="RSPI1(SPTI1)" input="" vlaue="0"/>
+                    <item id="RSCI11(RXI)" input="" vlaue="0"/>
+                    <item id="RSCI11(TXI)" input="" vlaue="0"/>
+                    <item id="SDHI(SBFAI)" input="" vlaue="0"/>
+                    <item id="SSIE0(SSITXI0)" input="" vlaue="0"/>
+                    <item id="SSIE0(SSIRXI0)" input="" vlaue="0"/>
+                    <item id="RSPIA0(SPRI)" input="" vlaue="0"/>
+                    <item id="RSPIA0(SPTI)" input="" vlaue="0"/>
+                    <item id="RIIC1(RXI1)" input="" vlaue="0"/>
+                    <item id="RIIC1(TXI1)" input="" vlaue="0"/>
+                    <item id="RIIC0(RXI0)" input="" vlaue="0"/>
+                    <item id="RIIC0(TXI0)" input="" vlaue="0"/>
+                    <item id="RIIC2(RXI2)" input="" vlaue="0"/>
+                    <item id="RIIC2(TXI2)" input="" vlaue="0"/>
+                    <item id="SCI0(RXI0)" input="" vlaue="0"/>
+                    <item id="SCI0(TXI0)" input="" vlaue="0"/>
+                    <item id="SCI1(RXI1)" input="" vlaue="0"/>
+                    <item id="SCI1(TXI1)" input="" vlaue="0"/>
+                    <item id="SCI2(RXI2)" input="" vlaue="0"/>
+                    <item id="SCI2(TXI2)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ0)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ1)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ2)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ3)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ4)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ5)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ6)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ7)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ8)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ9)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ10)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ11)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ12)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ13)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ14)" input="" vlaue="0"/>
+                    <item id="ICU(IRQ15)" input="" vlaue="0"/>
+                    <item id="SCI3(RXI3)" input="" vlaue="0"/>
+                    <item id="SCI3(TXI3)" input="" vlaue="0"/>
+                    <item id="SCI4(RXI4)" input="" vlaue="0"/>
+                    <item id="SCI4(TXI4)" input="" vlaue="0"/>
+                    <item id="SCI5(RXI5)" input="" vlaue="0"/>
+                    <item id="SCI5(TXI5)" input="" vlaue="0"/>
+                    <item id="SCI6(RXI6)" input="" vlaue="0"/>
+                    <item id="SCI6(TXI6)" input="" vlaue="0"/>
+                    <item id="SCI7(RXI7)" input="" vlaue="0"/>
+                    <item id="SCI7(TXI7)" input="" vlaue="0"/>
+                    <item id="SCI8(RXI8)" input="" vlaue="0"/>
+                    <item id="SCI8(TXI8)" input="" vlaue="0"/>
+                    <item id="SCI9(RXI9)" input="" vlaue="0"/>
+                    <item id="SCI9(TXI9)" input="" vlaue="0"/>
+                    <item id="SCI10(RXI10)" input="" vlaue="0"/>
+                    <item id="SCI10(TXI10)" input="" vlaue="0"/>
+                    <item id="RSPI2(SPRI2)" input="" vlaue="0"/>
+                    <item id="RSPI2(SPTI2)" input="" vlaue="0"/>
+                    <item id="SCI11(RXI11)" input="" vlaue="0"/>
+                    <item id="SCI11(TXI11)" input="" vlaue="0"/>
+                    <item id="SCI12(RXI12)" input="" vlaue="0"/>
+                    <item id="SCI12(TXI12)" input="" vlaue="0"/>
+                    <item id="RIICHS0(RXI)" input="" vlaue="0"/>
+                    <item id="RIICHS0(TXI)" input="" vlaue="0"/>
+                    <item id="CMT2(CMI2)" input="" vlaue="0"/>
+                    <item id="CMT3(CMI3)" input="" vlaue="0"/>
+                    <item id="TPU0(TGI0A)" input="" vlaue="0"/>
+                    <item id="TPU1(TGI1A)" input="" vlaue="0"/>
+                    <item id="TPU2(TGI2A)" input="" vlaue="0"/>
+                    <item id="TPU3(TGI3A)" input="" vlaue="0"/>
+                    <item id="TPU4(TGI4A)" input="" vlaue="0"/>
+                    <item id="TPU5(TGI5A)" input="" vlaue="0"/>
+                    <item id="CMTW0(IC0I0)" input="" vlaue="0"/>
+                    <item id="CMTW0(IC1I0)" input="" vlaue="0"/>
+                    <item id="CMTW0(OC0I0)" input="" vlaue="0"/>
+                    <item id="CMTW0(OC1I0)" input="" vlaue="0"/>
+                    <item id="CMTW1(IC0I1)" input="" vlaue="0"/>
+                    <item id="CMTW1(IC1I1)" input="" vlaue="0"/>
+                    <item id="CMTW1(OC0I1)" input="" vlaue="0"/>
+                    <item id="CMTW1(OC1I1)" input="" vlaue="0"/>
+                    <item id="S12AD(S12ADI)" input="" vlaue="0"/>
+                    <item id="S12AD(S12GBADI)" input="" vlaue="0"/>
+                    <item id="S12AD(S12GCADI)" input="" vlaue="0"/>
+                    <item id="S12AD1(S12ADI1)" input="" vlaue="0"/>
+                    <item id="S12AD1(S12GBADI1)" input="" vlaue="0"/>
+                    <item id="S12AD1(S12GCADI1)" input="" vlaue="0"/>
+                    <item id="ELC(ELSR18I)" input="" vlaue="0"/>
+                    <item id="ELC(ELSR19I)" input="" vlaue="0"/>
+                    <item id="CTSU(CTSUWR)" input="" vlaue="0"/>
+                    <item id="CTSU(CTSURD)" input="" vlaue="0"/>
+                    <item id="MTU0(TGIA0)" input="" vlaue="0"/>
+                    <item id="MTU0(TGIB0)" input="" vlaue="0"/>
+                    <item id="MTU0(TGIC0)" input="" vlaue="0"/>
+                    <item id="MTU0(TGID0)" input="" vlaue="0"/>
+                    <item id="MTU1(TGIA1)" input="" vlaue="0"/>
+                    <item id="MTU1(TGIB1)" input="" vlaue="0"/>
+                    <item id="MTU2(TGIA2)" input="" vlaue="0"/>
+                    <item id="MTU2(TGIB2)" input="" vlaue="0"/>
+                    <item id="MTU3(TGIA3)" input="" vlaue="0"/>
+                    <item id="MTU3(TGIB3)" input="" vlaue="0"/>
+                    <item id="MTU3(TGIC3)" input="" vlaue="0"/>
+                    <item id="MTU3(TGID3)" input="" vlaue="0"/>
+                    <item id="MTU4(TGIA4)" input="" vlaue="0"/>
+                    <item id="MTU4(TGIB4)" input="" vlaue="0"/>
+                    <item id="MTU4(TGIC4)" input="" vlaue="0"/>
+                    <item id="MTU4(TGID4)" input="" vlaue="0"/>
+                    <item id="MTU4(TCIV4)" input="" vlaue="0"/>
+                    <item id="MTU5(TGIU5)" input="" vlaue="0"/>
+                    <item id="MTU5(TGIV5)" input="" vlaue="0"/>
+                    <item id="MTU5(TGIW5)" input="" vlaue="0"/>
+                    <item id="MTU6(TGIA6)" input="" vlaue="0"/>
+                    <item id="MTU6(TGIB6)" input="" vlaue="0"/>
+                    <item id="MTU6(TGIC6)" input="" vlaue="0"/>
+                    <item id="MTU6(TGID6)" input="" vlaue="0"/>
+                    <item id="MTU7(TGIA7)" input="" vlaue="0"/>
+                    <item id="MTU7(TGIB7)" input="" vlaue="0"/>
+                    <item id="MTU7(TGIC7)" input="" vlaue="0"/>
+                    <item id="MTU7(TGID7)" input="" vlaue="0"/>
+                    <item id="MTU7(TCIV7)" input="" vlaue="0"/>
+                    <item id="MTU8(TGIA8)" input="" vlaue="0"/>
+                    <item id="MTU8(TGIB8)" input="" vlaue="0"/>
+                    <item id="MTU8(TGIC8)" input="" vlaue="0"/>
+                    <item id="MTU8(TGID8)" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="FlagControl" selection="ClearInterrupt">
+                    <item id="ClearInterrupt" input="" vlaue="0"/>
+                    <item id="IssueInterrupt" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="TransferMode" selection="NormalMode">
+                    <item id="NormalMode" input="" vlaue="0"/>
+                    <item id="FreeMode" input="" vlaue="0"/>
+                    <item id="RepeatMode" input="" vlaue="0"/>
+                    <item id="BlockMode" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="TransferSize" selection="16bits">
+                    <item id="8bits" input="" vlaue="0"/>
+                    <item id="16bits" input="" vlaue="0"/>
+                    <item id="32bits" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="TransferCount" selection="TransferCountValue">
+                    <item id="TransferCountValue" input="326" vlaue="326"/>
+                </option>
+                <option enabled="false" id="BlockCount" selection="BlockCountValue">
+                    <item id="BlockCountValue" input="1" vlaue="1"/>
+                </option>
+                <option enabled="false" id="BlockSetting" selection="TransferDes">
+                    <item id="TransferDes" input="" vlaue="0"/>
+                    <item id="TransferSrc" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="SrcAddress" selection="SrcAddressValue">
+                    <item id="SrcAddressValue" input="0x00000fcc" vlaue="4044"/>
+                </option>
+                <option enabled="true" id="SrcAddressMode" selection="IncMode">
+                    <item id="FixedMode" input="" vlaue="0"/>
+                    <item id="OffsetMode" input="" vlaue="0"/>
+                    <item id="IncMode" input="" vlaue="0"/>
+                    <item id="DecMode" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="SourceExt" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="SrcRepeatArea" selection="1bits">
+                    <item id="1bits" input="" vlaue="0"/>
+                    <item id="2bits" input="" vlaue="0"/>
+                    <item id="3bits" input="" vlaue="0"/>
+                    <item id="4bits" input="" vlaue="0"/>
+                    <item id="5bits" input="" vlaue="0"/>
+                    <item id="6bits" input="" vlaue="0"/>
+                    <item id="7bits" input="" vlaue="0"/>
+                    <item id="8bits" input="" vlaue="0"/>
+                    <item id="9bits" input="" vlaue="0"/>
+                    <item id="10bits" input="" vlaue="0"/>
+                    <item id="11bits" input="" vlaue="0"/>
+                    <item id="12bits" input="" vlaue="0"/>
+                    <item id="13bits" input="" vlaue="0"/>
+                    <item id="14bits" input="" vlaue="0"/>
+                    <item id="15bits" input="" vlaue="0"/>
+                    <item id="16bits" input="" vlaue="0"/>
+                    <item id="17bits" input="" vlaue="0"/>
+                    <item id="18bits" input="" vlaue="0"/>
+                    <item id="19bits" input="" vlaue="0"/>
+                    <item id="20bits" input="" vlaue="0"/>
+                    <item id="21bits" input="" vlaue="0"/>
+                    <item id="22bits" input="" vlaue="0"/>
+                    <item id="23bits" input="" vlaue="0"/>
+                    <item id="24bits" input="" vlaue="0"/>
+                    <item id="25bits" input="" vlaue="0"/>
+                    <item id="26bits" input="" vlaue="0"/>
+                    <item id="27bits" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="DesAddress" selection="DesAddressValue">
+                    <item id="DesAddressValue" input="0x0008816a" vlaue="557418"/>
+                </option>
+                <option enabled="true" id="DesAddressMode" selection="FixedMode">
+                    <item id="FixedMode" input="" vlaue="0"/>
+                    <item id="OffsetMode" input="" vlaue="0"/>
+                    <item id="IncMode" input="" vlaue="0"/>
+                    <item id="DecMode" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="DestinationExt" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="DesRepeatArea" selection="1bits">
+                    <item id="1bits" input="" vlaue="0"/>
+                    <item id="2bits" input="" vlaue="0"/>
+                    <item id="3bits" input="" vlaue="0"/>
+                    <item id="4bits" input="" vlaue="0"/>
+                    <item id="5bits" input="" vlaue="0"/>
+                    <item id="6bits" input="" vlaue="0"/>
+                    <item id="7bits" input="" vlaue="0"/>
+                    <item id="8bits" input="" vlaue="0"/>
+                    <item id="9bits" input="" vlaue="0"/>
+                    <item id="10bits" input="" vlaue="0"/>
+                    <item id="11bits" input="" vlaue="0"/>
+                    <item id="12bits" input="" vlaue="0"/>
+                    <item id="13bits" input="" vlaue="0"/>
+                    <item id="14bits" input="" vlaue="0"/>
+                    <item id="15bits" input="" vlaue="0"/>
+                    <item id="16bits" input="" vlaue="0"/>
+                    <item id="17bits" input="" vlaue="0"/>
+                    <item id="18bits" input="" vlaue="0"/>
+                    <item id="19bits" input="" vlaue="0"/>
+                    <item id="20bits" input="" vlaue="0"/>
+                    <item id="21bits" input="" vlaue="0"/>
+                    <item id="22bits" input="" vlaue="0"/>
+                    <item id="23bits" input="" vlaue="0"/>
+                    <item id="24bits" input="" vlaue="0"/>
+                    <item id="25bits" input="" vlaue="0"/>
+                    <item id="26bits" input="" vlaue="0"/>
+                    <item id="27bits" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="OffsetAmountDir" selection="Increase">
+                    <item id="Increase" input="" vlaue="0"/>
+                    <item id="Decrease" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="OffsetAmount" selection="OffsetAmountValue">
+                    <item id="OffsetAmountValue" input="0x00000000" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntTransferEnd" selection="Enable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="IntTransferComplete" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="IntSrcOverflow" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="IntDesOverflow" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntDMACPriority" selection="Level15">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                    <item id="Level4" input="" vlaue="0"/>
+                    <item id="Level5" input="" vlaue="0"/>
+                    <item id="Level6" input="" vlaue="0"/>
+                    <item id="Level7" input="" vlaue="0"/>
+                    <item id="Level8" input="" vlaue="0"/>
+                    <item id="Level9" input="" vlaue="0"/>
+                    <item id="Level10" input="" vlaue="0"/>
+                    <item id="Level11" input="" vlaue="0"/>
+                    <item id="Level12" input="" vlaue="0"/>
+                    <item id="Level13" input="" vlaue="0"/>
+                    <item id="Level14" input="" vlaue="0"/>
+                    <item id="Level15" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="このソフトウェアコンポーネントは、DMAコントローラ(DMAC)の構成を提供します。&#10;&#10;DMACはCPU を介さずにデータ転送を行います。" detailDescription="" display="DMA コントローラ" id="com.renesas.smc.tools.swcomponent.codegenerator.dmac" version="1.8.0"/>
+            <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="DMA コントローラ0" display="DMAC0" id="com.renesas.smc.swc.cg.rx.dmac.rx671.dmac0" type="">
+                <context/>
             </allocator>
             <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>

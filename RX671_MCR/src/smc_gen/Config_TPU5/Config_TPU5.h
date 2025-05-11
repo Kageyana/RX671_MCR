@@ -27,8 +27,8 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define TPU5_PCLK_COUNTER_DIVISION         (1)
-#define _176F_TGRA5_VALUE                  (0x176FU) /* TGRA5 value */
-#define _0064_TGRB5_VALUE                  (0x0064U) /* TGRB5 value */
+#define _004A_TGRA5_VALUE                  (0x004AU) /* TGRA5 value */
+#define _0000_TGRB5_VALUE                  (0x0000U) /* TGRB5 value */
 
 /***********************************************************************************************************************
 Typedef definitions

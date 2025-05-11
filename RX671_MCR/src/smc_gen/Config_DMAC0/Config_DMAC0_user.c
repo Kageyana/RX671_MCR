@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_TPU5_user.c
-* Component Version: 1.12.0
+* File Name        : Config_DMAC0_user.c
+* Component Version: 1.8.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_TPU5.
+* Description      : This file implements device driver for Config_DMAC0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,8 +21,9 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_TPU5.h"
+#include "Config_DMAC0.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "WS2812C.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -33,32 +34,46 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TPU5_Create_UserInit
-* Description  : This function adds user code after initializing the TPU5 channel
+* Function Name: R_Config_DMAC0_Create_UserInit
+* Description  : This function adds user code after initializing the DMAC0 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_TPU5_Create_UserInit(void)
+void R_Config_DMAC0_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_TPU5_tgi5a_interrupt
-* Description  : This function is TGI5A interrupt service routine
+* Function Name: r_Config_DMAC0_dmac0i_interrupt
+* Description  : This function is dmac0i interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_TPU5_tgi5a_interrupt(void)
+void r_Config_DMAC0_dmac0i_interrupt(void)
 {
-    /* Set bit PSW.I = 1 to allow multiple interrupts */
-    R_BSP_SETPSW_I();
+    if (DMAC0.DMSTS.BIT.DTIF == 1U)
+    {
+        DMAC0.DMSTS.BIT.DTIF = 0U;
+        r_dmac0_callback_transfer_end();
+    }
+}
 
-    /* Start user code for r_Config_TPU5_tgi5a_interrupt. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+/***********************************************************************************************************************
+* Function Name: r_dmac0_callback_transfer_end
+* Description  : This function is dmac0 transfer end callback function
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_dmac0_callback_transfer_end(void)
+{
+    /* Start user code for r_dmac0_callback_transfer_end. Do not edit comment generated here */
+    dma_done_flag = true;
+	/* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

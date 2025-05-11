@@ -148,6 +148,7 @@
         <Setting id="Config_CMT0" value="CG"/>
         <Setting id="Config_MTU0" value="CG"/>
         <Setting id="Config_SCI10" value="CG"/>
+        <Setting id="Config_DMAC0" value="CG"/>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU3" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
             <Setting id="TGRCValue" value="3599"/>
@@ -1719,19 +1720,19 @@
             <Setting id="PrioB" value="Level15"/>
             <Setting id="Tgib" value="Disable"/>
             <Setting id="Unit" value="us"/>
-            <Setting id="Tgia" value="Disable"/>
-            <Setting id="IOBtgrb" value="OutT"/>
+            <Setting id="Tgia" value="Enable"/>
+            <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="PrioV" value="Level15"/>
-            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
-            <Setting id="TGRAValue" value="5999"/>
-            <Setting id="PeriodValue" value="100"/>
+            <Setting id="MultiIntTgiaEnable" value="Check"/>
+            <Setting id="TGRAValue" value="74"/>
+            <Setting id="PeriodValue" value="1.25"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
-            <Setting id="IOA" value="Out01"/>
+            <Setting id="IOA" value="Out11"/>
             <Setting id="Tciv" value="Disable"/>
             <Setting id="Sync" value="Disable"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="100"/>
+            <Setting id="TGRBValue" value="0"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" id="Config_CMT0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="IntervalUnit" value="ms"/>
@@ -1835,6 +1836,30 @@
             <Setting id="NoiseFilt" value="Disable"/>
             <Setting id="MultiIntERIEnable" value="UnCheck"/>
             <Setting id="FiltClk" value="Div1"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.dmac" id="Config_DMAC0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="SrcRepeatArea" value="1bits"/>
+            <Setting id="DestinationExt" value="Disable"/>
+            <Setting id="IntDesOverflow" value="Disable"/>
+            <Setting id="FlagControl" value="ClearInterrupt"/>
+            <Setting id="TransferMode" value="NormalMode"/>
+            <Setting id="TransferSize" value="16bits"/>
+            <Setting id="TransferCount" value="326"/>
+            <Setting id="BlockSetting" value="TransferDes"/>
+            <Setting id="SrcAddressMode" value="IncMode"/>
+            <Setting id="SourceExt" value="Disable"/>
+            <Setting id="IntSrcOverflow" value="Disable"/>
+            <Setting id="OffsetAmount" value="0x00000000"/>
+            <Setting id="DesAddressMode" value="FixedMode"/>
+            <Setting id="OffsetAmountDir" value="Increase"/>
+            <Setting id="BlockCount" value="1"/>
+            <Setting id="IntTransferEnd" value="Enable"/>
+            <Setting id="IntTransferComplete" value="Disable"/>
+            <Setting id="IntDMACPriority" value="Level15"/>
+            <Setting id="ActivationSource" value="TPU5(TGI5A)"/>
+            <Setting id="DesAddress" value="0x0008816a"/>
+            <Setting id="SrcAddress" value="0x00000fcc"/>
+            <Setting id="DesRepeatArea" value="1bits"/>
         </Segment>
     </Segment>
 </QE>

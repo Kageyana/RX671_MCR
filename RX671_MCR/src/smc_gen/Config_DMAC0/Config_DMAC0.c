@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_TPU5.c
-* Component Version: 1.12.0
+* File Name        : Config_DMAC0.c
+* Component Version: 1.8.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_TPU5.
+* Description      : This file implements device driver for Config_DMAC0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,7 +21,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_TPU5.h"
+#include "Config_DMAC0.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -33,70 +33,86 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TPU5_Create
-* Description  : This function initializes the TPU5 channel
+* Function Name: R_Config_DMAC0_Create
+* Description  : This function initializes the DMAC0 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_TPU5_Create(void)
+void R_Config_DMAC0_Create(void)
 {
-    /* Release TPU channel 5 from stop state */
-    MSTP(TPU5) = 0U;
+    /* Cancel DMAC/DTC module stop state in LPC */
+    MSTP(DMAC) = 0U;
 
-    /* Stop TPU channel 5 counter */
-    TPUA.TSTR.BIT.CST5 = 0U;
+    /* Disable DMAC interrupts */
+    IEN(DMAC,DMAC0I) = 0U;
 
-    /* Set TGI5A interrupt priority level */
-    ICU.SLIBR164.BYTE = 0x25U;
-    IPR(PERIB, INTB164) = _0F_TPU_PRIORITY_LEVEL15;
+    /* Disable DMAC0 transfer */
+    DMAC0.DMCNT.BIT.DTE = 0U;
 
-    /* TPU channel 5 is used as PWM mode 1 */
-    TPUA.TSYR.BIT.SYNC5 = 0U;
-    TPU5.TCR.BYTE = _00_TPU_PCLK_1 | _20_TPU_CKCL_A;
-    TPU5.TIER.BYTE |= (_01_TPU_TGIEA_ENABLE | _00_TPU_TGIEB_DISABLE | _00_TPU_TCIEV_DISABLE);
-    TPU5.TIOR.BYTE = _06_TPU_IOA_HH | _50_TPU_IOB_HL;
-    TPU5.TGRA = _004A_TGRA5_VALUE;
-    TPU5.TGRB = _0000_TGRB5_VALUE;
-    TPU5.TMDR.BYTE = _02_TPU_PWM1;
+    /* Set DMAC0 activation source */
+    ICU.DMRSR0 = _A4_DMAC0_ACTIVATION_SOURCE;
 
-    /* Set TIOCA5 pin */
-    MPC.PB6PFS.BYTE = 0x03U;
-    PORTB.PMR.BYTE |= 0x40U;
+    /* Set DMAC0 transfer address update and extended repeat setting */
+    DMAC0.DMAMD.WORD = _8000_DMAC_SRC_ADDR_UPDATE_INCREMENT | _0000_DMAC_DST_ADDR_UPDATE_FIXED | 
+                       _0000_DMAC0_SRC_EXT_RPT_AREA | _0000_DMAC0_DST_EXT_RPT_AREA;
 
-    R_Config_TPU5_Create_UserInit();
+    /* Set DMAC0 transfer mode, data size and repeat area */
+    DMAC0.DMTMD.WORD = _0000_DMAC_TRANS_MODE_NORMAL | _2000_DMAC_REPEAT_AREA_NONE | _0100_DMAC_TRANS_DATA_SIZE_16 | 
+                       _0001_DMAC_TRANS_REQ_SOURCE_INT;
+
+    /* Set DMAC0 interrupt flag control */
+    DMAC0.DMCSL.BYTE = _00_DMAC_INT_TRIGGER_FLAG_CLEAR;
+
+    /* Set DMAC0 source address */
+    DMAC0.DMSAR = (void *)_00000FCC_DMAC0_SRC_ADDR;
+
+    /* Set DMAC0 destination address */
+    DMAC0.DMDAR = (void *)_0008816A_DMAC0_DST_ADDR;
+
+    /* Set DMAC0 transfer count */
+    DMAC0.DMCRA = _00000146_DMAC0_DMCRA_COUNT;
+
+    /* Set DMAC0 interrupt settings */
+    DMAC0.DMINT.BIT.DTIE = 1U;
+
+    /* Set DMAC0 priority level */
+    IPR(DMAC,DMAC0I) = _0F_DMAC_PRIORITY_LEVEL15;
+
+    R_Config_DMAC0_Create_UserInit();
+
+    /* Enable DMAC activation */
+    DMAC.DMAST.BIT.DMST = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TPU5_Start
-* Description  : This function starts the TPU5 channel counter
+* Function Name: R_Config_DMAC0_Start
+* Description  : This function enable the DMAC0 activation
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_TPU5_Start(void)
+void R_Config_DMAC0_Start(void)
 {
-    /* Enable TGI5A interrupt in ICU */
-    IEN(PERIB, INTB164) = 1U;
-    
-    /* Start TPU channel 5 counter */
-    TPUA.TSTR.BIT.CST5 = 1U;
+    /* Enable DMAC0 interrupt in ICU */
+    IR(DMAC,DMAC0I) = 0U;
+    IEN(DMAC,DMAC0I) = 1U;
+    DMAC0.DMCNT.BIT.DTE = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_TPU5_Stop
-* Description  : This function stops the TPU5 channel counter
+* Function Name: R_Config_DMAC0_Stop
+* Description  : This function disable the DMAC0 activation
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_TPU5_Stop(void)
+void R_Config_DMAC0_Stop(void)
 {
-    /* Disable TGI5A interrupt in ICU */
-    IEN(PERIB, INTB164) = 0U;
-    
-    /* Stop TPU channel 5 counter */
-    TPUA.TSTR.BIT.CST5 = 0U;
+    /* Disable CMI0 interrupt in ICU */
+    IR(DMAC,DMAC0I) = 0U;
+    IEN(DMAC,DMAC0I) = 0U;
+    DMAC0.DMCNT.BIT.DTE = 0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

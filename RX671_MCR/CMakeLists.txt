@@ -17,6 +17,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_pincfg
     ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_config
     ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_bsp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_DMAC0
 	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_TPU5
 	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI2
 	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI10
