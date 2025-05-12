@@ -14,8 +14,8 @@
 #include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
-#include "fonts.h"
 #include "WS2812C.h"
+#include "switch.h"
 
 void main(void);
 
@@ -58,6 +58,10 @@ void main(void)
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
 		SSD1351setCursor(60,2);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
+		SSD1351setCursor(2, 35);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
+		SSD1351setCursor(40, 35);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
 
 	}
 }

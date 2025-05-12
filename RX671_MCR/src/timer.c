@@ -4,6 +4,7 @@
 #include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
+#include "switch.h"
 #include <stdbool.h>
 #include <stdint.h>
 //====================================//
@@ -24,7 +25,8 @@ void interrupt1ms(void)
 	cnt0++;
 	cnt10++;
 
-	SSD1351updateScreen();	
+	SSD1351updateScreen();
+	getSwitches();
 
 	switch (cnt10)
 	{

@@ -7,8 +7,8 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include <string.h>
-#include "r_smc_entry.h"
 #include "fonts.h"
+#include "r_smc_entry.h"
 //=====================================//
 // シンボル定義
 //=====================================//
