@@ -51,9 +51,6 @@ void main(void)
 {
 	FRESULT res;
 
-	// R_Config_SCI2_Start();
-
-	
 	R_SDHI_PinSetInit();
 	R_SDHI_PinSetDetection();
 
@@ -67,13 +64,7 @@ void main(void)
 
 	PORT7.PODR.BIT.B4 = 0; // SDカードの電源ON
 	cnt0 = 0;
-	// while (1)// SDカードの電源ON待ち
-	// {
-	// 	if (cnt0 > 1000)
-	// 	{
-	// 		break;
-	// 	}	
-	// } 
+
 	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
 
 	R_SDHI_PinSetTransfer();
@@ -87,7 +78,7 @@ void main(void)
     res = f_open(&file, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);
     if (res == FR_OK)
     {
-		f_printf(&file, "Hello SD printf %f",0.1);
+		f_printf(&file, "Hello SD printf1 %f",0.1);
         f_close(&file);
     }
 
@@ -103,25 +94,24 @@ void main(void)
     // アンマウント（任意）
     f_mount(NULL, "0:", 0);
 
-
-	// initIMU = BMI088init();
-	// SSD1351init();
+	R_Config_SCI2_Start();
+	initIMU = BMI088init();
+	SSD1351init();
 
 	// 赤枠描画
-	// for(int x = 0; x < SSD1351_WIDTH; x++) {
-    //     SSD1351drawPixel(x, 0, SSD1351_RED);
-    //     SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
-    // }
+	for(int x = 0; x < SSD1351_WIDTH; x++) {
+        SSD1351drawPixel(x, 0, SSD1351_RED);
+        SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
+    }
 
-    // for(int y = 0; y < SSD1351_HEIGHT; y++) {
-    //     SSD1351drawPixel(0, y, SSD1351_RED);
-    //     SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
-    // }
+    for(int y = 0; y < SSD1351_HEIGHT; y++) {
+        SSD1351drawPixel(0, y, SSD1351_RED);
+        SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
+    }
 
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// // R_Config_CMT0_Start(); // タイマ割り込みスタート
-	// calibratIMU = true;	// IMUキャリブレーション開始
-	// while(calibratIMU);	// キャリブレーション完了待ち
+	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	calibratIMU = true;	// IMUキャリブレーション開始
+	while(calibratIMU);	// キャリブレーション完了待ち
 	
 	// setLED(0, 5, 0, 0);
 	// setLED(1, 5, 0, 0);
@@ -131,18 +121,18 @@ void main(void)
 
 	while (1)
 	{
-		// SSD1351setCursor(2,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		// SSD1351setCursor(2,13);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		// SSD1351setCursor(2,24);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
-		// SSD1351setCursor(60,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
-		// SSD1351setCursor(2, 35);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
-		// SSD1351setCursor(40, 35);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
+		SSD1351setCursor(2,2);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
+		SSD1351setCursor(2,13);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
+		SSD1351setCursor(2,24);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
+		SSD1351setCursor(60,2);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
+		SSD1351setCursor(2, 35);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
+		SSD1351setCursor(40, 35);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
 
 	}
 }
