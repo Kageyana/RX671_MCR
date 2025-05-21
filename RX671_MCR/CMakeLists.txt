@@ -11,33 +11,43 @@ FILE (GLOB_RECURSE Source_Files ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/generate
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/general
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_pincfg
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_config
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/r_bsp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_DMAC0
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_TPU5
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI2
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI10
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI1
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_SCI0
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_S12AD1
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_S12AD0
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_PORT
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU7
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU4
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU3
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU2
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU1
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_MTU0
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_ICU
-	${CMAKE_CURRENT_SOURCE_DIR}/src/smc_gen/Config_CMT0
-	${CMAKE_CURRENT_SOURCE_DIR}/inc
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/general
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_pincfg
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_config
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_bsp
+    ${CMAKE_SOURCE_DIR}/src/smc_gen
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU1
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_TPU5
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_SCI10
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU3
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_S12AD0
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU2
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_SCI2
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU7
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_PORT
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_SCI1
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU4
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_MTU0
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_SCI0
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_ICU
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_S12AD1
+    ${CMAKE_SOURCE_DIR}/inc
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/Config_DMAC0
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_sdhi_rx
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_sdc_sdmem_rx
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_cmt_rx
+	${CMAKE_SOURCE_DIR}/src/smc_gen/r_cmt_rx/src
+	${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_rx
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_rx/src
+	${CMAKE_SOURCE_DIR}/src/smc_gen/r_sys_time_rx
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_sys_time_rx/src
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_driver_rx
+    ${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_driver_rx/src
+    
+    
 )
 
-SET(CMAKE_CXX_FLAGS "-ffunction-sections -fdata-sections -fdiagnostics-parseable-fixits -Wstack-usage=100 -g2 -misa=v3 -mlittle-endian-data -Og -fno-strict-aliasing")
+SET(CMAKE_CXX_FLAGS "-std=gnu99 -ffunction-sections -fdata-sections -fdiagnostics-parseable-fixits -Wstack-usage=100 -g2 -misa=v3 -mlittle-endian-data -Og -fno-strict-aliasing")
 SET(CMAKE_C_FLAGS ${CMAKE_CXX_FLAGS})
 SET(CMAKE_ASM_FLAGS ${CMAKE_C_FLAGS} ${ASM_OPTIONS})
 SET(CMAKE_H_COMPILER)

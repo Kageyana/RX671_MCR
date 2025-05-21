@@ -4,7 +4,9 @@
 #include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
+#include "r_sdc_sd_rx_if.h"
 #include "switch.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 //====================================//
@@ -20,13 +22,14 @@ volatile bool update_display = false;
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void interrupt1ms(void)
+void interrupt1ms(void * pdata)
 {
 	cnt0++;
 	cnt10++;
 
 	SSD1351updateScreen();
 	getSwitches();
+	R_SDC_SD_1msInterval();
 
 	switch (cnt10)
 	{

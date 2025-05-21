@@ -208,6 +208,34 @@ void R_Pins_Create(void)
     /* Set SDCLK pin */
     PORT7.PMR.BYTE |= 0x01U;
 
+    /* Set SDHI_CD pin */
+    MPC.P81PFS.BYTE = 0x1AU;
+    PORT8.PMR.BYTE |= 0x02U;
+
+    /* Set SDHI_CLK pin */
+    MPC.P77PFS.BYTE = 0x1AU;
+    PORT7.PMR.BYTE |= 0x80U;
+
+    /* Set SDHI_CMD pin */
+    MPC.P76PFS.BYTE = 0x1AU;
+    PORT7.PMR.BYTE |= 0x40U;
+
+    /* Set SDHI_D0 pin */
+    MPC.PC3PFS.BYTE = 0x1AU;
+    PORTC.PMR.BYTE |= 0x08U;
+
+    /* Set SDHI_D1 pin */
+    MPC.PC4PFS.BYTE = 0x1AU;
+    PORTC.PMR.BYTE |= 0x10U;
+
+    /* Set SDHI_D2 pin */
+    MPC.P75PFS.BYTE = 0x1AU;
+    PORT7.PMR.BYTE |= 0x20U;
+
+    /* Set SDHI_D3 pin */
+    MPC.PC2PFS.BYTE = 0x1AU;
+    PORTC.PMR.BYTE |= 0x04U;
+
     /* Set SMISO0 pin */
     MPC.P21PFS.BYTE = 0x0AU;
     PORT2.PMR.BYTE |= 0x02U;

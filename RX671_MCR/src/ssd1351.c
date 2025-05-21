@@ -249,43 +249,47 @@ void SSD1351updateScreen(void)
 	} line_buffer;
     uint8_t dummy_rx[SSD1351_WIDTH * 2];
 
-    for (uint16_t l = 0; l < LINES_PER_FRAME; l++) {
-        if (draw_line_index >= SSD1351_HEIGHT) {
-            draw_line_index = 0;
-            break;
-        }
+	if(SSD1351.Initialized)
+	{
+		for (uint16_t l = 0; l < LINES_PER_FRAME; l++) {
+			if (draw_line_index >= SSD1351_HEIGHT) {
+				draw_line_index = 0;
+				break;
+			}
 
-        uint16_t y = draw_line_index;
-		uint16_t offset = y * SSD1351_WIDTH;
+			uint16_t y = draw_line_index;
+			uint16_t offset = y * SSD1351_WIDTH;
 
-		bool changed = false;
-		// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
-        for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
-            if (SSD1351_Buffer.u16[offset + x] != SSD1351_BufferBefore.u16[offset + x]) {
-                changed = true;
-                break;
-            }
-        }
-        
-		
-		if(changed)
-		{
-			memcpy(line_buffer.u16,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
-			memcpy(&SSD1351_BufferBefore.u16[offset],&SSD1351_Buffer.u16[offset],SSD1351_WIDTH * sizeof(uint16_t));
-		
-			SSD1351setAddressWindow(0, y, SSD1351_WIDTH - 1, y);
-			SSD1351_CS_PORT = 0;
-			SSD1351_DC_PORT = 1;
+			bool changed = false;
+			// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
+			for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
+				if (SSD1351_Buffer.u16[offset + x] != SSD1351_BufferBefore.u16[offset + x]) {
+					changed = true;
+					break;
+				}
+			}
+			
+			
+			if(changed)
+			{
+				memcpy(line_buffer.u16,SSD1351_Buffer.u16+offset,SSD1351_WIDTH*2);
+				memcpy(&SSD1351_BufferBefore.u16[offset],&SSD1351_Buffer.u16[offset],SSD1351_WIDTH * sizeof(uint16_t));
+			
+				SSD1351setAddressWindow(0, y, SSD1351_WIDTH - 1, y);
+				SSD1351_CS_PORT = 0;
+				SSD1351_DC_PORT = 1;
 
-			SSD1351_SPI_FUNC(line_buffer.u8, SSD1351_WIDTH * sizeof(uint16_t), dummy_rx, SSD1351_WIDTH * sizeof(uint16_t));
-			spi_ssd1351_tx_done = false;
-			while(!spi_ssd1351_tx_done);
+				SSD1351_SPI_FUNC(line_buffer.u8, SSD1351_WIDTH * sizeof(uint16_t), dummy_rx, SSD1351_WIDTH * sizeof(uint16_t));
+				spi_ssd1351_tx_done = false;
+				while(!spi_ssd1351_tx_done);
 
-			SSD1351_CS_PORT = 1;
+				SSD1351_CS_PORT = 1;
+			}
+			
+			draw_line_index++;
 		}
-        
-        draw_line_index++;
-    }
+	}
+    
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 ssd1306_DrawPixel

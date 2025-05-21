@@ -21,7 +21,6 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_CMT0.h"
 #include "Config_ICU.h"
 #include "Config_S12AD0.h"
 #include "Config_S12AD1.h"
@@ -93,7 +92,6 @@ void R_Systeminit(void)
 
     /* Set peripheral settings */
     R_Config_PORT_Create();
-    R_Config_CMT0_Create();
     R_Config_ICU_Create();
     R_Config_S12AD0_Create();
     R_Config_S12AD1_Create();
