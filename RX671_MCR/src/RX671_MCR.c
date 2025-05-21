@@ -42,7 +42,7 @@ sdc_sd_status_t errorflg3;
 FATFS *fs;        // ファイルシステムオブジェクト
 FIL file;        // ファイルオブジェクト
 UINT bw, br;     // 書き込み／読み込みバイト数
-char write_data[] = "Hello, RX SD card!\r\n";
+char write_data[] = "Hello, RX1 SD card!\r\n";
 char read_buf[64];
 
 void main(void);
@@ -87,7 +87,7 @@ void main(void)
     res = f_open(&file, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);
     if (res == FR_OK)
     {
-        f_write(&file, write_data, strlen(write_data), &bw);
+		f_printf(&file, "Hello SD printf %f",0.1);
         f_close(&file);
     }
 
@@ -95,8 +95,8 @@ void main(void)
     res = f_open(&file, "0:test.txt", FA_READ);
     if (res == FR_OK)
     {
-        f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
-        read_buf[br] = '\0';  // NULL終端
+        // f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
+		f_gets(read_buf, sizeof(read_buf), &file);
         f_close(&file);
     }
 
