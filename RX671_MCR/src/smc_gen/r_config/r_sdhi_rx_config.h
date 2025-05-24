@@ -58,7 +58,7 @@ Macro definitions
 /* #define for parameter checking */
 #define SDHI_CFG_PARAM_CHECKING_ENABLE  (1)         /* Parameter Checking Active */
 
-#define SDHI_CFG_LONGQ_ENABLE           /* SDHI_CFG_LONGQ_ENABLE */
+/* #define SDHI_CFG_LONGQ_ENABLE */
 
 /**********************************************************************************************************************
 Exported global functions (to be accessed by other files)

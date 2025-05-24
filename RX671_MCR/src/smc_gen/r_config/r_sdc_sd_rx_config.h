@@ -37,7 +37,7 @@ Macro definitions
 
 #define SDC_SD_CFG_STATUS_CHECK_MODE        (SDC_SD_MODE_POLL) /* <-- Updated by GUI. */
 #define SDC_SD_CFG_TRANSFER                 (SDC_SD_MODE_SW)    /* <-- Updated by GUI. */
-#define SDC_SD_CFG_ERROR_LOG_ACQUISITION    (1)                 /* <-- Updated by GUI. */
+#define SDC_SD_CFG_ERROR_LOG_ACQUISITION    (0)                 /* <-- Updated by GUI. */
 
 /****************************************************************************************/
 /*  Change following definition according to your target.                               */

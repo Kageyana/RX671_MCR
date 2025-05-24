@@ -48,7 +48,7 @@ void main(void)
 	{
 		// 既存マウントを解除（安全のため）
 		fs = malloc(sizeof (FATFS));
-		res = f_mount(fs, "0:", 1);
+		res = f_mount(fs, "0:", 0);
 
 		// 書き込みテスト：ファイル新規作成
 		res = f_open(&file, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);

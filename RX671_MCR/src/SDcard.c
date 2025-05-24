@@ -2,11 +2,10 @@
 // インクルード
 //====================================//
 #include "SDcard.h"
-#include "r_longq_if.h"
-#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
+uint32_t sdWorkarea[200 / sizeof(uint32_t)];
 
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SDcardinit
@@ -16,14 +15,12 @@
 /////////////////////////////////////////////////////////////////////
 sdc_sd_status_t SDcardinit(void)
 {
-	uint32_t work[200 / sizeof(uint32_t)];
 	sdc_sd_cfg_t sdc_sd_config;
-	uint32_t errorlog;
 
 	// ピン設定
 	R_SDHI_PinSetInit();
 
-	if(R_SDC_SD_Open(SD_CARD_NO, SDHI_CH0, work) == SDC_SD_SUCCESS)
+	if(R_SDC_SD_Open(SD_CARD_NO, SDHI_CH0, sdWorkarea) == SDC_SD_SUCCESS)
 	{
 		// SDカードの初期化に成功
 
