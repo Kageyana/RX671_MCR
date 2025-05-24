@@ -8265,7 +8265,7 @@
             <component description="依存モジュール: r_bsp バージョン 7.53&#10;依存モジュール: r_sdhi_rx バージョン 2.12&#10;This driver is a block type device driver to control the SD mode SD memory card using SD Host Interface (SDHI)." detailDescription="SD Mode SD Memory Card Driver" display="r_sdc_sdmem_rx" id="r_sdc_sdmem_rx3.01" version="3.01">
                 <gridItem id="SDC_SD_CFG_STATUS_CHECK_MODE" selectedIndex="1"/>
                 <gridItem id="SDC_SD_CFG_TRANSFER" selectedIndex="0"/>
-                <gridItem id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" selectedIndex="0"/>
+                <gridItem id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
@@ -8296,7 +8296,7 @@
                 <gridItem id="SDHI_CFG_SDOPT_CTOP" selectedIndex="14"/>
                 <gridItem id="SDHI_CFG_SDOPT_TOP" selectedIndex="14"/>
                 <gridItem id="SDHI_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="SDHI_CFG_LONGQ_ENABLE" selectedIndex="0"/>
+                <gridItem id="SDHI_CFG_LONGQ_ENABLE" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
