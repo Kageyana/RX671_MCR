@@ -31,6 +31,7 @@ Diagnostics:
     - -Winvalid-token-paste # for invalid pragma
     - -Wmain-return-type # for void main(void or arguments)
     - unused-includes
+    - -Wpointer-sign
 
 InlayHints:
   Enabled: true        # InlayHintsスイッチ

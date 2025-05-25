@@ -35,40 +35,11 @@ void main(void)
 	volatile FRESULT res;
 
 	// タイマ割り込み開始(1ms)
-	R_CMT_CreatePeriodicAssignChannelPriority(1000, &interrupt1ms, CMT_CHANNEL, (cmt_priority_t)CMT_PRIORITY_5);
-
+	R_CMT_CreatePeriodicAssignChannelPriority(1000
+											, &interrupt1ms
+											, CMT_CHANNEL
+											, (cmt_priority_t)CMT_PRIORITY_5);
 	R_DMACA_Init(); // DMAC内部情報を初期化
-
-	if(SDcardinit() == SDC_SD_SUCCESS)
-	{
-		// // 既存マウントを解除（安全のため）
-		fs = malloc(sizeof (FATFS));
-		res = f_mount(fs, "", 1);
-
-		// // 書き込みテスト：ファイル新規作成
-		// res = f_open(&file, "test2.txt", FA_CREATE_ALWAYS | FA_WRITE);
-		// if (res == FR_OK)
-		// {
-		// 	f_printf(&file, "Hello SD printf1 %f",0.1);
-		// 	f_close(&file);
-		// }
-
-		// // 読み込みテスト
-		// res = f_open(&file, "test2.txt", FA_READ);
-		// if (res == FR_OK)
-		// {
-		// 	// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
-		// 	f_gets(read_buf, sizeof(read_buf), &file);
-		// 	f_close(&file);
-		// }
-
-		// // アンマウント（任意）
-		// f_mount(NULL, "", 0);
-
-		
-	}
-
-	
 
 	R_Config_SCI2_Start();
 	BMI088init();
@@ -89,16 +60,17 @@ void main(void)
 	calibratIMU = true;	// IMUキャリブレーション開始
 	while(calibratIMU);	// キャリブレーション完了待ち
 	
-	res = logCreate();
-	if (res == FR_OK)
+	if(SDcardinit() == SDC_SD_SUCCESS)
 	{
-		loggingSDcard = 1;
-		cnt0 = 0;
+		res = logCreate();
+		if (res == FR_OK)
+		{
+			loggingSDcard = 1;
+			cnt0 = 0;
+		}
 	}
 	
-
 	// initLED();
-	
 	// setLED(0, 255, 0, 0);
 	// setLED(1, 255, 0, 0);
 	// setLED(2, 255, 0, 0);
@@ -126,6 +98,7 @@ void main(void)
 		{
 			loggingSDcard = 0;
 			f_close(&file);
+			SDcardend();
 		}
 
 	}
