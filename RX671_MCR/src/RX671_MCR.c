@@ -23,6 +23,7 @@
 #include "WS2812C.h"
 #include "switch.h"
 #include "SDcard.h"
+#include "encoder.h"
 
 #define CMT_CHANNEL 0
 
@@ -70,7 +71,7 @@ void main(void)
 	// 	}
 	// }
 
-	R_Config_MTU2_Start();
+	Encoderinit();
 	
 	// initLED();
 	// setLED(0, 255, 0, 0);
@@ -95,9 +96,9 @@ void main(void)
 		SSD1351setCursor(85, 38);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
 		SSD1351setCursor(2, 50);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
 		// SSD1351setCursor(2, 62);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d",MTU2.TCNT);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
 
 		if(cnt0 > 10000 && loggingSDcard)
 		{

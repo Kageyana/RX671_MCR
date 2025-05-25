@@ -39,6 +39,7 @@ void interrupt1ms(void * pdata)
 	
 	getSwitches();
 	R_SDC_SD_1msInterval();
+	Encodergetval();
 
 	switch (cnt10)
 	{
