@@ -48,7 +48,12 @@ void initLED(void)
 	retDMA = R_DMACA_Int_Callback(DMACA_CH0,ledDMAinterrupt); // DMAC0の割り込みコールバック関数設定
 
 }
-
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 ledDMAinterrupt
+// 処理概要     DMA割り込みハンドラ
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
 void ledDMAinterrupt(void)
 {
     if (DMAC0.DMSTS.BIT.DTIF == 1U)

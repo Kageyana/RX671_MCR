@@ -34,6 +34,7 @@ void main(void)
 {
 	volatile FRESULT res;
 
+	// タイマ割り込み開始(1ms)
 	R_CMT_CreatePeriodicAssignChannelPriority(1000, &interrupt1ms, CMT_CHANNEL, (cmt_priority_t)CMT_PRIORITY_5);
 
 	R_DMACA_Init(); // DMAC内部情報を初期化
@@ -42,7 +43,7 @@ void main(void)
 	{
 		// 既存マウントを解除（安全のため）
 		fs = malloc(sizeof (FATFS));
-		res = f_mount(fs, "", 0);
+		res = f_mount(fs, "", 1);
 
 		// 書き込みテスト：ファイル新規作成
 		res = f_open(&file, "test2.txt", FA_CREATE_ALWAYS | FA_WRITE);
@@ -63,7 +64,11 @@ void main(void)
 
 		// アンマウント（任意）
 		// f_mount(NULL, "", 0);
+
+		// logCreate();
 	}
+
+	
 
 	R_Config_SCI2_Start();
 	BMI088init();
@@ -92,13 +97,13 @@ void main(void)
 	// 	cnt0 = 0;
 	// }
 
-	initLED();
+	// initLED();
 	
-	setLED(0, 255, 0, 0);
-	setLED(1, 255, 0, 0);
-	setLED(2, 255, 0, 0);
-	setLED(3, 255, 0, 0);
-	sendLED();
+	// setLED(0, 255, 0, 0);
+	// setLED(1, 255, 0, 0);
+	// setLED(2, 255, 0, 0);
+	// setLED(3, 255, 0, 0);
+	// sendLED();
 
 	while (1)
 	{

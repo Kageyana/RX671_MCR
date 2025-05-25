@@ -14,6 +14,8 @@
 #include "timer.h"
 
 #include <stdint.h>
+#include <string.h>
+#include <stdio.h>
 //====================================//
 // シンボル定義
 //====================================//
@@ -32,12 +34,13 @@
 extern uint8_t initSDcard;
 extern uint8_t loggingSDcard;
 
-extern FATFS *fs;        // ファイルシステムオブジェクト
-extern FIL file;        // ファイルオブジェクト
+extern volatile FATFS *fs;        // ファイルシステムオブジェクト
+extern volatile FIL file;        // ファイルオブジェクト
 //====================================//
 // プロトタイプ宣言
 //====================================//
 sdc_sd_status_t SDcardinit(void);
-
-
+void logCreate(void);
+static void r_dmaca_disable(void);
+static void r_dmaca_close(void);
 #endif // SDCARD_H_

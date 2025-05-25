@@ -6,7 +6,7 @@
 #include "SDcard.h"
 #include "ssd1351.h"
 #include "r_sdc_sd_rx_if.h"
-#include "switch.h"
+#include "r_dmaca_rx_if.h"
 
 #include "ff.h"
 #include "diskio.h"
