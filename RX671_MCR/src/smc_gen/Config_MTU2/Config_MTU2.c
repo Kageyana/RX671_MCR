@@ -58,7 +58,7 @@ void R_Config_MTU2_Create(void)
     MTU2.TCR.BYTE = _00_MTU_CKCL_DIS;
     MTU2.TIER.BYTE = _00_MTU_TGIEA_DISABLE | _00_MTU_TGIEB_DISABLE | _00_MTU_TCIEV_DISABLE | _00_MTU_TCIEU_DISABLE | 
                      _00_MTU_TTGE_DISABLE;
-    MTU2.TIOR.BYTE = _07_MTU_IOA_HT | _00_MTU_IOB_DISABLE;
+    MTU2.TIOR.BYTE = _00_MTU_IOA_DISABLE | _00_MTU_IOB_DISABLE;
     MTU2.TGRA = _0063_TGRA2_VALUE;
     MTU2.TGRB = _0063_TGRB2_VALUE;
 
@@ -69,10 +69,6 @@ void R_Config_MTU2_Create(void)
     /* Set MTCLKD pin */
     MPC.PA3PFS.BYTE = 0x02U;
     PORTA.PMR.BYTE |= 0x08U;
-
-    /* Set MTIOC2A pin */
-    MPC.PB5PFS.BYTE = 0x01U;
-    PORTB.PMR.BYTE |= 0x20U;
 
     R_Config_MTU2_Create_UserInit();
 }

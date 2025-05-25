@@ -582,7 +582,6 @@
         <pinItem allocation="A4" comments="" direction="None" id="AN002" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="B5" comments="" direction="None" id="AN003" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="E5" comments="" direction="None" id="AN004" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K13" comments="" direction="None" id="MTIOC2A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="E3" comments="" direction="I" id="PJ5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="D4" comments="" direction="None" id="AN110" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="D1" comments="" direction="None" id="AN111" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -6796,7 +6795,7 @@
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
                     <item id="TGRBValue" input="100" vlaue="99"/>
                 </option>
-                <option enabled="true" id="TIOCApin" selection="Output_1t">
+                <option enabled="true" id="TIOCApin" selection="OutputDisabled">
                     <item id="OutputDisabled" input="" vlaue="0"/>
                     <item id="Output_00" input="" vlaue="0"/>
                     <item id="Output_01" input="" vlaue="0"/>
@@ -7970,7 +7969,7 @@
         <configuration inuse="true" name="r_sdc_sdmem_rx">
             <component description="依存モジュール: r_bsp バージョン 7.53&#10;依存モジュール: r_sdhi_rx バージョン 2.12&#10;This driver is a block type device driver to control the SD mode SD memory card using SD Host Interface (SDHI)." detailDescription="SD Mode SD Memory Card Driver" display="r_sdc_sdmem_rx" id="r_sdc_sdmem_rx3.01" version="3.01">
                 <gridItem id="SDC_SD_CFG_STATUS_CHECK_MODE" selectedIndex="1"/>
-                <gridItem id="SDC_SD_CFG_TRANSFER" selectedIndex="0"/>
+                <gridItem id="SDC_SD_CFG_TRANSFER" selectedIndex="1"/>
                 <gridItem id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>

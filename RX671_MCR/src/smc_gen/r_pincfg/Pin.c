@@ -165,10 +165,6 @@ void R_Pins_Create(void)
     MPC.P32PFS.BYTE = 0x01U;
     PORT3.PMR.BYTE |= 0x04U;
 
-    /* Set MTIOC2A pin */
-    MPC.PB5PFS.BYTE = 0x01U;
-    PORTB.PMR.BYTE |= 0x20U;
-
     /* Set MTIOC3A pin */
     MPC.PC1PFS.BYTE = 0x01U;
     PORTC.PMR.BYTE |= 0x02U;

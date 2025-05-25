@@ -53,7 +53,6 @@
         <Setting id="PB0" value="PB0"/>
         <Setting id="PB3" value="PB3"/>
         <Setting id="PB2" value="PB2"/>
-        <Setting id="PB5" value="MTIOC2A"/>
         <Setting id="PB4" value="PB4"/>
         <Setting id="PB7" value="PB7"/>
         <Setting id="RES#" value="RES#"/>
@@ -365,7 +364,7 @@
             <Setting id="TGRBFunction" value="Output"/>
             <Setting id="EnableTCIU" value="Disable"/>
             <Setting id="Externalclock" value="ExtCD"/>
-            <Setting id="TIOCApin" value="Output_1t"/>
+            <Setting id="TIOCApin" value="OutputDisabled"/>
             <Setting id="IntAPriority" value="Level15"/>
             <Setting id="NoiseClock" value="PCLK"/>
             <Setting id="IntUPriority" value="Level15"/>
@@ -530,7 +529,7 @@
         <Segment component="r_sdc_sdmem_rx3.01" id="r_sdc_sdmem_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" value="0"/>
             <Setting id="SDC_SD_CFG_STATUS_CHECK_MODE" value="SDC_SD_MODE_POLL"/>
-            <Setting id="SDC_SD_CFG_TRANSFER" value="SDC_SD_MODE_SW"/>
+            <Setting id="SDC_SD_CFG_TRANSFER" value="SDC_SD_MODE_DMA"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="Invert" value="InvNM"/>

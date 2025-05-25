@@ -69,6 +69,8 @@ void main(void)
 	// 		cnt0 = 0;
 	// 	}
 	// }
+
+	R_Config_MTU2_Start();
 	
 	// initLED();
 	// setLED(0, 255, 0, 0);
@@ -93,7 +95,9 @@ void main(void)
 		SSD1351setCursor(85, 38);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
 		SSD1351setCursor(2, 50);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		// SSD1351setCursor(2, 62);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d",MTU2.TCNT);
 
 		if(cnt0 > 10000 && loggingSDcard)
 		{
