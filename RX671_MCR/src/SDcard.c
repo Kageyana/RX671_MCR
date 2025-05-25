@@ -50,7 +50,7 @@ sdc_sd_status_t SDcardinit(void)
 		sdc_sd_config.voltage = SDC_SD_VOLT_3_3;
 
 		SDCARD_POWER = SDCARD_POWER_ON; // SDカードの電源ON
-		R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS); // SDカード電源が安定するまで待機
+		R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS); // SDカード電源が安定するまで待機
 
 		R_SDHI_PinSetTransfer();	// SDHIピンを転送モードに設定
 
@@ -141,7 +141,7 @@ FRESULT logCreate(void)
 		}
 
 		sprintf(fileName, "%d", fileNumber);	// 数値を文字列に変換
-		strcat(fileName, ".txt");				// 拡張子を追加
+		strcat(fileName, ".csv");				// 拡張子を追加
 
 		// ログヘッダー、フォーマット文字列の生成
 		strcpy(columnTitle, "");
@@ -165,7 +165,7 @@ FRESULT logCreate(void)
 		if (fresult == FR_OK)
 		{
 			// ヘッダー書き込み
-			fresult = f_printf(&fil_W, columnTitle);
+			fresult = f_printf(&file, columnTitle);
 			return FR_OK;
 		}
 
@@ -221,8 +221,8 @@ static void r_dmaca_close(void)
 /////////////////////////////////////////////////////////////////////
 void setLogStr(uint8_t *column, uint8_t *format)
 {
-	strcat(columnTitle, ",");
-	strcat(formatLog, ",");
 	strcat(columnTitle, column);
 	strcat(formatLog, format);
+	strcat(columnTitle, ",");
+	strcat(formatLog, ",");
 }
