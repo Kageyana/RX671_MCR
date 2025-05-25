@@ -9,8 +9,8 @@ uint32_t sdWorkarea[200 / sizeof(uint32_t)];
 uint8_t initSDcard = 0;
 uint8_t loggingSDcard = 0;
 
-volatile FATFS *fs;        // ファイルシステムオブジェクト
-volatile FIL file;        // ファイルオブジェクト
+FATFS *fs;        // ファイルシステムオブジェクト
+FIL file;        // ファイルオブジェクト
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SDcardinit
 // 処理概要  	SDカードの初期化
@@ -76,7 +76,7 @@ sdc_sd_status_t SDcardinit(void)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void logCreate(void)
+FRESULT logCreate(void)
 {
 	FRESULT fresult;
 	DIR dir;	 // Directory
@@ -84,7 +84,7 @@ void logCreate(void)
 	FILINFO fno; // File Info
 	uint8_t *tp, fileName[10];
 	uint16_t fileNumber = 0;
-	uint8_t read_buf[64];
+	static uint8_t read_buf[64];
 	UINT bw, br;     // 書き込み／読み込みバイト数
 	char write_data[] = "Hello, SD card world for DMAC!\r\n";
 
@@ -122,18 +122,20 @@ void logCreate(void)
 		fresult = f_open(&file, fileName, FA_OPEN_ALWAYS | FA_WRITE);
 		if (fresult == FR_OK)
 		{
-			f_write(&file, write_data, strlen(write_data), &bw);
-			fresult = f_close(&file); // create file
+			// f_write(&file, write_data, strlen(write_data), &bw);
+			f_printf(&file, "time,gz,temp\n");
+			// fresult = f_close(&file); // create file
+			return FR_OK;
 		}
 
-		// 読み込みテスト
-		fresult = f_open(&file, fileName, FA_READ);
-		if (fresult == FR_OK)
-		{
-			// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
-			f_gets(read_buf, sizeof(read_buf), &file);
-			f_close(&file);
-		}
+		// // 読み込みテスト
+		// fresult = f_open(&file, fileName, FA_READ);
+		// if (fresult == FR_OK)
+		// {
+		// 	// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
+		// 	f_gets(read_buf, sizeof(read_buf), &file);
+		// 	f_close(&file);
+		// }
 	}
 	
 }

@@ -41,31 +41,31 @@ void main(void)
 
 	if(SDcardinit() == SDC_SD_SUCCESS)
 	{
-		// 既存マウントを解除（安全のため）
+		// // 既存マウントを解除（安全のため）
 		fs = malloc(sizeof (FATFS));
 		res = f_mount(fs, "", 1);
 
-		// 書き込みテスト：ファイル新規作成
-		res = f_open(&file, "test2.txt", FA_CREATE_ALWAYS | FA_WRITE);
-		if (res == FR_OK)
-		{
-			f_printf(&file, "Hello SD printf1 %f",0.1);
-			f_close(&file);
-		}
+		// // 書き込みテスト：ファイル新規作成
+		// res = f_open(&file, "test2.txt", FA_CREATE_ALWAYS | FA_WRITE);
+		// if (res == FR_OK)
+		// {
+		// 	f_printf(&file, "Hello SD printf1 %f",0.1);
+		// 	f_close(&file);
+		// }
 
-		// 読み込みテスト
-		res = f_open(&file, "test2.txt", FA_READ);
-		if (res == FR_OK)
-		{
-			// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
-			f_gets(read_buf, sizeof(read_buf), &file);
-			f_close(&file);
-		}
+		// // 読み込みテスト
+		// res = f_open(&file, "test2.txt", FA_READ);
+		// if (res == FR_OK)
+		// {
+		// 	// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
+		// 	f_gets(read_buf, sizeof(read_buf), &file);
+		// 	f_close(&file);
+		// }
 
-		// アンマウント（任意）
+		// // アンマウント（任意）
 		// f_mount(NULL, "", 0);
 
-		// logCreate();
+		
 	}
 
 	
@@ -89,13 +89,13 @@ void main(void)
 	calibratIMU = true;	// IMUキャリブレーション開始
 	while(calibratIMU);	// キャリブレーション完了待ち
 	
-	// res = f_open(&file, "imulog.csv", FA_CREATE_ALWAYS | FA_WRITE);
-	// if (res == FR_OK)
-	// {
-	// 	f_printf(&file, "time,gz,temp\n");
-	// 	loggingSDcard = 1;
-	// 	cnt0 = 0;
-	// }
+	res = logCreate();
+	if (res == FR_OK)
+	{
+		loggingSDcard = 1;
+		cnt0 = 0;
+	}
+	
 
 	// initLED();
 	
@@ -122,11 +122,11 @@ void main(void)
 		SSD1351setCursor(2, 46);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt0:%5d log:%d",cnt0, loggingSDcard);
 
-		// if(cnt0 > 2000 && loggingSDcard)
-		// {
-		// 	loggingSDcard = 0;
-		// 	f_close(&file);
-		// }
+		if(cnt0 > 2000 && loggingSDcard)
+		{
+			loggingSDcard = 0;
+			f_close(&file);
+		}
 
 	}
 }

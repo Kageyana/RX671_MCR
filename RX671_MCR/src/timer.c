@@ -7,6 +7,7 @@
 #include "ssd1351.h"
 #include "r_sdc_sd_rx_if.h"
 #include "r_dmaca_rx_if.h"
+#include "switch.h"
 
 #include "ff.h"
 #include "diskio.h"
@@ -31,7 +32,11 @@ void interrupt1ms(void * pdata)
 	cnt0++;
 	cnt10++;
 
-	// SSD1351updateScreen();
+	if(!loggingSDcard)
+	{
+		SSD1351updateScreen();
+	}
+	
 	getSwitches();
 	R_SDC_SD_1msInterval();
 
@@ -57,8 +62,10 @@ void interrupt1ms(void * pdata)
 	case 3:
 		if(initSDcard && loggingSDcard)
 		{
-			f_printf(&file, "%d,%f,%f\n"
+			f_printf(&file, "%d,%f,%f,%f,%f\n"
 				,cnt0
+				,BMI088val.gyro.x
+				,BMI088val.gyro.y
 				,BMI088val.gyro.z
 				,BMI088val.temp);
 		}

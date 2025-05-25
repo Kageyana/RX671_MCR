@@ -19,7 +19,8 @@
 //====================================//
 // シンボル定義
 //====================================//
-#define SD_CARD_NO 0
+#define SD_CARD_NO SDC_SD_CARD_NO0
+#define USE_DMA
 
 /************* 自動生成関数 **************/
 // CD pin
@@ -34,13 +35,13 @@
 extern uint8_t initSDcard;
 extern uint8_t loggingSDcard;
 
-extern volatile FATFS *fs;        // ファイルシステムオブジェクト
-extern volatile FIL file;        // ファイルオブジェクト
+extern FATFS *fs;        // ファイルシステムオブジェクト
+extern FIL file;        // ファイルオブジェクト
 //====================================//
 // プロトタイプ宣言
 //====================================//
 sdc_sd_status_t SDcardinit(void);
-void logCreate(void);
+FRESULT logCreate(void);
 static void r_dmaca_disable(void);
 static void r_dmaca_close(void);
 #endif // SDCARD_H_

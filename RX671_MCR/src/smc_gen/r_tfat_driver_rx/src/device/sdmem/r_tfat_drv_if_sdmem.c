@@ -35,14 +35,15 @@ Includes   <System Includes> , "Project Includes"
 #include "src/r_sdc_sd_rx_private.h"
 
 #include "r_dmaca_rx_if.h"
+#include "SDcard.h"
 /*******************************************************************************
 Macro definitions
 *******************************************************************************/
 #define SDMEM_PRV_CSD_SHIT_7                  (7)
 #define SDMEM_PRV_CSD_ERASE_BLOCK_MASK        (0x0000007f)
 
-// #define USE_DMA
-#define SD_CARD_NO (0)
+#define USE_DMA
+#define SD_CARD_NO (SDC_SD_CARD_NO0)
 #define SDC_SD_WRITE_OP	(0)
 #define SDC_SD_READ_OP	(1)
 /******************************************************************************
@@ -57,7 +58,7 @@ static void r_dmaca_set_send(dmaca_transfer_data_cfg_t *p_data_cfg, sdc_sd_acces
 /******************************************************************************
 Private global variables and functions
 *******************************************************************************/
-uint32_t reg_buff = 0;
+
 /**********************************************************************************************************************
 * Function Name: sdmem_disk_initialize
 *******************************************************************************************************************//**
@@ -78,11 +79,6 @@ DSTATUS sdmem_disk_initialize(uint8_t drive)
 #ifdef USE_DMA
 	// Initialize DMACA
 	r_dmaca_open();
-	// Get Buffer Register Address
-	if (R_SDC_SD_GetBuffRegAddress(SD_CARD_NO, &reg_buff) != SDC_SD_SUCCESS)
-    {
-        return RES_ERROR;
-    }
 #endif
 
     return RES_OK;
@@ -129,6 +125,7 @@ DRESULT sdmem_disk_read (
     sdmem_Access.cnt    = sector_count;
 
 #ifdef USE_DMA
+	uint32_t reg_buff = 0;
 	if (R_SDC_SD_GetBuffRegAddress(SD_CARD_NO, &reg_buff) != SDC_SD_SUCCESS)
     {
         return RES_ERROR;
@@ -193,6 +190,7 @@ DRESULT sdmem_disk_write (
     sdmem_Access.write_mode = SDC_SD_WRITE_OVERWRITE;
 
 #ifdef USE_DMA
+	uint32_t reg_buff = 0;
 	if (R_SDC_SD_GetBuffRegAddress(SD_CARD_NO, &reg_buff) != SDC_SD_SUCCESS)
     {
         return RES_ERROR;
@@ -383,7 +381,7 @@ void SDcardDMAinterrupt(void)
 ///////////////////////////////////////////////////////////////////////////
 static void r_dmaca_open(void)
 {
-    dmaca_return_t  ret_dmaca = DMACA_SUCCESS;
+    volatile dmaca_return_t  ret_dmaca = DMACA_SUCCESS;
     
     ret_dmaca = R_DMACA_Open(DMACA_CH1);
     if (DMACA_SUCCESS != ret_dmaca)
@@ -413,7 +411,7 @@ static void r_dmaca_open(void)
 ///////////////////////////////////////////////////////////////////////////
 static void r_dmaca_enable(sdc_sd_access_t * p_sdc_sd_access, uint8_t op_mode, uint32_t reg_buff)
 {
-    dmaca_return_t  ret_dmaca = DMACA_SUCCESS;
+	volatile dmaca_return_t  ret_dmaca = DMACA_SUCCESS;
     dmaca_transfer_data_cfg_t   p_data_cfg_dmac;
     dmaca_stat_t                p_stat_dmaca;
 
@@ -426,13 +424,13 @@ static void r_dmaca_enable(sdc_sd_access_t * p_sdc_sd_access, uint8_t op_mode, u
         r_dmaca_set_recv(&p_data_cfg_dmac, p_sdc_sd_access, reg_buff, IR_SDHI_SBFAI);
     }
 
-    ret_dmaca = R_DMACA_Create(DMACA_CH0, (dmaca_transfer_data_cfg_t *)&p_data_cfg_dmac);
+    ret_dmaca = R_DMACA_Create(DMACA_CH1, (dmaca_transfer_data_cfg_t *)&p_data_cfg_dmac);
     if (DMACA_SUCCESS != ret_dmaca)
     {
         return; 
     }
 
-    ret_dmaca = R_DMACA_Control(DMACA_CH0, DMACA_CMD_ENABLE, (dmaca_stat_t*)&p_stat_dmaca);
+    ret_dmaca = R_DMACA_Control(DMACA_CH1, DMACA_CMD_ENABLE, (dmaca_stat_t*)&p_stat_dmaca);
     if (DMACA_SUCCESS != ret_dmaca)
     {
         return;
