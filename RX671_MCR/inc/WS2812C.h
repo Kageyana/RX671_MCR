@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "r_smc_entry.h"
+#include "r_dmaca_rx_if.h"
 //====================================//
 // シンボル定義
 //====================================//
@@ -28,6 +29,8 @@ extern volatile bool dma_done_flag;
 //====================================//
 // プロトタイプ宣言
 //====================================//
+void initLED(void);
+void ledDMAinterrupt(void);
 void setLED(int LEDnum, int Red, int Green, int Blue);
 void sendLED(void);
 void fullColorLED(uint8_t brightness, uint8_t add);

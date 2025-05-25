@@ -47,8 +47,8 @@ Macro definitions
 #endif  /* #if (SDHI_CFG_CH1_INCLUDED == 1) */
 
 /* #define for SDHI clock DIV */
-#define SDHI_CFG_DIV_HIGH_SPEED         (SDHI_DIV_2)
-#define SDHI_CFG_DIV_DEFAULT_SPEED      (SDHI_DIV_4)
+#define SDHI_CFG_DIV_HIGH_SPEED         (SDHI_DIV_1)
+#define SDHI_CFG_DIV_DEFAULT_SPEED      (SDHI_DIV_2)
 #define SDHI_CFG_DIV_INIT_SPEED         (SDHI_DIV_256)
 
 /* #define for SDHI time out count */

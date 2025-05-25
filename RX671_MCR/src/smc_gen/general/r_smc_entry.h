@@ -34,7 +34,6 @@ Includes
 #include "Config_MTU4.h"
 #include "Config_MTU7.h"
 #include "Config_TPU5.h"
-#include "Config_DMAC0.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

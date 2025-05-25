@@ -138,7 +138,7 @@ bool BMI088init(void)
 		R_BSP_SoftwareDelay(100,BSP_DELAY_MILLISECS);
 		BMI088writeByte(GYRO, REG_GYRO_BANDWISTH, 0x03); // ODRを400Hz バンドフィルタ47Hzに設定
 
-		// モード変更
+		BMI088val.Initialized = 1;
 
 		return true;
 	}

@@ -7,6 +7,9 @@
 #include "r_sdc_sd_rx_if.h"
 #include "r_sdhi_rx_if.h"
 #include "r_pinset.h"
+#include "r_dmaca_rx_if.h"
+#include "ff.h"
+#include "diskio.h"
 
 #include "timer.h"
 
@@ -26,7 +29,11 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
+extern uint8_t initSDcard;
+extern uint8_t loggingSDcard;
 
+extern FATFS *fs;        // ファイルシステムオブジェクト
+extern FIL file;        // ファイルオブジェクト
 //====================================//
 // プロトタイプ宣言
 //====================================//

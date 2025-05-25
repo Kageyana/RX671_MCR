@@ -43,8 +43,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/smc_gen/r_sys_time_rx/src
     ${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_driver_rx
     ${CMAKE_SOURCE_DIR}/src/smc_gen/r_tfat_driver_rx/src
-    
-    
+	${CMAKE_SOURCE_DIR}/src/smc_gen/r_dmaca_rx
+	${CMAKE_SOURCE_DIR}/src/smc_gen/r_dmaca_rx/src
 )
 
 SET(CMAKE_CXX_FLAGS "-std=gnu99 -ffunction-sections -fdata-sections -fdiagnostics-parseable-fixits -Wstack-usage=100 -g2 -misa=v3 -mlittle-endian-data -Og -fno-strict-aliasing")

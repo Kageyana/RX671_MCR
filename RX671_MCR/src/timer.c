@@ -3,9 +3,13 @@
 //====================================//
 #include "timer.h"
 #include "BMI088.h"
+#include "SDcard.h"
 #include "ssd1351.h"
 #include "r_sdc_sd_rx_if.h"
 #include "switch.h"
+
+#include "ff.h"
+#include "diskio.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -27,7 +31,7 @@ void interrupt1ms(void * pdata)
 	cnt0++;
 	cnt10++;
 
-	SSD1351updateScreen();
+	// SSD1351updateScreen();
 	getSwitches();
 	R_SDC_SD_1msInterval();
 
@@ -35,7 +39,7 @@ void interrupt1ms(void * pdata)
 	{
 	case 1:
 		
-		if(initIMU && !calibratIMU)
+		if(BMI088val.Initialized && !calibratIMU)
 		{
 			BMI088getGyro(); // 角速度取得
 			BMI088getTemp();
@@ -48,6 +52,15 @@ void interrupt1ms(void * pdata)
 		if(calibratIMU)
 		{
 			calibrationIMU();
+		}
+		break;
+	case 3:
+		if(initSDcard && loggingSDcard)
+		{
+			f_printf(&file, "%d,%f,%f\n"
+				,cnt0
+				,BMI088val.gyro.z
+				,BMI088val.temp);
 		}
 		break;
 	case 10:

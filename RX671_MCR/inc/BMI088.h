@@ -68,8 +68,7 @@ typedef struct
 	float temp;
 	uint8_t Aid;
 	uint8_t Gid;
-	uint8_t aaa;
-	uint8_t bbb;
+	uint8_t Initialized;
 } IMUval;
 //====================================//
 // グローバル変数の宣言

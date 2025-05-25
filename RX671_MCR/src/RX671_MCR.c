@@ -11,13 +11,11 @@
 ***********************************************************************************************************************/
 #include "r_smc_entry.h"
 #include "r_cmt_rx_if.h"
+#include "r_dmaca_rx_if.h"
 
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-
-#include "ff.h"
-#include "diskio.h"
 
 #include "timer.h"
 #include "BMI088.h"
@@ -28,10 +26,6 @@
 
 #define CMT_CHANNEL 0
 
-FATFS *fs;        // ファイルシステムオブジェクト
-FIL file;        // ファイルオブジェクト
-UINT bw, br;     // 書き込み／読み込みバイト数
-char write_data[] = "Hello, RX1 SD card!\r\n";
 char read_buf[64];
 
 void main(void);
@@ -39,19 +33,19 @@ void main(void);
 void main(void)
 {
 	volatile FRESULT res;
-	volatile sdc_sd_status_t errorflg;
 
 	R_CMT_CreatePeriodicAssignChannelPriority(1000, &interrupt1ms, CMT_CHANNEL, (cmt_priority_t)CMT_PRIORITY_5);
 
-	errorflg = SDcardinit();
-	if(errorflg == SDC_SD_SUCCESS)
+	R_DMACA_Init(); // DMAC内部情報を初期化
+
+	if(SDcardinit() == SDC_SD_SUCCESS)
 	{
 		// 既存マウントを解除（安全のため）
 		fs = malloc(sizeof (FATFS));
-		res = f_mount(fs, "0:", 0);
+		res = f_mount(fs, "", 0);
 
 		// 書き込みテスト：ファイル新規作成
-		res = f_open(&file, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);
+		res = f_open(&file, "test2.txt", FA_CREATE_ALWAYS | FA_WRITE);
 		if (res == FR_OK)
 		{
 			f_printf(&file, "Hello SD printf1 %f",0.1);
@@ -59,7 +53,7 @@ void main(void)
 		}
 
 		// 読み込みテスト
-		res = f_open(&file, "0:test.txt", FA_READ);
+		res = f_open(&file, "test2.txt", FA_READ);
 		if (res == FR_OK)
 		{
 			// f_read(&file, read_buf, sizeof(read_buf) - 1, &br);
@@ -68,11 +62,11 @@ void main(void)
 		}
 
 		// アンマウント（任意）
-		f_mount(NULL, "0:", 0);
+		// f_mount(NULL, "", 0);
 	}
 
 	R_Config_SCI2_Start();
-	initIMU = BMI088init();
+	BMI088init();
 	SSD1351init();
 
 	// 赤枠描画
@@ -90,11 +84,21 @@ void main(void)
 	calibratIMU = true;	// IMUキャリブレーション開始
 	while(calibratIMU);	// キャリブレーション完了待ち
 	
-	// setLED(0, 5, 0, 0);
-	// setLED(1, 5, 0, 0);
-	// setLED(2, 5, 0, 0);
-	// setLED(3, 5, 0, 0);
-	// sendLED();
+	// res = f_open(&file, "imulog.csv", FA_CREATE_ALWAYS | FA_WRITE);
+	// if (res == FR_OK)
+	// {
+	// 	f_printf(&file, "time,gz,temp\n");
+	// 	loggingSDcard = 1;
+	// 	cnt0 = 0;
+	// }
+
+	initLED();
+	
+	setLED(0, 255, 0, 0);
+	setLED(1, 255, 0, 0);
+	setLED(2, 255, 0, 0);
+	setLED(3, 255, 0, 0);
+	sendLED();
 
 	while (1)
 	{
@@ -110,6 +114,14 @@ void main(void)
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
 		SSD1351setCursor(40, 35);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
+		SSD1351setCursor(2, 46);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt0:%5d log:%d",cnt0, loggingSDcard);
+
+		// if(cnt0 > 2000 && loggingSDcard)
+		// {
+		// 	loggingSDcard = 0;
+		// 	f_close(&file);
+		// }
 
 	}
 }

@@ -2,11 +2,16 @@
 // インクルード
 //====================================//
 #include "SDcard.h"
+#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
 uint32_t sdWorkarea[200 / sizeof(uint32_t)];
+uint8_t initSDcard = 0;
+uint8_t loggingSDcard = 0;
 
+FATFS *fs;        // ファイルシステムオブジェクト
+FIL file;        // ファイルオブジェクト
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SDcardinit
 // 処理概要  	SDカードの初期化
@@ -36,7 +41,7 @@ sdc_sd_status_t SDcardinit(void)
 
 		// SDHI設定
 		sdc_sd_config.mode = SDC_SD_MODE_POLL | 
-							SDC_SD_MODE_SW | 
+							SDC_SD_MODE_DMA | 
 							SDC_SD_MODE_MEM | 
 							SDC_SD_MODE_4BIT;
 		// SDカード電源設定
@@ -49,6 +54,7 @@ sdc_sd_status_t SDcardinit(void)
 
 		if(R_SDC_SD_Initialize(SD_CARD_NO, &sdc_sd_config, SDC_SD_MODE_MEM) == SDC_SD_SUCCESS)
 		{
+			initSDcard = 1;
 			return SDC_SD_SUCCESS; // 初期化成功
 		}
 		else

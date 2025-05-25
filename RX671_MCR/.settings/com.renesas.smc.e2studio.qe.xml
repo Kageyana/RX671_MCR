@@ -139,6 +139,7 @@
         <Setting id="Config_MTU3" value="CG"/>
         <Setting id="r_bsp" value="FIT"/>
         <Setting id="Config_MTU4" value="CG"/>
+        <Setting id="r_dmaca_rx" value="FIT"/>
         <Setting id="Config_MTU1" value="CG"/>
         <Setting id="Config_MTU2" value="CG"/>
         <Setting id="r_sdhi_rx" value="FIT"/>
@@ -158,7 +159,6 @@
         <Setting id="Config_TPU5" value="CG"/>
         <Setting id="Config_MTU0" value="CG"/>
         <Setting id="Config_SCI10" value="CG"/>
-        <Setting id="Config_DMAC0" value="CG"/>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU3" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
             <Setting id="TGRCValue" value="3599"/>
@@ -313,6 +313,11 @@
             <Setting id="ClkEdg" value="Rise"/>
             <Setting id="TGRBValue" value="100"/>
         </Segment>
+        <Segment component="r_dmaca_rx3.41" id="r_dmaca_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
+            <Setting id="DMACA_CFG_USE_DTC_FIT_MODULE" value="0"/>
+            <Setting id="DMACA_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="DMACA_CFG_EN_NESTED_INT" value="0"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.phasecountingmode" id="Config_MTU1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="NoiseAEnable" value="Disable"/>
             <Setting id="EnableTGIB" value="Disable"/>
@@ -386,8 +391,8 @@
             <Setting id="SDHI_CFG_CH0_INT_LEVEL_DMADTC" value="10"/>
             <Setting id="SDHI_CFG_CH1_CD_ACTIVE" value="1"/>
             <Setting id="SDHI_CFG_CH1_WP_ACTIVE" value="1"/>
-            <Setting id="SDHI_CFG_DIV_DEFAULT_SPEED" value="SDHI_DIV_4"/>
-            <Setting id="SDHI_CFG_DIV_HIGH_SPEED" value="SDHI_DIV_2"/>
+            <Setting id="SDHI_CFG_DIV_DEFAULT_SPEED" value="SDHI_DIV_2"/>
+            <Setting id="SDHI_CFG_DIV_HIGH_SPEED" value="SDHI_DIV_1"/>
             <Setting id="SDHI_CFG_SDOPT_TOP" value="0x00e0u"/>
             <Setting id="SDHI_CFG_CH0_INCLUDED" value="1"/>
             <Setting id="SDHI_CFG_CH1_INCLUDED" value="0"/>
@@ -1900,30 +1905,6 @@
             <Setting id="NoiseFilt" value="Disable"/>
             <Setting id="MultiIntERIEnable" value="UnCheck"/>
             <Setting id="FiltClk" value="Div1"/>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.dmac" id="Config_DMAC0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="SrcRepeatArea" value="1bits"/>
-            <Setting id="DestinationExt" value="Disable"/>
-            <Setting id="IntDesOverflow" value="Disable"/>
-            <Setting id="FlagControl" value="ClearInterrupt"/>
-            <Setting id="TransferMode" value="NormalMode"/>
-            <Setting id="TransferSize" value="16bits"/>
-            <Setting id="TransferCount" value="326"/>
-            <Setting id="BlockSetting" value="TransferDes"/>
-            <Setting id="SrcAddressMode" value="IncMode"/>
-            <Setting id="SourceExt" value="Disable"/>
-            <Setting id="IntSrcOverflow" value="Disable"/>
-            <Setting id="OffsetAmount" value="0x00000000"/>
-            <Setting id="DesAddressMode" value="FixedMode"/>
-            <Setting id="OffsetAmountDir" value="Increase"/>
-            <Setting id="BlockCount" value="1"/>
-            <Setting id="IntTransferEnd" value="Enable"/>
-            <Setting id="IntTransferComplete" value="Disable"/>
-            <Setting id="IntDMACPriority" value="Level15"/>
-            <Setting id="ActivationSource" value="TPU5(TGI5A)"/>
-            <Setting id="DesAddress" value="0x0008816a"/>
-            <Setting id="SrcAddress" value="0x00000fcc"/>
-            <Setting id="DesRepeatArea" value="1bits"/>
         </Segment>
     </Segment>
 </QE>
