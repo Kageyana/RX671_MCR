@@ -3,6 +3,13 @@
 //=====================================//
 // インクルード
 //=====================================//
+#include "r_smc_entry.h"
+#include "BMI088.h"
+#include "SDcard.h"
+#include "ssd1351.h"
+#include "switch.h"
+#include "encoder.h"
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>

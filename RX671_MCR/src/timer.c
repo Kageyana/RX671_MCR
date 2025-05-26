@@ -2,18 +2,6 @@
 // インクルード
 //====================================//
 #include "timer.h"
-#include "BMI088.h"
-#include "SDcard.h"
-#include "ssd1351.h"
-#include "r_sdc_sd_rx_if.h"
-#include "r_dmaca_rx_if.h"
-#include "switch.h"
-
-#include "ff.h"
-#include "diskio.h"
-
-#include <stdbool.h>
-#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//

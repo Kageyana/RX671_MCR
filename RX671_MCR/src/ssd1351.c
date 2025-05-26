@@ -221,9 +221,7 @@ void SSD1351init(void) {
 ////////////////////////////////////////////////////////////////////
 void SSD1351fill(uint16_t color)
 {
-	uint32_t i;
-
-	for (i = 0; i < sizeof(SSD1351_Buffer)/sizeof(uint16_t); i++)
+	for (uint32_t i = 0; i < sizeof(SSD1351_Buffer)/sizeof(uint16_t); i++)
 	{
 #ifdef SSD1351_LITTLEENDIAN
 		// MSB LSBを逆転させる
@@ -448,4 +446,30 @@ void SSD1351setDisplayOn(const uint8_t on)
 uint8_t SSD1351getDisplayOn(void)
 {
 	return SSD1351.DisplayOn;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351_DrawImage
+// 処理概要     指定座標に画像を描画する
+// 引数         なし
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
+{
+    if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT)) return;
+    if((x + w - 1) >= SSD1351_WIDTH) return;
+    if((y + h - 1) >= SSD1351_HEIGHT) return;
+
+    // SSD1351setAddressWindow(x, y, x+w-1, y+h-1);
+    // SSD1351writeData((uint8_t*)data, sizeof(uint16_t)*w*h);
+
+	for (uint32_t i = 0; i < w*h; i++)
+	{
+#ifdef SSD1351_LITTLEENDIAN
+		SSD1351_Buffer.u16[i] = data[i];
+#else
+		// MSB LSBを逆転させる
+		SSD1351_Buffer.u8[i*2] = (data[i] >> 8) & 0xFF;	//MSBを代入
+		SSD1351_Buffer.u8[(i*2)+1] = data[i] & 0xFF;	//LSBを代入
+#endif
+	}
 }

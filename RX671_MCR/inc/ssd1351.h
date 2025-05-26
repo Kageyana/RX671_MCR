@@ -3,12 +3,14 @@
 //=====================================//
 // インクルード
 //=====================================//
+#include "r_smc_entry.h"
+#include "fonts.h"
+#include "images.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdarg.h>
 #include <string.h>
-#include "fonts.h"
-#include "r_smc_entry.h"
 //=====================================//
 // シンボル定義
 //=====================================//
@@ -78,6 +80,6 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...);
 void SSD1351setCursor(uint8_t x, uint8_t y);
 void SSD1351setDisplayOn(const uint8_t on);
 uint8_t SSD1351getDisplayOn(void);
-
+void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 
 #endif // SSD1351_H__
