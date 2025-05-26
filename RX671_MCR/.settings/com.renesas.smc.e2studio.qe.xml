@@ -172,7 +172,7 @@
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
             <Setting id="TGRAValue" value="3599"/>
-            <Setting id="TGRDValue" value="100"/>
+            <Setting id="TGRDValue" value="0"/>
             <Setting id="IOA" value="Out01"/>
             <Setting id="Tciv" value="Disable"/>
             <Setting id="Sync" value="Disable"/>
@@ -185,17 +185,17 @@
             <Setting id="MultiIntTgicEnable" value="UnCheck"/>
             <Setting id="PrioB" value="Level15"/>
             <Setting id="PrioC" value="Level15"/>
-            <Setting id="IODtgrd" value="OutT"/>
+            <Setting id="IODtgrd" value="Out0"/>
             <Setting id="ExtNoiseB" value="Disable"/>
             <Setting id="TRGAN" value="Disable"/>
             <Setting id="ExtNoiseA" value="Disable"/>
-            <Setting id="IOBtgrb" value="OutT"/>
+            <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="PeriodValue" value="30"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
             <Setting id="ExtNoiseClk" value="PCLK"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="100"/>
+            <Setting id="TGRBValue" value="0"/>
         </Segment>
         <Segment component="r_bsp7.53" id="r_bsp" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="BSP_CFG_SWINT_UNIT1_ENABLE" value="0"/>
@@ -282,7 +282,7 @@
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
             <Setting id="TGRAValue" value="3599"/>
-            <Setting id="TGRDValue" value="100"/>
+            <Setting id="TGRDValue" value="0"/>
             <Setting id="IOA" value="Out01"/>
             <Setting id="TRG4ABN" value="Disable"/>
             <Setting id="Tciv" value="Disable"/>
@@ -297,12 +297,12 @@
             <Setting id="MultiIntTgicEnable" value="UnCheck"/>
             <Setting id="PrioB" value="Level15"/>
             <Setting id="PrioC" value="Level15"/>
-            <Setting id="IODtgrd" value="OutT"/>
+            <Setting id="IODtgrd" value="Out0"/>
             <Setting id="TRG4BN" value="Disable"/>
             <Setting id="ExtNoiseB" value="Disable"/>
             <Setting id="TRGAN" value="Disable"/>
             <Setting id="ExtNoiseA" value="Disable"/>
-            <Setting id="IOBtgrb" value="OutT"/>
+            <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="CycBValue" value="65535"/>
             <Setting id="PeriodValue" value="30"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
@@ -310,7 +310,7 @@
             <Setting id="CycAbValue" value="65535"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="100"/>
+            <Setting id="TGRBValue" value="0"/>
         </Segment>
         <Segment component="r_dmaca_rx3.41" id="r_dmaca_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="DMACA_CFG_USE_DTC_FIT_MODULE" value="0"/>
@@ -1812,19 +1812,19 @@
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
-            <Setting id="TGRCValue" value="100"/>
+            <Setting id="TGRCValue" value="3599"/>
             <Setting id="Unit" value="us"/>
             <Setting id="MultiIntTgidEnable" value="UnCheck"/>
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
-            <Setting id="TGRDValue" value="3599"/>
+            <Setting id="TGRDValue" value="0"/>
             <Setting id="Sync" value="Disable"/>
             <Setting id="Tgrf" value="Out"/>
             <Setting id="TRG0N" value="Disable"/>
             <Setting id="Tgrd" value="Out"/>
             <Setting id="Tgrc" value="Out"/>
             <Setting id="MultiIntTgicEnable" value="UnCheck"/>
-            <Setting id="IODtgrd" value="OutT"/>
+            <Setting id="IODtgrd" value="Out0"/>
             <Setting id="TRGAN" value="Disable"/>
             <Setting id="PeriodValue" value="30"/>
             <Setting id="ClkEdg" value="Rise"/>
@@ -1853,14 +1853,14 @@
             <Setting id="PrioC" value="Level15"/>
             <Setting id="ExtNoiseB" value="Disable"/>
             <Setting id="ExtNoiseA" value="Disable"/>
-            <Setting id="IOBtgrb" value="OutT"/>
+            <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="ExtNoiseD" value="Disable"/>
             <Setting id="ExtNoiseC" value="Disable"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
             <Setting id="MultiIntTgieEnable" value="UnCheck"/>
             <Setting id="ExtNoiseClk" value="PCLK"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
-            <Setting id="TGRBValue" value="100"/>
+            <Setting id="TGRBValue" value="0"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.sciasyncmode" id="Config_SCI10" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="BitEdge" value="LowLevel"/>

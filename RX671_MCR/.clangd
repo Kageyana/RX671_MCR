@@ -22,6 +22,7 @@ CompileFlags:
     - -D_CLANGD=1
     - -D__INTELLISENSE__=1
     - --include=../.vscode/c_cpp_intellisense_helper.h
+    - -IC:/ProgramData/GCC for Renesas RX 8.3.0.202411-GNURX-ELF/rx-elf/rx-elf/rx-elf/include
 Diagnostics:
   Suppress:
     - drv_unknown_argument

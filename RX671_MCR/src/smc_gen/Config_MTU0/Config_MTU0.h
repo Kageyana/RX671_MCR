@@ -28,9 +28,9 @@ Macro definitions
 ***********************************************************************************************************************/
 #define MTU0_PCLK_COUNTER_DIVISION      (1)
 #define _0E0F_TGRA0_VALUE               (0x0E0FU) /* TGRA0 value */
-#define _0064_TGRB0_VALUE               (0x0064U) /* TGRB0 value */
-#define _0064_TGRC0_VALUE               (0x0064U) /* TGRC0 value */
-#define _0E0F_TGRD0_VALUE               (0x0E0FU) /* TGRD0 value */
+#define _0000_TGRB0_VALUE               (0x0000U) /* TGRB0 value */
+#define _0E0F_TGRC0_VALUE               (0x0E0FU) /* TGRC0 value */
+#define _0000_TGRD0_VALUE               (0x0000U) /* TGRD0 value */
 #define _0064_TGRE0_VALUE               (0x0064U) /* TGRE0 value */
 #define _0E0F_TGRF0_VALUE               (0x0E0FU) /* TGRF0 value */
 

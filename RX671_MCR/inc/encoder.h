@@ -8,8 +8,8 @@
 //====================================//
 // シンボル定義
 //====================================//
-#define PALSE_METER 60074		 // 1m走行時のカウント
-#define PALSE_MILLIMETER 60.074F // 1mmのカウント↑を1/1000
+#define PALSE_METER 		14590	// 1m走行時のカウント
+#define PALSE_MILLIMETER 	14.59F	// 1mmのカウント↑を1/1000
 
 #define MTU_CHANNEL MTU2
 //====================================//

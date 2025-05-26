@@ -6251,7 +6251,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IOBtgrb" selection="OutT">
+                <option enabled="true" id="IOBtgrb" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -6265,7 +6265,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IODtgrd" selection="OutT">
+                <option enabled="true" id="IODtgrd" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -6283,13 +6283,13 @@
                     <item id="TGRAValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
-                    <item id="TGRBValue" input="100" vlaue="100"/>
+                    <item id="TGRBValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRCValue" selection="TGRCValue">
-                    <item id="TGRCValue" input="100" vlaue="100"/>
+                    <item id="TGRCValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRDValue" selection="TGRDValue">
-                    <item id="TGRDValue" input="3599" vlaue="3599"/>
+                    <item id="TGRDValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGREValue" selection="TGREValue">
                     <item id="TGREValue" input="100" vlaue="100"/>
@@ -7026,7 +7026,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IOBtgrb" selection="OutT">
+                <option enabled="true" id="IOBtgrb" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -7040,7 +7040,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IODtgrd" selection="OutT">
+                <option enabled="true" id="IODtgrd" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -7058,13 +7058,13 @@
                     <item id="TGRAValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
-                    <item id="TGRBValue" input="100" vlaue="100"/>
+                    <item id="TGRBValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRCValue" selection="TGRCValue">
                     <item id="TGRCValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRDValue" selection="TGRDValue">
-                    <item id="TGRDValue" input="100" vlaue="100"/>
+                    <item id="TGRDValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TRGAN" selection="Disable">
                     <item id="Enable" input="" vlaue="0"/>
@@ -7285,7 +7285,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IOBtgrb" selection="OutT">
+                <option enabled="true" id="IOBtgrb" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -7299,7 +7299,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IODtgrd" selection="OutT">
+                <option enabled="true" id="IODtgrd" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -7317,13 +7317,13 @@
                     <item id="TGRAValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
-                    <item id="TGRBValue" input="100" vlaue="100"/>
+                    <item id="TGRBValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRCValue" selection="TGRCValue">
                     <item id="TGRCValue" input="3599" vlaue="3599"/>
                 </option>
                 <option enabled="true" id="TGRDValue" selection="TGRDValue">
-                    <item id="TGRDValue" input="100" vlaue="100"/>
+                    <item id="TGRDValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TRGAN" selection="Disable">
                     <item id="Enable" input="" vlaue="0"/>

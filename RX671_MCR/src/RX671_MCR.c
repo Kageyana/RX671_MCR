@@ -24,6 +24,7 @@
 #include "switch.h"
 #include "SDcard.h"
 #include "encoder.h"
+#include "Motor.h"
 
 #define CMT_CHANNEL 0
 
@@ -72,6 +73,7 @@ void main(void)
 	// }
 
 	Encoderinit();
+	motorInit();
 	
 	// initLED();
 	// setLED(0, 255, 0, 0);
@@ -80,6 +82,7 @@ void main(void)
 	// setLED(3, 255, 0, 0);
 	// sendLED();
 	cnt0 = 0;
+	PORTB.PODR.BIT.B4 = 1;
 
 	while (1)
 	{
@@ -97,8 +100,19 @@ void main(void)
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
 		SSD1351setCursor(2, 50);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
-		// SSD1351setCursor(2, 62);
+		SSD1351setCursor(2, 62);
 		// SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE0:%d",PORTE.PIDR.BIT.B0);
+		SSD1351setCursor(2, 74);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE6:%d",PORTE.PIDR.BIT.B6);
+
+		if(swValTact == SW_PUSH)
+		{
+			motorPwmOut(-500, -500, -500, -500);
+		}
+		else {
+			motorPwmOut(0, 0, 0, 0);
+		}
 
 		if(cnt0 > 10000 && loggingSDcard)
 		{

@@ -1,0 +1,114 @@
+//====================================//
+// インクルード
+//====================================//
+#include "Motor.h"
+//====================================//
+// グローバル変数の宣言
+//====================================//
+// エンコーダ関連
+static unsigned short 	cnt_Encoder;	// エンコーダ値の格納先
+static unsigned short	encbuff;		// 前回のエンコーダ値
+short					Encoder;			// 1msごとのパルス
+unsigned int			EncoderTotal;		// 総走行距離
+unsigned int			enc1;				// 走行用距離カウント
+unsigned int			enc_slope;			// 坂上距離カウント
+// モーター関連
+int16_t		accele_fR;		// 右前モーターPWM値
+int16_t		accele_fL;		// 左前モーターPWM値
+int16_t		accele_rR;		// 右後モーターPWM値
+int16_t		accele_rL;		// 左後モーターPWM値
+int16_t		sPwm;			// サーボモーターPWM値
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 motor_f
+// 処理概要     モーターのPWMの変更
+// 引数         accelefL, accelefR(PWMを1～100%で指定)
+// 戻り値       な
+///////////////////////////////////////////////////////////////////////////
+void motorInit(void)
+{
+	SET_MTU_FRONT;
+	SET_MTU_REAR;
+	SET_MTU_SERVO;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 motorPwmOut
+// 処理概要     モーターのPWMの変更
+// 引数         accelefL, accelefR(PWMを1～1000で指定)
+// 戻り値       な
+///////////////////////////////////////////////////////////////////////////
+void motorPwmOut( int16_t accelefL, int16_t accelefR
+	, int16_t accelerL, int16_t accelerR )
+{
+	uint16_t pwmfl, pwmfr, pwmrl, pwmrr;
+	
+	accele_fL = accelefL;
+	accele_fR = accelefR;
+	accele_rL = accelerL;
+	accele_rR = accelerR;
+	
+	pwmfl = TGR_MOTOR * abs(accelefL) / 1000;
+	pwmfr = TGR_MOTOR * abs(accelefR) / 1000;
+	pwmrl = TGR_MOTOR * abs(accelerL) / 1000;
+	pwmrr = TGR_MOTOR * abs(accelerR) / 1000;
+	
+	// 左前輪
+	if( accelefL >= 0) DIR_FL = 1;
+	else DIR_FL = 0;
+	if ( accelefL == 100 || accelefL == -100 )pwmfl = TGR_MOTOR + 2;
+	PWM_FL_OUT = pwmfl;
+	
+	// 右前輪
+	if( accelefR >= 0) DIR_FR = 1;
+	else DIR_FR = 0;
+	if ( accelefR == 100 || accelefR == -100 ) pwmfr = TGR_MOTOR + 2;
+	PWM_FR_OUT = pwmfr;
+
+	// 左後輪
+	if( accelerL >= 0 ) DIR_RL = 1;
+	else DIR_RL = 0;
+	if ( accelerL == 100 || accelerL == -100 ) pwmrl = TGR_MOTOR + 2;
+	PWM_RL_OUT = pwmrl;
+	
+	// 右後輪
+	if( accelerR >= 0 ) DIR_RR = 1;
+	else DIR_RR = 0;
+	if ( accelerR == 100 || accelerR == -100 ) pwmrr = TGR_MOTOR + 2;
+	PWM_RR_OUT = pwmrr;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 servoPwmOut
+// 処理概要     白線トレース時サーボのPWMの変更
+// 引数         spwm
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void servoPwmOut( signed char servopwm )
+{
+	uint16_t pwm;
+	short angle;
+	
+	sPwm = servopwm;		// ログ用変数に代入
+	//servopwm = -servopwm;		// 回転方向を変える
+	
+	// // サーボリミット制御
+	// angle = getServoAngle();
+	
+	// // 角度によるリミット制御
+	// if ( angle >= SERVO_LIMIT ) servopwm = -15;
+	// if ( angle <= -SERVO_LIMIT ) servopwm = 15;
+	
+	// // ポテンションメーターが外れていたら制御しない
+	// if ( angle > SERVO_LIMIT + 100 ) servopwm = 0;
+	// if ( angle < -SERVO_LIMIT - 100 ) servopwm = 0;
+
+	pwm = (uint16_t)TGR_SERVO * abs(servopwm) / 1000;
+	// サーボモータ制御
+	if( servopwm > 0) {
+		// 正転
+		DIR_SERVO = 1;
+	} else {
+		// 逆転
+		pwm = -pwm;
+		DIR_SERVO = 0;
+	}
+	PWM_SERVO_OUT = pwm;
+}
