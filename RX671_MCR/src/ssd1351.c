@@ -170,16 +170,11 @@ void SSD1351init(void) {
         SSD1351writeData(data, sizeof(data));
     }
     SSD1351writeCommand(0xA6); // NORMALDISPLAY (don't invert)
-    SSD1351writeCommand(0xC1); // CONTRASTABC
-    {
-        uint8_t data[] = { 0xC8, 0x80, 0xC8 };
-        SSD1351writeData(data, sizeof(data));
-    }
-    SSD1351writeCommand(0xC7); // CONTRASTMASTER
-    {
-        uint8_t data[] = { 0x0F };
-        SSD1351writeData(data, sizeof(data));
-    }
+
+	SSD1351setContrastRGB(0x64, 0x64, 0x64); // CONTRASTABC
+
+	SSD1351setContrastMaster(0x08); // CONTRASTMASTER
+
     SSD1351writeCommand(0xB4); // SETVSL
     {
         uint8_t data[] = { 0xA0, 0xB5, 0x55 };
@@ -319,7 +314,7 @@ void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color)
 // 引数         ch:文字(ascii) Font:フォントサイズ color:16bitカラーコード
 // 戻り値       文字データ
 ////////////////////////////////////////////////////////////////////
-char SSD1351writeChar(char ch, FontDef Font, uint16_t color)
+uint8_t SSD1351writeChar(uint8_t ch, FontDef Font, uint16_t color)
 {
 	uint32_t i, b, j;
 
@@ -364,7 +359,7 @@ char SSD1351writeChar(char ch, FontDef Font, uint16_t color)
 // 引数         str:文字列配列 Font:フォントサイズ color:16bitカラーコード
 // 戻り値       文字列のアドレス
 ////////////////////////////////////////////////////////////////////
-char SSD1351writeString(char *str, FontDef Font, uint16_t color)
+uint8_t SSD1351writeString(uint8_t *str, FontDef Font, uint16_t color)
 {
 	while(*str) {
         if(SSD1351.CurrentX + Font.FontWidth >= SSD1351_WIDTH) {
@@ -450,7 +445,7 @@ uint8_t SSD1351getDisplayOn(void)
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351_DrawImage
 // 処理概要     指定座標に画像を描画する
-// 引数         なし
+// 引数         x y:描画開始座標 w h:画像の幅と高さ data:画像データ
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
@@ -471,5 +466,33 @@ void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint
 		SSD1351_Buffer.u8[i*2] = (data[i] >> 8) & 0xFF;	//MSBを代入
 		SSD1351_Buffer.u8[(i*2)+1] = data[i] & 0xFF;	//LSBを代入
 #endif
+	}
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351setContrastRGB
+// 処理概要     コントラストをRGBで設定する
+// 引数         red green blue:各色のコントラスト値(0-255)
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351setContrastRGB(uint8_t red, uint8_t green, uint8_t blue)
+{
+	SSD1351writeCommand(0xC1); // CONTRASTABC
+	{
+		uint8_t data[] = { red, green, blue };
+		SSD1351writeData(data, sizeof(data));
+	}
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351setContrastMaster
+// 処理概要     コントラストをマスターで設定する
+// 引数         contrast:コントラスト値(0-255)
+// 戻り値       なし
+////////////////////////////////////////////////////////////////////
+void SSD1351setContrastMaster(uint8_t contrast)
+{
+	SSD1351writeCommand(0xC7); // CONTRASTMASTER
+	{
+		uint8_t data[] = { contrast };
+		SSD1351writeData(data, sizeof(data));
 	}
 }

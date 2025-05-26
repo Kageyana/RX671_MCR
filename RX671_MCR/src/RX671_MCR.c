@@ -75,7 +75,7 @@ void main(void)
 	Encoderinit();
 	motorInit();
 	
-	SSD1351drawImage(0, 0, 128, 128, imgQRgithub128x128);
+	// SSD1351drawImage(0, 0, 128, 128, imgQRgithub128x128);
 	// initLED();
 	// setLED(0, 255, 0, 0);
 	// setLED(1, 255, 0, 0);
@@ -87,40 +87,40 @@ void main(void)
 
 	while (1)
 	{
-		// SSD1351setCursor(2,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		// SSD1351setCursor(2,14);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		// SSD1351setCursor(2,26);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
-		// SSD1351setCursor(60,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
-		// SSD1351setCursor(2, 38);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
-		// SSD1351setCursor(85, 38);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
-		// SSD1351setCursor(2, 50);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
-		// SSD1351setCursor(2, 62);
-		// // SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"PE0:%d",PORTE.PIDR.BIT.B0);
-		// SSD1351setCursor(2, 74);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"PE6:%d",PORTE.PIDR.BIT.B6);
+		SSD1351setCursor(2,2);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
+		SSD1351setCursor(2,14);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
+		SSD1351setCursor(2,26);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
+		SSD1351setCursor(60,2);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
+		SSD1351setCursor(2, 38);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
+		SSD1351setCursor(85, 38);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
+		SSD1351setCursor(2, 50);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		SSD1351setCursor(2, 62);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE0:%d",PORTE.PIDR.BIT.B0);
+		SSD1351setCursor(2, 74);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE6:%d",PORTE.PIDR.BIT.B6);
 
-		// if(swValTact == SW_PUSH)
-		// {
-		// 	motorPwmOut(-500, -500, -500, -500);
-		// }
-		// else {
-		// 	motorPwmOut(0, 0, 0, 0);
-		// }
+		if(swValTact == SW_PUSH)
+		{
+			motorPwmOut(-500, -500, -500, -500);
+		}
+		else {
+			motorPwmOut(0, 0, 0, 0);
+		}
 
-		// if(cnt0 > 10000 && loggingSDcard)
-		// {
-		// 	loggingSDcard = 0;
-		// 	f_close(&file);
-		// 	SDcardend();
-		// }
+		if(cnt0 > 10000 && loggingSDcard)
+		{
+			loggingSDcard = 0;
+			f_close(&file);
+			SDcardend();
+		}
 
 	}
 }

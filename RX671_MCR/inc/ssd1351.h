@@ -74,12 +74,13 @@ void SSD1351init(void);
 void SSD1351fill(uint16_t color);
 void SSD1351updateScreen(void);
 void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color);
-char SSD1351writeChar(char ch, FontDef Font, uint16_t color);
-char SSD1351writeString(char *str, FontDef Font, uint16_t color);
+uint8_t SSD1351writeChar(uint8_t ch, FontDef Font, uint16_t color);
+uint8_t SSD1351writeString(uint8_t *str, FontDef Font, uint16_t color);
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...);
 void SSD1351setCursor(uint8_t x, uint8_t y);
 void SSD1351setDisplayOn(const uint8_t on);
 uint8_t SSD1351getDisplayOn(void);
 void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
-
+void SSD1351setContrastRGB(uint8_t red, uint8_t green, uint8_t blue);
+void SSD1351setContrastMaster(uint8_t contrast);
 #endif // SSD1351_H__
