@@ -582,7 +582,7 @@
             <Setting id="CMT_CFG_CH0_EN_NESTED_INT" value="1"/>
             <Setting id="CMT_RX_CFG_IPR" value="5"/>
         </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" id="Config_S12AD0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.singlescanmode" id="Config_S12AD0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="SDFmode" value="Unused"/>
             <Setting id="ANx06_Add" value="Unuse"/>
             <Setting id="SDFVolt" value="0V"/>
@@ -593,7 +593,7 @@
             <Setting id="ANx06_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx07" value="Use"/>
             <Setting id="Valuecount" value="1time"/>
-            <Setting id="StartTrigger" value="Software"/>
+            <Setting id="StartTrigger" value="TRG7ANorTRG7BN"/>
             <Setting id="ANx00" value="Unuse"/>
             <Setting id="ANx02" value="Use"/>
             <Setting id="ANx01" value="Use"/>
@@ -625,6 +625,7 @@
             <Setting id="ANx03_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Resolution" value="12bit"/>
             <Setting id="ANx01_Add" value="Unuse"/>
+            <Setting id="WindowABcomplex" value="AORB"/>
             <Setting id="S12CMPBIchk" value="Use"/>
             <Setting id="CSHchk" value="Unuse"/>
             <Setting id="ANx01_Sampling" value="0.183"/>
@@ -640,10 +641,11 @@
             <Setting id="ANx04_Sampling" value="0.183"/>
             <Setting id="Cmp0B" value="0"/>
             <Setting id="ANx07_Sampling" value="0.183"/>
+            <Setting id="DoubleTriggermode" value="Unuse"/>
             <Setting id="ANx02_Sampling" value="0.183"/>
             <Setting id="CMPAChk" value="Unuse"/>
             <Setting id="ANx05_CMPALEVEL" value="Ref0Larger"/>
-            <Setting id="Autoclean" value="DisAutoclean"/>
+            <Setting id="Autoclean" value="EnAutoclean"/>
             <Setting id="ANx07_Add" value="Unuse"/>
             <Setting id="WDFuntion" value="WDFUnuse"/>
             <Setting id="DDcharge" value="Unused"/>

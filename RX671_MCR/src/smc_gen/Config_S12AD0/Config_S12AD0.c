@@ -6,7 +6,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_S12AD0.c
-* Component Version: 1.13.0
+* Component Version: 2.5.0
 * Device(s)        : R5F5671EHxLE
 * Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
@@ -51,7 +51,11 @@ void R_Config_S12AD0_Create(void)
     IEN(PERIB, INTB183) = 0U;
 
     /* Set S12AD0 control registers */
-    S12AD.ADCSR.WORD = _0000_AD_SYNCASYNCTRG_DISABLE | _4000_AD_CONTINUOUS_SCAN_MODE;
+    S12AD.ADCSR.WORD = _0000_AD_DBLTRIGGER_DISABLE | _0000_AD_SYNC_TRIGGER | _0200_AD_SYNCASYNCTRG_ENABLE | 
+                       _0000_AD_SINGLE_SCAN_MODE;
+
+    /* Set AD conversion start trigger sources */
+    S12AD.ADSTRGR.WORD = _0F00_AD_TRSA_TRG7AN_TRG7BN;
     S12AD.ADDISCR.BYTE = _00_AD_DISCONECT_UNUSED;
     S12AD.ADADC.BYTE = _00_AD_1_TIME_CONVERSION | _00_AD_ADDITION_MODE;
 
@@ -65,7 +69,7 @@ void R_Config_S12AD0_Create(void)
     S12AD.ADSSTR7 = _0B_AD0_SAMPLING_STATE_7;
     S12AD.ADANSA0.WORD = _0002_AD_ANx01_USED | _0004_AD_ANx02_USED | _0008_AD_ANx03_USED | _0010_AD_ANx04_USED | 
                          _0020_AD_ANx05_USED | _0040_AD_ANx06_USED | _0080_AD_ANx07_USED;
-    S12AD.ADCER.WORD = _0000_AD_RESOLUTION_12BIT | _0000_AD_AUTO_CLEARING_DISABLE | _0000_AD_SELFTDIAGST_DISABLE | 
+    S12AD.ADCER.WORD = _0000_AD_RESOLUTION_12BIT | _0020_AD_AUTO_CLEARING_ENABLE | _0000_AD_SELFTDIAGST_DISABLE | 
                        _0000_AD_RIGHT_ALIGNMENT;
     S12AD.ADCSR.WORD |= _1000_AD_SCAN_END_INTERRUPT_ENABLE;
 
@@ -125,7 +129,7 @@ void R_Config_S12AD0_Start(void)
 {
     IR(PERIB, INTB183) = 0U;
     IEN(PERIB, INTB183) = 1U;
-    S12AD.ADCSR.BIT.ADST = 1U;
+    S12AD.ADCSR.BIT.TRGE = 1U;
 }
 
 /***********************************************************************************************************************
@@ -137,9 +141,10 @@ void R_Config_S12AD0_Start(void)
 
 void R_Config_S12AD0_Stop(void)
 {
+    S12AD.ADCSR.BIT.TRGE = 0U;
     S12AD.ADCSR.BIT.ADST = 0U;
-    IEN(PERIB, INTB183) = 0U;
     IR(PERIB, INTB183) = 0U;
+    IEN(PERIB, INTB183) = 0U;
 }
 
 /***********************************************************************************************************************
@@ -199,6 +204,21 @@ void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buff
         case ADCHANNEL7:
         {
             *buffer = (uint16_t)(S12AD.ADDR7);
+            break;
+        }
+        case ADDATADUPLICATION:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDR);
+            break;
+        }
+        case ADDATADUPLICATIONA:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDRA);
+            break;
+        }
+        case ADDATADUPLICATIONB:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDRB);
             break;
         }
         default:

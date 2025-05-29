@@ -25,9 +25,9 @@ void interrupt1ms(void * pdata)
 		SSD1351updateScreen();
 	}
 	
-	getSwitches();
+	GetSwitches();
 	R_SDC_SD_1msInterval();
-	Encodergetval();
+	GetEncoderVal();
 
 	switch (cnt10)
 	{

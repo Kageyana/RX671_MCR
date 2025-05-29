@@ -36,7 +36,7 @@ extern uint8_t swValRotary;
 //====================================//
 // プロトタイプ宣言
 //====================================//
-uint8_t getSW5aAxisTact(void);
-uint8_t getSWRotary(void);
-void getSwitches(void);
+uint8_t GetSW5aAxisTact(void);
+uint8_t GetSWRotary(void);
+void GetSwitches(void);
 #endif // SWITCH_H_

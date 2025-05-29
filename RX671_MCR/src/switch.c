@@ -14,7 +14,7 @@ uint8_t swValRotary;
 // 引数     	なし
 // 戻り値    	なし
 /////////////////////////////////////////////////////////////////////
-void getSwitches(void)
+void GetSwitches(void)
 {
 	// 5方向タクトスイッチ読み込み
 	swValTact = getSW5aAxisTact();
@@ -27,7 +27,7 @@ void getSwitches(void)
 // 引数         なし
 // 戻り値       スイッチ値 0～7
 ///////////////////////////////////////////////////////////////////////////
-uint8_t getSW5aAxisTact(void)
+uint8_t GetSW5aAxisTact(void)
 {
 	uint8_t ret = SW_NONE;
 
@@ -45,7 +45,7 @@ uint8_t getSW5aAxisTact(void)
 // 引数         なし
 // 戻り値       スイッチ値 0～7
 ///////////////////////////////////////////////////////////////////////////
-uint8_t getSWRotary(void)
+uint8_t GetSWRotary(void)
 {
 	uint8_t ret = 0x0;
 

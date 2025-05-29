@@ -18,7 +18,7 @@ int32_t encCurve = 0;
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void Encoderinit(void)
+void InitEncoder(void)
 {
 	R_Config_MTU2_Start();
 }
@@ -28,7 +28,7 @@ void Encoderinit(void)
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void Encodergetval(void)
+void GetEncoderVal(void)
 {
 	uint16_t encRaw = 0;
 	static uint16_t encBuf = 0;

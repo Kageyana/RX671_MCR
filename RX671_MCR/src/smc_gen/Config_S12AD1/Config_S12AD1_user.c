@@ -23,6 +23,8 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_S12AD1.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "battery.h"
+#include "motor.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -55,7 +57,9 @@ void R_Config_S12AD1_Create_UserInit(void)
 void r_Config_S12AD1_interrupt(void)
 {
     /* Start user code for r_Config_S12AD1_interrupt. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    GetBatterytADVal();
+	GetMotorADVal();
+	/* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

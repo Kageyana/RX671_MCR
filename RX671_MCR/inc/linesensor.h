@@ -1,27 +1,20 @@
-#ifndef ENCODER_H_
-#define ENCODER_H_
+#ifndef LINESENSOR_H_
+#define LINESENSOR_H_
 //====================================//
 // インクルード
 //====================================//
 #include "r_smc_entry.h"
-#include <stdlib.h>
 //====================================//
 // シンボル定義
 //====================================//
-#define PALSE_METER 		14590	// 1m走行時のカウント
-#define PALSE_MILLIMETER 	14.59F	// 1mmのカウント↑を1/1000
-
-#define MTU_CHANNEL MTU2
+#define LINESENSOR_NUM 7
 //====================================//
 // グローバル変数の宣言
 //====================================//
-extern int16_t encCurrent;
-extern int32_t encTotal;
+extern uint16_t lineSenVal[LINESENSOR_NUM];
 //====================================//
 // プロトタイプ宣言
 //====================================//
-void InitEncoder(void);
-void GetEncoderVal(void);
-int32_t encMM(int16_t mm);
+void GetLineSenADVal(void);
 
-#endif // ENCODER_H_
+#endif // LINESENSOR_H_

@@ -1380,360 +1380,6 @@
             </allocator>
             <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
-        <configuration apiMode="FULL_API" id="50046602-b71a-41bf-b2e8-1766741aec8b" inuse="true" name="Config_S12AD0">
-            <allocatable id="S12AD0">
-                <isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="1.2E8"/>
-                <isocket id="CountADClock" selection="Clock.tool_clock_pclkc" value="6.0E7"/>
-                <isocket id="CountClockA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
-                <isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
-                <option enabled="true" id="ANx00" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx01" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx02" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx03" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx04" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx05" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx06" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx07" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="StartTrigger" selection="Software">
-                    <item id="Software" input="" vlaue="0"/>
-                    <item id="ADTRG" input="" vlaue="0"/>
-                    <item id="TRGA0N" input="" vlaue="0"/>
-                    <item id="TRGA1N" input="" vlaue="0"/>
-                    <item id="TRGA2N" input="" vlaue="0"/>
-                    <item id="TRGA3N" input="" vlaue="0"/>
-                    <item id="TRGA4N" input="" vlaue="0"/>
-                    <item id="TRGA6N" input="" vlaue="0"/>
-                    <item id="TRGA7N" input="" vlaue="0"/>
-                    <item id="TRG0N" input="" vlaue="0"/>
-                    <item id="TRG4AN" input="" vlaue="0"/>
-                    <item id="TRG4BN" input="" vlaue="0"/>
-                    <item id="TRG4ANorTRG4BN" input="" vlaue="0"/>
-                    <item id="TRG4ABN" input="" vlaue="0"/>
-                    <item id="TRG7AN" input="" vlaue="0"/>
-                    <item id="TRG7BN" input="" vlaue="0"/>
-                    <item id="TRG7ANorTRG7BN" input="" vlaue="0"/>
-                    <item id="TRG7ABN" input="" vlaue="0"/>
-                    <item id="TMTRG0AN_0" input="" vlaue="0"/>
-                    <item id="TMTRG0AN_1" input="" vlaue="0"/>
-                    <item id="TPTRGAN" input="" vlaue="0"/>
-                    <item id="TPTRG0AN" input="" vlaue="0"/>
-                    <item id="ELC" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="S12ADIchk" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="S12ADIPrity" selection="Level15">
-                    <item id="Level0" input="" vlaue="0"/>
-                    <item id="Level1" input="" vlaue="0"/>
-                    <item id="Level2" input="" vlaue="0"/>
-                    <item id="Level3" input="" vlaue="0"/>
-                    <item id="Level4" input="" vlaue="0"/>
-                    <item id="Level5" input="" vlaue="0"/>
-                    <item id="Level6" input="" vlaue="0"/>
-                    <item id="Level7" input="" vlaue="0"/>
-                    <item id="Level8" input="" vlaue="0"/>
-                    <item id="Level9" input="" vlaue="0"/>
-                    <item id="Level10" input="" vlaue="0"/>
-                    <item id="Level11" input="" vlaue="0"/>
-                    <item id="Level12" input="" vlaue="0"/>
-                    <item id="Level13" input="" vlaue="0"/>
-                    <item id="Level14" input="" vlaue="0"/>
-                    <item id="Level15" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx00_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx01_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx02_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx03_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx04_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx05_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx06_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ANx07_Add" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="SDFmode" selection="Unused">
-                    <item id="Unused" input="" vlaue="0"/>
-                    <item id="Rotation" input="" vlaue="0"/>
-                    <item id="Fixed" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="SDFVolt" selection="0V">
-                    <item id="0V" input="" vlaue="0"/>
-                    <item id="VREFH01_2" input="" vlaue="0"/>
-                    <item id="VREFH0" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="DDcharge" selection="Unused">
-                    <item id="Unused" input="" vlaue="0"/>
-                    <item id="Precharge" input="" vlaue="0"/>
-                    <item id="Discharge" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="DDperiod" selection="2ADCLK">
-                    <item id="2ADCLK" input="" vlaue="0"/>
-                    <item id="3ADCLK" input="" vlaue="0"/>
-                    <item id="4ADCLK" input="" vlaue="0"/>
-                    <item id="5ADCLK" input="" vlaue="0"/>
-                    <item id="6ADCLK" input="" vlaue="0"/>
-                    <item id="7ADCLK" input="" vlaue="0"/>
-                    <item id="8ADCLK" input="" vlaue="0"/>
-                    <item id="9ADCLK" input="" vlaue="0"/>
-                    <item id="10ADCLK" input="" vlaue="0"/>
-                    <item id="11ADCLK" input="" vlaue="0"/>
-                    <item id="12ADCLK" input="" vlaue="0"/>
-                    <item id="13ADCLK" input="" vlaue="0"/>
-                    <item id="14ADCLK" input="" vlaue="0"/>
-                    <item id="15ADCLK" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="DataAligh" selection="Right">
-                    <item id="Right" input="" vlaue="0"/>
-                    <item id="Left" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="Autoclean" selection="DisAutoclean">
-                    <item id="DisAutoclean" input="" vlaue="0"/>
-                    <item id="EnAutoclean" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="Resolution" selection="12bit">
-                    <item id="12bit" input="" vlaue="0"/>
-                    <item id="10bit" input="" vlaue="0"/>
-                    <item id="8bit" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="Countmode" selection="Addition">
-                    <item id="Addition" input="" vlaue="0"/>
-                    <item id="Average" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="Valuecount" selection="1time">
-                    <item id="1time" input="" vlaue="0"/>
-                    <item id="2times" input="" vlaue="0"/>
-                    <item id="3times" input="" vlaue="0"/>
-                    <item id="4times" input="" vlaue="0"/>
-                    <item id="16times" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="WDFuntion" selection="WDFUnuse">
-                    <item id="WDFUse" input="" vlaue="0"/>
-                    <item id="WDFUnuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="CMPAChk" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="CMPBChk" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="Cmp0A" selection="Cmp0A">
-                    <item id="Cmp0A" input="0" vlaue="0"/>
-                </option>
-                <option enabled="false" id="Cmp1A" selection="Cmp1A">
-                    <item id="Cmp1A" input="0" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx00_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx00_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx01_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx01_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx02_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx02_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx03_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx03_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx04_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx04_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx05_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx05_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx06_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx06_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx07_CMPA" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx07_CMPALEVEL" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="Cmp0B" selection="Cmp0B">
-                    <item id="Cmp0B" input="0" vlaue="0"/>
-                </option>
-                <option enabled="false" id="Cmp1B" selection="Cmp1B">
-                    <item id="Cmp1B" input="0" vlaue="0"/>
-                </option>
-                <option enabled="false" id="CMPBChan" selection="Unused">
-                    <item id="Unused" input="" vlaue="0"/>
-                    <item id="ANx00" input="" vlaue="0"/>
-                    <item id="ANx01" input="" vlaue="0"/>
-                    <item id="ANx02" input="" vlaue="0"/>
-                    <item id="ANx03" input="" vlaue="0"/>
-                    <item id="ANx04" input="" vlaue="0"/>
-                    <item id="ANx05" input="" vlaue="0"/>
-                    <item id="ANx06" input="" vlaue="0"/>
-                    <item id="ANx07" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="CMPBLevel" selection="Ref0Larger">
-                    <item id="Ref0Larger" input="" vlaue="0"/>
-                    <item id="Ref0Smaller" input="" vlaue="0"/>
-                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
-                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="ANx00_Sampling" selection="ANx00_Sampling">
-                    <item id="ANx00_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx01_Sampling" selection="ANx01_Sampling">
-                    <item id="ANx01_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx02_Sampling" selection="ANx02_Sampling">
-                    <item id="ANx02_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx03_Sampling" selection="ANx03_Sampling">
-                    <item id="ANx03_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx04_Sampling" selection="ANx04_Sampling">
-                    <item id="ANx04_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx05_Sampling" selection="ANx05_Sampling">
-                    <item id="ANx05_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx06_Sampling" selection="ANx06_Sampling">
-                    <item id="ANx06_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="true" id="ANx07_Sampling" selection="ANx07_Sampling">
-                    <item id="ANx07_Sampling" input="0.183" vlaue="11"/>
-                </option>
-                <option enabled="false" id="S12CMPAIchk" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="S12CMPBIchk" selection="Use">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="GBL1Prity" selection="Level15">
-                    <item id="Level0" input="" vlaue="0"/>
-                    <item id="Level1" input="" vlaue="0"/>
-                    <item id="Level2" input="" vlaue="0"/>
-                    <item id="Level3" input="" vlaue="0"/>
-                    <item id="Level4" input="" vlaue="0"/>
-                    <item id="Level5" input="" vlaue="0"/>
-                    <item id="Level6" input="" vlaue="0"/>
-                    <item id="Level7" input="" vlaue="0"/>
-                    <item id="Level8" input="" vlaue="0"/>
-                    <item id="Level9" input="" vlaue="0"/>
-                    <item id="Level10" input="" vlaue="0"/>
-                    <item id="Level11" input="" vlaue="0"/>
-                    <item id="Level12" input="" vlaue="0"/>
-                    <item id="Level13" input="" vlaue="0"/>
-                    <item id="Level14" input="" vlaue="0"/>
-                    <item id="Level15" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="CSHchk" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
-            </allocatable>
-            <component description="このソフトウェアコンポーネントは、12ビットA/ Dコンバータ用の連続スキャンモードの構成を提供します。&#10;&#10;任意に選択したアナログ入力を任意のチャネル番号順に連続して変換することが可能です。" detailDescription="" display="連続スキャンモードS12AD" id="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" version="1.13.0"/>
-            <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="S12AD0連続スキャンモード" display="S12AD0" id="com.renesas.smc.swc.cg.rx.csm.rx671.s12ad0" type="">
-                <context/>
-            </allocator>
-            <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
-        </configuration>
         <configuration apiMode="FULL_API" id="ea713d7e-0c82-4fdb-b04a-f3cd828bebad" inuse="true" name="Config_S12AD1">
             <allocatable id="S12AD1">
                 <isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="1.2E8"/>
@@ -8068,6 +7714,369 @@
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="bdf0d080-0a3e-40a6-a265-968cbf0140d0" inuse="true" name="Config_S12AD0">
+            <allocatable id="S12AD">
+                <isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
+                <isocket id="CountingClockA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
+                <isocket id="CountingClockAD" selection="Clock.tool_clock_pclkc" value="6.0E7"/>
+                <isocket id="CountingClockI" selection="Clock.tool_clock_iclk" value="1.2E8"/>
+                <option enabled="true" id="DoubleTriggermode" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx00" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx01" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx02" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx03" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx04" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx05" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx06" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx07" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="StartTrigger" selection="TRG7ANorTRG7BN">
+                    <item id="Software" input="" vlaue="0"/>
+                    <item id="ADTRG" input="" vlaue="0"/>
+                    <item id="TRGA0N" input="" vlaue="0"/>
+                    <item id="TRGA1N" input="" vlaue="0"/>
+                    <item id="TRGA2N" input="" vlaue="0"/>
+                    <item id="TRGA3N" input="" vlaue="0"/>
+                    <item id="TRGA4N" input="" vlaue="0"/>
+                    <item id="TRGA6N" input="" vlaue="0"/>
+                    <item id="TRGA7N" input="" vlaue="0"/>
+                    <item id="TRG0N" input="" vlaue="0"/>
+                    <item id="TRG4AN" input="" vlaue="0"/>
+                    <item id="TRG4BN" input="" vlaue="0"/>
+                    <item id="TRG4ANorTRG4BN" input="" vlaue="0"/>
+                    <item id="TRG4ABN" input="" vlaue="0"/>
+                    <item id="TRG7AN" input="" vlaue="0"/>
+                    <item id="TRG7BN" input="" vlaue="0"/>
+                    <item id="TRG7ANorTRG7BN" input="" vlaue="0"/>
+                    <item id="TRG7ABN" input="" vlaue="0"/>
+                    <item id="TMTRG0AN_0" input="" vlaue="0"/>
+                    <item id="TMTRG0AN_1" input="" vlaue="0"/>
+                    <item id="TPTRGAN" input="" vlaue="0"/>
+                    <item id="TPTRG0AN" input="" vlaue="0"/>
+                    <item id="ELC" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="S12ADIchk" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="S12ADIPrity" selection="Level15">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                    <item id="Level4" input="" vlaue="0"/>
+                    <item id="Level5" input="" vlaue="0"/>
+                    <item id="Level6" input="" vlaue="0"/>
+                    <item id="Level7" input="" vlaue="0"/>
+                    <item id="Level8" input="" vlaue="0"/>
+                    <item id="Level9" input="" vlaue="0"/>
+                    <item id="Level10" input="" vlaue="0"/>
+                    <item id="Level11" input="" vlaue="0"/>
+                    <item id="Level12" input="" vlaue="0"/>
+                    <item id="Level13" input="" vlaue="0"/>
+                    <item id="Level14" input="" vlaue="0"/>
+                    <item id="Level15" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx00_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx01_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx02_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx03_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx04_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx05_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx06_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="ANx07_Add" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="SDFmode" selection="Unused">
+                    <item id="Unused" input="" vlaue="0"/>
+                    <item id="Rotation" input="" vlaue="0"/>
+                    <item id="Fixed" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="SDFVolt" selection="0V">
+                    <item id="0V" input="" vlaue="0"/>
+                    <item id="VREFH01_2" input="" vlaue="0"/>
+                    <item id="VREFH0" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="DDcharge" selection="Unused">
+                    <item id="Unused" input="" vlaue="0"/>
+                    <item id="Precharge" input="" vlaue="0"/>
+                    <item id="Discharge" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="DDperiod" selection="2ADCLK">
+                    <item id="2ADCLK" input="" vlaue="0"/>
+                    <item id="3ADCLK" input="" vlaue="0"/>
+                    <item id="4ADCLK" input="" vlaue="0"/>
+                    <item id="5ADCLK" input="" vlaue="0"/>
+                    <item id="6ADCLK" input="" vlaue="0"/>
+                    <item id="7ADCLK" input="" vlaue="0"/>
+                    <item id="8ADCLK" input="" vlaue="0"/>
+                    <item id="9ADCLK" input="" vlaue="0"/>
+                    <item id="10ADCLK" input="" vlaue="0"/>
+                    <item id="11ADCLK" input="" vlaue="0"/>
+                    <item id="12ADCLK" input="" vlaue="0"/>
+                    <item id="13ADCLK" input="" vlaue="0"/>
+                    <item id="14ADCLK" input="" vlaue="0"/>
+                    <item id="15ADCLK" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="CSHchk" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="DataAligh" selection="Right">
+                    <item id="Right" input="" vlaue="0"/>
+                    <item id="Left" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="Autoclean" selection="EnAutoclean">
+                    <item id="DisAutoclean" input="" vlaue="0"/>
+                    <item id="EnAutoclean" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="Resolution" selection="12bit">
+                    <item id="12bit" input="" vlaue="0"/>
+                    <item id="10bit" input="" vlaue="0"/>
+                    <item id="8bit" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="Countmode" selection="Addition">
+                    <item id="Addition" input="" vlaue="0"/>
+                    <item id="Average" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="Valuecount" selection="1time">
+                    <item id="1time" input="" vlaue="0"/>
+                    <item id="2times" input="" vlaue="0"/>
+                    <item id="3times" input="" vlaue="0"/>
+                    <item id="4times" input="" vlaue="0"/>
+                    <item id="16times" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="WDFuntion" selection="WDFUnuse">
+                    <item id="WDFUse" input="" vlaue="0"/>
+                    <item id="WDFUnuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="CMPAChk" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="CMPBChk" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="WindowABcomplex" selection="AORB">
+                    <item id="AORB" input="" vlaue="0"/>
+                    <item id="AEXORB" input="" vlaue="0"/>
+                    <item id="AANDB" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="Cmp0A" selection="Cmp0A">
+                    <item id="Cmp0A" input="0" vlaue="0"/>
+                </option>
+                <option enabled="false" id="Cmp1A" selection="Cmp1A">
+                    <item id="Cmp1A" input="0" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx00_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx00_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx01_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx01_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx02_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx02_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx03_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx03_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx04_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx04_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx05_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx05_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx06_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx06_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx07_CMPA" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx07_CMPALEVEL" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="Cmp0B" selection="Cmp0B">
+                    <item id="Cmp0B" input="0" vlaue="0"/>
+                </option>
+                <option enabled="false" id="Cmp1B" selection="Cmp1B">
+                    <item id="Cmp1B" input="0" vlaue="0"/>
+                </option>
+                <option enabled="false" id="CMPBChan" selection="Unused">
+                    <item id="Unused" input="" vlaue="0"/>
+                    <item id="ANx00" input="" vlaue="0"/>
+                    <item id="ANx01" input="" vlaue="0"/>
+                    <item id="ANx02" input="" vlaue="0"/>
+                    <item id="ANx03" input="" vlaue="0"/>
+                    <item id="ANx04" input="" vlaue="0"/>
+                    <item id="ANx05" input="" vlaue="0"/>
+                    <item id="ANx06" input="" vlaue="0"/>
+                    <item id="ANx07" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="CMPBLevel" selection="Ref0Larger">
+                    <item id="Ref0Larger" input="" vlaue="0"/>
+                    <item id="Ref0Smaller" input="" vlaue="0"/>
+                    <item id="OutofRef0Ref1" input="" vlaue="0"/>
+                    <item id="BetweenRef0Ref1" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="ANx00_Sampling" selection="ANx00_Sampling">
+                    <item id="ANx00_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx01_Sampling" selection="ANx01_Sampling">
+                    <item id="ANx01_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx02_Sampling" selection="ANx02_Sampling">
+                    <item id="ANx02_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx03_Sampling" selection="ANx03_Sampling">
+                    <item id="ANx03_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx04_Sampling" selection="ANx04_Sampling">
+                    <item id="ANx04_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx05_Sampling" selection="ANx05_Sampling">
+                    <item id="ANx05_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx06_Sampling" selection="ANx06_Sampling">
+                    <item id="ANx06_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="true" id="ANx07_Sampling" selection="ANx07_Sampling">
+                    <item id="ANx07_Sampling" input="0.183" vlaue="11"/>
+                </option>
+                <option enabled="false" id="S12CMPAIchk" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="S12CMPBIchk" selection="Use">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="GBL1Prity" selection="Level15">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                    <item id="Level4" input="" vlaue="0"/>
+                    <item id="Level5" input="" vlaue="0"/>
+                    <item id="Level6" input="" vlaue="0"/>
+                    <item id="Level7" input="" vlaue="0"/>
+                    <item id="Level8" input="" vlaue="0"/>
+                    <item id="Level9" input="" vlaue="0"/>
+                    <item id="Level10" input="" vlaue="0"/>
+                    <item id="Level11" input="" vlaue="0"/>
+                    <item id="Level12" input="" vlaue="0"/>
+                    <item id="Level13" input="" vlaue="0"/>
+                    <item id="Level14" input="" vlaue="0"/>
+                    <item id="Level15" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="このソフトウェアコンポーネントは、12ビットA/ Dコンバータ用のシングルスキャンモードの構成を提供します。&#10;&#10;任意に選択したアナログ入力を任意のチャネル番号順に変換することが可能です。" detailDescription="" display="シングルスキャンモードS12AD" id="com.renesas.smc.tools.swcomponent.codegenerator.singlescanmode" version="2.5.0"/>
+            <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="S12AD0 シングルスキャンモード" display="S12AD0" id="com.renesas.smc.swc.cg.rx.ssm.rx671.s12ad0" type="">
+                <context/>
+            </allocator>
+            <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
     </tool>
     <tool id="System">

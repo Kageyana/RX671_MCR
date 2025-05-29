@@ -6,7 +6,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_S12AD0.h
-* Component Version: 1.13.0
+* Component Version: 2.5.0
 * Device(s)        : R5F5671EHxLE
 * Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
@@ -49,3 +49,4 @@ void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buff
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
+

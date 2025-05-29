@@ -72,8 +72,11 @@ void main(void)
 	// 	}
 	// }
 
-	Encoderinit();
-	motorInit();
+	InitEncoder();
+	InitMotor();
+
+	R_Config_S12AD0_Start(); // A/D変換開始
+	R_Config_S12AD1_Start(); // A/D変換開始
 	
 	// SSD1351drawImage(0, 0, 128, 128, imgQRgithub128x128);
 	// initLED();
@@ -83,7 +86,7 @@ void main(void)
 	// setLED(3, 255, 0, 0);
 	// sendLED();
 	cnt0 = 0;
-	PORTB.PODR.BIT.B4 = 1;
+	PORTB.PODR.BIT.B4 = 0;
 
 	while (1)
 	{
@@ -107,12 +110,13 @@ void main(void)
 		SSD1351setCursor(2, 74);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE6:%d",PORTE.PIDR.BIT.B6);
 
-		if(swValTact == SW_PUSH)
+		if(swValRotary == 0x0)
 		{
-			motorPwmOut(-500, -500, -500, -500);
+			MotorPwmOut(-500, -500, -500, -500);
 		}
-		else {
-			motorPwmOut(0, 0, 0, 0);
+		else if (swValRotary == 0x1) 
+		{
+			MotorPwmOut(500, 500, 500, 500);
 		}
 
 		if(cnt0 > 10000 && loggingSDcard)

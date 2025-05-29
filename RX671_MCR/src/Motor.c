@@ -19,24 +19,40 @@ int16_t		accele_rR;		// 右後モーターPWM値
 int16_t		accele_rL;		// 左後モーターPWM値
 int16_t		sPwm;			// サーボモーターPWM値
 ///////////////////////////////////////////////////////////////////////////
-// モジュール名 motor_f
-// 処理概要     モーターのPWMの変更
-// 引数         accelefL, accelefR(PWMを1～100%で指定)
-// 戻り値       な
+// モジュール名 InitMotor
+// 処理概要     モーターPWMの初期化
+// 引数         なし
+// 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void motorInit(void)
+void InitMotor(void)
 {
 	SET_MTU_FRONT;
 	SET_MTU_REAR;
 	SET_MTU_SERVO;
 }
 ///////////////////////////////////////////////////////////////////////////
-// モジュール名 motorPwmOut
+// モジュール名 GetPotensionADVal
 // 処理概要     モーターのPWMの変更
-// 引数         accelefL, accelefR(PWMを1～1000で指定)
+// 引数         accelefL, accelefR(PWMを1～100%で指定)
 // 戻り値       な
 ///////////////////////////////////////////////////////////////////////////
-void motorPwmOut( int16_t accelefL, int16_t accelefR
+void GetMotorADVal(void)
+{
+	GET_MOTORCURRENT_FL_VAL;	// 左前モーター電流値の取得
+	GET_MOTORCURRENT_FL_VAL;	// 右前モーター電流値の取得
+	GET_MOTORCURRENT_RL_VAL;	// 左後モーター電流値の取得
+	GET_MOTORCURRENT_RR_VAL;	// 右後モーター電流値の取得
+
+	GET_POT_FRONT_VAL;	// 前ポテンションメーター値の取得
+	GET_POT_REAR_VAL;	// 後ポテンションメーター値の取得
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 MotorPwmOut
+// 処理概要     モーターのPWMの変更
+// 引数         accelefL, accelefR, accelerL, accelerR(PWMを1～1000で指定)
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	, int16_t accelerL, int16_t accelerR )
 {
 	uint16_t pwmfl, pwmfr, pwmrl, pwmrr;
@@ -76,12 +92,12 @@ void motorPwmOut( int16_t accelefL, int16_t accelefR
 	PWM_RR_OUT = pwmrr;
 }
 ///////////////////////////////////////////////////////////////////////////
-// モジュール名 servoPwmOut
+// モジュール名 ServoPwmOut
 // 処理概要     白線トレース時サーボのPWMの変更
-// 引数         spwm
+// 引数         servopwm(PWMを-1000～1000で指定)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void servoPwmOut( signed char servopwm )
+void ServoPwmOut( int16_t servopwm )
 {
 	uint16_t pwm;
 	short angle;
@@ -100,14 +116,13 @@ void servoPwmOut( signed char servopwm )
 	// if ( angle > SERVO_LIMIT + 100 ) servopwm = 0;
 	// if ( angle < -SERVO_LIMIT - 100 ) servopwm = 0;
 
-	pwm = (uint16_t)TGR_SERVO * abs(servopwm) / 1000;
+	pwm = TGR_SERVO * abs(servopwm) / 1000;
 	// サーボモータ制御
 	if( servopwm > 0) {
 		// 正転
 		DIR_SERVO = 1;
 	} else {
 		// 逆転
-		pwm = -pwm;
 		DIR_SERVO = 0;
 	}
 	PWM_SERVO_OUT = pwm;

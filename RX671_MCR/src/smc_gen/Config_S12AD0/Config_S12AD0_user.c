@@ -6,7 +6,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_S12AD0_user.c
-* Component Version: 1.13.0
+* Component Version: 2.5.0
 * Device(s)        : R5F5671EHxLE
 * Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
@@ -23,6 +23,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_S12AD0.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "Linesensor.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -55,7 +56,8 @@ void R_Config_S12AD0_Create_UserInit(void)
 void r_Config_S12AD0_interrupt(void)
 {
     /* Start user code for r_Config_S12AD0_interrupt. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    GetLineSenADVal();
+	/* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

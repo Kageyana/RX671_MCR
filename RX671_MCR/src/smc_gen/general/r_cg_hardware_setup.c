@@ -22,7 +22,6 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "Config_ICU.h"
-#include "Config_S12AD0.h"
 #include "Config_S12AD1.h"
 #include "Config_PORT.h"
 #include "Config_SCI0.h"
@@ -36,6 +35,7 @@ Includes
 #include "Config_MTU4.h"
 #include "Config_MTU7.h"
 #include "Config_TPU5.h"
+#include "Config_S12AD0.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -92,7 +92,6 @@ void R_Systeminit(void)
     /* Set peripheral settings */
     R_Config_PORT_Create();
     R_Config_ICU_Create();
-    R_Config_S12AD0_Create();
     R_Config_S12AD1_Create();
     R_Config_SCI0_Create();
     R_Config_SCI10_Create();
@@ -105,6 +104,7 @@ void R_Systeminit(void)
     R_Config_MTU4_Create();
     R_Config_MTU7_Create();
     R_Config_TPU5_Create();
+    R_Config_S12AD0_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();
