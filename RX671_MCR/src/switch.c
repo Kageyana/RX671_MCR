@@ -17,9 +17,9 @@ uint8_t swValRotary;
 void GetSwitches(void)
 {
 	// 5方向タクトスイッチ読み込み
-	swValTact = getSW5aAxisTact();
+	swValTact = GetSW5aAxisTact();
 	// メインボード上のタクトスイッチ読み込み
-	swValRotary = getSWRotary();
+	swValRotary = GetSWRotary();
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 getSW5aAxisTact

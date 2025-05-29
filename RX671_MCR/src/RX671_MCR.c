@@ -44,7 +44,7 @@ void main(void)
 	R_DMACA_Init(); // DMAC内部情報を初期化
 
 	R_Config_SCI2_Start();
-	BMI088init();
+	// BMI088init();
 	SSD1351init();
 
 	// 赤枠描画
@@ -58,9 +58,9 @@ void main(void)
         SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
     }
 
-	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	calibratIMU = true;	// IMUキャリブレーション開始
-	while(calibratIMU);	// キャリブレーション完了待ち
+	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	// calibratIMU = true;	// IMUキャリブレーション開始
+	// while(calibratIMU);	// キャリブレーション完了待ち
 	
 	// if(SDcardinit() == SDC_SD_SUCCESS)
 	// {
@@ -102,13 +102,11 @@ void main(void)
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
 		SSD1351setCursor(85, 38);
 		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
-		SSD1351setCursor(2, 50);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		// SSD1351setCursor(2, 50);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
 		SSD1351setCursor(2, 62);
 		// SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE0:%d",PORTE.PIDR.BIT.B0);
-		SSD1351setCursor(2, 74);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"PE6:%d",PORTE.PIDR.BIT.B6);
+		SSD1351printf(Font_7x10,SSD1351_BLUE,"Pot:%5d",potFrontVal);
 
 		if(swValRotary == 0x0)
 		{

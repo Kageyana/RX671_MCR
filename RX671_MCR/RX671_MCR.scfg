@@ -462,10 +462,10 @@
         <Item currentVect="180" defaultVect="180" id="CAN0_TXM0" priority="15" usedState="未使用"/>
         <Item currentVect="181" defaultVect="181" id="USB0_USBI0" priority="15" usedState="未使用"/>
         <Item currentVect="182" defaultVect="182" id="USB1_USBI1" priority="15" usedState="未使用"/>
-        <Item currentVect="183" defaultVect="183" id="S12AD_S12ADI" priority="15" usedState="使用中"/>
+        <Item currentVect="183" defaultVect="183" id="S12AD_S12ADI" priority="11" usedState="使用中"/>
         <Item currentVect="184" defaultVect="184" id="S12AD_S12GBADI" priority="15" usedState="未使用"/>
         <Item currentVect="185" defaultVect="185" id="S12AD_S12GCADI" priority="15" usedState="未使用"/>
-        <Item currentVect="186" defaultVect="186" id="S12AD1_S12ADI1" priority="15" usedState="使用中"/>
+        <Item currentVect="186" defaultVect="186" id="S12AD1_S12ADI1" priority="1" usedState="使用中"/>
         <Item currentVect="187" defaultVect="187" id="S12AD1_S12GBADI1" priority="15" usedState="未使用"/>
         <Item currentVect="188" defaultVect="188" id="S12AD1_S12GCADI1" priority="15" usedState="未使用"/>
         <Item currentVect="189" defaultVect="189" id="ELC_ELSR18I" priority="15" usedState="未使用"/>
@@ -1475,7 +1475,7 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="S12ADIPrity" selection="Level15">
+                <option enabled="true" id="S12ADIPrity" selection="Level1">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
@@ -1493,11 +1493,11 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx00_Add" selection="Unuse">
+                <option enabled="true" id="ANx00_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx01_Add" selection="Unuse">
+                <option enabled="true" id="ANx01_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
@@ -1505,7 +1505,7 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx03_Add" selection="Unuse">
+                <option enabled="true" id="ANx03_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
@@ -1513,15 +1513,15 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx05_Add" selection="Unuse">
+                <option enabled="true" id="ANx05_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx06_Add" selection="Unuse">
+                <option enabled="true" id="ANx06_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx07_Add" selection="Unuse">
+                <option enabled="true" id="ANx07_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
@@ -1529,15 +1529,15 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx09_Add" selection="Unuse">
+                <option enabled="true" id="ANx09_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx10_Add" selection="Unuse">
+                <option enabled="true" id="ANx10_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx11_Add" selection="Unuse">
+                <option enabled="true" id="ANx11_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
@@ -1580,11 +1580,11 @@
                     <item id="14ADCLK" input="" vlaue="0"/>
                     <item id="15ADCLK" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="DataAligh" selection="Right">
+                <option enabled="true" id="DataAligh" selection="Left">
                     <item id="Right" input="" vlaue="0"/>
                     <item id="Left" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Autoclean" selection="DisAutoclean">
+                <option enabled="true" id="Autoclean" selection="EnAutoclean">
                     <item id="DisAutoclean" input="" vlaue="0"/>
                     <item id="EnAutoclean" input="" vlaue="0"/>
                 </option>
@@ -1593,11 +1593,11 @@
                     <item id="10bit" input="" vlaue="0"/>
                     <item id="8bit" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Countmode" selection="Addition">
+                <option enabled="true" id="Countmode" selection="Average">
                     <item id="Addition" input="" vlaue="0"/>
                     <item id="Average" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Valuecount" selection="1time">
+                <option enabled="true" id="Valuecount" selection="4times">
                     <item id="1time" input="" vlaue="0"/>
                     <item id="2times" input="" vlaue="0"/>
                     <item id="3times" input="" vlaue="0"/>
@@ -1792,40 +1792,40 @@
                     <item id="BetweenRef0Ref1" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="ANx00_Sampling" selection="ANx00_Sampling">
-                    <item id="ANx00_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx00_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="true" id="ANx01_Sampling" selection="ANx01_Sampling">
-                    <item id="ANx01_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx01_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="false" id="ANx02_Sampling" selection="ANx02_Sampling">
                     <item id="ANx02_Sampling" input="0.183" vlaue="11"/>
                 </option>
                 <option enabled="true" id="ANx03_Sampling" selection="ANx03_Sampling">
-                    <item id="ANx03_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx03_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="false" id="ANx04_Sampling" selection="ANx04_Sampling">
                     <item id="ANx04_Sampling" input="0.183" vlaue="11"/>
                 </option>
                 <option enabled="true" id="ANx05_Sampling" selection="ANx05_Sampling">
-                    <item id="ANx05_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx05_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="true" id="ANx06_Sampling" selection="ANx06_Sampling">
-                    <item id="ANx06_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx06_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="true" id="ANx07_Sampling" selection="ANx07_Sampling">
-                    <item id="ANx07_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx07_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="false" id="ANx08_Sampling" selection="ANx08_Sampling">
                     <item id="ANx08_Sampling" input="0.183" vlaue="11"/>
                 </option>
                 <option enabled="true" id="ANx09_Sampling" selection="ANx09_Sampling">
-                    <item id="ANx09_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx09_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="true" id="ANx10_Sampling" selection="ANx10_Sampling">
-                    <item id="ANx10_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx10_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="true" id="ANx11_Sampling" selection="ANx11_Sampling">
-                    <item id="ANx11_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx11_Sampling" input="1" vlaue="60"/>
                 </option>
                 <option enabled="false" id="Temperature_Sampling" selection="Temperature_Sampling">
                     <item id="Temperature_Sampling" input="5" vlaue="0"/>
@@ -7786,7 +7786,7 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="S12ADIPrity" selection="Level15">
+                <option enabled="true" id="S12ADIPrity" selection="Level11">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>

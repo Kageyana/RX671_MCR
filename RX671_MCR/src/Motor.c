@@ -18,6 +18,18 @@ int16_t		accele_fL;		// 左前モーターPWM値
 int16_t		accele_rR;		// 右後モーターPWM値
 int16_t		accele_rL;		// 左後モーターPWM値
 int16_t		sPwm;			// サーボモーターPWM値
+
+// モーター電流値
+uint16_t motorCurrentFL;	// 左前モーター電流値
+uint16_t motorCurrentFR;	// 右前モーター電流値
+uint16_t motorCurrentRL;	// 左後モーター電流値
+uint16_t motorCurrentRR;	// 右後モーター電流値
+uint16_t servoCurrentF;	// 前サーボ電流値
+uint16_t servoCurrentR;	// 後ろサーボ電流値
+
+// ポテンショメータ値
+uint16_t potFrontVal;	// 前ポテンショメータの値
+uint16_t potRearVal;		// 後ポテンショメータの値
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 InitMotor
 // 処理概要     モーターPWMの初期化

@@ -78,7 +78,7 @@ void R_Config_S12AD0_Create(void)
 
     /* Set interrupt and priority level */
     ICU.SLIBR183.BYTE = 0x40U;
-    IPR(PERIB, INTB183) = _0F_AD_PRIORITY_LEVEL15;
+    IPR(PERIB, INTB183) = _0B_AD_PRIORITY_LEVEL11;
 
     /* Set AN001 pin */
     PORT4.PMR.BYTE &= 0xFDU;

@@ -26,15 +26,15 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0B_AD1_SAMPLING_STATE_0           (0x0BU)   /* ANx00 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_1           (0x0BU)   /* ANx01 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_3           (0x0BU)   /* ANx03 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_5           (0x0BU)   /* ANx05 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_6           (0x0BU)   /* ANx06 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_7           (0x0BU)   /* ANx07 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_9           (0x0BU)   /* ANx09 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_10          (0x0BU)   /* ANx10 sampling time setting */
-#define _0B_AD1_SAMPLING_STATE_11          (0x0BU)   /* ANx11 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_0           (0x3CU)   /* ANx00 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_1           (0x3CU)   /* ANx01 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_3           (0x3CU)   /* ANx03 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_5           (0x3CU)   /* ANx05 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_6           (0x3CU)   /* ANx06 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_7           (0x3CU)   /* ANx07 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_9           (0x3CU)   /* ANx09 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_10          (0x3CU)   /* ANx10 sampling time setting */
+#define _3C_AD1_SAMPLING_STATE_11          (0x3CU)   /* ANx11 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions

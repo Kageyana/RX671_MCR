@@ -613,7 +613,7 @@
             <Setting id="ANx04_CMPA" value="Unuse"/>
             <Setting id="ANx04_Add" value="Unuse"/>
             <Setting id="ANx07_CMPALEVEL" value="Ref0Larger"/>
-            <Setting id="S12ADIPrity" value="Level15"/>
+            <Setting id="S12ADIPrity" value="Level11"/>
             <Setting id="ANx05_Sampling" value="0.183"/>
             <Setting id="ANx00_Sampling" value="0.183"/>
             <Setting id="Cmp1B" value="0"/>
@@ -653,7 +653,7 @@
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" id="Config_S12AD1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="SDFmode" value="Unused"/>
-            <Setting id="ANx06_Add" value="Unuse"/>
+            <Setting id="ANx06_Add" value="Use"/>
             <Setting id="Internal" value="Unuse"/>
             <Setting id="SDFVolt" value="0V"/>
             <Setting id="CMPBChk" value="Unuse"/>
@@ -663,16 +663,16 @@
             <Setting id="ANx06_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx08" value="Unuse"/>
             <Setting id="ANx07" value="Use"/>
-            <Setting id="Valuecount" value="1time"/>
+            <Setting id="Valuecount" value="4times"/>
             <Setting id="ANx09" value="Use"/>
             <Setting id="StartTrigger" value="Software"/>
-            <Setting id="ANx09_Sampling" value="0.183"/>
+            <Setting id="ANx09_Sampling" value="1"/>
             <Setting id="ANx00" value="Use"/>
             <Setting id="ANx02" value="Unuse"/>
             <Setting id="Internal_Add" value="Unuse"/>
             <Setting id="Internal_CMPA" value="Unuse"/>
             <Setting id="ANx01" value="Use"/>
-            <Setting id="ANx05_Add" value="Unuse"/>
+            <Setting id="ANx05_Add" value="Use"/>
             <Setting id="ANx00_CMPA" value="Unuse"/>
             <Setting id="ANx04" value="Unuse"/>
             <Setting id="ANx03" value="Use"/>
@@ -681,7 +681,7 @@
             <Setting id="DDperiod" value="2ADCLK"/>
             <Setting id="ANx10_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="CMPBLevel" value="Ref0Larger"/>
-            <Setting id="Countmode" value="Addition"/>
+            <Setting id="Countmode" value="Average"/>
             <Setting id="ANx06_CMPA" value="Unuse"/>
             <Setting id="ANx09_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx01_CMPA" value="Unuse"/>
@@ -691,48 +691,48 @@
             <Setting id="ANx04_Add" value="Unuse"/>
             <Setting id="Internal_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx07_CMPALEVEL" value="Ref0Larger"/>
-            <Setting id="ANx11_Sampling" value="0.183"/>
-            <Setting id="S12ADIPrity" value="Level15"/>
-            <Setting id="ANx05_Sampling" value="0.183"/>
-            <Setting id="ANx00_Sampling" value="0.183"/>
+            <Setting id="ANx11_Sampling" value="1"/>
+            <Setting id="S12ADIPrity" value="Level1"/>
+            <Setting id="ANx05_Sampling" value="1"/>
+            <Setting id="ANx00_Sampling" value="1"/>
             <Setting id="Cmp1B" value="0"/>
-            <Setting id="ANx06_Sampling" value="0.183"/>
+            <Setting id="ANx06_Sampling" value="1"/>
             <Setting id="Cmp1A" value="0"/>
             <Setting id="S12CMPAIchk" value="Use"/>
             <Setting id="CMPBChan" value="Unused"/>
-            <Setting id="ANx03_Add" value="Unuse"/>
+            <Setting id="ANx03_Add" value="Use"/>
             <Setting id="ANx03_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Resolution" value="12bit"/>
-            <Setting id="ANx01_Add" value="Unuse"/>
+            <Setting id="ANx01_Add" value="Use"/>
             <Setting id="ANx08_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Temperature" value="Unuse"/>
             <Setting id="S12CMPBIchk" value="Use"/>
             <Setting id="ANx08_CMPA" value="Unuse"/>
             <Setting id="CSHchk" value="Unuse"/>
-            <Setting id="ANx01_Sampling" value="0.183"/>
+            <Setting id="ANx01_Sampling" value="1"/>
             <Setting id="ANx02_CMPA" value="Unuse"/>
-            <Setting id="DataAligh" value="Right"/>
-            <Setting id="ANx00_Add" value="Unuse"/>
+            <Setting id="DataAligh" value="Left"/>
+            <Setting id="ANx00_Add" value="Use"/>
             <Setting id="ANx01_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx04_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx09_CMPA" value="Unuse"/>
             <Setting id="ANx10_CMPA" value="Unuse"/>
             <Setting id="GBL1Prity" value="Level15"/>
-            <Setting id="ANx10_Sampling" value="0.183"/>
+            <Setting id="ANx10_Sampling" value="1"/>
             <Setting id="ANx02_Add" value="Unuse"/>
             <Setting id="Cmp0A" value="0"/>
             <Setting id="ANx03_CMPA" value="Unuse"/>
-            <Setting id="ANx10_Add" value="Unuse"/>
+            <Setting id="ANx10_Add" value="Use"/>
             <Setting id="ANx04_Sampling" value="0.183"/>
             <Setting id="ANx11_CMPA" value="Unuse"/>
             <Setting id="Cmp0B" value="0"/>
-            <Setting id="ANx07_Sampling" value="0.183"/>
+            <Setting id="ANx07_Sampling" value="1"/>
             <Setting id="ANx02_Sampling" value="0.183"/>
             <Setting id="ANx08_Add" value="Unuse"/>
             <Setting id="CMPAChk" value="Unuse"/>
             <Setting id="ANx08_Sampling" value="0.183"/>
-            <Setting id="ANx09_Add" value="Unuse"/>
-            <Setting id="ANx11_Add" value="Unuse"/>
+            <Setting id="ANx09_Add" value="Use"/>
+            <Setting id="ANx11_Add" value="Use"/>
             <Setting id="Temperature_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Temperature_CMPA" value="Unuse"/>
             <Setting id="ANx11" value="Use"/>
@@ -740,13 +740,13 @@
             <Setting id="ANx05_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Temperature_Add" value="Unuse"/>
             <Setting id="Internal_Sampling" value="5"/>
-            <Setting id="Autoclean" value="DisAutoclean"/>
-            <Setting id="ANx07_Add" value="Unuse"/>
+            <Setting id="Autoclean" value="EnAutoclean"/>
+            <Setting id="ANx07_Add" value="Use"/>
             <Setting id="WDFuntion" value="WDFUnuse"/>
             <Setting id="ANx11_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="DDcharge" value="Unused"/>
             <Setting id="Extendmode" value="Unuse"/>
-            <Setting id="ANx03_Sampling" value="0.183"/>
+            <Setting id="ANx03_Sampling" value="1"/>
             <Setting id="Temperature_Sampling" value="5"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.icu" id="Config_ICU" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
