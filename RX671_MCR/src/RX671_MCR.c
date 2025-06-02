@@ -44,7 +44,7 @@ void main(void)
 	R_DMACA_Init(); // DMAC内部情報を初期化
 
 	R_Config_SCI2_Start();
-	// BMI088init();
+	BMI088init();
 	SSD1351init();
 
 	// 赤枠描画
@@ -58,19 +58,20 @@ void main(void)
         SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
     }
 
-	// R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	// calibratIMU = true;	// IMUキャリブレーション開始
-	// while(calibratIMU);	// キャリブレーション完了待ち
+	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
+	calibratIMU = true;	// IMUキャリブレーション開始
+	while(calibratIMU);	// キャリブレーション完了待ち
 	
-	// if(SDcardinit() == SDC_SD_SUCCESS)
-	// {
-	// 	res = logCreate();
-	// 	if (res == FR_OK)
-	// 	{
-	// 		loggingSDcard = 1;
-	// 		cnt0 = 0;
-	// 	}
-	// }
+	SDcardinit();
+	if(initSDcard)
+	{
+		// res = logCreate();
+		// if (res == FR_OK)
+		// {
+		// 	loggingSDcard = 1;
+		// 	cnt0 = 0;
+		// }
+	}
 
 	InitEncoder();
 	InitMotor();

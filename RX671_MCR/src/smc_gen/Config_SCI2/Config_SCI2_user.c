@@ -137,7 +137,7 @@ static void r_Config_SCI2_callback_transmitend(void)
     /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
 	spi_ssd1351_tx_done = true;
 	spi_BMI088_tx_done = true;
-    /* End user code. Do not edit comment generated here */
+	/* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************

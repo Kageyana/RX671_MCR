@@ -39,7 +39,7 @@ extern uint8_t loggingSDcard;
 extern FATFS *fs;        // ファイルシステムオブジェクト
 extern FIL file;        // ファイルオブジェクト
 
-extern uint8_t columnTitle[512], formatLog[256];
+extern uint8_t columnTitle[256], formatLog[128];
 //====================================//
 // プロトタイプ宣言
 //====================================//
@@ -49,4 +49,7 @@ FRESULT logCreate(void);
 static void r_dmaca_disable(void);
 static void r_dmaca_close(void);
 void setLogStr(uint8_t *column, uint8_t *format);
+void createDir(uint8_t *dirName);
+uint32_t swapEndian32(uint32_t val);
+uint16_t swapEndian16(uint16_t val);
 #endif // SDCARD_H_
