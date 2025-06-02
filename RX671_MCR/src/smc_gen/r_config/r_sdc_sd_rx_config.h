@@ -35,7 +35,7 @@ Macro definitions
 /* ==== Define the number of SD Card to control ==== */
 #define SDC_SD_CFG_CARD_NUM                 (1)                 /* Only "1" can be set. */
 
-#define SDC_SD_CFG_STATUS_CHECK_MODE        (SDC_SD_MODE_POLL) /* <-- Updated by GUI. */
+#define SDC_SD_CFG_STATUS_CHECK_MODE        (SDC_SD_MODE_HWINT) /* <-- Updated by GUI. */
 #define SDC_SD_CFG_TRANSFER                 (SDC_SD_MODE_DMA)    /* <-- Updated by GUI. */
 #define SDC_SD_CFG_ERROR_LOG_ACQUISITION    (0)                 /* <-- Updated by GUI. */
 

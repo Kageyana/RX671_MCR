@@ -528,7 +528,7 @@
         </Segment>
         <Segment component="r_sdc_sdmem_rx3.01" id="r_sdc_sdmem_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" value="0"/>
-            <Setting id="SDC_SD_CFG_STATUS_CHECK_MODE" value="SDC_SD_MODE_POLL"/>
+            <Setting id="SDC_SD_CFG_STATUS_CHECK_MODE" value="SDC_SD_MODE_HWINT"/>
             <Setting id="SDC_SD_CFG_TRANSFER" value="SDC_SD_MODE_DMA"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">

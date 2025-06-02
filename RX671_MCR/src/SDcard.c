@@ -7,9 +7,11 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
+sdc_sd_cfg_t sdc_sd_config;
 uint32_t sdWorkarea[200 / sizeof(uint32_t)];
 uint8_t initSDcard = 0;		// SDカード初期化フラグ
 uint8_t loggingSDcard = 0;	// ログ取得開始フラグ
+uint8_t insertSDcard = 0;	// SDカード挿入フラグ
 
 // ログヘッダー
 uint8_t columnTitle[256] = "", formatLog[128] = "";
@@ -17,17 +19,14 @@ uint8_t columnTitle[256] = "", formatLog[128] = "";
 FATFS *fs;        // ファイルシステムオブジェクト
 FIL file;        // ファイルオブジェクト
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SDcardinit
-// 処理概要  	SDカードの初期化
+// モジュール名 SDcardOpen
+// 処理概要  	SDHIドライバ初期化
 // 引数     	なし
-// 戻り値    	なし
+// 戻り値    	sdc_sd_status_t
 /////////////////////////////////////////////////////////////////////
-sdc_sd_status_t SDcardinit(void)
+sdc_sd_status_t SDcardOpen(void)
 {
-	sdc_sd_cfg_t sdc_sd_config;
-	FRESULT fresult;
-
-	// ピン設定
+	// SDHIピン初期化
 	R_SDHI_PinSetInit();
 
 	// SDHIインターフェースの初期化
@@ -40,70 +39,133 @@ sdc_sd_status_t SDcardinit(void)
 			if (cnt0 > 2000)
 			{
 				// SDカードが検出されない場合の処理
-				return R_SDC_SD_GetErrCode(SD_CARD_NO);; // SDカードが検出されない
+				insertSDcard = 0; // SDカード挿入フラグをリセット
+				return SDC_SD_ERR_NO_CARD;
 			}
 		}
+		insertSDcard = 1; // SDカード挿入フラグをセット
 
-		// SDMEM設定
-		sdc_sd_config.mode = SDC_SD_MODE_POLL | 
-							SDC_SD_MODE_DMA | 
-							SDC_SD_MODE_MEM | 
-							SDC_SD_MODE_4BIT;
-		// SDカード電源設定
-		sdc_sd_config.voltage = SDC_SD_VOLT_3_3;
-		// SDカードの電源ON
-		SDCARD_POWER = SDCARD_POWER_ON; 
-		// SDカード電源が安定するまで待機
-		R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS);
-		// SDHIピンを転送モードに設定
-		R_SDHI_PinSetTransfer();	
+		// SDカードの検出コールバック設定
+		R_SDC_SD_CdInt(SD_CARD_NO, SDC_SD_CD_INT_ENABLE, SDcardDetectCallback);
+		// SDカードのコールバック設定
+		R_SDC_SD_IntCallback(SD_CARD_NO, SDcardCallback);
 
-		// SDカードの初期化
-		if(R_SDC_SD_Initialize(SD_CARD_NO, &sdc_sd_config, SDC_SD_MODE_MEM) == SDC_SD_SUCCESS)
-		{
-			initSDcard = 1;
-			fs = malloc(sizeof (FATFS)); // ファイルシステムオブジェクトのメモリ確保
-			fresult = f_mount(fs, "",0); // ファイルシステムのマウント
-			createDir("images"); // ホームディレクトリにimagesディレクトリを作成
-			return SDC_SD_SUCCESS; // 初期化成功
-		}
-		else
-		{
-			// SDカードの初期化に失敗
-			return R_SDC_SD_GetErrCode(SD_CARD_NO);
-		}
+		return SDC_SD_SUCCESS; // 初期化成功
 	}
 	else
 	{
 		// SDカードの初期化に失敗
-		return R_SDC_SD_GetErrCode(SD_CARD_NO);
+		return SDC_SD_ERR;
 	}
 	
 	return SDC_SD_ERR; // 初期化失敗
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 SDcardend
+// モジュール名 SDcardinit
+// 処理概要  	SDMEMドライバ初期化
+// 引数     	なし
+// 戻り値    	なし
+/////////////////////////////////////////////////////////////////////
+sdc_sd_status_t SDcardinit(void)
+{
+	volatile sdc_sd_status_t ret;
+	FRESULT fresult;
+
+	// SDMEM設定
+	sdc_sd_config.mode = SDC_SD_MODE_HWINT | 
+						SDC_SD_MODE_DMA | 
+						SDC_SD_MODE_MEM | 
+						SDC_SD_MODE_4BIT;
+	// SDカード電源設定
+	sdc_sd_config.voltage = SDC_SD_VOLT_3_3;
+	// SDカードの電源ON
+	SDCARD_POWER = SDCARD_POWER_ON; 
+	// SDカード電源が安定するまで待機
+	R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS);
+	// SDHIピンを転送モードに設定
+	R_SDHI_PinSetTransfer();	
+
+	// SDカードの初期化
+	ret = R_SDC_SD_Initialize(SD_CARD_NO, &sdc_sd_config, SDC_SD_MODE_MEM);
+	if(ret == SDC_SD_SUCCESS)
+	{
+		initSDcard = 1;
+		fs = malloc(sizeof (FATFS)); // ファイルシステムオブジェクトのメモリ確保
+		fresult = f_mount(fs, "",0); // ファイルシステムのマウント
+		createDir("images"); // ホームディレクトリにimagesディレクトリを作成
+		return SDC_SD_SUCCESS; // 初期化成功
+	}
+	else
+	{
+		// SDカードの初期化に失敗
+		return SDC_SD_ERR;
+	}
+
+	
+	return SDC_SD_ERR; // 初期化失敗
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SDcardDetectCallback
+// 処理概要     SDカードの検出コールバック関数
+// 引数         cd:検出状態 0 : SDC_SD_CD_INSERT 1 : SDC_SD_CD_REMOVE
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+sdc_sd_status_t SDcardDetectCallback(int32_t cd)
+{
+	if(cd & SDC_SD_CD_INSERT)
+	{
+		/* sdcard in */
+		insertSDcard = 1; // SDカード挿入フラグをセット
+	}
+	else
+	{
+		/* sdcard out */
+		insertSDcard = 0; // SDカード挿入フラグをリセット
+	}
+	return SDC_SD_SUCCESS;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SDcardCallback
+// 処理概要     SDカードのコールバック関数
+// 引数         channel: 常に0
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+sdc_sd_status_t SDcardCallback(int32_t channel)
+{
+	/* User program */
+	return SDC_SD_SUCCESS;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SDcardEnd
 // 処理概要     SDカードの終了処理 抜去可能にする
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-sdc_sd_status_t SDcardend(void)
+void SDcardEnd(void)
 {
-	r_dmaca_disable(); // DMACAの転送無効化
+	// r_dmaca_disable(); // DMACAの転送無効化
 	R_SDC_SD_End(SD_CARD_NO,SDC_SD_MODE_MEM); // SDカードの終了処理
 
 	R_SDHI_PinSetDetection(); // SDHIピンを検出モードのみに設定
-	SDCARD_POWER = SDCARD_POWER_OFF; // SDカードの電源ON
-	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS); // SDカード電源が安定するまで待機
+	SDCARD_POWER = SDCARD_POWER_OFF; // SDカードの電源OFF
+	R_BSP_SoftwareDelay(10,BSP_DELAY_MILLISECS); // SDカード電源が安定するまで待機
 
+	initSDcard = 0; // SDカード初期化フラグをリセット
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 SDcardClose
+// 処理概要     SDカードのクローズ処理(ドライバ未初期化状態にする)
+// 引数         なし
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void SDcardClose(void)
+{
 	if(R_SDC_SD_GetCardDetection(SD_CARD_NO) != SDC_SD_SUCCESS)
 	{
 		R_SDC_SD_Close(SD_CARD_NO); // SDカードのクローズ処理
 		r_dmaca_close(); // DMACAのクローズ処理
 		R_SDHI_PinSetEnd(); // SDHIピンの終了処理
-		return SDC_SD_SUCCESS; // 初期化成功
 	}
-	return SDC_SD_ERR; // 初期化成功
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 logCreate
@@ -176,7 +238,7 @@ FRESULT logCreate(void)
 		}
 		return FR_DISK_ERR; // ファイルオープン失敗
 	}
-	
+	return FR_DISK_ERR; // ディレクトリオープン失敗
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 r_dmaca_disable
@@ -236,21 +298,6 @@ void createDir(uint8_t *dirName)
 	DIR dir;	 // Directory
 	FILINFO fno; // File Info
 	uint8_t exist = 0;
-	uint8_t readBuff[128];
-	UINT* br;
-
-	volatile union {
-		uint32_t i;
-		uint8_t c[4];
-	} chunkLength;
-	volatile union {
-		uint32_t i;
-		uint8_t c[4];
-	} displayWidth;
-	volatile union {
-		uint32_t i;
-		uint8_t c[4];
-	} displayHeight;
 
 	fresult = f_opendir(&dir, "/"); // directory open
 	if (fresult == FR_OK)
@@ -273,57 +320,6 @@ void createDir(uint8_t *dirName)
 			f_mkdir(dirName);
 		}
 
-		fresult = f_open(&file,"/IMAGES/QR_X.png", FA_READ );
-		if(fresult == FR_OK)
-		{
-			// ファイルが存在する場合は読み込み
-			f_lseek(&file, 1); // ファイルポインタを先頭から1バイト目に移動(0x89をスキップ)
-			
-			if(!strcmp(f_gets(readBuff, 6, &file),"PNG\r\n"))
-			{
-				f_lseek(&file, f_tell(&file)+2); // 2バイト読み飛ばし(IHDRチャンクまでスキップ)
-				//IHDRチャンク読み込み;
-				volatile uint8_t bitDepth, colorType, compressionMethod, filterMethod, interlaceMethod;
-
-				f_read(&file, chunkLength.c, 4, br);// チャンクのデータ長を取得
-				chunkLength.i = swapEndian32(chunkLength.i); // エンディアンを逆転
-
-				if(!strcmp(f_gets(readBuff, 5, &file),"IHDR"))
-				{
-					f_read(&file, displayWidth.c, 4, br);	// 幅を取得
-					displayWidth.i = swapEndian32(displayWidth.i); // エンディアンを逆転
-					f_read(&file, displayHeight.c, 4, br);	// 高さを取得
-					displayHeight.i = swapEndian32(displayHeight.i); // エンディアンを逆転
-
-					f_read(&file, readBuff, 5, br);
-					bitDepth 			= readBuff[0]; // ビット深度を取得
-					colorType 			= readBuff[1]; // カラーモードを取得
-					compressionMethod 	= readBuff[2]; // 圧縮方法を取得
-					filterMethod 		= readBuff[3]; // フィルタ方法を取得
-					interlaceMethod 	= readBuff[4]; // インターレース方法を取得
-
-					f_lseek(&file, f_tell(&file)+4); // CRCをスキップ
-
-					f_read(&file, chunkLength.c, 4, br);// チャンクのデータ長を取得
-					chunkLength.i = swapEndian32(chunkLength.i); // エンディアンを逆転
-
-					while(strcmp(f_gets(readBuff, 5, &file),"IDAT") != 0)
-					{
-						f_lseek(&file, f_tell(&file)+chunkLength.i+4); // チャンクのデータ長+CRCをスキップ
-						f_read(&file, chunkLength.c, 4, br);// チャンクのデータ長を取得
-						chunkLength.i = swapEndian32(chunkLength.i); // エンディアンを逆転
-					}
-					// IDATチャンクを読み込む
-					for(uint16_t i = 0; i < chunkLength.i/displayHeight.i; i++)
-					{
-						f_read(&file, readBuff, displayHeight.i, br); // 1行分のデータを読み込む
-						// ここでreadBuffを処理して画像データを取得する
-					}
-				}
-			}
-		}
-		
-		f_close (&file);
 	}
 }
 /////////////////////////////////////////////////////////////////////
