@@ -18,4 +18,4 @@ extern const uint16_t imgQRgithub128x128[][128]; // QRコード画像(github)
 // プロトタイプ宣言
 //====================================//
 
-#endif // SWITCH_H_
+#endif // IMAGES_H_
