@@ -39,11 +39,11 @@
 // サーボ1
 #define DIR_SERVO		PORTB.PODR.BIT.B7
 #define PWM_SERVO_OUT	MTU3.TGRB
-#define GET_MOTORCURRENT_FL_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL3, &servoCurrentF)
+#define GET_SERVO_CURRENT_F_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL3, &servoCurrentF)
 // サーボ2
 #define DIR_LANCER		PORTB.PODR.BIT.B7
 #define PWM_LANCER_OUT	MTU3.TGRD
-#define GET_MOTORCURRENT_FL_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL9, &servoCurrentR)
+#define GET_SERVO_CURRENT_R_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL9, &servoCurrentR)
 
 // ポテンショメータ
 #define GET_POT_FRONT_VAL R_Config_S12AD1_Get_ValueResult(ADCHANNEL1, &potFrontVal)
