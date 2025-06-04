@@ -15,6 +15,6 @@ extern uint16_t batteryval;
 //====================================//
 // プロトタイプ宣言
 //====================================//
-void GetBatterytADVal(void);
+void GetBatteryADVal(void);
 
 #endif // BATTERY_H_
