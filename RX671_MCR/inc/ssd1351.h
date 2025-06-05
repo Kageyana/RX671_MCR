@@ -63,6 +63,11 @@ typedef union {
     uint8_t u8[SSD1351_BUFFER_SIZE*2];
 } U16ToU8_Union;
 
+typedef struct {
+    uint16_t x;
+    uint16_t y;
+} SSD1351_VERTEX;
+
 extern volatile bool spi_ssd1351_tx_done;
 extern volatile bool g_dma_transfer_done;
 //====================================//
@@ -83,4 +88,12 @@ uint8_t SSD1351getDisplayOn(void);
 void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data);
 void SSD1351setContrastRGB(uint8_t red, uint8_t green, uint8_t blue);
 void SSD1351setContrastMaster(uint8_t contrast);
+void SSD1351line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color);
+void SSD1351drawArc(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, uint16_t color);
+void SSD1351drawArcWithRadiusLine(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, uint16_t color);
+void SSD1351drawCircle(uint8_t x, uint8_t y, uint8_t radius, uint16_t color);
+void SSD1351fillCircle(uint8_t x, uint8_t y, uint8_t radius, uint16_t color);
+void SSD1351polyline(const SSD1351_VERTEX* par_vertex, uint16_t par_count, uint16_t color);
+void SSD1351drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color);
+void SSD1351fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color);
 #endif // SSD1351_H__

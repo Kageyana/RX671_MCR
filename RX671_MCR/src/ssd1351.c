@@ -3,6 +3,8 @@
 //====================================//
 #include "ssd1351.h"
 #include <stdint.h>
+#include <math.h>
+#include <stdlib.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -490,9 +492,174 @@ void SSD1351setContrastRGB(uint8_t red, uint8_t green, uint8_t blue)
 ////////////////////////////////////////////////////////////////////
 void SSD1351setContrastMaster(uint8_t contrast)
 {
-	SSD1351writeCommand(0xC7); // CONTRASTMASTER
-	{
-		uint8_t data[] = { contrast };
-		SSD1351writeData(data, sizeof(data));
-	}
+    SSD1351writeCommand(0xC7); // CONTRASTMASTER
+    {
+        uint8_t data[] = { contrast };
+        SSD1351writeData(data, sizeof(data));
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351line
+// 処理概要     指定座標を結ぶ直線を描画する
+// 引数         x1 y1:開始座標 x2 y2:終了座標 color:描画色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color)
+{
+    int16_t dx = abs((int16_t)x2 - (int16_t)x1);
+    int16_t sx = x1 < x2 ? 1 : -1;
+    int16_t dy = -abs((int16_t)y2 - (int16_t)y1);
+    int16_t sy = y1 < y2 ? 1 : -1;
+    int16_t err = dx + dy;
+    while (1)
+    {
+        SSD1351drawPixel(x1, y1, color);
+        if (x1 == x2 && y1 == y2)
+            break;
+        int16_t e2 = 2 * err;
+        if (e2 >= dy)
+        {
+            err += dy;
+            x1 += sx;
+        }
+        if (e2 <= dx)
+        {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351drawArc
+// 処理概要     円弧を描画する
+// 引数         x y:中心座標 radius:半径 start_angle:開始角度 sweep:角度範囲 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351drawArc(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, uint16_t color)
+{
+    if (sweep > 360)
+        sweep = 360;
+    float start = start_angle * M_PI / 180.0f;
+    float end = (start_angle + sweep) * M_PI / 180.0f;
+    float step = 1.0f / radius;
+    for (float a = start; a <= end; a += step)
+    {
+        uint8_t xa = x + (int16_t)(cosf(a) * radius);
+        uint8_t ya = y + (int16_t)(sinf(a) * radius);
+        SSD1351drawPixel(xa, ya, color);
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351drawArcWithRadiusLine
+// 処理概要     半径線付きの円弧を描画する
+// 引数         x y:中心座標 radius:半径 start_angle:開始角度 sweep:角度範囲 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351drawArcWithRadiusLine(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, uint16_t color)
+{
+    SSD1351drawArc(x, y, radius, start_angle, sweep, color);
+    float a1 = start_angle * M_PI / 180.0f;
+    float a2 = (start_angle + sweep) * M_PI / 180.0f;
+    uint8_t x1 = x + (int16_t)(cosf(a1) * radius);
+    uint8_t y1 = y + (int16_t)(sinf(a1) * radius);
+    uint8_t x2 = x + (int16_t)(cosf(a2) * radius);
+    uint8_t y2 = y + (int16_t)(sinf(a2) * radius);
+    SSD1351line(x, y, x1, y1, color);
+    SSD1351line(x, y, x2, y2, color);
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351drawCircle
+// 処理概要     円を描画する
+// 引数         x y:中心座標 radius:半径 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351drawCircle(uint8_t x, uint8_t y, uint8_t radius, uint16_t color)
+{
+    int16_t x0 = radius;
+    int16_t y0 = 0;
+    int16_t err = 0;
+
+    while (x0 >= y0)
+    {
+        SSD1351drawPixel(x + x0, y + y0, color);
+        SSD1351drawPixel(x + y0, y + x0, color);
+        SSD1351drawPixel(x - y0, y + x0, color);
+        SSD1351drawPixel(x - x0, y + y0, color);
+        SSD1351drawPixel(x - x0, y - y0, color);
+        SSD1351drawPixel(x - y0, y - x0, color);
+        SSD1351drawPixel(x + y0, y - x0, color);
+        SSD1351drawPixel(x + x0, y - y0, color);
+
+        if (err <= 0)
+        {
+            y0++;
+            err += 2 * y0 + 1;
+        }
+        if (err > 0)
+        {
+            x0--;
+            err -= 2 * x0 + 1;
+        }
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351fillCircle
+// 処理概要     円を塗りつぶす
+// 引数         x y:中心座標 radius:半径 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351fillCircle(uint8_t x, uint8_t y, uint8_t radius, uint16_t color)
+{
+    for (int16_t y0 = -radius; y0 <= radius; y0++)
+    {
+        for (int16_t x0 = -radius; x0 <= radius; x0++)
+        {
+            if (x0 * x0 + y0 * y0 <= radius * radius)
+            {
+                SSD1351drawPixel(x + x0, y + y0, color);
+            }
+        }
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351polyline
+// 処理概要     複数の頂点を結ぶ折れ線を描画する
+// 引数         par_vertex:頂点配列 par_count:頂点数 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351polyline(const SSD1351_VERTEX* par_vertex, uint16_t par_count, uint16_t color)
+{
+    if (par_count < 2)
+        return;
+    for (uint16_t i = 1; i < par_count; i++)
+    {
+        SSD1351line(par_vertex[i - 1].x, par_vertex[i - 1].y,
+                    par_vertex[i].x, par_vertex[i].y, color);
+    }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351drawRectangle
+// 処理概要     四角形の枠を描画する
+// 引数         x1 y1:左上座標 x2 y2:右下座標 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color)
+{
+    SSD1351line(x1, y1, x2, y1, color);
+    SSD1351line(x2, y1, x2, y2, color);
+    SSD1351line(x2, y2, x1, y2, color);
+    SSD1351line(x1, y2, x1, y1, color);
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 SSD1351fillRectangle
+// 処理概要     四角形を塗りつぶす
+// 引数         x1 y1:左上座標 x2 y2:右下座標 color:色
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color)
+{
+    for (uint8_t yy = y1; yy <= y2; yy++)
+    {
+        SSD1351line(x1, yy, x2, yy, color);
+    }
 }
