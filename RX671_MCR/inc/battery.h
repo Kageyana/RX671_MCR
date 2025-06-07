@@ -12,9 +12,11 @@
 // グローバル変数の宣言
 //====================================//
 extern uint16_t batteryval;
+extern float batteryVoltage;
 //====================================//
 // プロトタイプ宣言
 //====================================//
+// バッテリーAD値の取得と電圧計算
 void GetBatteryADVal(void);
 
 #endif // BATTERY_H_
