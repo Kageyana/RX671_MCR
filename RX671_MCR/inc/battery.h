@@ -18,7 +18,6 @@
 // グローバル変数の宣言
 //====================================//
 extern uint16_t batteryVal;
-extern uint16_t internalRefVoltage; // AD内部基準電圧値
 extern float batteryVoltage;
 //====================================//
 // プロトタイプ宣言
