@@ -1,0 +1,17 @@
+#ifndef GUI_H_
+#define GUI_H_
+//====================================//
+// インクルード
+//====================================//
+#include "ssd1351.h"
+#include "switch.h"
+#include "r_smc_entry.h"
+//====================================//
+// プロトタイプ宣言
+//====================================//
+
+void GUI_ShowStartup(void);
+void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected);
+uint8_t GUI_MenuSelect(const char **items, uint8_t count);
+
+#endif // GUI_H_

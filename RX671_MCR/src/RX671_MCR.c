@@ -20,6 +20,7 @@
 #include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
+#include "gui.h"
 #include "WS2812C.h"
 #include "switch.h"
 #include "SDcard.h"
@@ -45,9 +46,13 @@ void main(void)
 
 	R_Config_SCI2_Start();
 	BMI088init();
-	SSD1351init();
+    SSD1351init();
+    GUI_ShowStartup();
 
-	// 赤枠描画
+    const char *menu_items[] = {"START", "SETTINGS", "INFO"};
+    GUI_ShowMenu(menu_items, 3, 0);
+
+    // 赤枠描画
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
         SSD1351drawPixel(x, 0, SSD1351_RED);
         SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
