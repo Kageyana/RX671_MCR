@@ -52,19 +52,27 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
         switch(swValTact)
         {
         case SW_UP:
-            if(index > 0)
+            if(index == 0)
+            {
+                index = count - 1; // 先頭からUPで末尾へ循環
+            }
+            else
             {
                 index--;
-                GUI_ShowMenu(items, count, index);
             }
+            GUI_ShowMenu(items, count, index);
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_DOWN:
-            if(index + 1 < count)
+            if(index + 1 >= count)
+            {
+                index = 0; // 末尾からDOWNで先頭へ循環
+            }
+            else
             {
                 index++;
-                GUI_ShowMenu(items, count, index);
             }
+            GUI_ShowMenu(items, count, index);
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_PUSH:
