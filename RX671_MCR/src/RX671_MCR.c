@@ -102,7 +102,7 @@ void main(void)
 	GUI_ShowStatusBar();
 
 	const char *menu_items[] = {"START", "SETTINGS", "INFO"};
-    GUI_ShowMenu(menu_items, 3, 0);
+    GUI_ShowMenu(menu_items, 3, 0, 0);
 
 	while (1)
 	{
