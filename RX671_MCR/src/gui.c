@@ -3,6 +3,14 @@
 //====================================//
 #include "gui.h"
 
+// メニュー表示に関する定数
+// MENU_START_Y : メニューエリアの開始Y座標
+// MENU_ITEM_HEIGHT : 1行あたりの高さ
+// MAX_VISIBLE_ITEMS : 一度に表示できる行数
+#define MENU_START_Y 10
+#define MENU_ITEM_HEIGHT 12
+#define MAX_VISIBLE_ITEMS (((SSD1351_HEIGHT - MENU_START_Y) / MENU_ITEM_HEIGHT) + 1)
+
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -20,61 +28,99 @@ void GUI_ShowStartup(void)
 }
 
 /////////////////////////////////////////////////////////////////////
-// モジュール名 GUI_ShowMenu
+// モジュール名  GUI_ShowMenu
 // 処理概要     メニューを描画する
-// 引数         items: 文字列配列 count: 要素数 selected: 選択中インデックス
+//              offset で指定した位置から項目を描画し
+//              selected の項目を強調表示する
+// 引数         items    : 文字列配列
+//              count    : 要素数
+//              selected : 選択中インデックス
+//              offset   : 表示開始インデックス
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected)
+void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t offset)
 {
-    for(uint8_t i = 0; i < count; i++)
+    // メニュー表示エリアを一旦クリアする
+    SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
+
+    // 表示できる最大行数を求め、offset から表示する数を決定
+    uint8_t visible = MAX_VISIBLE_ITEMS;
+    uint8_t show = (count - offset < visible) ? (count - offset) : visible;
+
+    for(uint8_t i = 0; i < show; i++)
     {
-        SSD1351setCursor(2, (uint8_t)(i * 12 + 10));
-        uint16_t color = (i == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
-        SSD1351printf(Font_7x10, color, (uint8_t*)items[i]);
+        uint8_t idx = offset + i;
+        // 表示行を設定
+        SSD1351setCursor(2, (uint8_t)(i * MENU_ITEM_HEIGHT + MENU_START_Y));
+        // 選択中は黄色で表示
+        uint16_t color = (idx == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
+        SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
     }
 }
 
 /////////////////////////////////////////////////////////////////////
-// モジュール名 GUI_MenuSelect
-// 処理概要     ボタン操作でメニューを選択する
-// 引数         items: 文字列配列 count: 要素数
+// モジュール名  GUI_MenuSelect
+// 処理概要     スイッチ入力に応じてメニューをスクロールしながら選択する
+// 引数         items : 文字列配列
+//              count : 要素数
 // 戻り値       選択されたインデックス
 /////////////////////////////////////////////////////////////////////
 uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
     uint8_t index = 0;
-    GUI_ShowMenu(items, count, index);
+    uint8_t top   = 0;
+
+    GUI_ShowMenu(items, count, index, top);
 
     while(1)
     {
         switch(swValTact)
         {
         case SW_UP:
+            // UP が押された場合
             if(index == 0)
             {
-                index = count - 1; // 先頭からUPで末尾へ循環
+                // 先頭からUPで末尾へ循環
+                index = count - 1;
+                if(count > MAX_VISIBLE_ITEMS)
+                {
+                    top = count - MAX_VISIBLE_ITEMS;
+                }
             }
             else
             {
                 index--;
+                // 表示範囲より上に移動した場合はスクロール
+                if(index < top)
+                {
+                    top--;
+                }
             }
-            GUI_ShowMenu(items, count, index);
+            GUI_ShowMenu(items, count, index, top);
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_DOWN:
+            // DOWN が押された場合
             if(index + 1 >= count)
             {
-                index = 0; // 末尾からDOWNで先頭へ循環
+                // 末尾からDOWNで先頭へ循環
+                index = 0;
+                top   = 0;
             }
             else
             {
                 index++;
+                // 表示範囲を超えたら下方向へスクロール
+                if(index >= top + MAX_VISIBLE_ITEMS)
+                {
+                    top++;
+                }
             }
-            GUI_ShowMenu(items, count, index);
+            GUI_ShowMenu(items, count, index, top);
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_PUSH:
+            // 決定ボタンが押されたら現在の項目を返す
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             return index;
         default:
