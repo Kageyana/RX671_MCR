@@ -1,5 +1,5 @@
-#ifndef TIME_H_
-#define TIME_H_
+#ifndef TIMER_H_
+#define TIMER_H_
 //=====================================//
 // インクルード
 //=====================================//
@@ -31,4 +31,4 @@ extern volatile bool update_display;
 //====================================//
 void interrupt1ms(void * pdata);
 
-#endif // TIME_H_
+#endif // TIMER_H_
