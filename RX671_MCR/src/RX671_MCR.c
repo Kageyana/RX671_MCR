@@ -49,9 +49,6 @@ void main(void)
     SSD1351init();
     GUI_ShowStartup();
 
-    const char *menu_items[] = {"START", "SETTINGS", "INFO"};
-    GUI_ShowMenu(menu_items, 3, 0);
-
     // 赤枠描画
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
         SSD1351drawPixel(x, 0, SSD1351_RED);
@@ -98,6 +95,15 @@ void main(void)
 	cnt0 = 0;
 	PORTB.PODR.BIT.B4 = 0;
 
+	SSD1351fill(SSD1351_BLACK);
+
+	// 電源電圧を表示
+	GetBatteryVoltage();
+	GUI_ShowStatusBar();
+
+	const char *menu_items[] = {"START", "SETTINGS", "INFO"};
+    GUI_ShowMenu(menu_items, 3, 0);
+
 	while (1)
 	{
 		if(!insertSDcard && initSDcard)
@@ -109,26 +115,28 @@ void main(void)
 			SDcardinit(); // SDカードの初期化
 		}
 
-		SSD1351setCursor(2,2);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		SSD1351setCursor(2,14);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		SSD1351setCursor(2,26);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
-		SSD1351setCursor(60,2);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
-		SSD1351setCursor(60,14);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5d",cnt0);
-		SSD1351setCursor(2, 38);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
-		SSD1351setCursor(85, 38);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
-		SSD1351setCursor(2, 50);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"insertSD:%d",insertSDcard);
-		SSD1351setCursor(2, 62);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
-		SSD1351printf(Font_7x10,SSD1351_BLUE,"initSD:%d",initSDcard);
+		GUI_MenuSelect(menu_items, 3);
+
+		// SSD1351setCursor(2,2);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
+		// SSD1351setCursor(2,14);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
+		// SSD1351setCursor(2,26);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
+		// SSD1351setCursor(60,2);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
+		// SSD1351setCursor(60,14);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5d",cnt0);
+		// SSD1351setCursor(2, 38);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
+		// SSD1351setCursor(85, 38);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
+		// SSD1351setCursor(2, 50);
+		// // SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"insertSD:%d",insertSDcard);
+		// SSD1351setCursor(2, 62);
+		// // SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
+		// SSD1351printf(Font_7x10,SSD1351_BLUE,"initSD:%d",initSDcard);
 
 		if(swValRotary == 0x0)
 		{

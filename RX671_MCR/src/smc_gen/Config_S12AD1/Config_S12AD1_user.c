@@ -57,7 +57,6 @@ void R_Config_S12AD1_Create_UserInit(void)
 void r_Config_S12AD1_interrupt(void)
 {
     /* Start user code for r_Config_S12AD1_interrupt. Do not edit comment generated here */
-    GetBatteryADVal();
 	GetMotorADVal();
 	/* End user code. Do not edit comment generated here */
 }

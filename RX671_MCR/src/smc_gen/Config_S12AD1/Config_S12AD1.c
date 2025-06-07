@@ -72,7 +72,7 @@ void R_Config_S12AD1_Create(void)
                          _0020_AD_ANx05_ADD_USED | _0040_AD_ANx06_ADD_USED | _0080_AD_ANx07_ADD_USED | 
                          _0200_AD_AN109_ADD_USED | _0400_AD_AN110_ADD_USED | _0800_AD_AN111_ADD_USED;
     S12AD1.ADCER.WORD = _0000_AD_RESOLUTION_12BIT | _0020_AD_AUTO_CLEARING_ENABLE | _0000_AD_SELFTDIAGST_DISABLE | 
-                        _8000_AD_LEFT_ALIGNMENT;
+                        _0000_AD_RIGHT_ALIGNMENT;
     S12AD1.ADCSR.WORD |= _1000_AD_SCAN_END_INTERRUPT_ENABLE;
 
     /* Set compare control register */

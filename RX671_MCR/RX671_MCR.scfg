@@ -1580,7 +1580,7 @@
                     <item id="14ADCLK" input="" vlaue="0"/>
                     <item id="15ADCLK" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="DataAligh" selection="Left">
+                <option enabled="true" id="DataAligh" selection="Right">
                     <item id="Right" input="" vlaue="0"/>
                     <item id="Left" input="" vlaue="0"/>
                 </option>

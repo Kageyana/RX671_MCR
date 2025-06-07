@@ -5,16 +5,17 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
-uint16_t batteryval;
+uint16_t batteryVal;
 float batteryVoltage;
 /////////////////////////////////////////////////////////////////////
-// モジュール名 GetBatteryADVal
+// モジュール名 GetBatteryVoltage
 // 処理概要     バッテリーのAD値取得と電圧計算
 // 引数         なし
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void GetBatteryADVal(void)
+void GetBatteryVoltage(void)
 {
-	GET_BATTERY_VAL;	// バッテリー電圧値の取得
-    batteryVoltage = (float)batteryval * 12.0F / 4095.0F; // 電圧計算
+	GET_BATTERY_VAL;	// バッテリーのAD値取得
+	batteryVoltage = ((float)batteryVal / 4096.0F) * 3.3F; // AD値を電圧に変換
+    batteryVoltage = (float)batteryVoltage * BATTERY_VOLTAGE_DIVIDER; // バッテリー電圧計算
 }

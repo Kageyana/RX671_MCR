@@ -27,10 +27,9 @@ void GUI_ShowStartup(void)
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected)
 {
-    SSD1351fill(SSD1351_BLACK);
     for(uint8_t i = 0; i < count; i++)
     {
-        SSD1351setCursor(2, (uint8_t)(i * 12 + 2));
+        SSD1351setCursor(2, (uint8_t)(i * 12 + 10));
         uint16_t color = (i == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
         SSD1351printf(Font_7x10, color, (uint8_t*)items[i]);
     }
@@ -94,8 +93,8 @@ void GUI_ShowStatusBar(void)
 {
     uint8_t percent = (uint8_t)((batteryVoltage / 12.0F) * 100.0F + 0.5F);
     if(percent > 100) percent = 100;
-    SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
-    SSD1351setCursor(2, 0);
+    // SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
+    SSD1351setCursor(71, 0);
     SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
 }
 
