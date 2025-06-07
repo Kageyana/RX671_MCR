@@ -84,3 +84,18 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
     }
 }
 
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_ShowStatusBar
+// 処理概要     ステータスバーにバッテリー残量を表示する
+// 引数         なし
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void GUI_ShowStatusBar(void)
+{
+    uint8_t percent = (uint8_t)((batteryVoltage / 12.0F) * 100.0F + 0.5F);
+    if(percent > 100) percent = 100;
+    SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
+    SSD1351setCursor(2, 0);
+    SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
+}
+

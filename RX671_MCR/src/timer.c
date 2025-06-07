@@ -25,9 +25,9 @@ void interrupt1ms(void * pdata)
 		SSD1351updateScreen();
 	}
 	
-	GetSwitches();
-	R_SDC_SD_1msInterval();
-	GetEncoderVal();
+        GetSwitches();
+        R_SDC_SD_1msInterval();
+        GetEncoderVal();
 
 	switch (cnt10)
 	{
@@ -48,25 +48,29 @@ void interrupt1ms(void * pdata)
 			calibrationIMU();
 		}
 		break;
-	case 3:
-		if(initSDcard && loggingSDcard)
-		{
-			f_printf(&file, formatLog
-				,cnt0
-				,BMI088val.accele.x
-				,BMI088val.accele.y
-				,BMI088val.accele.z
-				,BMI088val.gyro.x
-				,BMI088val.gyro.y
-				,BMI088val.gyro.z
-				,BMI088val.angle.x
-				,BMI088val.angle.y
-				,BMI088val.angle.z
-				,BMI088val.temp);
-		}
-		break;
-	case 10:
-		cnt10 = 0;
-		break;
-	}
+        case 3:
+                if(initSDcard && loggingSDcard)
+                {
+                        f_printf(&file, formatLog
+                                ,cnt0
+                                ,BMI088val.accele.x
+                                ,BMI088val.accele.y
+                                ,BMI088val.accele.z
+                                ,BMI088val.gyro.x
+                                ,BMI088val.gyro.y
+                                ,BMI088val.gyro.z
+                                ,BMI088val.angle.x
+                                ,BMI088val.angle.y
+                                ,BMI088val.angle.z
+                                ,BMI088val.temp);
+                }
+                break;
+        case 4:
+                GetBatteryADVal();
+                GUI_ShowStatusBar();
+                break;
+       case 10:
+               cnt10 = 0;
+               break;
+        }
 }
