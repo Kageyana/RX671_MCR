@@ -67,66 +67,63 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
 /////////////////////////////////////////////////////////////////////
 uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
-    uint8_t index = 0;
-    uint8_t top   = 0;
+    static uint8_t index = 0;
+    static uint8_t top   = 0;
 
     GUI_ShowMenu(items, count, index, top);
 
-    while(1)
-    {
-        switch(swValTact)
-        {
-        case SW_UP:
-            // UP が押された場合
-            if(index == 0)
-            {
-                // 先頭からUPで末尾へ循環
-                index = count - 1;
-                if(count > MAX_VISIBLE_ITEMS)
-                {
-                    top = count - MAX_VISIBLE_ITEMS;
-                }
-            }
-            else
-            {
-                index--;
-                // 表示範囲より上に移動した場合はスクロール
-                if(index < top)
-                {
-                    top--;
-                }
-            }
-            GUI_ShowMenu(items, count, index, top);
-            R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-            break;
-        case SW_DOWN:
-            // DOWN が押された場合
-            if(index + 1 >= count)
-            {
-                // 末尾からDOWNで先頭へ循環
-                index = 0;
-                top   = 0;
-            }
-            else
-            {
-                index++;
-                // 表示範囲を超えたら下方向へスクロール
-                if(index >= top + MAX_VISIBLE_ITEMS)
-                {
-                    top++;
-                }
-            }
-            GUI_ShowMenu(items, count, index, top);
-            R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-            break;
-        case SW_PUSH:
-            // 決定ボタンが押されたら現在の項目を返す
-            R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-            return index;
-        default:
-            break;
-        }
-    }
+	switch(swValTact)
+	{
+	case SW_UP:
+		// UP が押された場合
+		if(index == 0)
+		{
+			// 先頭からUPで末尾へ循環
+			index = count - 1;
+			if(count > MAX_VISIBLE_ITEMS)
+			{
+				top = count - MAX_VISIBLE_ITEMS;
+			}
+		}
+		else
+		{
+			index--;
+			// 表示範囲より上に移動した場合はスクロール
+			if(index < top)
+			{
+				top--;
+			}
+		}
+		GUI_ShowMenu(items, count, index, top);
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+		break;
+	case SW_DOWN:
+		// DOWN が押された場合
+		if(index + 1 >= count)
+		{
+			// 末尾からDOWNで先頭へ循環
+			index = 0;
+			top   = 0;
+		}
+		else
+		{
+			index++;
+			// 表示範囲を超えたら下方向へスクロール
+			if(index >= top + MAX_VISIBLE_ITEMS)
+			{
+				top++;
+			}
+		}
+		GUI_ShowMenu(items, count, index, top);
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+		break;
+	case SW_PUSH:
+		// 決定ボタンが押されたら現在の項目を返す
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+		return index;
+	default:
+		break;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////

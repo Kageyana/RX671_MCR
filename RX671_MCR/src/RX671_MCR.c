@@ -101,8 +101,24 @@ void main(void)
 	GetBatteryVoltage();
 	GUI_ShowStatusBar();
 
-	const char *menu_items[] = {"START", "SETTINGS", "INFO"};
-    GUI_ShowMenu(menu_items, 3, 0, 0);
+	const char *menu_items[] = {
+		  "START   "
+		, "SETTINGS"
+		, "INFO1   "
+		, "INFO2   "
+		, "INFO3   "
+		, "INFO4   "
+		, "INFO5   "
+		, "INFO6   "
+		, "INFO7   "
+		, "INFO8   "
+		, "INFO9   "
+		, "INFO10  "
+		, "INFO11  "
+		, "INFO12  "
+		, "INFO13  "
+	};
+    GUI_ShowMenu(menu_items, 14, 0, 0);
 
 	while (1)
 	{
@@ -115,7 +131,7 @@ void main(void)
 			SDcardinit(); // SDカードの初期化
 		}
 
-		GUI_MenuSelect(menu_items, 3);
+		GUI_MenuSelect(menu_items, 14);
 
 		// SSD1351setCursor(2,2);
 		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
