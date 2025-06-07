@@ -15,6 +15,7 @@ static U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
 static U16ToU8_Union SSD1351_BufferBefore;	// Screenbuffer
 static SSD1351_t SSD1351;	/// Screen object
 static uint16_t draw_line_index = 0;
+static volatile bool buffer_update_locked = false;
 
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351reset
@@ -218,6 +219,9 @@ void SSD1351init(void) {
 ////////////////////////////////////////////////////////////////////
 void SSD1351fill(uint16_t color)
 {
+	if(buffer_update_locked) {
+		return;
+	}
 	for (uint32_t i = 0; i < sizeof(SSD1351_Buffer)/sizeof(uint16_t); i++)
 	{
 #ifdef SSD1351_LITTLEENDIAN
@@ -244,11 +248,16 @@ void SSD1351updateScreen(void)
 	} line_buffer;
     uint8_t dummy_rx[SSD1351_WIDTH * 2];
 
+	if(draw_line_index == 0) {
+		buffer_update_locked = true;
+	}
+
 	if(SSD1351.Initialized)
 	{
 		for (uint16_t l = 0; l < LINES_PER_FRAME; l++) {
 			if (draw_line_index >= SSD1351_HEIGHT) {
 				draw_line_index = 0;
+				buffer_update_locked = false;
 				break;
 			}
 
@@ -294,6 +303,9 @@ void SSD1351updateScreen(void)
 ////////////////////////////////////////////////////////////////////
 void SSD1351drawPixel(uint8_t x, uint8_t y, uint16_t color)
 {
+	if(buffer_update_locked) {
+		return;
+	}
 	if (x >= SSD1351_WIDTH || y >= SSD1351_HEIGHT)
 	{
 		// Don't write outside the buffer
@@ -452,9 +464,10 @@ uint8_t SSD1351getDisplayOn(void)
 ////////////////////////////////////////////////////////////////////
 void SSD1351drawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t* data)
 {
-    if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT)) return;
-    if((x + w - 1) >= SSD1351_WIDTH) return;
-    if((y + h - 1) >= SSD1351_HEIGHT) return;
+	if(buffer_update_locked) return;
+	if((x >= SSD1351_WIDTH) || (y >= SSD1351_HEIGHT)) return;
+	if((x + w - 1) >= SSD1351_WIDTH) return;
+	if((y + h - 1) >= SSD1351_HEIGHT) return;
 
     // SSD1351setAddressWindow(x, y, x+w-1, y+h-1);
     // SSD1351writeData((uint8_t*)data, sizeof(uint16_t)*w*h);
