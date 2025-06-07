@@ -9,6 +9,8 @@
 #include "ssd1351.h"
 #include "switch.h"
 #include "encoder.h"
+#include "battery.h"
+#include "gui.h"
 
 #include <stdio.h>
 #include <stdint.h>
