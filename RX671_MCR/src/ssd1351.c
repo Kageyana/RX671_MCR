@@ -10,6 +10,7 @@
 //====================================//
 volatile bool spi_ssd1351_tx_done = false;
 volatile bool g_dma_transfer_done = false;
+bool display_update_locked = false;
 
 static U16ToU8_Union SSD1351_Buffer;	// Screenbuffer
 static U16ToU8_Union SSD1351_BufferBefore;	// Screenbuffer

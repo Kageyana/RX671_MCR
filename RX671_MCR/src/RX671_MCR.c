@@ -51,13 +51,13 @@ void main(void)
 
 	// 赤枠描画
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
-	    SSD1351drawPixel(x, 0, SSD1351_RED);
-	    SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
+		SSD1351drawPixel(x, 0, SSD1351_RED);
+		SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
 	}
 
 	for(int y = 0; y < SSD1351_HEIGHT; y++) {
-	    SSD1351drawPixel(0, y, SSD1351_RED);
-	    SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
+		SSD1351drawPixel(0, y, SSD1351_RED);
+		SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
 	}
 
 	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
@@ -140,9 +140,9 @@ void main(void)
 		// ステータスバー表示
 		if(swValRotary != currentPage)
 		{
-			SSD1351fill(SSD1351_BLACK);
-			currentPage = swValRotary;
-			GUI_ShowStatusBar(currentPage);
+		SSD1351fill(SSD1351_BLACK);
+		currentPage = swValRotary;
+		GUI_ShowStatusBar(currentPage);
 		}
 
 		// ページ表示
@@ -151,10 +151,27 @@ void main(void)
 				// STARTページ
 				GUI_MenuSelect(menu1_items, 14);
 				break;
-			case 1:
-				// SETTINGSページ
-				GUI_MenuSelect(menu2_items, 2);
-				break;
+case 1:
+// SETTINGSページ
+{
+uint8_t sel = GUI_MenuSelect(menu2_items, 2);
+if(sel == 0)
+{
+while(!GUI_EditContrastRGB())
+{
+}
+SSD1351fill(SSD1351_BLACK);
+}
+else if(sel == 1)
+{
+while(!GUI_EditContrastMaster())
+{
+}
+SSD1351fill(SSD1351_BLACK);
+}
+}
+break;
+break;
 			default:
 				break;
 		}
