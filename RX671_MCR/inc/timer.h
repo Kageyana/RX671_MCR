@@ -10,7 +10,6 @@
 #include "switch.h"
 #include "encoder.h"
 #include "battery.h"
-#include "gui.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -25,7 +24,6 @@
 extern uint16_t cnt0;
 extern uint16_t cnt1;
 extern bool initIMU;
-extern volatile bool update_display;
 //====================================//
 // プロトタイプ宣言
 //====================================//
