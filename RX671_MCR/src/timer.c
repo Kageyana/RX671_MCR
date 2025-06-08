@@ -8,7 +8,6 @@
 uint16_t cnt10 = 0;
 uint16_t cnt0 = 0;
 bool initIMU = false;
-volatile bool update_display = false;
 /////////////////////////////////////////////////////////////////////
 // モジュール名 interrupt1ms
 // 処理概要     タイマー割り込み(1ms)

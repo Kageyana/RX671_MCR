@@ -43,7 +43,6 @@ Macro definitions
 #define SDMEM_PRV_CSD_ERASE_BLOCK_MASK        (0x0000007f)
 
 #define USE_DMA
-#define SD_CARD_NO (SDC_SD_CARD_NO0)
 #define SDC_SD_WRITE_OP	(0)
 #define SDC_SD_READ_OP	(1)
 /******************************************************************************

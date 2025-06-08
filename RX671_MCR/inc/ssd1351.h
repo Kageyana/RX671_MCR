@@ -70,11 +70,10 @@ typedef struct {
 
 extern volatile bool spi_ssd1351_tx_done;
 extern volatile bool g_dma_transfer_done;
+extern bool display_update_locked;
 //====================================//
 // プロトタイプ宣言
 //====================================//
-void SSD1351_Unselect();
-
 void SSD1351init(void);
 void SSD1351fill(uint16_t color);
 void SSD1351updateScreen(void);

@@ -7,7 +7,7 @@
 // MENU_START_Y : メニューエリアの開始Y座標
 // MENU_ITEM_HEIGHT : 1行あたりの高さ
 // MAX_VISIBLE_ITEMS : 一度に表示できる行数
-#define MENU_START_Y 10
+#define MENU_START_Y 12
 #define MENU_ITEM_HEIGHT 12
 #define MAX_VISIBLE_ITEMS (((SSD1351_HEIGHT - MENU_START_Y) / MENU_ITEM_HEIGHT) + 1)
 
@@ -26,7 +26,6 @@ void GUI_ShowStartup(void)
 	SSD1351setCursor(10, 54);
 	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RX671_MCR");
 }
-
 /////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_ShowMenu
 // 処理概要     メニューを描画する
@@ -40,8 +39,8 @@ void GUI_ShowStartup(void)
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t offset)
 {
-	// メニュー表示エリアを一旦クリアする
-	SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
+    // メニュー表示エリアを一旦クリアする
+    // SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
 
 	// 表示できる最大行数を求め、offset から表示する数を決定
 	uint8_t visible = MAX_VISIBLE_ITEMS;
@@ -57,7 +56,6 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
 	    SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
 	}
 }
-
 /////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_MenuSelect
 // 処理概要     スイッチ入力に応じてメニューをスクロールしながら選択する
@@ -125,7 +123,6 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 		break;
 	}
 }
-
 /////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowStatusBar
 // 処理概要     ステータスバーにページ番号とバッテリー残量を表示する

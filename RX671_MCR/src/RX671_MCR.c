@@ -17,19 +17,18 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "timer.h"
 #include "BMI088.h"
 #include "ssd1351.h"
-#include "gui.h"
 #include "WS2812C.h"
 #include "switch.h"
 #include "SDcard.h"
 #include "encoder.h"
 #include "Motor.h"
+#include "gui.h"
+#include "timer.h"
 
 #define CMT_CHANNEL 0
 
-char read_buf[64];
 static uint8_t currentPage = 0;
 
 void main(void);
