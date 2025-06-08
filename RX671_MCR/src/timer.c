@@ -6,7 +6,7 @@
 // グローバル変数の宣言
 //====================================//
 uint16_t cnt10 = 0;
-uint16_t cnt0 = 0;
+volatile uint16_t cnt0 = 0;
 bool initIMU = false;
 /////////////////////////////////////////////////////////////////////
 // モジュール名 interrupt1ms
@@ -18,11 +18,12 @@ void interrupt1ms(void * pdata)
 {
 	cnt0++;
 	cnt10++;
+	cntGUI++;
 
-if(!loggingSDcard && !display_update_locked)
-{
-SSD1351updateScreen();
-}
+	if(!loggingSDcard && !display_update_locked)
+	{
+		SSD1351updateScreen();
+	}
 	
 	GetSwitches();
 	R_SDC_SD_1msInterval();

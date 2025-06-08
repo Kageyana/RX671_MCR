@@ -10,6 +10,7 @@
 #include "switch.h"
 #include "encoder.h"
 #include "battery.h"
+#include "gui.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -21,7 +22,7 @@
 //====================================//
 // グローバル変数の宣言
 //====================================//
-extern uint16_t cnt0;
+extern volatile uint16_t cnt0;
 extern uint16_t cnt1;
 extern bool initIMU;
 //====================================//

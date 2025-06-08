@@ -33,8 +33,9 @@ uint8_t BMI088readByte(bool sensorType, uint8_t reg)
 		BMI088_CSB2 = 0;
 	}
 	
-	BMI088_SPI_FUNC(txData, sizeof(txData), rxData, sizeof(rxData));
 	spi_BMI088_rx_done = false;
+	BMI088_SPI_FUNC(txData, sizeof(txData), rxData, sizeof(rxData));
+
 	while(!spi_BMI088_rx_done);
 
 	if(sensorType == ACCELE)
@@ -63,8 +64,9 @@ void BMI088writeByte(bool sensorType, uint8_t reg, uint8_t val)
 		BMI088_CSB2 = 0;
 	}
 
-	BMI088_SPI_FUNC(txData, 2, rxData, 2);
 	spi_BMI088_tx_done = false;
+	BMI088_SPI_FUNC(txData, 2, rxData, 2);
+
 	while(!spi_BMI088_tx_done);
 
 	if(sensorType == ACCELE)
@@ -93,8 +95,9 @@ void BMI088readAxisData(bool sensorType, uint8_t reg, uint8_t *rxData, uint8_t r
 		BMI088_CSB2 = 0;
 	}
 
-	BMI088_SPI_FUNC(txData, rxNum+1, rxDatabuff, rxNum+1);
 	spi_BMI088_tx_done = false;
+	BMI088_SPI_FUNC(txData, rxNum+1, rxDatabuff, rxNum+1);
+
 	while(!spi_BMI088_tx_done);
 
 	memcpy(rxData,rxDatabuff+1,rxNum); // レジスタ送信時の受信データを除いてコピー

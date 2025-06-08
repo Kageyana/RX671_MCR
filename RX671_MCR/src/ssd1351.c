@@ -42,8 +42,9 @@ static void SSD1351writeCommand(uint8_t cmd) {
 
 	SSD1351_CS_PORT = 0;
 	SSD1351_DC_PORT = 0;
-	SSD1351_SPI_FUNC(&cmd, sizeof(cmd), rxData, sizeof(cmd));
+	
 	spi_ssd1351_tx_done = false;
+	SSD1351_SPI_FUNC(&cmd, sizeof(cmd), rxData, sizeof(cmd));
 	while(!spi_ssd1351_tx_done);
 
 	SSD1351_CS_PORT = 1;
@@ -63,9 +64,8 @@ static void SSD1351writeData(uint8_t* buff, size_t buff_size) {
     // split data in small chunks because SMC can't send more then 1K at once
     while(buff_size > 0) {
         uint16_t chunk_size = buff_size > 1024 ? 1024 : buff_size;
-		
-		SSD1351_SPI_FUNC(buff, chunk_size, rxData, chunk_size);
 		spi_ssd1351_tx_done = false;
+		SSD1351_SPI_FUNC(buff, chunk_size, rxData, chunk_size);
 		while(!spi_ssd1351_tx_done);
         
 		buff += chunk_size;
@@ -481,7 +481,7 @@ void SSD1351setContrastRGB(uint8_t red, uint8_t green, uint8_t blue)
 {
 	SSD1351writeCommand(0xC1); // CONTRASTABC
 	{
-		uint8_t data[] = { red, green, blue };
+		uint8_t data[3] = { red, green, blue };
 		SSD1351writeData(data, sizeof(data));
 	}
 }
@@ -495,7 +495,7 @@ void SSD1351setContrastMaster(uint8_t contrast)
 {
     SSD1351writeCommand(0xC7); // CONTRASTMASTER
     {
-        uint8_t data[] = { contrast };
+        uint8_t data[1] = { contrast };
         SSD1351writeData(data, sizeof(data));
     }
 }

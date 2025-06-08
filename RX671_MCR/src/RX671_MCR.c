@@ -60,9 +60,9 @@ void main(void)
 		SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
 	}
 
-	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
-	calibratIMU = true;	// IMUキャリブレーション開始
-	while(calibratIMU);	// キャリブレーション完了待ち
+	R_BSP_SoftwareDelay(500,BSP_DELAY_MILLISECS);
+	// calibratIMU = true;	// IMUキャリブレーション開始
+	// while(calibratIMU);	// キャリブレーション完了待ち
 	
 	// SDカード初期化
 	if(SDcardOpen() == SDC_SD_SUCCESS)
@@ -146,34 +146,39 @@ void main(void)
 		}
 
 		// ページ表示
+		static uint8_t sel=0xff;
 		switch (currentPage) {
 			case 0:
 				// STARTページ
 				GUI_MenuSelect(menu1_items, 14);
 				break;
-case 1:
-// SETTINGSページ
-{
-uint8_t sel = GUI_MenuSelect(menu2_items, 2);
-if(sel == 0)
-{
-while(!GUI_EditContrastRGB())
-{
-}
-SSD1351fill(SSD1351_BLACK);
-}
-else if(sel == 1)
-{
-while(!GUI_EditContrastMaster())
-{
-}
-SSD1351fill(SSD1351_BLACK);
-}
-}
-break;
-break;
+			case 1:
+				// SETTINGSページ
+					
+					if(sel == 0)
+					{
+						if(GUI_EditContrastRGB())
+						{
+							GUI_wait(200);
+							sel = 0xff; // メニュー選択をリセット
+						}
+					}
+					else if(sel == 1)
+					{
+						if(GUI_EditContrastMaster())
+						{
+							GUI_wait(200);
+							sel = 0xff; // メニュー選択をリセット
+						}
+					}
+					else
+					{
+						sel = GUI_MenuSelect(menu2_items, 2);
+					}
+				break;
 			default:
 				break;
+				
 		}
 
 		// SSD1351setCursor(2,2);
