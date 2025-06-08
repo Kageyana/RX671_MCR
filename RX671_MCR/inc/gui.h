@@ -24,5 +24,6 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count);
 void GUI_ShowStatusBar(uint8_t page);
 bool GUI_EditContrastRGB(void);
 bool GUI_EditContrastMaster(void);
+void GUI_DrawTestPattern(uint8_t y_start);
 
 #endif // GUI_H_
