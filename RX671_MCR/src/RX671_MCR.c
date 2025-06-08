@@ -30,6 +30,7 @@
 #define CMT_CHANNEL 0
 
 char read_buf[64];
+static uint8_t currentPage = 0;
 
 void main(void);
 
@@ -46,19 +47,19 @@ void main(void)
 
 	R_Config_SCI2_Start();
 	BMI088init();
-    SSD1351init();
-    GUI_ShowStartup();
+	SSD1351init();
+	GUI_ShowStartup();
 
-    // 赤枠描画
+	// 赤枠描画
 	for(int x = 0; x < SSD1351_WIDTH; x++) {
-        SSD1351drawPixel(x, 0, SSD1351_RED);
-        SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
-    }
+	    SSD1351drawPixel(x, 0, SSD1351_RED);
+	    SSD1351drawPixel(x, SSD1351_HEIGHT-1, SSD1351_RED);
+	}
 
-    for(int y = 0; y < SSD1351_HEIGHT; y++) {
-        SSD1351drawPixel(0, y, SSD1351_RED);
-        SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
-    }
+	for(int y = 0; y < SSD1351_HEIGHT; y++) {
+	    SSD1351drawPixel(0, y, SSD1351_RED);
+	    SSD1351drawPixel(SSD1351_WIDTH-1, y, SSD1351_RED);
+	}
 
 	R_BSP_SoftwareDelay(1000,BSP_DELAY_MILLISECS);
 	calibratIMU = true;	// IMUキャリブレーション開始
@@ -99,7 +100,8 @@ void main(void)
 
 	// 電源電圧を表示
 	GetBatteryVoltage();
-	GUI_ShowStatusBar();
+	currentPage = swValRotary;
+	GUI_ShowStatusBar(currentPage);
 
 	const char *menu_items[] = {
 		  "START   "
@@ -118,7 +120,7 @@ void main(void)
 		, "INFO12  "
 		, "INFO13  "
 	};
-    GUI_ShowMenu(menu_items, 14, 0, 0);
+	GUI_ShowMenu(menu_items, 14, 0, 0);
 
 	while (1)
 	{
@@ -131,7 +133,14 @@ void main(void)
 			SDcardinit(); // SDカードの初期化
 		}
 
+
 		GUI_MenuSelect(menu_items, 14);
+
+		if(swValRotary != currentPage)
+		{
+			currentPage = swValRotary;
+			GUI_ShowStatusBar(currentPage);
+		}
 
 		// SSD1351setCursor(2,2);
 		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
