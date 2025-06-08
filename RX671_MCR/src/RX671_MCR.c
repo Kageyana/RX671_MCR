@@ -121,8 +121,8 @@ void main(void)
 	};
 
 	const char *menu2_items[] = {
-		  "RGB    CONT"
-		, "MASTER CONT"
+		  "RGB    CONTRAST"
+		, "MASTER CONTRAST"
 	};
 
 	while (1)
@@ -154,27 +154,24 @@ void main(void)
 				break;
 			case 1:
 				// SETTINGSページ
-					
-					if(sel == 0)
+				if(sel == 0)
+				{
+					if(GUI_EditContrastRGB())
 					{
-						if(GUI_EditContrastRGB())
-						{
-							GUI_wait(200);
-							sel = 0xff; // メニュー選択をリセット
-						}
+						sel = 0xff; // メニュー選択をリセット
 					}
-					else if(sel == 1)
+				}
+				else if(sel == 1)
+				{
+					if(GUI_EditContrastMaster())
 					{
-						if(GUI_EditContrastMaster())
-						{
-							GUI_wait(200);
-							sel = 0xff; // メニュー選択をリセット
-						}
+						sel = 0xff; // メニュー選択をリセット
 					}
-					else
-					{
-						sel = GUI_MenuSelect(menu2_items, 2);
-					}
+				}
+				else
+				{
+					sel = GUI_MenuSelect(menu2_items, 2);
+				}
 				break;
 			default:
 				break;
