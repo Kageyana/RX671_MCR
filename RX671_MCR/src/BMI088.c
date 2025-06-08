@@ -12,6 +12,7 @@ axis angle = {0.0F, 0.0F, 0.0F};
 IMUval BMI088val;
 volatile bool spi_BMI088_tx_done = false;
 volatile bool spi_BMI088_rx_done = false;
+bool bmi088_read_locked = false;
 
 int16_t angleOffset[3] = {0, 0, 0};
 volatile bool calibratIMU = false;

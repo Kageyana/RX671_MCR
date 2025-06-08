@@ -39,8 +39,8 @@ void GUI_ShowStartup(void)
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t offset)
 {
-    // メニュー表示エリアを一旦クリアする
-    // SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
+	// メニュー表示エリアを一旦クリアする
+	// SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
 
 	// 表示できる最大行数を求め、offset から表示する数を決定
 	uint8_t visible = MAX_VISIBLE_ITEMS;
@@ -48,12 +48,12 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
 
 	for(uint8_t i = 0; i < show; i++)
 	{
-	    uint8_t idx = offset + i;
-	    // 表示行を設定
-	    SSD1351setCursor(2, (uint8_t)(i * MENU_ITEM_HEIGHT + MENU_START_Y));
-	    // 選択中は黄色で表示
-	    uint16_t color = (idx == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
-	    SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
+		uint8_t idx = offset + i;
+		// 表示行を設定
+		SSD1351setCursor(2, (uint8_t)(i * MENU_ITEM_HEIGHT + MENU_START_Y));
+		// 選択中は黄色で表示
+		uint16_t color = (idx == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
+		SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
 	}
 }
 /////////////////////////////////////////////////////////////////////
@@ -122,6 +122,8 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 	default:
 		break;
 	}
+
+	return 0xFF;
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowStatusBar
@@ -138,5 +140,119 @@ void GUI_ShowStatusBar(uint8_t page)
 	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"P:%x", page);
 	SSD1351setCursor(71, 0);
 	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
+}
+
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_EditContrastRGB
+// 処理概要     RGBコントラストを編集する
+// 引数         なし
+// 戻り値       true:編集終了
+/////////////////////////////////////////////////////////////////////
+bool GUI_EditContrastRGB(void)
+{
+	static uint8_t contrast = 0x64;
+	static bool init = false;
+
+	if(!init)
+	{
+	SSD1351fill(SSD1351_BLACK);
+	init = true;
+	}
+
+	SSD1351setCursor(2, 20);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RGB CONT");
+	SSD1351setCursor(2, 36);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"VAL:%3d", contrast);
+
+	switch(swValTact)
+	{
+	case SW_LEFT:
+		if(contrast > 0) contrast--;
+		display_update_locked = true;
+		bmi088_read_locked = true;
+		// SPIバスがフリーになるまで待機
+		while(!spi_ssd1351_tx_done || !spi_BMI088_tx_done);
+		SSD1351setContrastRGB(contrast, contrast, contrast);
+		display_update_locked = false;
+		bmi088_read_locked = false;
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+	break;
+	case SW_RIGHT:
+		if(contrast < 255) contrast++;
+		display_update_locked = true;
+		bmi088_read_locked = true;
+		// SPIバスがフリーになるまで待機
+		while(!spi_ssd1351_tx_done || !spi_BMI088_tx_done);
+		SSD1351setContrastRGB(contrast, contrast, contrast);
+		display_update_locked = false;
+		bmi088_read_locked = false;
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+	break;
+	case SW_PUSH:
+	R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+	init = false;
+	return true;
+	default:
+	break;
+	}
+
+	return false;
+}
+
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_EditContrastMaster
+// 処理概要     マスターコントラストを編集する
+// 引数         なし
+// 戻り値       true:編集終了
+/////////////////////////////////////////////////////////////////////
+bool GUI_EditContrastMaster(void)
+{
+	static uint8_t contrast = 0x08;
+	static bool init = false;
+
+	if(!init)
+	{
+	SSD1351fill(SSD1351_BLACK);
+	init = true;
+	}
+
+	SSD1351setCursor(2, 20);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"MASTER CONT");
+	SSD1351setCursor(2, 36);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"VAL:%3d", contrast);
+
+	switch(swValTact)
+	{
+	case SW_LEFT:
+		if(contrast > 0) contrast--;
+		display_update_locked = true;
+		bmi088_read_locked = true;
+		// SPIバスがフリーになるまで待機
+		while(!spi_ssd1351_tx_done || !spi_BMI088_tx_done);
+		SSD1351setContrastMaster(contrast);
+		display_update_locked = false;
+		bmi088_read_locked = false;
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+	break;
+	case SW_RIGHT:
+		if(contrast < 255) contrast++;
+		display_update_locked = true;
+		bmi088_read_locked = true;
+		// SPIバスがフリーになるまで待機
+		while(!spi_ssd1351_tx_done || !spi_BMI088_tx_done);
+		SSD1351setContrastMaster(contrast);
+		display_update_locked = false;
+		bmi088_read_locked = false;
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+	break;
+	case SW_PUSH:
+		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+		init = false;
+		return true;
+	default:
+	break;
+	}
+
+	return false;
 }
 

@@ -19,10 +19,10 @@ void interrupt1ms(void * pdata)
 	cnt0++;
 	cnt10++;
 
-	if(!loggingSDcard)
-	{
-		SSD1351updateScreen();
-	}
+if(!loggingSDcard && !display_update_locked)
+{
+SSD1351updateScreen();
+}
 	
 	GetSwitches();
 	R_SDC_SD_1msInterval();
@@ -32,7 +32,7 @@ void interrupt1ms(void * pdata)
 	{
 	case 1:
 		
-		if(BMI088val.Initialized && !calibratIMU)
+		if(BMI088val.Initialized && !calibratIMU && !bmi088_read_locked)
 		{
 			BMI088getGyro(); // 角速度取得
 			BMI088getTemp();

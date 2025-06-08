@@ -77,6 +77,7 @@ extern volatile bool spi_BMI088_tx_done;
 extern volatile bool spi_BMI088_rx_done;
 extern IMUval BMI088val;
 extern volatile bool calibratIMU;
+extern bool bmi088_read_locked;
 //====================================//
 // プロトタイプ宣言
 //====================================//
