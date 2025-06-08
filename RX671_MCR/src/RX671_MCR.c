@@ -102,7 +102,7 @@ void main(void)
 	currentPage = swValRotary;
 	GUI_ShowStatusBar(currentPage);
 
-	const char *menu_items[] = {
+	const char *menu1_items[] = {
 		  "START   "
 		, "SETTINGS"
 		, "INFO1   "
@@ -119,7 +119,11 @@ void main(void)
 		, "INFO12  "
 		, "INFO13  "
 	};
-	GUI_ShowMenu(menu_items, 14, 0, 0);
+
+	const char *menu2_items[] = {
+		  "RGB    CONT"
+		, "MASTER CONT"
+	};
 
 	while (1)
 	{
@@ -133,12 +137,26 @@ void main(void)
 		}
 
 
-		GUI_MenuSelect(menu_items, 14);
-
+		// ステータスバー表示
 		if(swValRotary != currentPage)
 		{
+			SSD1351fill(SSD1351_BLACK);
 			currentPage = swValRotary;
 			GUI_ShowStatusBar(currentPage);
+		}
+
+		// ページ表示
+		switch (currentPage) {
+			case 0:
+				// STARTページ
+				GUI_MenuSelect(menu1_items, 14);
+				break;
+			case 1:
+				// SETTINGSページ
+				GUI_MenuSelect(menu2_items, 2);
+				break;
+			default:
+				break;
 		}
 
 		// SSD1351setCursor(2,2);

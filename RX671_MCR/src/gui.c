@@ -135,7 +135,7 @@ void GUI_ShowStatusBar(uint8_t page)
 	if(percent > 100) percent = 100;
 	SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
 	SSD1351setCursor(2, 0);
-	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"P:%d", page);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"P:%x", page);
 	SSD1351setCursor(71, 0);
 	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
 }
