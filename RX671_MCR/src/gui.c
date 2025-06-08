@@ -154,7 +154,34 @@ void GUI_ShowStatusBar(uint8_t page)
 	SSD1351setCursor(2, 0);
 	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"P:%x", page);
 	SSD1351setCursor(71, 0);
-	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
+}
+
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_DrawTestPattern
+// 処理概要     テレビのカラーバーを画面下部に表示する
+// 引数         y_start : パターンを描画する開始Y座標
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void GUI_DrawTestPattern(uint8_t y_start)
+{
+        const uint16_t colors[8] = {
+                SSD1351_WHITE,
+                SSD1351_YELLOW,
+                SSD1351_CYAN,
+                SSD1351_GREEN,
+                SSD1351_MAGENTA,
+                SSD1351_RED,
+                SSD1351_BLUE,
+                SSD1351_BLACK
+        };
+        uint8_t width = SSD1351_WIDTH / 8;
+        for(uint8_t i = 0; i < 8; i++)
+        {
+                uint8_t x1 = i * width;
+                uint8_t x2 = (i + 1) * width - 1;
+                SSD1351fillRectangle(x1, y_start, x2, SSD1351_HEIGHT - 1, colors[i]);
+        }
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -165,52 +192,65 @@ void GUI_ShowStatusBar(uint8_t page)
 /////////////////////////////////////////////////////////////////////
 bool GUI_EditContrastRGB(void)
 {
-	static uint8_t contrast = 0x64;
-	static bool init = false;
+        static uint8_t contrast[3] = {0x64, 0x64, 0x64};
+        static uint8_t index = 0; // 0:R 1:G 2:B
+        static bool init = false;
 
-	if(!init)
-	{
-		// 初期化処理
-		SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1
-							, SSD1351_HEIGHT - 1, SSD1351_BLACK);
-		SSD1351setCursor(2, MENU_START_Y);
-		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RGB CONT");
-		bmi088_read_locked = true;
-		init = true;
-	}
+        if(!init)
+        {
+                // 初期化処理
+                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RGB CONT");
+                GUI_DrawTestPattern(SSD1351_HEIGHT - 20);
+                bmi088_read_locked = true;
+                init = true;
+        }
 
-	SSD1351setCursor(2, MENU_START_Y+12);
-	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"VAL:%3d", contrast);
+        const char labels[3] = {'R', 'G', 'B'};
+        for(uint8_t i = 0; i < 3; i++)
+        {
+                uint16_t color = (i == index) ? SSD1351_YELLOW : SSD1351_WHITE;
+                SSD1351setCursor(2, MENU_START_Y + 12 + i * 12);
+                SSD1351printf(Font_7x10, color, (uint8_t*)"%c:%3d", labels[i], contrast[i]);
+        }
 
-	switch(swValTact)
-	{
-		case SW_LEFT:
-			if(contrast > 0) contrast--;
-			display_update_locked = true;
-			// SPIバスがフリーになるまで待機
-			while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
-			SSD1351setContrastRGB(contrast, contrast, contrast);
-			display_update_locked = false;
-			GUI_wait(150); // 150ms待機
-			break;
-		case SW_RIGHT:
-			if(contrast < 255) contrast++;
-			display_update_locked = true;
-			// SPIバスがフリーになるまで待機
-			while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
-			SSD1351setContrastRGB(contrast, contrast, contrast);
-			display_update_locked = false;
-			GUI_wait(150); // 150ms待機
-			break;
-		case SW_PUSH:
-			SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1
-							, SSD1351_HEIGHT - 1, SSD1351_BLACK);
-			bmi088_read_locked = false;
-			init = false;
-			return true;
-		default:
-			break;
-	}
+        switch(swValTact)
+        {
+                case SW_LEFT:
+                        if(index == 0) index = 2; else index--;
+                        GUI_wait(150);
+                        break;
+                case SW_RIGHT:
+                        index = (index + 1) % 3;
+                        GUI_wait(150);
+                        break;
+                case SW_UP:
+                        if(contrast[index] < 255) contrast[index]++;
+                        display_update_locked = true;
+                        while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
+                        SSD1351setContrastRGB(contrast[0], contrast[1], contrast[2]);
+                        display_update_locked = false;
+                        GUI_wait(150);
+                        break;
+                case SW_DOWN:
+                        if(contrast[index] > 0) contrast[index]--;
+                        display_update_locked = true;
+                        while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
+                        SSD1351setContrastRGB(contrast[0], contrast[1], contrast[2]);
+                        display_update_locked = false;
+                        GUI_wait(150);
+                        break;
+                case SW_PUSH:
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        bmi088_read_locked = false;
+                        init = false;
+                        return true;
+                default:
+                        break;
+        }
 
 	return false;
 }
