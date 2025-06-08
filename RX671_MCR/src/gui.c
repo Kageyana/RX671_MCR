@@ -22,9 +22,9 @@
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowStartup(void)
 {
-    SSD1351fill(SSD1351_BLACK);
-    SSD1351setCursor(10, 54);
-    SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RX671_MCR");
+	SSD1351fill(SSD1351_BLACK);
+	SSD1351setCursor(10, 54);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RX671_MCR");
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_ShowMenu
@@ -42,19 +42,19 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
     // メニュー表示エリアを一旦クリアする
     // SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
 
-    // 表示できる最大行数を求め、offset から表示する数を決定
-    uint8_t visible = MAX_VISIBLE_ITEMS;
-    uint8_t show = (count - offset < visible) ? (count - offset) : visible;
+	// 表示できる最大行数を求め、offset から表示する数を決定
+	uint8_t visible = MAX_VISIBLE_ITEMS;
+	uint8_t show = (count - offset < visible) ? (count - offset) : visible;
 
-    for(uint8_t i = 0; i < show; i++)
-    {
-        uint8_t idx = offset + i;
-        // 表示行を設定
-        SSD1351setCursor(2, (uint8_t)(i * MENU_ITEM_HEIGHT + MENU_START_Y));
-        // 選択中は黄色で表示
-        uint16_t color = (idx == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
-        SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
-    }
+	for(uint8_t i = 0; i < show; i++)
+	{
+	    uint8_t idx = offset + i;
+	    // 表示行を設定
+	    SSD1351setCursor(2, (uint8_t)(i * MENU_ITEM_HEIGHT + MENU_START_Y));
+	    // 選択中は黄色で表示
+	    uint16_t color = (idx == selected) ? SSD1351_YELLOW : SSD1351_WHITE;
+	    SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
+	}
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_MenuSelect
@@ -65,10 +65,10 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
 /////////////////////////////////////////////////////////////////////
 uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
-    static uint8_t index = 0;
-    static uint8_t top   = 0;
+	static uint8_t index = 0;
+	static uint8_t top   = 0;
 
-    GUI_ShowMenu(items, count, index, top);
+	GUI_ShowMenu(items, count, index, top);
 
 	switch(swValTact)
 	{
@@ -125,16 +125,18 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowStatusBar
-// 処理概要     ステータスバーにバッテリー残量を表示する
-// 引数         なし
+// 処理概要     ステータスバーにページ番号とバッテリー残量を表示する
+// 引数         page : 表示するページ番号
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////
-void GUI_ShowStatusBar(void)
+void GUI_ShowStatusBar(uint8_t page)
 {
-    uint8_t percent = (uint8_t)((batteryVoltage / 12.0F) * 100.0F + 0.5F);
-    if(percent > 100) percent = 100;
-    // SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
-    SSD1351setCursor(65, 0);
-    SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
+	uint8_t percent = (uint8_t)((batteryVoltage / 12.0F) * 100.0F + 0.5F);
+	if(percent > 100) percent = 100;
+	SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, 9, SSD1351_BLACK);
+	SSD1351setCursor(2, 0);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"P:%d", page);
+	SSD1351setCursor(71, 0);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
 }
 
