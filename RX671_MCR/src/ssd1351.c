@@ -42,7 +42,7 @@ static void SSD1351writeCommand(uint8_t cmd) {
 
 	SSD1351_CS_PORT = 0;
 	SSD1351_DC_PORT = 0;
-	
+
 	spi_ssd1351_tx_done = false;
 	SSD1351_SPI_FUNC(&cmd, sizeof(cmd), rxData, sizeof(cmd));
 	while(!spi_ssd1351_tx_done);
@@ -663,4 +663,14 @@ void SSD1351fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16
     {
         SSD1351line(x1, yy, x2, yy, color);
     }
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名	SSD1351InvertColors
+// 処理概要		ディスプレイの色反転
+// 引数			invert: true 反転 false 反転無効
+// 戻り値		なし
+///////////////////////////////////////////////////////////////////////////
+void SSD1351InvertColors(bool invert)
+{
+    SSD1351writeCommand(invert ? 0xA7 /* INVERTDISPLAY */ : 0xA6 /* NORMALDISPLAY */);
 }

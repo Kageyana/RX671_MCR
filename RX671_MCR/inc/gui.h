@@ -22,8 +22,8 @@ void GUI_ShowStartup(void);
 void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t offset);
 uint8_t GUI_MenuSelect(const char **items, uint8_t count);
 void GUI_ShowStatusBar(uint8_t page);
-bool GUI_EditContrastRGB(void);
-bool GUI_EditContrastMaster(void);
+bool GUI_EditContrast(void);
 void GUI_DrawTestPattern(uint8_t y_start);
+bool GUI_EditInverse(void);
 
 #endif // GUI_H_

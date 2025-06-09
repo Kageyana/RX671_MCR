@@ -13,6 +13,7 @@
 #include "r_cmt_rx_if.h"
 #include "r_dmaca_rx_if.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
@@ -102,7 +103,7 @@ void main(void)
 	currentPage = swValRotary;
 	GUI_ShowStatusBar(currentPage);
 
-	const char *menu1_items[] = {
+	const uint8_t *menu1_items[] = {
 		  "START   "
 		, "SETTINGS"
 		, "INFO1   "
@@ -120,9 +121,9 @@ void main(void)
 		, "INFO13  "
 	};
 
-	const char *menu2_items[] = {
-		  "RGB    CONTRAST"
-		, "MASTER CONTRAST"
+	const uint8_t *menu2_items[] = {
+		  "Contrast"
+		, "Inverse "
 	};
 
 	while (1)
@@ -147,6 +148,7 @@ void main(void)
 
 		// ページ表示
 		static uint8_t sel=0xff;
+
 		switch (currentPage) {
 			case 0:
 				// STARTページ
@@ -156,14 +158,14 @@ void main(void)
 				// SETTINGSページ
 				if(sel == 0)
 				{
-					if(GUI_EditContrastRGB())
+					if(GUI_EditContrast())
 					{
 						sel = 0xff; // メニュー選択をリセット
 					}
 				}
 				else if(sel == 1)
 				{
-					if(GUI_EditContrastMaster())
+					if(GUI_EditInverse())
 					{
 						sel = 0xff; // メニュー選択をリセット
 					}

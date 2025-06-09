@@ -95,4 +95,5 @@ void SSD1351fillCircle(uint8_t x, uint8_t y, uint8_t radius, uint16_t color);
 void SSD1351polyline(const SSD1351_VERTEX* par_vertex, uint16_t par_count, uint16_t color);
 void SSD1351drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color);
 void SSD1351fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint16_t color);
+void SSD1351InvertColors(bool invert);
 #endif // SSD1351_H__
