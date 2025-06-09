@@ -24,6 +24,6 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count);
 void GUI_ShowStatusBar(uint8_t page);
 bool GUI_EditContrast(void);
 void GUI_DrawTestPattern(uint8_t y_start);
-bool GUI_EditInverse(void);
-
+bool GUI_DisplayInverse(void);
+bool GUI_ShowQRcode(void);
 #endif // GUI_H_

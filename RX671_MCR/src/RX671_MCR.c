@@ -124,6 +124,7 @@ void main(void)
 	const uint8_t *menu2_items[] = {
 		  "Contrast"
 		, "Inverse "
+		, "QR code "
 	};
 
 	while (1)
@@ -156,23 +157,28 @@ void main(void)
 				break;
 			case 1:
 				// SETTINGSページ
-				if(sel == 0)
-				{
-					if(GUI_EditContrast())
-					{
-						sel = 0xff; // メニュー選択をリセット
-					}
-				}
-				else if(sel == 1)
-				{
-					if(GUI_EditInverse())
-					{
-						sel = 0xff; // メニュー選択をリセット
-					}
-				}
-				else
-				{
-					sel = GUI_MenuSelect(menu2_items, 2);
+				switch (sel) {
+					case 0:
+						if(GUI_EditContrast())
+						{
+							sel = 0xff; // メニュー選択をリセット
+						}
+						break;
+					case 1:
+						if(GUI_DisplayInverse())
+						{
+							sel = 0xff; // メニュー選択をリセット
+						}
+						break;
+					case 2:
+						if(GUI_ShowQRcode())
+						{
+							sel = 0xff; // メニュー選択をリセット
+						}
+						break;
+					default:
+						sel = GUI_MenuSelect(menu2_items, 3);
+						break;
 				}
 				break;
 			default:

@@ -3,6 +3,7 @@
 //====================================//
 #include "gui.h"
 #include "bmi088.h"
+#include "images.h"
 #include "ssd1351.h"
 #include "switch.h"
 #include "sys/types.h"
@@ -86,8 +87,15 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
 	static uint8_t index = 0;
 	static uint8_t top   = 0;
+	static bool init = false;
 
-	GUI_ShowMenu(items, count, index, top);
+	if(!init)
+	{
+		SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
+		GUI_ShowMenu(items, count, index, top);
+		init = true;
+	}
+	
 
 	switch(swValTact)
 	{
@@ -137,6 +145,7 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 	case SW_PUSH:
 		// 決定ボタンが押されたら現在の項目を返す
 		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+		init = false;
 		return index;
 	default:
 		break;
@@ -285,12 +294,12 @@ bool GUI_EditContrast(void)
 	return false;
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 GUI_EditInverse
+// モジュール名 GUI_DisplayInverse
 // 処理概要     色反転のON/OFF
 // 引数         なし
 // 戻り値       true:編集終了
 /////////////////////////////////////////////////////////////////////
-bool GUI_EditInverse(void)
+bool GUI_DisplayInverse(void)
 {
 	static bool inverse = false;
 
@@ -299,4 +308,75 @@ bool GUI_EditInverse(void)
 	GUI_wait(200);
 
 	return true;
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_ShowQRcode
+// 処理概要     QRコードの表示
+// 引数         なし
+// 戻り値       true:編集終了
+/////////////////////////////////////////////////////////////////////
+bool GUI_ShowQRcode(void)
+{
+	const uint8_t *menu_items[] = {
+		  "X       "
+		, "GitHub  "
+		, "Back    "
+	};
+
+	static uint8_t sel = 0xff;
+	static bool show = false;
+	static bool init = false;
+
+	if(!init)
+	{
+		SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+								SSD1351_HEIGHT - 1, SSD1351_BLACK);
+		GUI_wait(200);
+		sel = 0xff;
+		init = true;
+	}
+
+	switch (sel) {
+		case 0:
+			if(!show)
+			{
+				SSD1351drawImage(0,0,SSD1351_WIDTH, SSD1351_HEIGHT,imgQRx128x128);
+				GUI_wait(300);
+				show = true;
+			}
+			break;
+		case 1:
+			if(!show)
+			{
+				SSD1351drawImage(0,0,SSD1351_WIDTH, SSD1351_HEIGHT,imgQRgithub128x128);
+				GUI_wait(300);
+				show = true;
+			}
+			break;
+		case 2:
+			GUI_wait(150);
+			init = false;
+			return true;
+		default:
+			if(!show)
+			{
+				sel = GUI_MenuSelect(menu_items,3);
+			}
+			break;
+	}
+
+	if(sel != 0xff)
+	{
+		if(swValTact == SW_PUSH)
+		{
+			SSD1351fill(SSD1351_BLACK);
+			GUI_ShowStatusBar(swValRotary);
+			GUI_wait(200);
+			sel = 0xff;
+			show = false;
+		}
+	}
+	
+
+	return false;
 }
