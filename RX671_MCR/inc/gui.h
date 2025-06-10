@@ -26,4 +26,5 @@ bool GUI_EditContrast(void);
 void GUI_DrawTestPattern(uint8_t y_start);
 bool GUI_DisplayInverse(void);
 bool GUI_ShowQRcode(void);
+void GUI_ShowSensors(void);
 #endif // GUI_H_

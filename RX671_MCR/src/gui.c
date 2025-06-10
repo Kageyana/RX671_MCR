@@ -378,5 +378,44 @@ bool GUI_ShowQRcode(void)
 	}
 	
 
-	return false;
+        return false;
+}
+
+/////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_ShowSensors
+// 処理概要     各種センサの値を表示する
+// 引数         なし
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void GUI_ShowSensors(void)
+{
+        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
+
+        GetBatteryVoltage();
+
+        SSD1351setCursor(2, MENU_START_Y);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV", batteryVoltage);
+
+        SSD1351setCursor(2, MENU_START_Y + 12);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG:%4d %4d %4d",
+                        (int16_t)BMI088val.angle.x,
+                        (int16_t)BMI088val.angle.y,
+                        (int16_t)BMI088val.angle.z);
+
+        SSD1351setCursor(2, MENU_START_Y + 24);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"TEMP:%3d", (int16_t)BMI088val.temp);
+
+        SSD1351setCursor(2, MENU_START_Y + 36);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
+
+        SSD1351setCursor(2, MENU_START_Y + 48);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"LS:%4d %4d %4d",
+                        lineSenVal[0], lineSenVal[1], lineSenVal[2]);
+
+        SSD1351setCursor(2, MENU_START_Y + 60);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",
+                        lineSenVal[3], lineSenVal[4], lineSenVal[5]);
+
+        SSD1351setCursor(2, MENU_START_Y + 72);
+        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
 }

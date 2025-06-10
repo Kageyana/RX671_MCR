@@ -155,9 +155,9 @@ void main(void)
 				// STARTページ
 				GUI_MenuSelect(menu1_items, 14);
 				break;
-			case 1:
-				// SETTINGSページ
-				switch (sel) {
+                       case 1:
+                               // SETTINGSページ
+                               switch (sel) {
 					case 0:
 						if(GUI_EditContrast())
 						{
@@ -178,11 +178,15 @@ void main(void)
 						break;
 					default:
 						sel = GUI_MenuSelect(menu2_items, 3);
-						break;
-				}
-				break;
-			default:
-				break;
+                                               break;
+                               }
+                               break;
+                        case 2:
+                                // SENSORページ
+                                GUI_ShowSensors();
+                                break;
+                        default:
+                                break;
 				
 		}
 
