@@ -32,15 +32,13 @@ void interrupt1ms(void * pdata)
 	switch (cnt10)
 	{
 	case 1:
-		
-		if(BMI088val.Initialized && !calibratIMU && !bmi088_read_locked)
+		if(!calibratIMU && !bmi088_read_locked)
 		{
-			BMI088getGyro(); // 角速度取得
-			BMI088getTemp();
-			BMI088getAccele();
-			calcDegrees();	 // 角度計算
+		   BMI088getGyro(); // 角速度取得
+		   BMI088getTemp();
+		   BMI088getAccele();
+		   calcDegrees();   // 角度計算
 		}
-		
 		break;
 	case 2:
 		if(calibratIMU)

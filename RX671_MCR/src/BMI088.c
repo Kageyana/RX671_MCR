@@ -159,6 +159,10 @@ bool BMI088init(void)
 /////////////////////////////////////////////////////////////////////
 void BMI088getGyro(void)
 {
+	if(!BMI088val.Initialized)
+	{
+		return;
+	}
 	uint8_t rawData[6];
 	int16_t gyroVal[3];
 
@@ -182,6 +186,10 @@ void BMI088getGyro(void)
 /////////////////////////////////////////////////////////////////////
 void BMI088getAccele(void)
 {
+	if(!BMI088val.Initialized)
+	{
+		return;
+	}
 	uint8_t rawData[8];
 	int16_t accelVal[3];
 
@@ -205,6 +213,10 @@ void BMI088getAccele(void)
 /////////////////////////////////////////////////////////////////////
 void BMI088getTemp(void)
 {
+	if(!BMI088val.Initialized)
+	{
+		return;
+	}
 	uint8_t rawData[3];
 	uint16_t tempValu;
 	int16_t tempVal;
@@ -233,6 +245,10 @@ void BMI088getTemp(void)
 /////////////////////////////////////////////////////////////////////
 void calcDegrees(void)
 {
+	if(!BMI088val.Initialized)
+	{
+		return;
+	}
 	// ジャイロ積分による角度更新 度数法
     BMI088val.angle.x += BMI088val.gyro.x * DEFF_TIME;  // pitch
     BMI088val.angle.y += BMI088val.gyro.y * DEFF_TIME;  // roll
