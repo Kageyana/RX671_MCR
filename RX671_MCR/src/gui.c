@@ -389,33 +389,42 @@ bool GUI_ShowQRcode(void)
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowSensors(void)
 {
+        // 表示領域をクリア
         SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
 
+        // バッテリ電圧の取得
         GetBatteryVoltage();
 
+        // 1行目: バッテリ電圧
         SSD1351setCursor(2, MENU_START_Y);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV", batteryVoltage);
 
+        // 2行目: IMU 角度(X,Y,Z)
         SSD1351setCursor(2, MENU_START_Y + 12);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG:%4d %4d %4d",
                         (int16_t)BMI088val.angle.x,
                         (int16_t)BMI088val.angle.y,
                         (int16_t)BMI088val.angle.z);
 
+        // 3行目: IMU 温度
         SSD1351setCursor(2, MENU_START_Y + 24);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"TEMP:%3d", (int16_t)BMI088val.temp);
 
+        // 4行目: エンコーダ積算値
         SSD1351setCursor(2, MENU_START_Y + 36);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
 
+        // 5行目: ラインセンサ0～2
         SSD1351setCursor(2, MENU_START_Y + 48);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"LS:%4d %4d %4d",
                         lineSenVal[0], lineSenVal[1], lineSenVal[2]);
 
+        // 6行目: ラインセンサ3～5
         SSD1351setCursor(2, MENU_START_Y + 60);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",
                         lineSenVal[3], lineSenVal[4], lineSenVal[5]);
 
+        // 7行目: ラインセンサ6
         SSD1351setCursor(2, MENU_START_Y + 72);
         SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
 }
