@@ -142,10 +142,14 @@ void main(void)
 		// ステータスバー表示
 		if(swValRotary != currentPage)
 		{
-		SSD1351fill(SSD1351_BLACK);
-		currentPage = swValRotary;
-		GUI_ShowStatusBar(currentPage);
-		}
+                SSD1351fill(SSD1351_BLACK);
+                currentPage = swValRotary;
+                GUI_ShowStatusBar(currentPage);
+                if(currentPage == 2)
+                {
+                        GUI_ResetSensorsPage();
+                }
+                }
 
 		// ページ表示
 		static uint8_t sel=0xff;
