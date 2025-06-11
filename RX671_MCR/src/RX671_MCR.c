@@ -121,13 +121,14 @@ void main(void)
 		, "INFO13  "
 	};
 
-	const uint8_t *menu2_items[] = {
-		  "Contrast"
-		, "Inverse "
-		, "QR code "
-	};
+        const uint8_t *menu2_items[] = {
+                  "Contrast"
+                , "Inverse "
+                , "QR code "
+        };
+        static uint8_t sel = 0xff;
 
-	while (1)
+        while (1)
 	{
 		if(!insertSDcard && initSDcard)
 		{
@@ -145,14 +146,10 @@ void main(void)
                 SSD1351fill(SSD1351_BLACK);
                 currentPage = swValRotary;
                 GUI_ShowStatusBar(currentPage);
-                if(currentPage == 2)
-                {
-                        GUI_ResetSensorsPage();
-                }
+                sel = 0xff;
                 }
 
 		// ページ表示
-		static uint8_t sel=0xff;
 
 		switch (currentPage) {
 			case 0:
