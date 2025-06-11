@@ -81,68 +81,60 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
 	static uint8_t index = 0;
 	static uint8_t top   = 0;
-	static bool init = false;
-
-	if(!init)
-	{
-		SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1, SSD1351_HEIGHT - 1, SSD1351_BLACK);
-		GUI_ShowMenu(items, count, index, top);
-		init = true;
-	}
 	
+	GUI_ShowMenu(items, count, index, top);
 
 	switch(swValTact)
 	{
-	case SW_UP:
-		// UP が押された場合
-		if(index == 0)
-		{
-			// 先頭からUPで末尾へ循環
-			index = count - 1;
-			if(count > MAX_VISIBLE_ITEMS)
+		case SW_UP:
+			// UP が押された場合
+			if(index == 0)
 			{
-				top = count - MAX_VISIBLE_ITEMS;
+				// 先頭からUPで末尾へ循環
+				index = count - 1;
+				if(count > MAX_VISIBLE_ITEMS)
+				{
+					top = count - MAX_VISIBLE_ITEMS;
+				}
 			}
-		}
-		else
-		{
-			index--;
-			// 表示範囲より上に移動した場合はスクロール
-			if(index < top)
+			else
 			{
-				top--;
+				index--;
+				// 表示範囲より上に移動した場合はスクロール
+				if(index < top)
+				{
+					top--;
+				}
 			}
-		}
-		GUI_ShowMenu(items, count, index, top);
-		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-		break;
-	case SW_DOWN:
-		// DOWN が押された場合
-		if(index + 1 >= count)
-		{
-			// 末尾からDOWNで先頭へ循環
-			index = 0;
-			top   = 0;
-		}
-		else
-		{
-			index++;
-			// 表示範囲を超えたら下方向へスクロール
-			if(index >= top + MAX_VISIBLE_ITEMS)
+			GUI_ShowMenu(items, count, index, top);
+			R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+			break;
+		case SW_DOWN:
+			// DOWN が押された場合
+			if(index + 1 >= count)
 			{
-				top++;
+				// 末尾からDOWNで先頭へ循環
+				index = 0;
+				top   = 0;
 			}
-		}
-		GUI_ShowMenu(items, count, index, top);
-		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-		break;
-	case SW_PUSH:
-		// 決定ボタンが押されたら現在の項目を返す
-		R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
-		init = false;
-		return index;
-	default:
-		break;
+			else
+			{
+				index++;
+				// 表示範囲を超えたら下方向へスクロール
+				if(index >= top + MAX_VISIBLE_ITEMS)
+				{
+					top++;
+				}
+			}
+			GUI_ShowMenu(items, count, index, top);
+			R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+			break;
+		case SW_PUSH:
+			// 決定ボタンが押されたら現在の項目を返す
+			R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
+			return index;
+		default:
+			break;
 	}
 
 	return 0xFF;
@@ -173,23 +165,23 @@ void GUI_ShowStatusBar(uint8_t page)
 /////////////////////////////////////////////////////////////////////
 void GUI_DrawTestPattern(uint8_t y_start)
 {
-        const uint16_t colors[8] = {
-                SSD1351_WHITE,
-                SSD1351_YELLOW,
-                SSD1351_CYAN,
-                SSD1351_GREEN,
-                SSD1351_MAGENTA,
-                SSD1351_RED,
-                SSD1351_BLUE,
-                SSD1351_BLACK
-        };
-        uint8_t width = SSD1351_WIDTH / 8;
-        for(uint8_t i = 0; i < 8; i++)
-        {
-			uint8_t x1 = i * width;
-			uint8_t x2 = (i + 1) * width - 1;
-			SSD1351fillRectangle(x1, y_start, x2, SSD1351_HEIGHT - 1, colors[i]);
-        }
+	const uint16_t colors[8] = {
+			SSD1351_WHITE,
+			SSD1351_YELLOW,
+			SSD1351_CYAN,
+			SSD1351_GREEN,
+			SSD1351_MAGENTA,
+			SSD1351_RED,
+			SSD1351_BLUE,
+			SSD1351_BLACK
+	};
+	uint8_t width = SSD1351_WIDTH / 8;
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		uint8_t x1 = i * width;
+		uint8_t x2 = (i + 1) * width - 1;
+		SSD1351fillRectangle(x1, y_start, x2, SSD1351_HEIGHT - 1, colors[i]);
+	}
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -200,90 +192,90 @@ void GUI_DrawTestPattern(uint8_t y_start)
 /////////////////////////////////////////////////////////////////////
 bool GUI_EditContrast(void)
 {
-        static uint8_t contrast[4] = {0x08, 0x64, 0x64, 0x64};
-        static uint8_t index = 0; // 0:R 1:G 2:B
-        static bool init = false;
+	static uint8_t contrast[4] = {0x08, 0x64, 0x64, 0x64};
+	static uint8_t index = 0; // 0:R 1:G 2:B
+	static bool init = false;
 
-        if(!init)
-        {
-			// 初期化処理
-			SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-													SSD1351_HEIGHT - 1, SSD1351_BLACK);
-			SSD1351setCursor(2, MENU_START_Y);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"CONTRAST");
-			GUI_DrawTestPattern(SSD1351_HEIGHT - 40);
-			bmi088_read_locked = true;
-			GUI_wait(200); // 200ms待機
-			init = true;
-        }
+	if(!init)
+	{
+		// 初期化処理
+		SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+												SSD1351_HEIGHT - 1, SSD1351_BLACK);
+		SSD1351setCursor(2, MENU_START_Y);
+		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"CONTRAST");
+		GUI_DrawTestPattern(SSD1351_HEIGHT - 40);
+		bmi088_read_locked = true;
+		GUI_wait(200); // 200ms待機
+		init = true;
+	}
 
-		const uint8_t *labels[] = {"MASTER","R","G","B"};
-        for(uint8_t i = 0; i < 4; i++)
-        {
-			uint16_t color = (i == index) ? SSD1351_YELLOW : SSD1351_WHITE;
-			if(i > 0)
+	const uint8_t *labels[] = {"MASTER","R","G","B"};
+	for(uint8_t i = 0; i < 4; i++)
+	{
+		uint16_t color = (i == index) ? SSD1351_YELLOW : SSD1351_WHITE;
+		if(i > 0)
+		{
+			SSD1351setCursor(2 + (40*(i-1)), MENU_START_Y + 24);
+		}
+		else
+		{
+			SSD1351setCursor(2, MENU_START_Y + 12);
+		}
+		SSD1351printf(Font_7x10, color, (uint8_t*)"%s:%3d", labels[i], contrast[i]);
+	}
+
+	switch(swValTact)
+	{
+		case SW_LEFT:
+			if(index == 0) index = 3; else index--;
+			GUI_wait(200);
+			break;
+		case SW_RIGHT:
+			index = (index + 1) % 4;
+			GUI_wait(200);
+			break;
+		case SW_UP:
+			display_update_locked = true;
+			while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
+			if(index > 0)
 			{
-				SSD1351setCursor(2 + (40*(i-1)), MENU_START_Y + 24);
+				if(contrast[index] < 255) contrast[index]++;
+				SSD1351setContrastRGB(contrast[1], contrast[2], contrast[3]);
 			}
 			else
 			{
-				SSD1351setCursor(2, MENU_START_Y + 12);
+				if(contrast[index] < 15) contrast[index]++;
+				SSD1351setContrastMaster(contrast[0]);
 			}
-			SSD1351printf(Font_7x10, color, (uint8_t*)"%s:%3d", labels[i], contrast[i]);
-        }
-
-        switch(swValTact)
-        {
-			case SW_LEFT:
-				if(index == 0) index = 3; else index--;
-				GUI_wait(200);
-				break;
-			case SW_RIGHT:
-				index = (index + 1) % 4;
-				GUI_wait(200);
-				break;
-			case SW_UP:
-				display_update_locked = true;
-				while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
-				if(index > 0)
-				{
-					if(contrast[index] < 255) contrast[index]++;
-					SSD1351setContrastRGB(contrast[1], contrast[2], contrast[3]);
-				}
-				else
-				{
-					if(contrast[index] < 15) contrast[index]++;
-					SSD1351setContrastMaster(contrast[0]);
-				}
-				display_update_locked = false;
-				GUI_wait(120);
-				break;
-			case SW_DOWN:
-				display_update_locked = true;
-				while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
-				if(index > 0)
-				{
-					if(contrast[index] > 0) contrast[index]--;
-					SSD1351setContrastRGB(contrast[1], contrast[2], contrast[3]);
-				}
-				else
-				{
-					if(contrast[index] > 0) contrast[index]--;
-					SSD1351setContrastMaster(contrast[0]);
-				}
-				display_update_locked = false;
-				GUI_wait(120);
-				break;
-			case SW_PUSH:
-				GUI_wait(200); // 200ms待機
-				SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-												SSD1351_HEIGHT - 1, SSD1351_BLACK);
-				bmi088_read_locked = false;
-				init = false;
-				return true;
-			default:
-				break;
-        }
+			display_update_locked = false;
+			GUI_wait(120);
+			break;
+		case SW_DOWN:
+			display_update_locked = true;
+			while(!spi_BMI088_rx_done && !spi_ssd1351_tx_done);
+			if(index > 0)
+			{
+				if(contrast[index] > 0) contrast[index]--;
+				SSD1351setContrastRGB(contrast[1], contrast[2], contrast[3]);
+			}
+			else
+			{
+				if(contrast[index] > 0) contrast[index]--;
+				SSD1351setContrastMaster(contrast[0]);
+			}
+			display_update_locked = false;
+			GUI_wait(120);
+			break;
+		case SW_PUSH:
+			GUI_wait(200); // 200ms待機
+			SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+											SSD1351_HEIGHT - 1, SSD1351_BLACK);
+			bmi088_read_locked = false;
+			init = false;
+			return true;
+		default:
+			break;
+	}
 
 	return false;
 }

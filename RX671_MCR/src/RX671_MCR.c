@@ -121,20 +121,21 @@ void main(void)
 		, "INFO13  "
 	};
 
-        const uint8_t *menu2_items[] = {
-                  "Contrast"
-                , "Inverse "
-                , "QR code "
-        };
-        static uint8_t sel = 0xff;
+	const uint8_t *menu2_items[] = {
+			"Contrast"
+		, "Inverse "
+		, "QR code "
+	};
+	static uint8_t sel = 0xff;
 
-        while (1)
+	while (1)
 	{
 		if(!insertSDcard && initSDcard)
 		{
 			// SDカードが抜かれた場合の処理
 			SDcardEnd(); // SDカードの終了処理
-		} else if(insertSDcard && !initSDcard)
+		}
+		else if(insertSDcard && !initSDcard)
 		{
 			SDcardinit(); // SDカードの初期化
 		}
@@ -143,22 +144,21 @@ void main(void)
 		// ステータスバー表示
 		if(swValRotary != currentPage)
 		{
-                SSD1351fill(SSD1351_BLACK);
-                currentPage = swValRotary;
-                GUI_ShowStatusBar(currentPage);
-                sel = 0xff;
-                }
+			SSD1351fill(SSD1351_BLACK);
+			currentPage = swValRotary;
+			GUI_ShowStatusBar(currentPage);
+			sel = 0xff;
+		}
 
 		// ページ表示
-
 		switch (currentPage) {
-			case 0:
-				// STARTページ
+			case 0x0:
+				// Startページ
 				GUI_MenuSelect(menu1_items, 14);
 				break;
-                       case 1:
-                               // SETTINGSページ
-                               switch (sel) {
+			case 0x1:
+				// Display settingページ
+				switch (sel) {
 					case 0:
 						if(GUI_EditContrast())
 						{
@@ -179,16 +179,15 @@ void main(void)
 						break;
 					default:
 						sel = GUI_MenuSelect(menu2_items, 3);
-                                               break;
-                               }
-                               break;
-                        case 2:
-                                // SENSORページ
-                                GUI_ShowSensors();
-                                break;
-                        default:
-                                break;
-				
+						break;
+				}
+				break;
+			case 0x2:
+				// Sensorページ
+				GUI_ShowSensors();
+				break;
+			default:
+				break;
 		}
 
 		// SSD1351setCursor(2,2);

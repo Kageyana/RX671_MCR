@@ -4,11 +4,14 @@
 // インクルード
 //====================================//
 #include "r_smc_entry.h"
+
+#include <stdint.h>
+
 #include "ssd1351.h"
 #include "switch.h"
 #include "battery.h"
 #include "bmi088.h"
-#include <stdint.h>
+#include "linesensor.h"
 
 //====================================//
 // グローバル変数の宣言
