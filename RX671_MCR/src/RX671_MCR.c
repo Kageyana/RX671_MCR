@@ -120,13 +120,12 @@ void main(void)
 		, "INFO12  "
 		, "INFO13  "
 	};
-
-        static uint8_t sel = 0xff; // SETTINGSページのメニュー選択
-                {
-                sel = 0xff;        // SETTINGSページ用選択状態をリセット
+    const uint8_t *menu2_items[] = {
+		  "Contrast"
+		, "Inverse "
 		, "QR code "
-	};
-	static uint8_t sel = 0xff;
+    };
+    static uint8_t sel = 0xff; // SETTINGSページのメニュー選択
 
 	while (1)
 	{
