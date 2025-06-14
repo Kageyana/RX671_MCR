@@ -123,7 +123,6 @@ void main(void)
 
         static uint8_t sel = 0xff; // SETTINGSページのメニュー選択
                 {
-                GUI_ResetSensorsPage();
                 sel = 0xff;        // SETTINGSページ用選択状態をリセット
 		, "QR code "
 	};

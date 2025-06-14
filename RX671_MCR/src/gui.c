@@ -25,20 +25,16 @@ volatile uint32_t cntGUI;	// GUI用カウンタ
 /////////////////////////////////////////////////////////////////////
 // センサページ用の状態を保持する列挙体
 typedef enum {
-    SENSOR_MENU,     // トップメニュー
-    SENSOR_BAT,      // バッテリー電圧表示
-    SENSOR_IMU_MENU, // IMUサブメニュー
-    SENSOR_IMU_ANG,  // IMU角度表示
-    SENSOR_IMU_TEMP, // IMU温度表示
-    SENSOR_IMU_ACC,  // IMU加速度表示
-    SENSOR_ENC,      // エンコーダ値表示
-    SENSOR_LINE      // ラインセンサ値表示
+    SENSOR_MENU, // トップメニュー
+    SENSOR_BAT,  // バッテリー電圧表示
+    SENSOR_IMU,  // IMUの角度・温度・加速度表示
+    SENSOR_ENC,  // エンコーダ値表示
+    SENSOR_LINE  // ラインセンサ値表示
 } SensorState;
 
 // センサページの状態変数
 static SensorState sensor_state = SENSOR_MENU;
 static uint8_t     sensor_sel   = 0xff;
-static bool        sensor_init  = false;
 // モジュール名 GUI_wait
 // 処理概要     指定ミリ秒だけ待機する
 // 引数         ms: 待機時間(ミリ秒)
@@ -389,18 +385,6 @@ bool GUI_ShowQRcode(void)
 }
 
 /////////////////////////////////////////////////////////////////////
-// モジュール名 GUI_ResetSensorsPage
-// 処理概要     センサページの状態を初期化する
-// 引数         なし
-// 戻り値       なし
-/////////////////////////////////////////////////////////////////////
-void GUI_ResetSensorsPage(void)
-{
-    sensor_init  = false;
-    sensor_state = SENSOR_MENU;
-    sensor_sel   = 0xff;
-}
-/////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowSensors
 // 処理概要     センサ値をメニューで選択して個別表示する
 // 引数         なし
@@ -416,20 +400,9 @@ bool GUI_ShowSensors(void)
                   "Line    "
         };
 
-        const uint8_t *imu_items[] = {
-                  "Angle",
-                  "Temp ",
-                  "Accel",
-                  "Back "
-        };
-
-        if(!sensor_init)
+        if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
         {
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                                SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                sensor_sel   = 0xff;
-                sensor_state = SENSOR_MENU;
-                sensor_init  = true;
+                sensor_sel = GUI_MenuSelect(sensor_items, 4);
         }
 
         switch(sensor_state)
@@ -445,28 +418,25 @@ bool GUI_ShowSensors(void)
                         {
                         case 0:
                                 sensor_state = SENSOR_BAT;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
                                 break;
                         case 1:
-                                sensor_state = SENSOR_IMU_MENU;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                sensor_state = SENSOR_IMU;
                                 break;
                         case 2:
                                 sensor_state = SENSOR_ENC;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
                                 break;
                         case 3:
                                 sensor_state = SENSOR_LINE;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
                                 break;
                         default:
                                 break;
                         }
-                        if(sensor_state != SENSOR_MENU) sensor_sel = 0xff;
+                        if(sensor_state != SENSOR_MENU)
+                        {
+                                sensor_sel = 0xff;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        }
                 }
                 break;
 
@@ -484,84 +454,32 @@ bool GUI_ShowSensors(void)
                 }
                 break;
 
-        case SENSOR_IMU_MENU: // IMUメニュー
-                if(sensor_sel == 0xff)
-                {
-                        sensor_sel = GUI_MenuSelect(imu_items, 4);
-                }
-                else
-                {
-                        switch(sensor_sel)
-                        {
-                        case 0:
-                                sensor_state = SENSOR_IMU_ANG;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                                break;
-                        case 1:
-                                sensor_state = SENSOR_IMU_TEMP;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                                break;
-                        case 2:
-                                sensor_state = SENSOR_IMU_ACC;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                                break;
-                        case 3:
-                                sensor_state = SENSOR_MENU;
-                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                                break;
-                        default:
-                                break;
-                        }
-                        if(sensor_state != SENSOR_IMU_MENU) sensor_sel = 0xff;
-                }
-                break;
-
-        case SENSOR_IMU_ANG: // 角度表示
+        case SENSOR_IMU: // IMU各値を表示
+                // 角度
                 SSD1351setCursor(2, MENU_START_Y);
-                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG:%4d %4d %4d",
-                                (int16_t)BMI088val.angle.x,
-                                (int16_t)BMI088val.angle.y,
-                                (int16_t)BMI088val.angle.z);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"ANG:%4d %4d %4d",
+                              (int16_t)BMI088val.angle.x,
+                              (int16_t)BMI088val.angle.y,
+                              (int16_t)BMI088val.angle.z);
+                // 温度
+                SSD1351setCursor(2, MENU_START_Y + 12);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"TEMP:%3d",
+                              (int16_t)BMI088val.temp);
+                // 加速度
+                SSD1351setCursor(2, MENU_START_Y + 24);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"ACC:%4d %4d %4d",
+                              (int16_t)BMI088val.accele.x,
+                              (int16_t)BMI088val.accele.y,
+                              (int16_t)BMI088val.accele.z);
                 if(swValTact == SW_PUSH)
                 {
                         GUI_wait(150);
                         SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                        sensor_state = SENSOR_IMU_MENU;
-                        sensor_sel   = 0xff;
-                }
-                break;
-
-        case SENSOR_IMU_TEMP: // 温度表示
-                SSD1351setCursor(2, MENU_START_Y);
-                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"TEMP:%3d",
-                                (int16_t)BMI088val.temp);
-                if(swValTact == SW_PUSH)
-                {
-                        GUI_wait(150);
-                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                        sensor_state = SENSOR_IMU_MENU;
-                        sensor_sel   = 0xff;
-                }
-                break;
-
-        case SENSOR_IMU_ACC: // 加速度表示
-                SSD1351setCursor(2, MENU_START_Y);
-                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ACC:%4d %4d %4d",
-                                (int16_t)BMI088val.accele.x,
-                                (int16_t)BMI088val.accele.y,
-                                (int16_t)BMI088val.accele.z);
-                if(swValTact == SW_PUSH)
-                {
-                        GUI_wait(150);
-                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                        sensor_state = SENSOR_IMU_MENU;
+                                                SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        sensor_state = SENSOR_MENU;
                         sensor_sel   = 0xff;
                 }
                 break;
