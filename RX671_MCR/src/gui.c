@@ -455,22 +455,28 @@ bool GUI_ShowSensors(void)
                 break;
 
         case SENSOR_IMU: // IMU各値を表示
-                // 角度
+                // 角度のヘッダー
                 SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG");
+                // X/Y/Z の角度
+                SSD1351setCursor(2, MENU_START_Y + 12);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
-                              (uint8_t*)"ANG:%4d %4d %4d",
+                              (uint8_t*)"X:%4dY:%4dZ:%4d",
                               (int16_t)BMI088val.angle.x,
                               (int16_t)BMI088val.angle.y,
                               (int16_t)BMI088val.angle.z);
                 // 温度
-                SSD1351setCursor(2, MENU_START_Y + 12);
+                SSD1351setCursor(2, MENU_START_Y + 24);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
                               (uint8_t*)"TEMP:%3d",
                               (int16_t)BMI088val.temp);
-                // 加速度
-                SSD1351setCursor(2, MENU_START_Y + 24);
+                // 加速度のヘッダー
+                SSD1351setCursor(2, MENU_START_Y + 36);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ACC");
+                // X/Y/Z の加速度
+                SSD1351setCursor(2, MENU_START_Y + 48);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
-                              (uint8_t*)"ACC:%4d %4d %4d",
+                              (uint8_t*)"X:%4dY:%4dZ:%4d",
                               (int16_t)BMI088val.accele.x,
                               (int16_t)BMI088val.accele.y,
                               (int16_t)BMI088val.accele.z);
