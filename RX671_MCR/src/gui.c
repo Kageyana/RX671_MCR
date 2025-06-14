@@ -455,30 +455,46 @@ bool GUI_ShowSensors(void)
                 break;
 
         case SENSOR_IMU: // IMU各値を表示
-                // 角度のヘッダー
+                // 角度表示ヘッダー
                 SSD1351setCursor(2, MENU_START_Y);
                 SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG");
-                // X/Y/Z の角度
+                // X軸角度
                 SSD1351setCursor(2, MENU_START_Y + 12);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
-                              (uint8_t*)"X:%4dY:%4dZ:%4d",
-                              (int16_t)BMI088val.angle.x,
-                              (int16_t)BMI088val.angle.y,
+                              (uint8_t*)"X:%4d",
+                              (int16_t)BMI088val.angle.x);
+                // Y軸角度
+                SSD1351setCursor(2, MENU_START_Y + 24);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"Y:%4d",
+                              (int16_t)BMI088val.angle.y);
+                // Z軸角度
+                SSD1351setCursor(2, MENU_START_Y + 36);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"Z:%4d",
                               (int16_t)BMI088val.angle.z);
                 // 温度
-                SSD1351setCursor(2, MENU_START_Y + 24);
+                SSD1351setCursor(2, MENU_START_Y + 48);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
                               (uint8_t*)"TEMP:%3d",
                               (int16_t)BMI088val.temp);
-                // 加速度のヘッダー
-                SSD1351setCursor(2, MENU_START_Y + 36);
+                // 加速度表示ヘッダー
+                SSD1351setCursor(2, MENU_START_Y + 60);
                 SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ACC");
-                // X/Y/Z の加速度
-                SSD1351setCursor(2, MENU_START_Y + 48);
+                // X軸加速度
+                SSD1351setCursor(2, MENU_START_Y + 72);
                 SSD1351printf(Font_7x10, SSD1351_WHITE,
-                              (uint8_t*)"X:%4dY:%4dZ:%4d",
-                              (int16_t)BMI088val.accele.x,
-                              (int16_t)BMI088val.accele.y,
+                              (uint8_t*)"X:%4d",
+                              (int16_t)BMI088val.accele.x);
+                // Y軸加速度
+                SSD1351setCursor(2, MENU_START_Y + 84);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"Y:%4d",
+                              (int16_t)BMI088val.accele.y);
+                // Z軸加速度
+                SSD1351setCursor(2, MENU_START_Y + 96);
+                SSD1351printf(Font_7x10, SSD1351_WHITE,
+                              (uint8_t*)"Z:%4d",
                               (int16_t)BMI088val.accele.z);
                 if(swValTact == SW_PUSH)
                 {
