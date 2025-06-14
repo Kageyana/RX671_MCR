@@ -5,7 +5,7 @@
 //====================================//
 #include "r_smc_entry.h"
 
-#include <stdint.h>
+bool GUI_ShowSensors(void);
 
 #include "ssd1351.h"
 #include "switch.h"

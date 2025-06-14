@@ -374,46 +374,216 @@ bool GUI_ShowQRcode(void)
 
 /////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowSensors
-// 処理概要     各種センサの値を表示する
+// 処理概要     センサ値をメニューで選択して個別表示する
 // 引数         なし
-// 戻り値       なし
+// 戻り値       true:ページ終了
 /////////////////////////////////////////////////////////////////////
-void GUI_ShowSensors(void)
+bool GUI_ShowSensors(void)
 {
+        enum {
+                SENSOR_MENU,
+                SENSOR_BAT,
+                SENSOR_IMU_MENU,
+                SENSOR_IMU_ANG,
+                SENSOR_IMU_TEMP,
+                SENSOR_IMU_ACC,
+                SENSOR_ENC,
+                SENSOR_LINE
+        };
 
-        // バッテリ電圧の取得
-        GetBatteryVoltage();
+        static uint8_t state = SENSOR_MENU;
+        static uint8_t sel = 0xff;
+        static bool init = false;
 
-        // 1行目: バッテリ電圧
-        SSD1351setCursor(2, MENU_START_Y);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV", batteryVoltage);
+        const uint8_t *sensor_items[] = {
+                  "Battery ",
+                  "IMU     ",
+                  "Encoder ",
+                  "Line    "
+        };
 
-        // 2行目: IMU 角度(X,Y,Z)
-        SSD1351setCursor(2, MENU_START_Y + 12);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG:%4d %4d %4d",
-                        (int16_t)BMI088val.angle.x,
-                        (int16_t)BMI088val.angle.y,
-                        (int16_t)BMI088val.angle.z);
+        const uint8_t *imu_items[] = {
+                  "Angle",
+                  "Temp ",
+                  "Accel",
+                  "Back "
+        };
 
-        // 3行目: IMU 温度
-        SSD1351setCursor(2, MENU_START_Y + 24);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"TEMP:%3d", (int16_t)BMI088val.temp);
+        if(!init)
+        {
+                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                                SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                sel = 0xff;
+                state = SENSOR_MENU;
+                init = true;
+        }
 
-        // 4行目: エンコーダ積算値
-        SSD1351setCursor(2, MENU_START_Y + 36);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
+        switch(state)
+        {
+        case SENSOR_MENU:
+                if(sel == 0xff)
+                {
+                        sel = GUI_MenuSelect(sensor_items, 4);
+                }
+                else
+                {
+                        switch(sel)
+                        {
+                        case 0:
+                                state = SENSOR_BAT;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 1:
+                                state = SENSOR_IMU_MENU;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 2:
+                                state = SENSOR_ENC;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 3:
+                                state = SENSOR_LINE;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        default:
+                                break;
+                        }
+                        if(state != SENSOR_MENU) sel = 0xff;
+                }
+                break;
 
-        // 5行目: ラインセンサ0～2
-        SSD1351setCursor(2, MENU_START_Y + 48);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"LS:%4d %4d %4d",
-                        lineSenVal[0], lineSenVal[1], lineSenVal[2]);
+        case SENSOR_BAT:
+                GetBatteryVoltage();
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV", batteryVoltage);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_MENU;
+                        sel = 0xff;
+                }
+                break;
 
-        // 6行目: ラインセンサ3～5
-        SSD1351setCursor(2, MENU_START_Y + 60);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",
-                        lineSenVal[3], lineSenVal[4], lineSenVal[5]);
+        case SENSOR_IMU_MENU:
+                if(sel == 0xff)
+                {
+                        sel = GUI_MenuSelect(imu_items, 4);
+                }
+                else
+                {
+                        switch(sel)
+                        {
+                        case 0:
+                                state = SENSOR_IMU_ANG;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 1:
+                                state = SENSOR_IMU_TEMP;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 2:
+                                state = SENSOR_IMU_ACC;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        case 3:
+                                state = SENSOR_MENU;
+                                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                            SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                                break;
+                        default:
+                                break;
+                        }
+                        if(state != SENSOR_IMU_MENU) sel = 0xff;
+                }
+                break;
 
-        // 7行目: ラインセンサ6
-        SSD1351setCursor(2, MENU_START_Y + 72);
-        SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
+        case SENSOR_IMU_ANG:
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG:%4d %4d %4d",
+                                (int16_t)BMI088val.angle.x,
+                                (int16_t)BMI088val.angle.y,
+                                (int16_t)BMI088val.angle.z);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_IMU_MENU;
+                        sel = 0xff;
+                }
+                break;
+
+        case SENSOR_IMU_TEMP:
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"TEMP:%3d",
+                                (int16_t)BMI088val.temp);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_IMU_MENU;
+                        sel = 0xff;
+                }
+                break;
+
+        case SENSOR_IMU_ACC:
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ACC:%4d %4d %4d",
+                                (int16_t)BMI088val.accele.x,
+                                (int16_t)BMI088val.accele.y,
+                                (int16_t)BMI088val.accele.z);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_IMU_MENU;
+                        sel = 0xff;
+                }
+                break;
+
+        case SENSOR_ENC:
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_MENU;
+                        sel = 0xff;
+                }
+                break;
+
+        case SENSOR_LINE:
+                SSD1351setCursor(2, MENU_START_Y);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"LS:%4d %4d %4d",
+                                lineSenVal[0], lineSenVal[1], lineSenVal[2]);
+                SSD1351setCursor(2, MENU_START_Y + 12);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",
+                                lineSenVal[3], lineSenVal[4], lineSenVal[5]);
+                SSD1351setCursor(2, MENU_START_Y + 24);
+                SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
+                if(swValTact == SW_PUSH)
+                {
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        state = SENSOR_MENU;
+                        sel = 0xff;
+                }
+                break;
+        }
+
+        return false;
 }
