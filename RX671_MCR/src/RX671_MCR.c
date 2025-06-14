@@ -123,7 +123,6 @@ void main(void)
 
                 if(swValRotary != currentPage)
                 {
-                GUI_ResetSensorsPage();
 		, "Inverse "
 		, "QR code "
 	};

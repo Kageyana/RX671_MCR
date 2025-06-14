@@ -5,7 +5,6 @@
 //====================================//
 #include "r_smc_entry.h"
 
-void GUI_ResetSensorsPage(void);
 #include <stdint.h>
 
 #include "ssd1351.h"

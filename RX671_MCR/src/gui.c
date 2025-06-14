@@ -22,18 +22,6 @@
 // グローバル変数の宣言
 //====================================//
 volatile uint32_t cntGUI;	// GUI用カウンタ
-static bool sensor_page_initialized = false; // センサページ初期化済みフラグ
-
-/////////////////////////////////////////////////////////////////////
-// モジュール名 GUI_ResetSensorsPage
-// 処理概要     センサページ初期化フラグをリセットする
-// 引数         なし
-// 戻り値       なし
-/////////////////////////////////////////////////////////////////////
-void GUI_ResetSensorsPage(void)
-{
-    sensor_page_initialized = false;
-}
 /////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_wait
 // 処理概要     指定ミリ秒だけ待機する
@@ -392,12 +380,6 @@ bool GUI_ShowQRcode(void)
 /////////////////////////////////////////////////////////////////////
 void GUI_ShowSensors(void)
 {
-        if(!sensor_page_initialized)
-        {
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                        SSD1351_HEIGHT - 1, SSD1351_BLACK);
-                sensor_page_initialized = true;
-        }
 
         // バッテリ電圧の取得
         GetBatteryVoltage();
