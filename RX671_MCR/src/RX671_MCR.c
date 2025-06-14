@@ -121,8 +121,9 @@ void main(void)
 		, "INFO13  "
 	};
 
-	const uint8_t *menu2_items[] = {
-			"Contrast"
+                if(swValRotary != currentPage)
+                {
+                GUI_ResetSensorsPage();
 		, "Inverse "
 		, "QR code "
 	};
