@@ -6,6 +6,7 @@
 #include "r_smc_entry.h"
 
 bool GUI_ShowSensors(void);
+void GUI_ResetSensorsPage(void);
 
 #include "ssd1351.h"
 #include "switch.h"
