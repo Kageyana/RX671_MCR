@@ -27,6 +27,7 @@
 #include "Motor.h"
 #include "gui.h"
 #include "timer.h"
+#include "linesensor.h"
 
 #define CMT_CHANNEL 0
 
@@ -80,8 +81,12 @@ void main(void)
 		// }
 	}
 
+	// ロータリエンコーダ初期化
 	InitEncoder();
+	// モータドライバ初期化
 	InitMotor();
+	// ラインセンサ初期化
+	InitLineSensors();
 
 	R_Config_S12AD0_Start(); // A/D変換開始
 	R_Config_S12AD1_Start(); // A/D変換開始

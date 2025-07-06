@@ -27,10 +27,10 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define MTU7_PCLK_COUNTER_DIVISION      (1)
-#define _0E0F_TGRA7_VALUE               (0x0E0FU) /* TGRA7 value */
-#define _0064_TGRB7_VALUE               (0x0064U) /* TGRB7 value */
-#define _0E0F_TGRC7_VALUE               (0x0E0FU) /* TGRC7 value */
-#define _0064_TGRD7_VALUE               (0x0064U) /* TGRD7 value */
+#define _EA5F_TGRA7_VALUE               (0xEA5FU) /* TGRA7 value */
+#define _0000_TGRB7_VALUE               (0x0000U) /* TGRB7 value */
+#define _EA5F_TGRC7_VALUE               (0xEA5FU) /* TGRC7 value */
+#define _0000_TGRD7_VALUE               (0x0000U) /* TGRD7 value */
 
 /***********************************************************************************************************************
 Typedef definitions

@@ -6,7 +6,7 @@
 
 /***********************************************************************************************************************
 * File Name        : Config_S12AD0.h
-* Component Version: 2.5.0
+* Component Version: 1.13.0
 * Device(s)        : R5F5671EHxLE
 * Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
@@ -26,13 +26,13 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0B_AD0_SAMPLING_STATE_1           (0x0BU)   /* ANx01 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_2           (0x0BU)   /* ANx02 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_3           (0x0BU)   /* ANx03 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_4           (0x0BU)   /* ANx04 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_5           (0x0BU)   /* ANx05 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_6           (0x0BU)   /* ANx06 sampling time setting */
-#define _0B_AD0_SAMPLING_STATE_7           (0x0BU)   /* ANx07 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_1           (0xF0U)   /* ANx01 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_2           (0xF0U)   /* ANx02 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_3           (0xF0U)   /* ANx03 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_4           (0xF0U)   /* ANx04 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_5           (0xF0U)   /* ANx05 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_6           (0xF0U)   /* ANx06 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_7           (0xF0U)   /* ANx07 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -49,4 +49,3 @@ void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buff
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

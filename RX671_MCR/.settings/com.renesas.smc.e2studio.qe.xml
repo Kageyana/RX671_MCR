@@ -404,28 +404,28 @@
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU7" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
-            <Setting id="TGRCValue" value="3599"/>
+            <Setting id="TGRCValue" value="59999"/>
             <Setting id="Unit" value="us"/>
             <Setting id="MultiIntTgidEnable" value="UnCheck"/>
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
-            <Setting id="TGRDValue" value="100"/>
+            <Setting id="TGRDValue" value="0"/>
             <Setting id="SynClr2B" value="Disable"/>
             <Setting id="SynClr2A" value="Disable"/>
             <Setting id="Sync" value="Disable"/>
             <Setting id="Tgrd" value="Out"/>
             <Setting id="Tgrc" value="Out"/>
             <Setting id="MultiIntTgicEnable" value="UnCheck"/>
-            <Setting id="IODtgrd" value="OutT"/>
+            <Setting id="IODtgrd" value="Out0"/>
             <Setting id="TRG4BN" value="Disable"/>
             <Setting id="TRGAN" value="Disable"/>
-            <Setting id="PeriodValue" value="30"/>
+            <Setting id="PeriodValue" value="500"/>
             <Setting id="SynClr1B" value="Disable"/>
             <Setting id="SynClr1A" value="Disable"/>
             <Setting id="CycAbValue" value="65535"/>
             <Setting id="ClkEdg" value="Rise"/>
             <Setting id="TRG4AN" value="Disable"/>
-            <Setting id="CycAValue" value="65535"/>
+            <Setting id="CycAValue" value="23999"/>
             <Setting id="Tgid" value="Disable"/>
             <Setting id="Tgic" value="Disable"/>
             <Setting id="ADtf" value="Disable"/>
@@ -433,7 +433,7 @@
             <Setting id="Tgia" value="Disable"/>
             <Setting id="BufB" value="Cmp"/>
             <Setting id="BufA" value="Cmp"/>
-            <Setting id="TGRAValue" value="3599"/>
+            <Setting id="TGRAValue" value="59999"/>
             <Setting id="SynClr0B" value="Disable"/>
             <Setting id="SynClr0A" value="Disable"/>
             <Setting id="IOA" value="OutDis"/>
@@ -450,12 +450,12 @@
             <Setting id="PrioC" value="Level15"/>
             <Setting id="ExtNoiseB" value="Disable"/>
             <Setting id="ExtNoiseA" value="Disable"/>
-            <Setting id="IOBtgrb" value="OutT"/>
+            <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="CycBValue" value="65535"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
             <Setting id="ExtNoiseClk" value="PCLK"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
-            <Setting id="TGRBValue" value="100"/>
+            <Setting id="TGRBValue" value="0"/>
         </Segment>
         <Segment component="r_tfat_rx4.14" id="r_tfat_rx" source="com.renesas.smc.tools.swcomponent.fit.source"/>
         <Segment component="r_tfat_driver_rx2.61" id="r_tfat_driver_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
@@ -582,9 +582,9 @@
             <Setting id="CMT_CFG_CH0_EN_NESTED_INT" value="1"/>
             <Setting id="CMT_RX_CFG_IPR" value="5"/>
         </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.singlescanmode" id="Config_S12AD0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" id="Config_S12AD0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="SDFmode" value="Unused"/>
-            <Setting id="ANx06_Add" value="Unuse"/>
+            <Setting id="ANx06_Add" value="Use"/>
             <Setting id="SDFVolt" value="0V"/>
             <Setting id="CMPBChk" value="Unuse"/>
             <Setting id="ANx06" value="Use"/>
@@ -592,64 +592,62 @@
             <Setting id="ANx05" value="Use"/>
             <Setting id="ANx06_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx07" value="Use"/>
-            <Setting id="Valuecount" value="1time"/>
-            <Setting id="StartTrigger" value="TRG7ANorTRG7BN"/>
+            <Setting id="Valuecount" value="4times"/>
+            <Setting id="StartTrigger" value="Software"/>
             <Setting id="ANx00" value="Unuse"/>
             <Setting id="ANx02" value="Use"/>
             <Setting id="ANx01" value="Use"/>
-            <Setting id="ANx05_Add" value="Unuse"/>
+            <Setting id="ANx05_Add" value="Use"/>
             <Setting id="ANx00_CMPA" value="Unuse"/>
             <Setting id="ANx04" value="Use"/>
             <Setting id="ANx03" value="Use"/>
             <Setting id="ANx02_CMPALEVEL" value="Ref0Larger"/>
-            <Setting id="S12ADIchk" value="Use"/>
+            <Setting id="S12ADIchk" value="Unuse"/>
             <Setting id="DDperiod" value="2ADCLK"/>
             <Setting id="CMPBLevel" value="Ref0Larger"/>
-            <Setting id="Countmode" value="Addition"/>
+            <Setting id="Countmode" value="Average"/>
             <Setting id="ANx06_CMPA" value="Unuse"/>
             <Setting id="ANx01_CMPA" value="Unuse"/>
             <Setting id="ANx00_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx07_CMPA" value="Unuse"/>
             <Setting id="ANx04_CMPA" value="Unuse"/>
-            <Setting id="ANx04_Add" value="Unuse"/>
+            <Setting id="ANx04_Add" value="Use"/>
             <Setting id="ANx07_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="S12ADIPrity" value="Level11"/>
-            <Setting id="ANx05_Sampling" value="0.183"/>
+            <Setting id="ANx05_Sampling" value="4"/>
             <Setting id="ANx00_Sampling" value="0.183"/>
             <Setting id="Cmp1B" value="0"/>
-            <Setting id="ANx06_Sampling" value="0.183"/>
+            <Setting id="ANx06_Sampling" value="4"/>
             <Setting id="Cmp1A" value="0"/>
             <Setting id="S12CMPAIchk" value="Use"/>
             <Setting id="CMPBChan" value="Unused"/>
-            <Setting id="ANx03_Add" value="Unuse"/>
+            <Setting id="ANx03_Add" value="Use"/>
             <Setting id="ANx03_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Resolution" value="12bit"/>
-            <Setting id="ANx01_Add" value="Unuse"/>
-            <Setting id="WindowABcomplex" value="AORB"/>
+            <Setting id="ANx01_Add" value="Use"/>
             <Setting id="S12CMPBIchk" value="Use"/>
             <Setting id="CSHchk" value="Unuse"/>
-            <Setting id="ANx01_Sampling" value="0.183"/>
+            <Setting id="ANx01_Sampling" value="4"/>
             <Setting id="ANx02_CMPA" value="Unuse"/>
             <Setting id="DataAligh" value="Right"/>
             <Setting id="ANx00_Add" value="Unuse"/>
             <Setting id="ANx01_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="ANx04_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="GBL1Prity" value="Level15"/>
-            <Setting id="ANx02_Add" value="Unuse"/>
+            <Setting id="ANx02_Add" value="Use"/>
             <Setting id="Cmp0A" value="0"/>
             <Setting id="ANx03_CMPA" value="Unuse"/>
-            <Setting id="ANx04_Sampling" value="0.183"/>
+            <Setting id="ANx04_Sampling" value="4"/>
             <Setting id="Cmp0B" value="0"/>
-            <Setting id="ANx07_Sampling" value="0.183"/>
-            <Setting id="DoubleTriggermode" value="Unuse"/>
-            <Setting id="ANx02_Sampling" value="0.183"/>
+            <Setting id="ANx07_Sampling" value="4"/>
+            <Setting id="ANx02_Sampling" value="4"/>
             <Setting id="CMPAChk" value="Unuse"/>
             <Setting id="ANx05_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Autoclean" value="EnAutoclean"/>
-            <Setting id="ANx07_Add" value="Unuse"/>
+            <Setting id="ANx07_Add" value="Use"/>
             <Setting id="WDFuntion" value="WDFUnuse"/>
             <Setting id="DDcharge" value="Unused"/>
-            <Setting id="ANx03_Sampling" value="0.183"/>
+            <Setting id="ANx03_Sampling" value="4"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" id="Config_S12AD1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="SDFmode" value="Unused"/>

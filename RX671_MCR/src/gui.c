@@ -379,6 +379,7 @@ bool GUI_ShowSensors(void)
 				"Line    "
 	};
 
+
 	if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
 	{
 		sensor_sel = GUI_MenuSelect(sensor_items, 4);
@@ -485,8 +486,10 @@ bool GUI_ShowSensors(void)
 		break;
 
 	case SENSOR_LINE: // ラインセンサ表示
+		PowerLineSensors(1); // ラインセンサの電源をON
+
 		SSD1351setCursor(2, MENU_START_Y);
-		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"LS:%4d %4d %4d",lineSenVal[0], lineSenVal[1], lineSenVal[2]);
+		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[0], lineSenVal[1], lineSenVal[2]);
 		SSD1351setCursor(2, MENU_START_Y + 12);
 		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[3], lineSenVal[4], lineSenVal[5]);
 		SSD1351setCursor(2, MENU_START_Y + 24);

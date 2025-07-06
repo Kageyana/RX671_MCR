@@ -7,6 +7,19 @@
 //====================================//
 uint16_t lineSenVal[LINESENSOR_NUM];
 /////////////////////////////////////////////////////////////////////
+// モジュール名 InitLineSensors
+// 処理概要     ラインセンサの初期化
+// 引数         なし
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void InitLineSensors(void)
+{
+	SET_MTU_LINESENSORS; // ラインセンサのMTUを開始
+	PowerLineSensors(0); // ラインセンサの電源をOFF
+	MTU7.TGRA = TGR_LINESENSORS;
+}
+
+/////////////////////////////////////////////////////////////////////
 // モジュール名 GetLineSenADVal
 // 処理概要     ラインセンサのAD値を取得
 // 引数         なし
@@ -21,4 +34,21 @@ void GetLineSenADVal(void)
 	R_Config_S12AD0_Get_ValueResult(ADCHANNEL5, &lineSenVal[4]);
 	R_Config_S12AD0_Get_ValueResult(ADCHANNEL6, &lineSenVal[5]);
 	R_Config_S12AD0_Get_ValueResult(ADCHANNEL7, &lineSenVal[6]);
+}/////////////////////////////////////////////////////////////////////
+// モジュール名 GetLineSenADVal
+// 処理概要     ラインセンサのAD値を取得
+// 引数         なし
+// 戻り値       なし
+/////////////////////////////////////////////////////////////////////
+void PowerLineSensors(bool power)
+{
+	if(power)
+	{
+		// MTU7.TGRA = TGR_MOTOR+1;
+		PWM_LINESENSORS_OUT = TGR_LINESENSORS+2;
+	}
+	else
+	{
+		PWM_LINESENSORS_OUT = 0;
+	}
 }

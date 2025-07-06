@@ -69,9 +69,6 @@ void r_Config_SCI10_transmit_interrupt(void) __attribute__ ((interrupt(".rvector
 /* TPU5 TGI5A */
 void r_Config_TPU5_tgi5a_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB164))));
 
-/* S12AD S12ADI */
-void r_Config_S12AD0_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB183))));
-
 /* S12AD1 S12ADI1 */
 void r_Config_S12AD1_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB186))));
 

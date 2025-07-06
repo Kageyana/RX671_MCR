@@ -29,6 +29,8 @@ void interrupt1ms(void * pdata)
 	R_SDC_SD_1msInterval();
 	GetEncoderVal();
 
+	GetLineSenADVal();
+
 	switch (cnt10)
 	{
 	case 1:

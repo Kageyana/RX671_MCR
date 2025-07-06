@@ -462,7 +462,7 @@
         <Item currentVect="180" defaultVect="180" id="CAN0_TXM0" priority="15" usedState="未使用"/>
         <Item currentVect="181" defaultVect="181" id="USB0_USBI0" priority="15" usedState="未使用"/>
         <Item currentVect="182" defaultVect="182" id="USB1_USBI1" priority="15" usedState="未使用"/>
-        <Item currentVect="183" defaultVect="183" id="S12AD_S12ADI" priority="11" usedState="使用中"/>
+        <Item currentVect="183" defaultVect="183" id="S12AD_S12ADI" priority="11" usedState="未使用"/>
         <Item currentVect="184" defaultVect="184" id="S12AD_S12GBADI" priority="15" usedState="未使用"/>
         <Item currentVect="185" defaultVect="185" id="S12AD_S12GCADI" priority="15" usedState="未使用"/>
         <Item currentVect="186" defaultVect="186" id="S12AD1_S12ADI1" priority="1" usedState="使用中"/>
@@ -7218,7 +7218,7 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="false" id="IOBtgrb" selection="OutT">
+                <option enabled="false" id="IOBtgrb" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
@@ -7232,13 +7232,13 @@
                     <item id="Out11" input="" vlaue="0"/>
                     <item id="Out1t" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="IODtgrd" selection="OutT">
+                <option enabled="true" id="IODtgrd" selection="Out0">
                     <item id="Out0" input="" vlaue="0"/>
                     <item id="Out1" input="" vlaue="0"/>
                     <item id="OutT" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="PeriodValue" selection="PeriodValue">
-                    <item id="PeriodValue" input="30" vlaue="3599"/>
+                    <item id="PeriodValue" input="500" vlaue="59999"/>
                 </option>
                 <option enabled="true" id="Unit" selection="us">
                     <item id="ms" input="" vlaue="0"/>
@@ -7247,16 +7247,16 @@
                     <item id="cnt" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRAValue" selection="TGRAValue">
-                    <item id="TGRAValue" input="3599" vlaue="3599"/>
+                    <item id="TGRAValue" input="59999" vlaue="59999"/>
                 </option>
                 <option enabled="true" id="TGRBValue" selection="TGRBValue">
-                    <item id="TGRBValue" input="100" vlaue="100"/>
+                    <item id="TGRBValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TGRCValue" selection="TGRCValue">
-                    <item id="TGRCValue" input="3599" vlaue="3599"/>
+                    <item id="TGRCValue" input="59999" vlaue="59999"/>
                 </option>
                 <option enabled="true" id="TGRDValue" selection="TGRDValue">
-                    <item id="TGRDValue" input="100" vlaue="100"/>
+                    <item id="TGRDValue" input="0" vlaue="0"/>
                 </option>
                 <option enabled="true" id="TRGAN" selection="Disable">
                     <item id="Enable" input="" vlaue="0"/>
@@ -7271,7 +7271,7 @@
                     <item id="Disable" input="" vlaue="0"/>
                 </option>
                 <option enabled="false" id="CycAValue" selection="CycAValue">
-                    <item id="CycAValue" input="65535" vlaue="65535"/>
+                    <item id="CycAValue" input="23999" vlaue="23999"/>
                 </option>
                 <option enabled="false" id="CycAbValue" selection="CycAbValue">
                     <item id="CycAbValue" input="65535" vlaue="65535"/>
@@ -7715,16 +7715,12 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration apiMode="FULL_API" id="bdf0d080-0a3e-40a6-a265-968cbf0140d0" inuse="true" name="Config_S12AD0">
-            <allocatable id="S12AD">
-                <isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
-                <isocket id="CountingClockA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
-                <isocket id="CountingClockAD" selection="Clock.tool_clock_pclkc" value="6.0E7"/>
-                <isocket id="CountingClockI" selection="Clock.tool_clock_iclk" value="1.2E8"/>
-                <option enabled="true" id="DoubleTriggermode" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
+        <configuration apiMode="FULL_API" id="22d25603-f3cb-4d93-b726-a07091c1dfd1" inuse="true" name="Config_S12AD0">
+            <allocatable id="S12AD0">
+                <isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="1.2E8"/>
+                <isocket id="CountADClock" selection="Clock.tool_clock_pclkc" value="6.0E7"/>
+                <isocket id="CountClockA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
+                <isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
                 <option enabled="true" id="ANx00" selection="Unuse">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
@@ -7757,7 +7753,7 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="StartTrigger" selection="TRG7ANorTRG7BN">
+                <option enabled="true" id="StartTrigger" selection="Software">
                     <item id="Software" input="" vlaue="0"/>
                     <item id="ADTRG" input="" vlaue="0"/>
                     <item id="TRGA0N" input="" vlaue="0"/>
@@ -7782,11 +7778,11 @@
                     <item id="TPTRG0AN" input="" vlaue="0"/>
                     <item id="ELC" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="S12ADIchk" selection="Use">
+                <option enabled="true" id="S12ADIchk" selection="Unuse">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="S12ADIPrity" selection="Level11">
+                <option enabled="false" id="S12ADIPrity" selection="Level11">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
@@ -7808,31 +7804,31 @@
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx01_Add" selection="Unuse">
+                <option enabled="true" id="ANx01_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx02_Add" selection="Unuse">
+                <option enabled="true" id="ANx02_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx03_Add" selection="Unuse">
+                <option enabled="true" id="ANx03_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx04_Add" selection="Unuse">
+                <option enabled="true" id="ANx04_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx05_Add" selection="Unuse">
+                <option enabled="true" id="ANx05_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx06_Add" selection="Unuse">
+                <option enabled="true" id="ANx06_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="ANx07_Add" selection="Unuse">
+                <option enabled="true" id="ANx07_Add" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
                 </option>
@@ -7867,10 +7863,6 @@
                     <item id="14ADCLK" input="" vlaue="0"/>
                     <item id="15ADCLK" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="CSHchk" selection="Unuse">
-                    <item id="Use" input="" vlaue="0"/>
-                    <item id="Unuse" input="" vlaue="0"/>
-                </option>
                 <option enabled="true" id="DataAligh" selection="Right">
                     <item id="Right" input="" vlaue="0"/>
                     <item id="Left" input="" vlaue="0"/>
@@ -7884,11 +7876,11 @@
                     <item id="10bit" input="" vlaue="0"/>
                     <item id="8bit" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Countmode" selection="Addition">
+                <option enabled="true" id="Countmode" selection="Average">
                     <item id="Addition" input="" vlaue="0"/>
                     <item id="Average" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Valuecount" selection="1time">
+                <option enabled="true" id="Valuecount" selection="4times">
                     <item id="1time" input="" vlaue="0"/>
                     <item id="2times" input="" vlaue="0"/>
                     <item id="3times" input="" vlaue="0"/>
@@ -7906,11 +7898,6 @@
                 <option enabled="true" id="CMPBChk" selection="Unuse">
                     <item id="Use" input="" vlaue="0"/>
                     <item id="Unuse" input="" vlaue="0"/>
-                </option>
-                <option enabled="false" id="WindowABcomplex" selection="AORB">
-                    <item id="AORB" input="" vlaue="0"/>
-                    <item id="AEXORB" input="" vlaue="0"/>
-                    <item id="AANDB" input="" vlaue="0"/>
                 </option>
                 <option enabled="false" id="Cmp0A" selection="Cmp0A">
                     <item id="Cmp0A" input="0" vlaue="0"/>
@@ -8025,25 +8012,25 @@
                     <item id="ANx00_Sampling" input="0.183" vlaue="11"/>
                 </option>
                 <option enabled="true" id="ANx01_Sampling" selection="ANx01_Sampling">
-                    <item id="ANx01_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx01_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx02_Sampling" selection="ANx02_Sampling">
-                    <item id="ANx02_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx02_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx03_Sampling" selection="ANx03_Sampling">
-                    <item id="ANx03_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx03_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx04_Sampling" selection="ANx04_Sampling">
-                    <item id="ANx04_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx04_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx05_Sampling" selection="ANx05_Sampling">
-                    <item id="ANx05_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx05_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx06_Sampling" selection="ANx06_Sampling">
-                    <item id="ANx06_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx06_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="true" id="ANx07_Sampling" selection="ANx07_Sampling">
-                    <item id="ANx07_Sampling" input="0.183" vlaue="11"/>
+                    <item id="ANx07_Sampling" input="4" vlaue="240"/>
                 </option>
                 <option enabled="false" id="S12CMPAIchk" selection="Use">
                     <item id="Use" input="" vlaue="0"/>
@@ -8071,9 +8058,13 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
+                <option enabled="true" id="CSHchk" selection="Unuse">
+                    <item id="Use" input="" vlaue="0"/>
+                    <item id="Unuse" input="" vlaue="0"/>
+                </option>
             </allocatable>
-            <component description="このソフトウェアコンポーネントは、12ビットA/ Dコンバータ用のシングルスキャンモードの構成を提供します。&#10;&#10;任意に選択したアナログ入力を任意のチャネル番号順に変換することが可能です。" detailDescription="" display="シングルスキャンモードS12AD" id="com.renesas.smc.tools.swcomponent.codegenerator.singlescanmode" version="2.5.0"/>
-            <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="S12AD0 シングルスキャンモード" display="S12AD0" id="com.renesas.smc.swc.cg.rx.ssm.rx671.s12ad0" type="">
+            <component description="このソフトウェアコンポーネントは、12ビットA/ Dコンバータ用の連続スキャンモードの構成を提供します。&#10;&#10;任意に選択したアナログ入力を任意のチャネル番号順に連続して変換することが可能です。" detailDescription="" display="連続スキャンモードS12AD" id="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" version="1.13.0"/>
+            <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="S12AD0連続スキャンモード" display="S12AD0" id="com.renesas.smc.swc.cg.rx.csm.rx671.s12ad0" type="">
                 <context/>
             </allocator>
             <source description="コード生成に対応したコンポーネントは、設定に応じた周辺ドライバのコードを小さなコードサイズで出力します。" display="コード生成" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
