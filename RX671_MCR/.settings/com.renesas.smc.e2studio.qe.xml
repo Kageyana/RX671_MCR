@@ -956,7 +956,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="HighdriveSelect" value="HighdriveOut"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>

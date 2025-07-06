@@ -82,28 +82,28 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	// 左前輪
 	if( accelefL >= 0) DIR_FL = 1;
 	else DIR_FL = 0;
-	if ( accelefL == 100 || accelefL == -100 )pwmfl = TGR_MOTOR + 2;
+	if ( accelefL == 1000 || accelefL == -1000 )pwmfl = TGR_MOTOR + 2;
 	MTU4.TGRA = TGR_MOTOR+1;
 	PWM_FL_OUT = pwmfl;
 	
 	// 右前輪
 	if( accelefR >= 0) DIR_FR = 1;
 	else DIR_FR = 0;
-	if ( accelefR == 100 || accelefR == -100 ) pwmfr = TGR_MOTOR + 2;
+	if ( accelefR == 1000 || accelefR == -1000 ) pwmfr = TGR_MOTOR + 2;
 	MTU4.TGRC = TGR_MOTOR+1;
 	PWM_FR_OUT = pwmfr;
 
 	// 左後輪
 	if( accelerL >= 0 ) DIR_RL = 1;
 	else DIR_RL = 0;
-	if ( accelerL == 100 || accelerL == -100 ) pwmrl = TGR_MOTOR + 2;
+	if ( accelerL == 1000 || accelerL == -1000 ) pwmrl = TGR_MOTOR + 2;
 	MTU0.TGRA = TGR_MOTOR+1;
 	PWM_RL_OUT = pwmrl;
 	
 	// 右後輪
 	if( accelerR >= 0 ) DIR_RR = 1;
 	else DIR_RR = 0;
-	if ( accelerR == 100 || accelerR == -100 ) pwmrr = TGR_MOTOR + 2;
+	if ( accelerR == 1000 || accelerR == -1000 ) pwmrr = TGR_MOTOR + 2;
 	MTU0.TGRC = TGR_MOTOR+1;
 	PWM_RR_OUT = pwmrr;
 }
