@@ -1,4 +1,4 @@
 (fp_lib_table
   (version 7)
-  (lib (name "robot_contest")(type "KiCad")(uri "C:/Users/Natsuki/Dropbox/Document/CAD/Ki_cad/library/kicad_library_robocon/robot_contest.pretty")(options "")(descr ""))
+  (lib (name "robot_contest")(type "KiCad")(uri "F:/Dropbox/Document/CAD/Ki_cad/library/kicad_library_robocon/robot_contest.pretty")(options "")(descr ""))
 )

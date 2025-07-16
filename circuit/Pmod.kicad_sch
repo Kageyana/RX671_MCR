@@ -1,13 +1,15 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "378a7933-2060-4818-850f-45454fdb81cb")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_02x06_Top_Bottom"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -74,41 +76,19 @@
 			)
 			(symbol "Conn_02x06_Top_Bottom_1_1"
 				(rectangle
-					(start -1.27 -7.493)
-					(end 0 -7.747)
+					(start -1.27 6.35)
+					(end 3.81 -8.89)
 					(stroke
-						(width 0.1524)
+						(width 0.254)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type background)
 					)
 				)
 				(rectangle
-					(start -1.27 -4.953)
-					(end 0 -5.207)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
+					(start -1.27 5.207)
+					(end 0 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -129,8 +109,8 @@
 					)
 				)
 				(rectangle
-					(start -1.27 5.207)
-					(end 0 4.953)
+					(start -1.27 0.127)
+					(end 0 -0.127)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -140,19 +120,8 @@
 					)
 				)
 				(rectangle
-					(start -1.27 6.35)
-					(end 3.81 -8.89)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start 3.81 -7.493)
-					(end 2.54 -7.747)
+					(start -1.27 -2.413)
+					(end 0 -2.667)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -162,8 +131,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 -4.953)
-					(end 2.54 -5.207)
+					(start -1.27 -4.953)
+					(end 0 -5.207)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -173,8 +142,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 -2.413)
-					(end 2.54 -2.667)
+					(start -1.27 -7.493)
+					(end 0 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -184,8 +153,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 0.127)
-					(end 2.54 -0.127)
+					(start 3.81 5.207)
+					(end 2.54 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -206,8 +175,41 @@
 					)
 				)
 				(rectangle
-					(start 3.81 5.207)
-					(end 2.54 4.953)
+					(start 3.81 0.127)
+					(end 2.54 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -2.413)
+					(end 2.54 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -4.953)
+					(end 2.54 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -7.493)
+					(end 2.54 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -227,60 +229,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 3.81)
-					(name "Pin_10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -5.08 180)
-					(length 3.81)
-					(name "Pin_11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -7.62 180)
-					(length 3.81)
-					(name "Pin_12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -432,13 +380,72 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 3.81)
+					(name "Pin_10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -5.08 180)
+					(length 3.81)
+					(name "Pin_11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -7.62 180)
+					(length 3.81)
+					(name "Pin_12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -510,7 +517,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -522,7 +529,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -553,12 +560,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -649,6 +661,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
 	(wire
@@ -754,7 +767,7 @@
 		(uuid "4006a79f-a25e-44df-9fc6-f1da21e50efa")
 	)
 	(hierarchical_label "Pmod2_IO1(INT)"
-		(shape bidirectional)
+		(shape output)
 		(at 156.21 87.63 0)
 		(effects
 			(font
@@ -820,7 +833,7 @@
 		(uuid "6b378cf9-332a-4611-8f81-e70d9c0d0a1a")
 	)
 	(hierarchical_label "Pmod2_IO2(RESET)"
-		(shape bidirectional)
+		(shape input)
 		(at 156.21 90.17 0)
 		(effects
 			(font
@@ -831,7 +844,7 @@
 		(uuid "8331f336-c5e6-44fa-9fee-632659b61a97")
 	)
 	(hierarchical_label "Pmod3_IO1(INT)"
-		(shape bidirectional)
+		(shape output)
 		(at 156.21 119.38 0)
 		(effects
 			(font
@@ -897,7 +910,7 @@
 		(uuid "de56f875-d34a-4992-a8b5-40e5e946f38e")
 	)
 	(hierarchical_label "Pmod3_IO2(RESET)"
-		(shape bidirectional)
+		(shape input)
 		(at 156.21 121.92 0)
 		(effects
 			(font
@@ -917,7 +930,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "03022e87-b8c4-4ddd-9f51-bc4f4da5f0c8")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR087"
 			(at 127 123.19 0)
 			(effects
 				(font
@@ -967,7 +980,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR088")
+					(reference "#PWR087")
 					(unit 1)
 				)
 			)
@@ -983,7 +996,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "41540315-88c5-4e38-8a7e-0155ed751ee6")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR090"
 			(at 171.45 96.52 0)
 			(effects
 				(font
@@ -1033,7 +1046,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR091")
+					(reference "#PWR090")
 					(unit 1)
 				)
 			)
@@ -1049,7 +1062,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "462bdcf7-1525-4a34-84b3-fb6143f7ab0f")
-		(property "Reference" "J12"
+		(property "Reference" "J11"
 			(at 149.86 113.9655 0)
 			(effects
 				(font
@@ -1131,7 +1144,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "J12")
+					(reference "J11")
 					(unit 1)
 				)
 			)
@@ -1147,7 +1160,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5ab24fa2-2c91-433b-aa37-d70432844282")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR089"
 			(at 171.45 91.44 0)
 			(effects
 				(font
@@ -1197,7 +1210,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR090")
+					(reference "#PWR089")
 					(unit 1)
 				)
 			)
@@ -1213,7 +1226,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c9fb360-ba08-454c-a21d-6319345cb26e")
-		(property "Reference" "J11"
+		(property "Reference" "J10"
 			(at 149.86 82.2155 0)
 			(effects
 				(font
@@ -1295,7 +1308,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "J11")
+					(reference "J10")
 					(unit 1)
 				)
 			)
@@ -1311,7 +1324,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7854b3b7-2a41-4140-8f9e-59cd8d0444fa")
-		(property "Reference" "#PWR087"
+		(property "Reference" "#PWR086"
 			(at 127 96.52 0)
 			(effects
 				(font
@@ -1361,7 +1374,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR087")
+					(reference "#PWR086")
 					(unit 1)
 				)
 			)
@@ -1377,7 +1390,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8a4d20a2-c0bf-43c1-8975-94275746e921")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR088"
 			(at 127 128.27 0)
 			(effects
 				(font
@@ -1427,7 +1440,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR089")
+					(reference "#PWR088")
 					(unit 1)
 				)
 			)
@@ -1443,7 +1456,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9472dfab-9927-4aee-928a-062790ab9d6d")
-		(property "Reference" "#PWR093"
+		(property "Reference" "#PWR092"
 			(at 171.45 128.27 0)
 			(effects
 				(font
@@ -1493,7 +1506,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR093")
+					(reference "#PWR092")
 					(unit 1)
 				)
 			)
@@ -1509,7 +1522,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "da271cad-6ae2-4da2-83d2-17b17e2d42d1")
-		(property "Reference" "#PWR092"
+		(property "Reference" "#PWR091"
 			(at 171.45 123.19 0)
 			(effects
 				(font
@@ -1559,7 +1572,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR092")
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
@@ -1575,7 +1588,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f7577aed-7b97-43f1-a494-367fa321d12f")
-		(property "Reference" "#PWR086"
+		(property "Reference" "#PWR085"
 			(at 127 91.44 0)
 			(effects
 				(font
@@ -1625,7 +1638,7 @@
 		(instances
 			(project "mcr_MotorDriver Ver.3"
 				(path "/76b89980-2e43-4de5-94df-53966ea6619b/53053f08-0121-4498-bb15-df6666dce9cf"
-					(reference "#PWR086")
+					(reference "#PWR085")
 					(unit 1)
 				)
 			)
