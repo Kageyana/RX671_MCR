@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_ICU.c
-* Component Version: 2.3.0
+* File Name        : Config_TPU4.c
+* Component Version: 1.12.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_ICU.
+* Description      : This file implements device driver for Config_TPU4.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,7 +21,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_ICU.h"
+#include "Config_TPU4.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -33,97 +33,60 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_Create
-* Description  : This function initializes the ICU module
+* Function Name: R_Config_TPU4_Create
+* Description  : This function initializes the TPU4 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_Create(void)
+void R_Config_TPU4_Create(void)
 {
-    /* Disable IRQ interrupts */
-    ICU.IER[0x08].BYTE = 0x00U;
-    ICU.IER[0x09].BYTE = 0x00U;
+    /* Release TPU channel 4 from stop state */
+    MSTP(TPU4) = 0U;
 
-    /* Disable software interrupt */
-    IEN(ICU,SWINT) = 0U;
-    IEN(ICU,SWINT2) = 0U;
+    /* Stop TPU channel 4 counter */
+    TPUA.TSTR.BIT.CST4 = 0U;
 
-    /* Disable IRQ digital filter */
-    ICU.IRQFLTE0.BYTE &= ~(_08_ICU_IRQ3_FILTER_ENABLE);
-    ICU.IRQFLTE1.BYTE &= ~(_02_ICU_IRQ9_FILTER_ENABLE);
+    /* TPU channel 4 is used as PWM mode 1 */
+    TPUA.TSYR.BIT.SYNC4 = 0U;
+    TPU4.TCR.BYTE = _00_TPU_PCLK_1 | _20_TPU_CKCL_A;
+    TPU4.TIER.BYTE |= (_00_TPU_TGIEA_DISABLE | _00_TPU_TGIEB_DISABLE | _00_TPU_TCIEV_DISABLE | _00_TPU_TTGE_DISABLE);
+    TPU4.TIOR.BYTE = _01_TPU_IOA_LL | _50_TPU_IOB_HL;
+    TPU4.TGRA = _0707_TGRA4_VALUE;
+    TPU4.TGRB = _0064_TGRB4_VALUE;
+    TPU4.TMDR.BYTE = _02_TPU_PWM1;
 
-    /* Set IRQ3 pin */
-    MPC.P33PFS.BYTE = 0x40U;
-    PORT3.PDR.BYTE &= 0xF7U;
-    PORT3.PMR.BYTE &= 0xF7U;
+    /* Set TIOCA4 pin */
+    MPC.P25PFS.BYTE = 0x03U;
+    PORT2.PMR.BYTE |= 0x20U;
 
-    /* Set IRQ9 pin */
-    MPC.PE1PFS.BYTE = 0x40U;
-    PORTE.PDR.BYTE &= 0xFDU;
-    PORTE.PMR.BYTE &= 0xFDU;
-
-    /* Set IRQ detection type */
-    ICU.IRQCR[3].BYTE = _00_ICU_IRQ_EDGE_LOW_LEVEL;
-    ICU.IRQCR[9].BYTE = _00_ICU_IRQ_EDGE_LOW_LEVEL;
-
-    /* Set IRQ priority level */
-    IPR(ICU,IRQ3) = _0F_ICU_PRIORITY_LEVEL15;
-    IPR(ICU,IRQ9) = _0F_ICU_PRIORITY_LEVEL15;
-
-    R_Config_ICU_Create_UserInit();
+    R_Config_TPU4_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ3_Start
-* Description  : This function enables IRQ3 interrupt
+* Function Name: R_Config_TPU4_Start
+* Description  : This function starts the TPU4 channel counter
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_IRQ3_Start(void)
+void R_Config_TPU4_Start(void)
 {
-    /* Enable IRQ3 interrupt */
-    IEN(ICU,IRQ3) = 1U;
+    /* Start TPU channel 4 counter */
+    TPUA.TSTR.BIT.CST4 = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ3_Stop
-* Description  : This function disables IRQ3 interrupt
+* Function Name: R_Config_TPU4_Stop
+* Description  : This function stops the TPU4 channel counter
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_IRQ3_Stop(void)
+void R_Config_TPU4_Stop(void)
 {
-    /* Disable IRQ3 interrupt */
-    IEN(ICU,IRQ3) = 0U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ9_Start
-* Description  : This function enables IRQ9 interrupt
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_ICU_IRQ9_Start(void)
-{
-    /* Enable IRQ9 interrupt */
-    IEN(ICU,IRQ9) = 1U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ9_Stop
-* Description  : This function disables IRQ9 interrupt
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_ICU_IRQ9_Stop(void)
-{
-    /* Disable IRQ9 interrupt */
-    IEN(ICU,IRQ9) = 0U;
+    /* Stop TPU channel 4 counter */
+    TPUA.TSTR.BIT.CST4 = 0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

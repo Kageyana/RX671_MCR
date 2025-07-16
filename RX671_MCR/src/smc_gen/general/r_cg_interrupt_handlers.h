@@ -33,32 +33,23 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-/* SCI0 RXI0 */
-void r_Config_SCI0_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI0,RXI0))));
-
-/* SCI0 TXI0 */
-void r_Config_SCI0_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI0,TXI0))));
-
 /* SCI1 RXI1 */
 void r_Config_SCI1_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI1,RXI1))));
 
 /* SCI1 TXI1 */
 void r_Config_SCI1_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI1,TXI1))));
 
-/* SCI2 RXI2 */
-void r_Config_SCI2_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI2,RXI2))));
+/* ICU IRQ3 */
+void r_Config_ICU_irq3_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(ICU,IRQ3))));
 
-/* SCI2 TXI2 */
-void r_Config_SCI2_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI2,TXI2))));
+/* ICU IRQ9 */
+void r_Config_ICU_irq9_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(ICU,IRQ9))));
 
-/* ICU IRQ1 */
-void r_Config_ICU_irq1_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(ICU,IRQ1))));
+/* SCI4 RXI4 */
+void r_Config_SCI4_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI4,RXI4))));
 
-/* ICU IRQ10 */
-void r_Config_ICU_irq10_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(ICU,IRQ10))));
-
-/* ICU IRQ14 */
-void r_Config_ICU_irq14_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(ICU,IRQ14))));
+/* SCI4 TXI4 */
+void r_Config_SCI4_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI4,TXI4))));
 
 /* SCI10 RXI10 */
 void r_Config_SCI10_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI10,RXI10))));
@@ -66,11 +57,17 @@ void r_Config_SCI10_receive_interrupt(void) __attribute__ ((interrupt(".rvectors
 /* SCI10 TXI10 */
 void r_Config_SCI10_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI10,TXI10))));
 
+/* RSPI2 SPTI2 */
+void r_Config_RSPI2_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(RSPI2,SPTI2))));
+
 /* TPU5 TGI5A */
 void r_Config_TPU5_tgi5a_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB164))));
 
 /* S12AD1 S12ADI1 */
 void r_Config_S12AD1_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB186))));
+
+/* RSPI2 SPCI2 */
+void r_Config_RSPI2_communication_end_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIA,INTA254))));
 
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

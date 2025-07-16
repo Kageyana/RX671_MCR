@@ -28,9 +28,9 @@ Macro definitions
 ***********************************************************************************************************************/
 #define MTU4_PCLK_COUNTER_DIVISION      (1)
 #define _0E0F_TGRA4_VALUE               (0x0E0FU) /* TGRA4 value */
-#define _0000_TGRB4_VALUE               (0x0000U) /* TGRB4 value */
-#define _0E0F_TGRC4_VALUE               (0x0E0FU) /* TGRC4 value */
-#define _0000_TGRD4_VALUE               (0x0000U) /* TGRD4 value */
+#define _0064_TGRB4_VALUE               (0x0064U) /* TGRB4 value */
+#define _0064_TGRC4_VALUE               (0x0064U) /* TGRC4 value */
+#define _0064_TGRD4_VALUE               (0x0064U) /* TGRD4 value */
 
 /***********************************************************************************************************************
 Typedef definitions

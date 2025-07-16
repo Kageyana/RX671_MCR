@@ -122,24 +122,27 @@ void R_Pins_Create(void)
     PORT0.PDR.BYTE &= 0xFEU;
     MPC.P00PFS.BYTE = 0x80U;
 
+    /* Set CTS1# pin */
+    MPC.P14PFS.BYTE = 0x0BU;
+    PORT1.PMR.BYTE |= 0x10U;
+
     /* Set EXTAL pin */
     PORT3.PMR.BYTE &= 0xBFU;
     PORT3.PDR.BYTE &= 0xBFU;
 
-    /* Set IRQ1 pin */
-    MPC.P31PFS.BYTE = 0x40U;
-    PORT3.PMR.BYTE &= 0xFDU;
-    PORT3.PDR.BYTE &= 0xFDU;
+    /* Set IRQ3 pin */
+    MPC.P33PFS.BYTE = 0x40U;
+    PORT3.PMR.BYTE &= 0xF7U;
+    PORT3.PDR.BYTE &= 0xF7U;
 
-    /* Set IRQ10 pin */
-    MPC.P55PFS.BYTE = 0x40U;
-    PORT5.PMR.BYTE &= 0xDFU;
-    PORT5.PDR.BYTE &= 0xDFU;
+    /* Set IRQ9 pin */
+    MPC.PE1PFS.BYTE = 0x40U;
+    PORTE.PMR.BYTE &= 0xFDU;
+    PORTE.PDR.BYTE &= 0xFDU;
 
-    /* Set IRQ14 pin */
-    MPC.PC0PFS.BYTE = 0x40U;
-    PORTC.PMR.BYTE &= 0xFEU;
-    PORTC.PDR.BYTE &= 0xFEU;
+    /* Set MOSIC pin */
+    MPC.P54PFS.BYTE = 0x0DU;
+    PORT5.PMR.BYTE |= 0x10U;
 
     /* Set MTCLKA pin */
     MPC.PA4PFS.BYTE = 0x02U;
@@ -170,36 +173,48 @@ void R_Pins_Create(void)
     PORTC.PMR.BYTE |= 0x02U;
 
     /* Set MTIOC3C pin */
-    MPC.PJ3PFS.BYTE = 0x01U;
-    PORTJ.PMR.BYTE |= 0x08U;
+    MPC.PC0PFS.BYTE = 0x01U;
+    PORTC.PMR.BYTE |= 0x01U;
 
     /* Set MTIOC4A pin */
-    MPC.PA0PFS.BYTE = 0x01U;
-    PORTA.PMR.BYTE |= 0x01U;
+    MPC.PE2PFS.BYTE = 0x01U;
+    PORTE.PMR.BYTE |= 0x04U;
 
     /* Set MTIOC4C pin */
-    MPC.PB1PFS.BYTE = 0x02U;
-    PORTB.PMR.BYTE |= 0x02U;
+    MPC.PE5PFS.BYTE = 0x01U;
+    PORTE.PMR.BYTE |= 0x20U;
+
+    /* Set MTIOC6A pin */
+    MPC.PE7PFS.BYTE = 0x08U;
+    PORTE.PMR.BYTE |= 0x80U;
+
+    /* Set MTIOC6C pin */
+    MPC.PE6PFS.BYTE = 0x08U;
+    PORTE.PMR.BYTE |= 0x40U;
 
     /* Set MTIOC7C pin */
     MPC.P67PFS.BYTE = 0x08U;
     PORT6.PMR.BYTE |= 0x80U;
 
+    /* Set RSPCKC pin */
+    MPC.P56PFS.BYTE = 0x0DU;
+    PORT5.PMR.BYTE |= 0x40U;
+
+    /* Set RTS1# pin */
+    MPC.P31PFS.BYTE = 0x0BU;
+    PORT3.PMR.BYTE |= 0x02U;
+
     /* Set RXD1 pin */
     MPC.P30PFS.BYTE = 0x0AU;
     PORT3.PMR.BYTE |= 0x01U;
 
-    /* Set RXD10 pin */
-    MPC.PC6PFS.BYTE = 0x24U;
-    PORTC.PMR.BYTE |= 0x40U;
+    /* Set SCK4 pin */
+    MPC.PB3PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x08U;
 
-    /* Set SCK0 pin */
-    MPC.P22PFS.BYTE = 0x0AU;
-    PORT2.PMR.BYTE |= 0x04U;
-
-    /* Set SCK2 pin */
-    MPC.P51PFS.BYTE = 0x0AU;
-    PORT5.PMR.BYTE |= 0x02U;
+    /* Set SCK10 pin */
+    MPC.P83PFS.BYTE = 0x0AU;
+    PORT8.PMR.BYTE |= 0x08U;
 
     /* Set SDCLK pin */
     PORT7.PMR.BYTE |= 0x01U;
@@ -232,37 +247,47 @@ void R_Pins_Create(void)
     MPC.PC2PFS.BYTE = 0x1AU;
     PORTC.PMR.BYTE |= 0x04U;
 
-    /* Set SMISO0 pin */
-    MPC.P21PFS.BYTE = 0x0AU;
+    /* Set SMISO4 pin */
+    MPC.PB0PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x01U;
+
+    /* Set SMISO10 pin */
+    MPC.PC6PFS.BYTE = 0x24U;
+    PORTC.PMR.BYTE |= 0x40U;
+
+    /* Set SMOSI4 pin */
+    MPC.PB1PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x02U;
+
+    /* Set SMOSI10 pin */
+    MPC.P82PFS.BYTE = 0x0AU;
+    PORT8.PMR.BYTE |= 0x04U;
+
+    /* Set TIOCA2 pin */
+    MPC.P87PFS.BYTE = 0x03U;
+    PORT8.PMR.BYTE |= 0x80U;
+
+    /* Set TIOCA3 pin */
+    MPC.P21PFS.BYTE = 0x03U;
     PORT2.PMR.BYTE |= 0x02U;
 
-    /* Set SMISO2 pin */
-    MPC.P52PFS.BYTE = 0x0AU;
-    PORT5.PMR.BYTE |= 0x04U;
-
-    /* Set SMOSI0 pin */
-    MPC.P20PFS.BYTE = 0x0AU;
-    PORT2.PMR.BYTE |= 0x01U;
-
-    /* Set SMOSI2 pin */
-    MPC.P50PFS.BYTE = 0x0AU;
-    PORT5.PMR.BYTE |= 0x01U;
+    /* Set TIOCA4 pin */
+    MPC.P25PFS.BYTE = 0x03U;
+    PORT2.PMR.BYTE |= 0x20U;
 
     /* Set TIOCA5 pin */
     MPC.PB6PFS.BYTE = 0x03U;
     PORTB.PMR.BYTE |= 0x40U;
+
+    /* Set TIOCC3 pin */
+    MPC.P22PFS.BYTE = 0x03U;
+    PORT2.PMR.BYTE |= 0x04U;
 
     /* Set TXD1 pin */
     PORT2.PODR.BYTE |= 0x40U;
     MPC.P26PFS.BYTE = 0x0AU;
     PORT2.PDR.BYTE |= 0x40U;
     // PORT2.PMR.BIT.B6 = 1U; // Please set the PMR bit after TE bit is set to 1.
-
-    /* Set TXD10 pin */
-    PORT8.PODR.BYTE |= 0x04U;
-    MPC.P82PFS.BYTE = 0x0AU;
-    PORT8.PDR.BYTE |= 0x04U;
-    // PORT8.PMR.BIT.B2 = 1U; // Please set the PMR bit after TE bit is set to 1.
 
     /* Set USB0_DM pin */
     PORTH.PMR.BYTE &= 0xFBU;

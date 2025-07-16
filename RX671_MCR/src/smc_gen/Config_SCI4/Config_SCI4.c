@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_SCI0.c
+* File Name        : Config_SCI4.c
 * Component Version: 1.12.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_SCI0.
+* Description      : This file implements device driver for Config_SCI4.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,7 +21,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_SCI0.h"
+#include "Config_SCI4.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -29,117 +29,117 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint8_t * gp_sci0_tx_address;               /* SCI0 transmit buffer address */
-volatile uint16_t  g_sci0_tx_count;                  /* SCI0 transmit data number */
-volatile uint8_t * gp_sci0_rx_address;               /* SCI0 receive buffer address */
-volatile uint16_t  g_sci0_rx_count;                  /* SCI0 receive data number */
-volatile uint16_t  g_sci0_rx_length;                 /* SCI0 receive data length */
+volatile uint8_t * gp_sci4_tx_address;               /* SCI4 transmit buffer address */
+volatile uint16_t  g_sci4_tx_count;                  /* SCI4 transmit data number */
+volatile uint8_t * gp_sci4_rx_address;               /* SCI4 receive buffer address */
+volatile uint16_t  g_sci4_rx_count;                  /* SCI4 receive data number */
+volatile uint16_t  g_sci4_rx_length;                 /* SCI4 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI0_Create
-* Description  : This function initializes SCI0
+* Function Name: R_Config_SCI4_Create
+* Description  : This function initializes SCI4
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI0_Create(void)
+void R_Config_SCI4_Create(void)
 {
-    /* Cancel SCI0 module stop state */
-    MSTP(SCI0) = 0U;
+    /* Cancel SCI4 module stop state */
+    MSTP(SCI4) = 0U;
 
     /* Set interrupt priority */
-    IPR(SCI0,TXI0) = _0F_SCI_PRIORITY_LEVEL15;
-    IPR(SCI0,RXI0) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI4,TXI4) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI4,RXI4) = _0F_SCI_PRIORITY_LEVEL15;
 
     /* Clear the control register */
-    SCI0.SCR.BYTE = 0x00U;
+    SCI4.SCR.BYTE = 0x00U;
 
     /* Set clock enable */
-    SCI0.SCR.BYTE |= _01_SCI_INTERNAL_SCK_OUTPUT;
+    SCI4.SCR.BYTE |= _01_SCI_INTERNAL_SCK_OUTPUT;
 
     /* Clear the SIMR1.IICM */
-    SCI0.SIMR1.BIT.IICM = 0U;
+    SCI4.SIMR1.BIT.IICM = 0U;
 
     /* Set control registers */
-    SCI0.SPMR.BYTE = _00_SCI_SS_PIN_DISABLE | _00_SCI_SPI_MASTER | _00_SCI_CLOCK_NOT_INVERTED | 
+    SCI4.SPMR.BYTE = _00_SCI_SS_PIN_DISABLE | _00_SCI_SPI_MASTER | _00_SCI_CLOCK_NOT_INVERTED | 
                      _00_SCI_CLOCK_NOT_DELAYED;
-    SCI0.SMR.BYTE = _80_SCI_CLOCK_SYNCHRONOUS_OR_SPI_MODE | _00_SCI_CLOCK_PCLK;
-    SCI0.SCMR.BYTE = _00_SCI_SERIAL_MODE | _00_SCI_DATA_INVERT_NONE | _00_SCI_DATA_LSB_FIRST | 
+    SCI4.SMR.BYTE = _80_SCI_CLOCK_SYNCHRONOUS_OR_SPI_MODE | _00_SCI_CLOCK_PCLK;
+    SCI4.SCMR.BYTE = _00_SCI_SERIAL_MODE | _00_SCI_DATA_INVERT_NONE | _00_SCI_DATA_LSB_FIRST | 
                      _10_SCI_DATA_LENGTH_8_OR_7 | _62_SCI_SCMR_DEFAULT;
-    SCI0.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
+    SCI4.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
 
     /* Set bit rate */
-    SCI0.BRR = 0x0EU;
+    SCI4.BRR = 0x0EU;
 
-    /* Set SMISO0 pin */
-    MPC.P21PFS.BYTE = 0x0AU;
-    PORT2.PMR.BYTE |= 0x02U;
+    /* Set SMISO4 pin */
+    MPC.PB0PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x01U;
 
-    /* Set SMOSI0 pin */
-    MPC.P20PFS.BYTE = 0x0AU;
-    PORT2.PMR.BYTE |= 0x01U;
+    /* Set SMOSI4 pin */
+    MPC.PB1PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x02U;
 
-    /* Set SCK0 pin */
-    MPC.P22PFS.BYTE = 0x0AU;
-    PORT2.PMR.BYTE |= 0x04U;
+    /* Set SCK4 pin */
+    MPC.PB3PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x08U;
 
-    R_Config_SCI0_Create_UserInit();
+    R_Config_SCI4_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI0_Start
-* Description  : This function starts SCI0
+* Function Name: R_Config_SCI4_Start
+* Description  : This function starts SCI4
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI0_Start(void)
+void R_Config_SCI4_Start(void)
 {
     /* Enable TXI and TEI interrupt */
-    IR(SCI0,TXI0) = 0U;
-    IEN(SCI0,TXI0) = 1U;
-    ICU.GENBL0.BIT.EN0 = 1U;
+    IR(SCI4,TXI4) = 0U;
+    IEN(SCI4,TXI4) = 1U;
+    ICU.GENBL0.BIT.EN8 = 1U;
 
     /* Enable RXI interrupt */
-    IR(SCI0,RXI0) = 0U;
-    IEN(SCI0,RXI0) = 1U;
+    IR(SCI4,RXI4) = 0U;
+    IEN(SCI4,RXI4) = 1U;
 
     /* Enable ERI interrupt */
-    ICU.GENBL0.BIT.EN1 = 1U;
+    ICU.GENBL0.BIT.EN9 = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI0_Stop
-* Description  : This function stops SCI0
+* Function Name: R_Config_SCI4_Stop
+* Description  : This function stops SCI4
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI0_Stop(void)
+void R_Config_SCI4_Stop(void)
 {
     /* Disable serial transmit and receive */
-    SCI0.SCR.BYTE &= 0xCFU;
+    SCI4.SCR.BYTE &= 0xCFU;
 
     /* Disable TXI and TEI interrupt */
-    IEN(SCI0,TXI0) = 0U;
-    ICU.GENBL0.BIT.EN0 = 0U;
+    IEN(SCI4,TXI4) = 0U;
+    ICU.GENBL0.BIT.EN8 = 0U;
 
     /* Disable RXI interrupt */
-    IEN(SCI0,RXI0) = 0U;
+    IEN(SCI4,RXI4) = 0U;
 
     /* Disable ERI interrupt */
-    ICU.GENBL0.BIT.EN1 = 0U;
+    ICU.GENBL0.BIT.EN9 = 0U;
 
     /* Clear interrupt flags */
-    IR(SCI0,TXI0) = 0U;
-    IR(SCI0,RXI0) = 0U;
+    IR(SCI4,TXI4) = 0U;
+    IR(SCI4,RXI4) = 0U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI0_SPI_Master_Send_Receive
-* Description  : This function sends and receives SCI0 data to and from slave device
+* Function Name: R_Config_SCI4_SPI_Master_Send_Receive
+* Description  : This function sends and receives SCI4 data to and from slave device
 * Arguments    : tx_buf -
 *                    transfer buffer pointer (not used when data is handled by DMAC/DTC)
 *                tx_num -
@@ -152,7 +152,7 @@ void R_Config_SCI0_Stop(void)
 *                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
 
-MD_STATUS R_Config_SCI0_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num)
+MD_STATUS R_Config_SCI4_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num)
 {
     MD_STATUS status = MD_OK;
 
@@ -162,14 +162,14 @@ MD_STATUS R_Config_SCI0_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t
     }
     else
     {
-        g_sci0_tx_count = tx_num;
-        gp_sci0_tx_address = tx_buf;
-        gp_sci0_rx_address = rx_buf;
-        g_sci0_rx_count = 0U;
-        g_sci0_rx_length = rx_num;
+        g_sci4_tx_count = tx_num;
+        gp_sci4_tx_address = tx_buf;
+        gp_sci4_rx_address = rx_buf;
+        g_sci4_rx_count = 0U;
+        g_sci4_rx_length = rx_num;
 
         /* Set TE, TIE, RE, RIE bits simultaneously */
-        SCI0.SCR.BYTE |= 0xF0U;
+        SCI4.SCR.BYTE |= 0xF0U;
     }
 
     return (status);

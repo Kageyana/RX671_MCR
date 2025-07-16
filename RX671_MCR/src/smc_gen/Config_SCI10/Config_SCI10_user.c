@@ -29,11 +29,11 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint8_t * gp_sci10_tx_address;                /* SCI10 transmit buffer address */
-extern volatile uint16_t  g_sci10_tx_count;                   /* SCI10 transmit data number */
-extern volatile uint8_t * gp_sci10_rx_address;                /* SCI10 receive buffer address */
-extern volatile uint16_t  g_sci10_rx_count;                   /* SCI10 receive data number */
-extern volatile uint16_t  g_sci10_rx_length;                  /* SCI10 receive data length */
+extern volatile uint8_t * gp_sci10_tx_address;               /* SCI10 transmit buffer address */
+extern volatile uint16_t  g_sci10_tx_count;                  /* SCI10 transmit data number */
+extern volatile uint8_t * gp_sci10_rx_address;               /* SCI10 receive buffer address */
+extern volatile uint16_t  g_sci10_rx_count;                  /* SCI10 receive data number */
+extern volatile uint16_t  g_sci10_rx_length;                 /* SCI10 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -81,12 +81,14 @@ void r_Config_SCI10_transmit_interrupt(void)
 
 void r_Config_SCI10_transmitend_interrupt(void)
 {
-    /* Set TXD10 pin */
-    PORT8.PMR.BYTE &= 0xFBU;
-
     SCI10.SCR.BIT.TIE = 0U;
-    SCI10.SCR.BIT.TE = 0U;
     SCI10.SCR.BIT.TEIE = 0U;
+
+    /* Clear TE and RE bits */
+    if(0U == SCI10.SCR.BIT.RIE)
+    {
+        SCI10.SCR.BYTE &= 0xCFU;
+    }
 
     r_Config_SCI10_callback_transmitend();
 }
@@ -105,14 +107,19 @@ void r_Config_SCI10_receive_interrupt(void)
         *gp_sci10_rx_address = SCI10.RDR;
         gp_sci10_rx_address++;
         g_sci10_rx_count++;
-    }
 
-    if (g_sci10_rx_length <= g_sci10_rx_count)
-    {
-        /* All data received */
-        SCI10.SCR.BIT.RIE = 0U;
-        SCI10.SCR.BIT.RE = 0U;
-        r_Config_SCI10_callback_receiveend();
+        if (g_sci10_rx_length == g_sci10_rx_count)
+        {
+            SCI10.SCR.BIT.RIE = 0;
+
+            /* Clear TE and RE bits */
+            if((0U == SCI10.SCR.BIT.TIE) && (0U == SCI10.SCR.BIT.TEIE))
+            {
+                SCI10.SCR.BYTE &= 0xCFU;
+            }
+
+            r_Config_SCI10_callback_receiveend();
+        }
     }
 }
 
@@ -129,9 +136,9 @@ void r_Config_SCI10_receiveerror_interrupt(void)
 
     r_Config_SCI10_callback_receiveerror();
 
-    /* Clear overrun, framing and parity error flags */
+    /* Clear overrun error flag */
     err_type = SCI10.SSR.BYTE;
-    err_type &= 0xC7U;
+    err_type &= 0xDFU;
     err_type |= 0xC0U;
     SCI10.SSR.BYTE = err_type;
 }

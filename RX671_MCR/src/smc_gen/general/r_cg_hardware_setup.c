@@ -24,18 +24,22 @@ Includes
 #include "Config_ICU.h"
 #include "Config_S12AD1.h"
 #include "Config_PORT.h"
-#include "Config_SCI0.h"
-#include "Config_SCI10.h"
 #include "Config_SCI1.h"
-#include "Config_SCI2.h"
-#include "Config_MTU0.h"
 #include "Config_MTU1.h"
 #include "Config_MTU2.h"
-#include "Config_MTU3.h"
-#include "Config_MTU4.h"
 #include "Config_MTU7.h"
 #include "Config_TPU5.h"
 #include "Config_S12AD0.h"
+#include "Config_TPU2.h"
+#include "Config_TPU3.h"
+#include "Config_TPU4.h"
+#include "Config_MTU6.h"
+#include "Config_MTU0.h"
+#include "Config_MTU4.h"
+#include "Config_SCI10.h"
+#include "Config_MTU3.h"
+#include "Config_SCI4.h"
+#include "Config_RSPI2.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -93,18 +97,22 @@ void R_Systeminit(void)
     R_Config_PORT_Create();
     R_Config_ICU_Create();
     R_Config_S12AD1_Create();
-    R_Config_SCI0_Create();
-    R_Config_SCI10_Create();
     R_Config_SCI1_Create();
-    R_Config_SCI2_Create();
-    R_Config_MTU0_Create();
     R_Config_MTU1_Create();
     R_Config_MTU2_Create();
-    R_Config_MTU3_Create();
-    R_Config_MTU4_Create();
     R_Config_MTU7_Create();
     R_Config_TPU5_Create();
     R_Config_S12AD0_Create();
+    R_Config_TPU2_Create();
+    R_Config_TPU3_Create();
+    R_Config_TPU4_Create();
+    R_Config_MTU6_Create();
+    R_Config_MTU0_Create();
+    R_Config_MTU4_Create();
+    R_Config_SCI10_Create();
+    R_Config_MTU3_Create();
+    R_Config_SCI4_Create();
+    R_Config_RSPI2_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();
@@ -115,26 +123,26 @@ void R_Systeminit(void)
     R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);
 #endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
 
-    /* Register group BL0 interrupt TEI0 (SCI0) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI0_TEI0,(bsp_int_cb_t)r_Config_SCI0_transmitend_interrupt);
-
-    /* Register group BL0 interrupt ERI0 (SCI0) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI0_ERI0,(bsp_int_cb_t)r_Config_SCI0_receiveerror_interrupt);
-
     /* Register group BL0 interrupt TEI1 (SCI1) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI1_TEI1,(bsp_int_cb_t)r_Config_SCI1_transmitend_interrupt);
 
     /* Register group BL0 interrupt ERI1 (SCI1) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI1_ERI1,(bsp_int_cb_t)r_Config_SCI1_receiveerror_interrupt);
 
-    /* Register group BL0 interrupt TEI2 (SCI2) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI2_TEI2,(bsp_int_cb_t)r_Config_SCI2_transmitend_interrupt);
+    /* Register group BL0 interrupt TEI4 (SCI4) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI4_TEI4,(bsp_int_cb_t)r_Config_SCI4_transmitend_interrupt);
+
+    /* Register group BL0 interrupt ERI4 (SCI4) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI4_ERI4,(bsp_int_cb_t)r_Config_SCI4_receiveerror_interrupt);
 
     /* Register group AL0 interrupt TEI10 (SCI10) */
     R_BSP_InterruptWrite(BSP_INT_SRC_AL0_SCI10_TEI10,(bsp_int_cb_t)r_Config_SCI10_transmitend_interrupt);
 
     /* Register group AL0 interrupt ERI10 (SCI10) */
     R_BSP_InterruptWrite(BSP_INT_SRC_AL0_SCI10_ERI10,(bsp_int_cb_t)r_Config_SCI10_receiveerror_interrupt);
+
+    /* Register group AL0 interrupt SPII2 (RSPI2) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_AL0_RSPI2_SPII2,(bsp_int_cb_t)r_Config_RSPI2_idle_interrupt);
 
     /* Disable writing to MPC pin function control registers */
     MPC.PWPR.BIT.PFSWE = 0U;

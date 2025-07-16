@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_SCI2_user.c
+* File Name        : Config_RSPI2_user.c
 * Component Version: 1.12.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_SCI2.
+* Description      : This file implements device driver for Config_RSPI2.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,136 +21,120 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_SCI2.h"
+#include "Config_RSPI2.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "BMI088.h"
-#include "ssd1351.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint8_t * gp_sci2_tx_address;               /* SCI2 transmit buffer address */
-extern volatile uint16_t  g_sci2_tx_count;                  /* SCI2 transmit data number */
-extern volatile uint8_t * gp_sci2_rx_address;               /* SCI2 receive buffer address */
-extern volatile uint16_t  g_sci2_rx_count;                  /* SCI2 receive data number */
-extern volatile uint16_t  g_sci2_rx_length;                 /* SCI2 receive data length */
+extern volatile uint16_t * gp_rspi2_tx_address;              /* RSPI2 transmit buffer address */
+extern volatile uint16_t g_rspi2_tx_count;                   /* RSPI2 transmit data number */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI2_Create_UserInit
-* Description  : This function adds user code after initializing the SCI2 channel
+* Function Name: R_Config_RSPI2_Create_UserInit
+* Description  : This function adds user code after initializing RSPI2
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI2_Create_UserInit(void)
+void R_Config_RSPI2_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI2_transmit_interrupt
-* Description  : This function is TXI2 interrupt service routine
+* Function Name: r_Config_RSPI2_transmit_interrupt
+* Description  : This function is SPTI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_SCI2_transmit_interrupt(void)
+void r_Config_RSPI2_transmit_interrupt(void)
 {
-    if (0U < g_sci2_tx_count)
+    uint16_t frame_cnt;
+
+    /* WAIT_LOOP */
+    for (frame_cnt = 0U; frame_cnt < (_00_RSPI_FRAMES_1 + 1U); frame_cnt++)
     {
-        SCI2.TDR = *gp_sci2_tx_address;
-        gp_sci2_tx_address++;
-        g_sci2_tx_count--;
-    }
-    else
-    {
-        SCI2.SCR.BIT.TIE = 0U;
-        SCI2.SCR.BIT.TEIE = 1U;
-    }
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_SCI2_transmitend_interrupt
-* Description  : This function is TEI2 interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void r_Config_SCI2_transmitend_interrupt(void)
-{
-    SCI2.SCR.BIT.TIE = 0U;
-    SCI2.SCR.BIT.TEIE = 0U;
-
-    /* Clear TE and RE bits */
-    if(0U == SCI2.SCR.BIT.RIE)
-    {
-        SCI2.SCR.BYTE &= 0xCFU;
-    }
-
-    r_Config_SCI2_callback_transmitend();
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_SCI2_receive_interrupt
-* Description  : This function is RXI2 interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void r_Config_SCI2_receive_interrupt(void)
-{
-    if (g_sci2_rx_length > g_sci2_rx_count)
-    {
-        *gp_sci2_rx_address = SCI2.RDR;
-        gp_sci2_rx_address++;
-        g_sci2_rx_count++;
-
-        if (g_sci2_rx_length == g_sci2_rx_count)
+        if (g_rspi2_tx_count > 0U)
         {
-            SCI2.SCR.BIT.RIE = 0;
+            /* Write data for transmission */
+            RSPI2.SPDR.WORD.H = (*(uint16_t*)gp_rspi2_tx_address);
+            gp_rspi2_tx_address++;
+            g_rspi2_tx_count--;
+        }
+        else
+        {
+            /* Disable transmit interrupt */
+            RSPI2.SPCR.BIT.SPTIE = 0U;
 
-            /* Clear TE and RE bits */
-            if((0U == SCI2.SCR.BIT.TIE) && (0U == SCI2.SCR.BIT.TEIE))
-            {
-                SCI2.SCR.BYTE &= 0xCFU;
-            }
+            /* Enable communication end interrupt */
+            RSPI2.SPCR3.BIT.SPCIE = 1U;
 
-            r_Config_SCI2_callback_receiveend();
+            /* Enable idle interrupt */
+            RSPI2.SPCR2.BIT.SPIIE = 1U;
+            break;
         }
     }
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI2_callback_transmitend
-* Description  : This function is a callback function when SCI2 finishes transmission
+* Function Name: r_Config_RSPI2_idle_interrupt
+* Description  : This function is SPII2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-static void r_Config_SCI2_callback_transmitend(void)
+void r_Config_RSPI2_idle_interrupt(void)
 {
-    /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
-	spi_ssd1351_tx_done = true;
-	spi_BMI088_tx_done = true;
-	/* End user code. Do not edit comment generated here */
+    /* Disable RSPI function */
+    RSPI2.SPCR.BIT.SPE = 0U;
+
+    /* Disable idle interrupt */
+    RSPI2.SPCR2.BIT.SPIIE = 0U;
+
+    /* Disable communication end interrupt */
+    RSPI2.SPCR3.BIT.SPCIE = 0U;
+
+    r_Config_RSPI2_callback_transmitend();
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI2_callback_receiveend
-* Description  : This function is a callback function when SCI2 finishes reception
+* Function Name: r_Config_RSPI2_communication_end_interrupt
+* Description  : This function is SPCI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-static void r_Config_SCI2_callback_receiveend(void)
+void r_Config_RSPI2_communication_end_interrupt(void)
 {
-    /* Start user code for r_Config_SCI2_callback_receiveend. Do not edit comment generated here */
-	spi_BMI088_rx_done = true;
+    /* Disable RSPI function */
+    RSPI2.SPCR.BIT.SPE = 0U;
+    
+    /* Disable idle interrupt */
+    RSPI2.SPCR2.BIT.SPIIE = 0U;
+
+    /* Disable communication end interrupt */
+    RSPI2.SPCR3.BIT.SPCIE = 0U;
+
+    r_Config_RSPI2_callback_transmitend();
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_RSPI2_callback_transmitend
+* Description  : This function is a callback function when RSPI2 finishes transmission
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_RSPI2_callback_transmitend(void)
+{
+    /* Start user code for r_Config_RSPI2_callback_transmitend. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

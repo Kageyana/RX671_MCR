@@ -46,41 +46,28 @@ void R_Config_ICU_Create_UserInit(void)
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_ICU_irq1_interrupt
-* Description  : This function is IRQ1 interrupt service routine
+* Function Name: r_Config_ICU_irq3_interrupt
+* Description  : This function is IRQ3 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_ICU_irq1_interrupt(void)
+void r_Config_ICU_irq3_interrupt(void)
 {
-    /* Start user code for r_Config_ICU_irq1_interrupt. Do not edit comment generated here */
+    /* Start user code for r_Config_ICU_irq3_interrupt. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_ICU_irq10_interrupt
-* Description  : This function is IRQ10 interrupt service routine
+* Function Name: r_Config_ICU_irq9_interrupt
+* Description  : This function is IRQ9 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_ICU_irq10_interrupt(void)
+void r_Config_ICU_irq9_interrupt(void)
 {
-    /* Start user code for r_Config_ICU_irq10_interrupt. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_ICU_irq14_interrupt
-* Description  : This function is IRQ14 interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void r_Config_ICU_irq14_interrupt(void)
-{
-    /* Start user code for r_Config_ICU_irq14_interrupt. Do not edit comment generated here */
+    /* Start user code for r_Config_ICU_irq9_interrupt. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

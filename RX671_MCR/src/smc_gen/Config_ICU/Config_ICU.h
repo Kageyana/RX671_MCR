@@ -36,12 +36,10 @@ Global functions
 ***********************************************************************************************************************/
 void R_Config_ICU_Create(void);
 void R_Config_ICU_Create_UserInit(void);
-void R_Config_ICU_IRQ1_Start(void);
-void R_Config_ICU_IRQ1_Stop(void);
-void R_Config_ICU_IRQ10_Start(void);
-void R_Config_ICU_IRQ10_Stop(void);
-void R_Config_ICU_IRQ14_Start(void);
-void R_Config_ICU_IRQ14_Stop(void);
+void R_Config_ICU_IRQ3_Start(void);
+void R_Config_ICU_IRQ3_Stop(void);
+void R_Config_ICU_IRQ9_Start(void);
+void R_Config_ICU_IRQ9_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

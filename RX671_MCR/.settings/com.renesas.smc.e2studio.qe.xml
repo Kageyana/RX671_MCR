@@ -5,11 +5,12 @@
     </Segment>
     <Segment id="Pin">
         <Setting id="EMLE" value="EMLE"/>
+        <Setting id="P61" value="P61"/>
         <Setting id="P60" value="P60"/>
+        <Setting id="P63" value="P63"/>
         <Setting id="P62" value="P62"/>
         <Setting id="P64" value="P64"/>
         <Setting id="P67" value="MTIOC7C"/>
-        <Setting id="P66" value="P66"/>
         <Setting id="BSCANP" value="BSCANP"/>
         <Setting id="P70" value="SDCLK"/>
         <Setting id="P74" value="P74"/>
@@ -21,64 +22,58 @@
         <Setting id="PH2" value="USB0_DM"/>
         <Setting id="P81" value="SDHI_CD"/>
         <Setting id="P80" value="P80"/>
-        <Setting id="P82" value="TXD10"/>
-        <Setting id="P87" value="P87"/>
+        <Setting id="P83" value="SCK10"/>
+        <Setting id="P82" value="SMOSI10"/>
+        <Setting id="P87" value="TIOCA2"/>
         <Setting id="P86" value="P86"/>
         <Setting id="P01" value="AN110"/>
         <Setting id="P00" value="AN111"/>
-        <Setting id="P03" value="P03"/>
         <Setting id="P02" value="AN109"/>
-        <Setting id="P05" value="P05"/>
         <Setting id="P07" value="P07"/>
-        <Setting id="PA0" value="MTIOC4A"/>
+        <Setting id="PA2" value="PA2"/>
         <Setting id="PA1" value="MTCLKC"/>
         <Setting id="PA4" value="MTCLKA"/>
         <Setting id="PA3" value="MTCLKD"/>
         <Setting id="PA6" value="MTCLKB"/>
-        <Setting id="PA5" value="PA5"/>
         <Setting id="P90" value="P90"/>
-        <Setting id="PA7" value="PA7"/>
         <Setting id="P92" value="P92"/>
         <Setting id="P91" value="P91"/>
         <Setting id="P93" value="P93"/>
         <Setting id="P12" value="P12"/>
-        <Setting id="P14" value="P14"/>
+        <Setting id="P14" value="CTS1#"/>
         <Setting id="P13" value="P13"/>
         <Setting id="P16" value="USB0_VBUS"/>
         <Setting id="P15" value="P15"/>
         <Setting id="P17" value="P17"/>
-        <Setting id="PJ3" value="MTIOC3C"/>
-        <Setting id="PJ5" value="PJ5"/>
-        <Setting id="PB1" value="MTIOC4C"/>
-        <Setting id="PB0" value="PB0"/>
-        <Setting id="PB3" value="PB3"/>
-        <Setting id="PB2" value="PB2"/>
-        <Setting id="PB4" value="PB4"/>
-        <Setting id="PB7" value="PB7"/>
+        <Setting id="XCIN" value="XCIN"/>
+        <Setting id="PB1" value="SMOSI4"/>
+        <Setting id="PB0" value="SMISO4"/>
+        <Setting id="PB3" value="SCK4"/>
         <Setting id="RES#" value="RES#"/>
         <Setting id="PB6" value="TIOCA5"/>
-        <Setting id="P21" value="SMISO0"/>
-        <Setting id="P20" value="SMOSI0"/>
+        <Setting id="P21" value="TIOCA3"/>
+        <Setting id="P20" value="P20"/>
         <Setting id="P23" value="P23"/>
-        <Setting id="P22" value="SCK0"/>
-        <Setting id="P25" value="P25"/>
+        <Setting id="P22" value="TIOCC3"/>
+        <Setting id="P25" value="TIOCA4"/>
         <Setting id="P24" value="P24"/>
         <Setting id="P27" value="P27"/>
+        <Setting id="XCOUT" value="XCOUT"/>
         <Setting id="P26" value="TXD1"/>
         <Setting id="MD" value="FINED"/>
-        <Setting id="PC0" value="IRQ14"/>
+        <Setting id="PC0" value="MTIOC3C"/>
         <Setting id="PC2" value="SDHI_D3"/>
         <Setting id="PC1" value="MTIOC3A"/>
         <Setting id="PC4" value="SDHI_D1"/>
         <Setting id="PC3" value="SDHI_D0"/>
-        <Setting id="PC6" value="RXD10"/>
+        <Setting id="PC6" value="SMISO10"/>
         <Setting id="PC5" value="PC5"/>
         <Setting id="PC7" value="UB"/>
         <Setting id="P30" value="RXD1"/>
         <Setting id="P32" value="MTIOC0C"/>
-        <Setting id="P31" value="IRQ1"/>
+        <Setting id="P31" value="RTS1#"/>
         <Setting id="P34" value="MTIOC0A"/>
-        <Setting id="P33" value="P33"/>
+        <Setting id="P33" value="IRQ3"/>
         <Setting id="P36" value="EXTAL"/>
         <Setting id="P35" value="UPSEL"/>
         <Setting id="P37" value="XTAL"/>
@@ -89,26 +84,22 @@
         <Setting id="PD7" value="AN100"/>
         <Setting id="PD6" value="AN101"/>
         <Setting id="P41" value="AN001"/>
-        <Setting id="P40" value="P40"/>
         <Setting id="P43" value="AN003"/>
         <Setting id="P42" value="AN002"/>
         <Setting id="P45" value="AN005"/>
         <Setting id="P44" value="AN004"/>
         <Setting id="P47" value="AN007"/>
         <Setting id="P46" value="AN006"/>
-        <Setting id="PE0" value="PE0"/>
-        <Setting id="PE2" value="PE2"/>
-        <Setting id="PE1" value="PE1"/>
+        <Setting id="PE2" value="MTIOC4A"/>
+        <Setting id="PE1" value="IRQ9"/>
         <Setting id="PE4" value="PE4"/>
         <Setting id="PE3" value="PE3"/>
-        <Setting id="PE6" value="PE6"/>
-        <Setting id="P50" value="SMOSI2"/>
-        <Setting id="P52" value="SMISO2"/>
-        <Setting id="P51" value="SCK2"/>
-        <Setting id="P54" value="P54"/>
+        <Setting id="PE6" value="MTIOC6C"/>
+        <Setting id="PE5" value="MTIOC4C"/>
+        <Setting id="PE7" value="MTIOC6A"/>
+        <Setting id="P54" value="MOSIC"/>
         <Setting id="P53" value="P53"/>
-        <Setting id="P56" value="P56"/>
-        <Setting id="P55" value="IRQ10"/>
+        <Setting id="P56" value="RSPCKC"/>
         <Setting id="PF5" value="PF5"/>
     </Segment>
     <Segment id="Device">
@@ -120,6 +111,8 @@
     </Segment>
     <Segment id="Clock">
         <Setting id="SDCLK" value="60000.0"/>
+        <Setting id="SubCLK" value="32.768"/>
+        <Setting id="CacSubCLK" value="32.768"/>
         <Setting id="CacMCLK" value="16000.0"/>
         <Setting id="PLLCLK" value="240000.0"/>
         <Setting id="BusCLK" value="60000.0"/>
@@ -137,30 +130,34 @@
     <Segment id="Component">
         <Setting id="Config_MTU3" value="CG"/>
         <Setting id="r_bsp" value="FIT"/>
-        <Setting id="Config_MTU4" value="CG"/>
         <Setting id="r_dmaca_rx" value="FIT"/>
+        <Setting id="Config_MTU4" value="CG"/>
         <Setting id="Config_MTU1" value="CG"/>
         <Setting id="Config_MTU2" value="CG"/>
         <Setting id="r_sdhi_rx" value="FIT"/>
         <Setting id="Config_MTU7" value="CG"/>
-        <Setting id="r_tfat_rx" value="FIT"/>
         <Setting id="r_tfat_driver_rx" value="FIT"/>
+        <Setting id="Config_MTU6" value="CG"/>
         <Setting id="r_sys_time_rx" value="FIT"/>
-        <Setting id="Config_SCI1" value="CG"/>
-        <Setting id="r_sdc_sdmem_rx" value="FIT"/>
-        <Setting id="Config_SCI0" value="CG"/>
-        <Setting id="Config_SCI2" value="CG"/>
+        <Setting id="Config_TPU3" value="CG"/>
         <Setting id="r_cmt_rx" value="FIT"/>
+        <Setting id="Config_TPU2" value="CG"/>
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_S12AD1" value="CG"/>
-        <Setting id="Config_ICU" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
         <Setting id="Config_TPU5" value="CG"/>
+        <Setting id="Config_TPU4" value="CG"/>
+        <Setting id="r_tfat_rx" value="FIT"/>
+        <Setting id="Config_RSPI2" value="CG"/>
+        <Setting id="Config_SCI1" value="CG"/>
+        <Setting id="r_sdc_sdmem_rx" value="FIT"/>
+        <Setting id="Config_ICU" value="CG"/>
         <Setting id="Config_MTU0" value="CG"/>
+        <Setting id="Config_SCI4" value="CG"/>
         <Setting id="Config_SCI10" value="CG"/>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU3" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
-            <Setting id="TGRCValue" value="3599"/>
+            <Setting id="TGRCValue" value="100"/>
             <Setting id="Tgid" value="Disable"/>
             <Setting id="Tgic" value="Disable"/>
             <Setting id="Tgib" value="Disable"/>
@@ -171,12 +168,12 @@
             <Setting id="BufA" value="Cmp"/>
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
-            <Setting id="TGRAValue" value="3599"/>
-            <Setting id="TGRDValue" value="0"/>
-            <Setting id="IOA" value="Out01"/>
+            <Setting id="TGRAValue" value="11999"/>
+            <Setting id="TGRDValue" value="100"/>
+            <Setting id="IOA" value="Out00"/>
             <Setting id="Tciv" value="Disable"/>
             <Setting id="Sync" value="Disable"/>
-            <Setting id="IOC" value="Out01"/>
+            <Setting id="IOC" value="Out00"/>
             <Setting id="ClrSrc" value="TGRA"/>
             <Setting id="PrioD" value="Level15"/>
             <Setting id="Tgrd" value="Out"/>
@@ -190,12 +187,12 @@
             <Setting id="TRGAN" value="Disable"/>
             <Setting id="ExtNoiseA" value="Disable"/>
             <Setting id="IOBtgrb" value="Out0"/>
-            <Setting id="PeriodValue" value="30"/>
+            <Setting id="PeriodValue" value="100"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>
             <Setting id="ExtNoiseClk" value="PCLK"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="0"/>
+            <Setting id="TGRBValue" value="100"/>
         </Segment>
         <Segment component="r_bsp7.53" id="r_bsp" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="BSP_CFG_SWINT_UNIT1_ENABLE" value="0"/>
@@ -265,10 +262,15 @@
             <Setting id="BSP_CFG_NONCACHEABLE_AREA1_OA_ENABLE" value="1"/>
             <Setting id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" value="0"/>
         </Segment>
+        <Segment component="r_dmaca_rx3.41" id="r_dmaca_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
+            <Setting id="DMACA_CFG_USE_DTC_FIT_MODULE" value="0"/>
+            <Setting id="DMACA_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
+            <Setting id="DMACA_CFG_EN_NESTED_INT" value="0"/>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
             <Setting id="TRG4AN" value="Disable"/>
-            <Setting id="TGRCValue" value="3599"/>
+            <Setting id="TGRCValue" value="100"/>
             <Setting id="CycAValue" value="65535"/>
             <Setting id="Tgid" value="Disable"/>
             <Setting id="Tgic" value="Disable"/>
@@ -282,12 +284,12 @@
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
             <Setting id="TGRAValue" value="3599"/>
-            <Setting id="TGRDValue" value="0"/>
-            <Setting id="IOA" value="Out01"/>
+            <Setting id="TGRDValue" value="100"/>
+            <Setting id="IOA" value="Out00"/>
             <Setting id="TRG4ABN" value="Disable"/>
             <Setting id="Tciv" value="Disable"/>
             <Setting id="Sync" value="Disable"/>
-            <Setting id="IOC" value="Out01"/>
+            <Setting id="IOC" value="Out00"/>
             <Setting id="ClrSrc" value="TGRA"/>
             <Setting id="PrioD" value="Level15"/>
             <Setting id="CycBbValue" value="65535"/>
@@ -310,12 +312,7 @@
             <Setting id="CycAbValue" value="65535"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="0"/>
-        </Segment>
-        <Segment component="r_dmaca_rx3.41" id="r_dmaca_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
-            <Setting id="DMACA_CFG_USE_DTC_FIT_MODULE" value="0"/>
-            <Setting id="DMACA_CFG_PARAM_CHECKING_ENABLE" value="BSP_CFG_PARAM_CHECKING_ENABLE"/>
-            <Setting id="DMACA_CFG_EN_NESTED_INT" value="0"/>
+            <Setting id="TGRBValue" value="100"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.phasecountingmode" id="Config_MTU1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="NoiseAEnable" value="Disable"/>
@@ -457,7 +454,6 @@
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
             <Setting id="TGRBValue" value="0"/>
         </Segment>
-        <Segment component="r_tfat_rx4.14" id="r_tfat_rx" source="com.renesas.smc.tools.swcomponent.fit.source"/>
         <Segment component="r_tfat_driver_rx2.61" id="r_tfat_driver_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="TFAT_DRIVE_ALLOC_NUM_0" value="TFAT_CTRL_SDMEM"/>
             <Setting id="TFAT_DRIVE_ALLOC_NUM_1" value="TFAT_CTRL_NONE"/>
@@ -487,93 +483,87 @@
             <Setting id="TFAT_DRIVE_ALLOC_NUM_4" value="TFAT_CTRL_NONE"/>
             <Setting id="TFAT_DRIVE_ALLOC_NUM_5" value="TFAT_CTRL_NONE"/>
         </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU6" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="CntClk" value="Div1"/>
+            <Setting id="TGRCValue" value="100"/>
+            <Setting id="Tgid" value="Disable"/>
+            <Setting id="Tgic" value="Disable"/>
+            <Setting id="Tgib" value="Disable"/>
+            <Setting id="Unit" value="us"/>
+            <Setting id="Tgia" value="Disable"/>
+            <Setting id="MultiIntTgidEnable" value="UnCheck"/>
+            <Setting id="BufB" value="Cmp"/>
+            <Setting id="BufA" value="Cmp"/>
+            <Setting id="PrioV" value="Level15"/>
+            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
+            <Setting id="TGRAValue" value="3599"/>
+            <Setting id="TGRDValue" value="100"/>
+            <Setting id="SynClr0B" value="Disable"/>
+            <Setting id="SynClr0A" value="Disable"/>
+            <Setting id="IOA" value="Out00"/>
+            <Setting id="SynClr2B" value="Disable"/>
+            <Setting id="Tciv" value="Disable"/>
+            <Setting id="SynClr2A" value="Disable"/>
+            <Setting id="Sync" value="Disable"/>
+            <Setting id="IOC" value="Out00"/>
+            <Setting id="SynClr0D" value="Disable"/>
+            <Setting id="SynClr0C" value="Disable"/>
+            <Setting id="ClrSrc" value="TGRA"/>
+            <Setting id="PrioD" value="Level15"/>
+            <Setting id="Tgrd" value="Out"/>
+            <Setting id="Tgrc" value="Out"/>
+            <Setting id="PrioA" value="Level15"/>
+            <Setting id="MultiIntTgicEnable" value="UnCheck"/>
+            <Setting id="PrioB" value="Level15"/>
+            <Setting id="PrioC" value="Level15"/>
+            <Setting id="IODtgrd" value="Out0"/>
+            <Setting id="ExtNoiseB" value="Disable"/>
+            <Setting id="TRGAN" value="Disable"/>
+            <Setting id="ExtNoiseA" value="Disable"/>
+            <Setting id="IOBtgrb" value="Out0"/>
+            <Setting id="PeriodValue" value="30"/>
+            <Setting id="MultiIntTgibEnable" value="UnCheck"/>
+            <Setting id="SynClr1B" value="Disable"/>
+            <Setting id="ExtNoiseClk" value="PCLK"/>
+            <Setting id="SynClr1A" value="Disable"/>
+            <Setting id="MultiIntTcivEnable" value="UnCheck"/>
+            <Setting id="ClkEdg" value="Rise"/>
+            <Setting id="TGRBValue" value="100"/>
+        </Segment>
         <Segment component="r_sys_time_rx1.02" id="r_sys_time_rx" source="com.renesas.smc.tools.swcomponent.fit.source"/>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.sciasyncmode" id="Config_SCI1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="BitEdge" value="LowLevel"/>
-            <Setting id="TransEnd" value="Enable"/>
-            <Setting id="RecvError" value="Enable"/>
-            <Setting id="DataInvert" value="Normal"/>
-            <Setting id="AdjustTrans" value="Disable"/>
-            <Setting id="TransDataHandle" value="ISR"/>
-            <Setting id="MultiIntTEIEnable" value="UnCheck"/>
-            <Setting id="ERIPriority" value="Level15"/>
-            <Setting id="TransInstant" value="Disable"/>
-            <Setting id="MultiIntTXIEnable" value="UnCheck"/>
-            <Setting id="TransClock" value="Internal"/>
-            <Setting id="BaseClk" value="16Cyl"/>
-            <Setting id="SCKPinFun" value="SckUnuse"/>
-            <Setting id="TransDir" value="LSB"/>
-            <Setting id="DataMatch" value="Disable"/>
-            <Setting id="RecvSignal" value="Normal"/>
-            <Setting id="Parity" value="None"/>
-            <Setting id="TransTiming" value="nochange"/>
-            <Setting id="RXIPriority" value="Level15"/>
-            <Setting id="DutyCorrection" value="Disable"/>
-            <Setting id="FlowControl" value="None"/>
-            <Setting id="TransSignal" value="Normal"/>
-            <Setting id="AdjustRecv" value="Disable"/>
-            <Setting id="MultiIntRXIEnable" value="UnCheck"/>
-            <Setting id="StopBit" value="1Bit"/>
-            <Setting id="ERIEnable" value="Enable"/>
-            <Setting id="Bitrate" value="9600"/>
-            <Setting id="RecvDataHandle" value="ISR"/>
-            <Setting id="RecvEnd" value="Enable"/>
-            <Setting id="DataLength" value="8Bits"/>
-            <Setting id="TXIPriority" value="Level15"/>
-            <Setting id="RecvTiming" value="3later"/>
-            <Setting id="CmpData" value="0x00"/>
-            <Setting id="NoiseFilt" value="Disable"/>
-            <Setting id="MultiIntERIEnable" value="UnCheck"/>
-            <Setting id="FiltClk" value="Div1"/>
-        </Segment>
-        <Segment component="r_sdc_sdmem_rx3.01" id="r_sdc_sdmem_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
-            <Setting id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" value="0"/>
-            <Setting id="SDC_SD_CFG_STATUS_CHECK_MODE" value="SDC_SD_MODE_HWINT"/>
-            <Setting id="SDC_SD_CFG_TRANSFER" value="SDC_SD_MODE_DMA"/>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="Invert" value="InvNM"/>
-            <Setting id="DataRx" value="DataIsr"/>
-            <Setting id="Mode" value="MasterFull"/>
-            <Setting id="EriSci" value="Enable"/>
-            <Setting id="regBRR" value="14"/>
-            <Setting id="PriExSci" value="Level15"/>
-            <Setting id="Clock" value="ClkIn"/>
-            <Setting id="Direction" value="LSB"/>
-            <Setting id="Bitrate" value="1000"/>
-            <Setting id="Modulate" value="Disable"/>
-            <Setting id="CbErSci" value="Enable"/>
-            <Setting id="regCKS" value="Div1"/>
-            <Setting id="PriRx" value="Level15"/>
-            <Setting id="ClkPol" value="Disable"/>
-            <Setting id="regMDDR" value="239"/>
-            <Setting id="PriTx" value="Level15"/>
-            <Setting id="DataTx" value="DataIsr"/>
-            <Setting id="CbRx" value="Enable"/>
-            <Setting id="CbTx" value="Enable"/>
-            <Setting id="ClkPha" value="Disable"/>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI2" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="Invert" value="InvNM"/>
-            <Setting id="DataRx" value="DataIsr"/>
-            <Setting id="Mode" value="MasterFull"/>
-            <Setting id="EriSci" value="Disable"/>
-            <Setting id="regBRR" value="14"/>
-            <Setting id="PriExSci" value="Level15"/>
-            <Setting id="Clock" value="ClkIn"/>
-            <Setting id="Direction" value="MSB"/>
-            <Setting id="Bitrate" value="7500"/>
-            <Setting id="Modulate" value="Disable"/>
-            <Setting id="CbErSci" value="Enable"/>
-            <Setting id="regCKS" value="Div1"/>
-            <Setting id="PriRx" value="Level15"/>
-            <Setting id="ClkPol" value="Disable"/>
-            <Setting id="regMDDR" value="239"/>
-            <Setting id="PriTx" value="Level15"/>
-            <Setting id="DataTx" value="DataIsr"/>
-            <Setting id="CbRx" value="Enable"/>
-            <Setting id="CbTx" value="Enable"/>
-            <Setting id="ClkPha" value="Disable"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_TPU3" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="CntClk" value="Div1"/>
+            <Setting id="TGRCValue" value="100"/>
+            <Setting id="Tgid" value="Disable"/>
+            <Setting id="Tgic" value="Disable"/>
+            <Setting id="Tgib" value="Disable"/>
+            <Setting id="Unit" value="us"/>
+            <Setting id="Tgia" value="Disable"/>
+            <Setting id="MultiIntTgidEnable" value="UnCheck"/>
+            <Setting id="PrioV" value="Level15"/>
+            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
+            <Setting id="TGRAValue" value="1799"/>
+            <Setting id="TGRDValue" value="100"/>
+            <Setting id="IOA" value="Out00"/>
+            <Setting id="Tciv" value="Disable"/>
+            <Setting id="Sync" value="Disable"/>
+            <Setting id="IOC" value="Out00"/>
+            <Setting id="ClrSrc" value="TGRA"/>
+            <Setting id="PrioD" value="Level15"/>
+            <Setting id="Tgrd" value="Out"/>
+            <Setting id="Tgrc" value="Out"/>
+            <Setting id="PrioA" value="Level15"/>
+            <Setting id="MultiIntTgicEnable" value="UnCheck"/>
+            <Setting id="PrioB" value="Level15"/>
+            <Setting id="PrioC" value="Level15"/>
+            <Setting id="IODtgrd" value="Out0"/>
+            <Setting id="TRGAN" value="Disable"/>
+            <Setting id="IOBtgrb" value="Out0"/>
+            <Setting id="PeriodValue" value="30"/>
+            <Setting id="MultiIntTgibEnable" value="UnCheck"/>
+            <Setting id="MultiIntTcivEnable" value="UnCheck"/>
+            <Setting id="ClkEdg" value="Rise"/>
+            <Setting id="TGRBValue" value="100"/>
         </Segment>
         <Segment component="r_cmt_rx5.71" id="r_cmt_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="CMT_CFG_CH2_EN_NESTED_INT" value="0"/>
@@ -581,6 +571,28 @@
             <Setting id="CMT_CFG_CH3_EN_NESTED_INT" value="0"/>
             <Setting id="CMT_CFG_CH0_EN_NESTED_INT" value="1"/>
             <Setting id="CMT_RX_CFG_IPR" value="5"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_TPU2" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="ClrSrc" value="TGRA"/>
+            <Setting id="CntClk" value="Div1"/>
+            <Setting id="PrioA" value="Level15"/>
+            <Setting id="PrioB" value="Level15"/>
+            <Setting id="Tgib" value="Disable"/>
+            <Setting id="Unit" value="us"/>
+            <Setting id="Tgia" value="Disable"/>
+            <Setting id="TRGAN" value="Disable"/>
+            <Setting id="IOBtgrb" value="Out0"/>
+            <Setting id="PrioV" value="Level15"/>
+            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
+            <Setting id="TGRAValue" value="1799"/>
+            <Setting id="PeriodValue" value="30"/>
+            <Setting id="MultiIntTgibEnable" value="UnCheck"/>
+            <Setting id="IOA" value="Out00"/>
+            <Setting id="Tciv" value="Disable"/>
+            <Setting id="Sync" value="Disable"/>
+            <Setting id="MultiIntTcivEnable" value="UnCheck"/>
+            <Setting id="ClkEdg" value="Rise"/>
+            <Setting id="TGRBValue" value="100"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.continuousscanmode" id="Config_S12AD0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="SDFmode" value="Unused"/>
@@ -747,110 +759,6 @@
             <Setting id="ANx03_Sampling" value="1"/>
             <Setting id="Temperature_Sampling" value="5"/>
         </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.icu" id="Config_ICU" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="NmiType" value="Falling"/>
-            <Setting id="SwIntPriority" value="Level15"/>
-            <Setting id="EnableSwInt2" value="Disable"/>
-            <Setting id="EnableNmi" value="Disable"/>
-            <Setting id="NmiFlt" value="NoFlt"/>
-            <Setting id="EnableSwInt" value="Disable"/>
-            <Segment id="IRQ14">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Enable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ13">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ12">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ11">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ15">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ2">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ3">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ0">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ1">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Enable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ6">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ10">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Falling"/>
-                <Setting id="EnableIrq" value="Enable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ7">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ4">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ5">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ8">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-            <Segment id="IRQ9">
-                <Setting id="IrqFlt" value="NoFlt"/>
-                <Setting id="IrqType" value="Low"/>
-                <Setting id="EnableIrq" value="Disable"/>
-                <Setting id="IrqPriority" value="Level15"/>
-            </Segment>
-        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.port" id="Config_PORT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="UnuseOutput" value="Out1"/>
             <Segment id="PORTB_Check">
@@ -934,7 +842,7 @@
                 <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx5_Item">
                     <Setting id="UseStatus" value="In"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
@@ -954,9 +862,9 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="In"/>
                     <Setting id="HighdriveSelect" value="HighdriveOut"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
@@ -1002,23 +910,23 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="HighdriveSelect" value="HighdriveOut"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="In"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx0_Item">
-                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="UseStatus" value="In"/>
                     <Setting id="HighdriveSelect" value="HighdriveOut"/>
-                    <Setting id="Pullup" value="PullupUnuse"/>
+                    <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
@@ -1043,7 +951,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx5_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1074,7 +982,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx0_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1123,7 +1031,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx5_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1151,7 +1059,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1205,7 +1113,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1223,19 +1131,19 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx2_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx6_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx1_Item">
-                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1254,14 +1162,14 @@
                 <Setting id="PullupAll" value="PullupUnuseAll"/>
                 <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
                     <Setting id="UseStatus" value="In"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
@@ -1287,7 +1195,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx5_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -1340,35 +1248,35 @@
                 <Setting id="PullupAll" value="PullupUnuseAll"/>
                 <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx4_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Use"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx0_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx2_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1500,7 +1408,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1514,7 +1422,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx2_Item">
-                    <Setting id="UseStatus" value="Unuse"/>
+                    <Setting id="UseStatus" value="In"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1535,7 +1443,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx5_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1549,7 +1457,7 @@
                 <Setting id="PullupAll" value="PullupUnuseAll"/>
                 <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx4_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1597,7 +1505,7 @@
                 <Setting id="PullupAll" value="PullupUnuseAll"/>
                 <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx4_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1625,7 +1533,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx6_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1659,12 +1567,12 @@
                 <Segment id="PORTx4_Item">
                     <Setting id="UseStatus" value="In"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Out"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
                     <Setting id="Pullup" value="PullupUse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1678,30 +1586,30 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx0_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx2_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx6_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx1_Item">
-                    <Setting id="UseStatus" value="In"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveNormal"/>
-                    <Setting id="Pullup" value="PullupUse"/>
+                    <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
@@ -1728,7 +1636,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="HighdriveSelect" value="HighdriveOut"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -1810,15 +1718,219 @@
             <Setting id="ClkEdg" value="Rise"/>
             <Setting id="TGRBValue" value="0"/>
         </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_TPU4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="ClrSrc" value="TGRA"/>
+            <Setting id="CntClk" value="Div1"/>
+            <Setting id="PrioA" value="Level15"/>
+            <Setting id="PrioB" value="Level15"/>
+            <Setting id="Tgib" value="Disable"/>
+            <Setting id="Unit" value="us"/>
+            <Setting id="Tgia" value="Disable"/>
+            <Setting id="TRGAN" value="Disable"/>
+            <Setting id="IOBtgrb" value="Out0"/>
+            <Setting id="PrioV" value="Level15"/>
+            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
+            <Setting id="TGRAValue" value="1799"/>
+            <Setting id="PeriodValue" value="30"/>
+            <Setting id="MultiIntTgibEnable" value="UnCheck"/>
+            <Setting id="IOA" value="Out00"/>
+            <Setting id="Tciv" value="Disable"/>
+            <Setting id="Sync" value="Disable"/>
+            <Setting id="MultiIntTcivEnable" value="UnCheck"/>
+            <Setting id="ClkEdg" value="Rise"/>
+            <Setting id="TGRBValue" value="100"/>
+        </Segment>
+        <Segment component="r_tfat_rx4.14" id="r_tfat_rx" source="com.renesas.smc.tools.swcomponent.fit.source"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_RSPI2" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="Loop" value="LoopNM"/>
+            <Setting id="PriExSpi" value="Level15"/>
+            <Setting id="Mode" value="MasterTx"/>
+            <Setting id="RPCKDelay" value="Disable"/>
+            <Setting id="DataFx" value="DataIsr"/>
+            <Setting id="SLNdelay" value="1RSPCK"/>
+            <Setting id="OutMode" value="CMOS"/>
+            <Setting id="Bitrate" value="1000"/>
+            <Setting id="CmdNum" value="1CMD1FR"/>
+            <Setting id="NAdelay" value="1RSPCK2PCLK"/>
+            <Setting id="AutoStp" value="Disable"/>
+            <Setting id="regSPBR" value="59"/>
+            <Setting id="Swap" value="Disable"/>
+            <Setting id="CKdelay" value="1RSPCK"/>
+            <Setting id="PriTx" value="Level15"/>
+            <Setting id="SPCIInt" value="Enable"/>
+            <Setting id="MosiIdle" value="IdleFix"/>
+            <Setting id="TransInv" value="Disable"/>
+            <Setting id="CbTx" value="Enable"/>
+            <Setting id="Parity" value="ParityDis"/>
+            <Setting id="BufWid" value="Word"/>
+            <Setting id="SPCIPri" value="Level15"/>
+            <Segment id="RSPI_CMD0">
+                <Setting id="Format" value="MSB"/>
+                <Setting id="CPol" value="CPolLow"/>
+                <Setting id="ClkDelay" value="1RSPCK"/>
+                <Setting id="DataLen" value="8bit"/>
+                <Setting id="CPha" value="Even"/>
+                <Setting id="BRDiv" value="Div8"/>
+                <Setting id="NextDelay" value="1RSPCK2PCLK"/>
+                <Setting id="NegateDelay" value="1RSPCK"/>
+            </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.sciasyncmode" id="Config_SCI1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="BitEdge" value="LowLevel"/>
+            <Setting id="TransEnd" value="Enable"/>
+            <Setting id="RecvError" value="Enable"/>
+            <Setting id="DataInvert" value="Normal"/>
+            <Setting id="AdjustTrans" value="Disable"/>
+            <Setting id="TransDataHandle" value="ISR"/>
+            <Setting id="MultiIntTEIEnable" value="UnCheck"/>
+            <Setting id="ERIPriority" value="Level15"/>
+            <Setting id="TransInstant" value="Disable"/>
+            <Setting id="MultiIntTXIEnable" value="UnCheck"/>
+            <Setting id="TransClock" value="Internal"/>
+            <Setting id="BaseClk" value="16Cyl"/>
+            <Setting id="SCKPinFun" value="SckUnuse"/>
+            <Setting id="TransDir" value="LSB"/>
+            <Setting id="DataMatch" value="Disable"/>
+            <Setting id="RecvSignal" value="Normal"/>
+            <Setting id="Parity" value="None"/>
+            <Setting id="TransTiming" value="nochange"/>
+            <Setting id="RXIPriority" value="Level15"/>
+            <Setting id="DutyCorrection" value="Disable"/>
+            <Setting id="FlowControl" value="None"/>
+            <Setting id="TransSignal" value="Normal"/>
+            <Setting id="AdjustRecv" value="Disable"/>
+            <Setting id="MultiIntRXIEnable" value="UnCheck"/>
+            <Setting id="StopBit" value="1Bit"/>
+            <Setting id="ERIEnable" value="Enable"/>
+            <Setting id="Bitrate" value="9600"/>
+            <Setting id="RecvDataHandle" value="ISR"/>
+            <Setting id="RecvEnd" value="Enable"/>
+            <Setting id="DataLength" value="8Bits"/>
+            <Setting id="TXIPriority" value="Level15"/>
+            <Setting id="RecvTiming" value="3later"/>
+            <Setting id="CmpData" value="0x00"/>
+            <Setting id="NoiseFilt" value="Disable"/>
+            <Setting id="MultiIntERIEnable" value="UnCheck"/>
+            <Setting id="FiltClk" value="Div1"/>
+        </Segment>
+        <Segment component="r_sdc_sdmem_rx3.01" id="r_sdc_sdmem_rx" source="com.renesas.smc.tools.swcomponent.fit.source">
+            <Setting id="SDC_SD_CFG_ERROR_LOG_ACQUISITION" value="0"/>
+            <Setting id="SDC_SD_CFG_STATUS_CHECK_MODE" value="SDC_SD_MODE_HWINT"/>
+            <Setting id="SDC_SD_CFG_TRANSFER" value="SDC_SD_MODE_DMA"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.icu" id="Config_ICU" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="NmiType" value="Falling"/>
+            <Setting id="SwIntPriority" value="Level15"/>
+            <Setting id="EnableSwInt2" value="Disable"/>
+            <Setting id="EnableNmi" value="Disable"/>
+            <Setting id="NmiFlt" value="NoFlt"/>
+            <Setting id="EnableSwInt" value="Disable"/>
+            <Segment id="IRQ14">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ13">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ12">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ11">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ15">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ2">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ3">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Enable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ0">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ1">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ6">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ10">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Falling"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ7">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ4">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ5">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ8">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Disable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+            <Segment id="IRQ9">
+                <Setting id="IrqFlt" value="NoFlt"/>
+                <Setting id="IrqType" value="Low"/>
+                <Setting id="EnableIrq" value="Enable"/>
+                <Setting id="IrqPriority" value="Level15"/>
+            </Segment>
+        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>
-            <Setting id="TGRCValue" value="3599"/>
+            <Setting id="TGRCValue" value="100"/>
             <Setting id="Unit" value="us"/>
             <Setting id="MultiIntTgidEnable" value="UnCheck"/>
             <Setting id="PrioV" value="Level15"/>
             <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
-            <Setting id="TGRDValue" value="0"/>
-            <Setting id="Sync" value="Disable"/>
+            <Setting id="TGRDValue" value="100"/>
+            <Setting id="Sync" value="Enable"/>
             <Setting id="Tgrf" value="Out"/>
             <Setting id="TRG0N" value="Disable"/>
             <Setting id="Tgrd" value="Out"/>
@@ -1829,7 +1941,7 @@
             <Setting id="PeriodValue" value="30"/>
             <Setting id="ClkEdg" value="Rise"/>
             <Setting id="Tgie" value="Disable"/>
-            <Setting id="TGRFValue" value="3599"/>
+            <Setting id="TGRFValue" value="100"/>
             <Setting id="Tgid" value="Disable"/>
             <Setting id="Tgic" value="Disable"/>
             <Setting id="Tgib" value="Disable"/>
@@ -1839,9 +1951,9 @@
             <Setting id="BufA" value="Cmp"/>
             <Setting id="TGRAValue" value="3599"/>
             <Setting id="Tgif" value="Disable"/>
-            <Setting id="IOA" value="Out01"/>
+            <Setting id="IOA" value="Out00"/>
             <Setting id="Tciv" value="Disable"/>
-            <Setting id="IOC" value="Out01"/>
+            <Setting id="IOC" value="Out00"/>
             <Setting id="MultiIntTgifEnable" value="UnCheck"/>
             <Setting id="ClrSrc" value="TGRA"/>
             <Setting id="PrioD" value="Level15"/>
@@ -1860,50 +1972,51 @@
             <Setting id="MultiIntTgieEnable" value="UnCheck"/>
             <Setting id="ExtNoiseClk" value="PCLK"/>
             <Setting id="MultiIntTcivEnable" value="UnCheck"/>
-            <Setting id="TGRBValue" value="0"/>
+            <Setting id="TGRBValue" value="100"/>
         </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.sciasyncmode" id="Config_SCI10" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="BitEdge" value="LowLevel"/>
-            <Setting id="TransEnd" value="Enable"/>
-            <Setting id="RecvError" value="Enable"/>
-            <Setting id="DataInvert" value="Normal"/>
-            <Setting id="AdjustTrans" value="Disable"/>
-            <Setting id="TransDataHandle" value="ISR"/>
-            <Setting id="MultiIntTEIEnable" value="UnCheck"/>
-            <Setting id="ERIPriority" value="Level15"/>
-            <Setting id="TransInstant" value="Disable"/>
-            <Setting id="RvDataInt" value="RXI"/>
-            <Setting id="OutActiveNum" value="Num15"/>
-            <Setting id="MultiIntTXIEnable" value="UnCheck"/>
-            <Setting id="TransClock" value="Internal"/>
-            <Setting id="BaseClk" value="16Cyl"/>
-            <Setting id="SCKPinFun" value="SckUnuse"/>
-            <Setting id="RecvFIFONum" value="Num8"/>
-            <Setting id="TransDir" value="LSB"/>
-            <Setting id="TransFIFONum" value="Num0"/>
-            <Setting id="DataMatch" value="Disable"/>
-            <Setting id="RecvSignal" value="Normal"/>
-            <Setting id="Parity" value="None"/>
-            <Setting id="TransTiming" value="nochange"/>
-            <Setting id="RXIPriority" value="Level15"/>
-            <Setting id="DutyCorrection" value="Disable"/>
-            <Setting id="FlowControl" value="None"/>
-            <Setting id="FIFOMode" value="NonFIFO"/>
-            <Setting id="TransSignal" value="Normal"/>
-            <Setting id="AdjustRecv" value="Disable"/>
-            <Setting id="MultiIntRXIEnable" value="UnCheck"/>
-            <Setting id="StopBit" value="1Bit"/>
-            <Setting id="ERIEnable" value="Enable"/>
-            <Setting id="Bitrate" value="9600"/>
-            <Setting id="RecvDataHandle" value="ISR"/>
-            <Setting id="RecvEnd" value="Enable"/>
-            <Setting id="DataLength" value="8Bits"/>
-            <Setting id="TXIPriority" value="Level15"/>
-            <Setting id="RecvTiming" value="3later"/>
-            <Setting id="CmpData" value="0x00"/>
-            <Setting id="NoiseFilt" value="Disable"/>
-            <Setting id="MultiIntERIEnable" value="UnCheck"/>
-            <Setting id="FiltClk" value="Div1"/>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="Invert" value="InvNM"/>
+            <Setting id="DataRx" value="DataIsr"/>
+            <Setting id="Mode" value="MasterFull"/>
+            <Setting id="EriSci" value="Enable"/>
+            <Setting id="regBRR" value="14"/>
+            <Setting id="PriExSci" value="Level15"/>
+            <Setting id="Clock" value="ClkIn"/>
+            <Setting id="Direction" value="LSB"/>
+            <Setting id="Bitrate" value="1000"/>
+            <Setting id="Modulate" value="Disable"/>
+            <Setting id="CbErSci" value="Enable"/>
+            <Setting id="regCKS" value="Div1"/>
+            <Setting id="PriRx" value="Level15"/>
+            <Setting id="ClkPol" value="Disable"/>
+            <Setting id="regMDDR" value="239"/>
+            <Setting id="PriTx" value="Level15"/>
+            <Setting id="DataTx" value="DataIsr"/>
+            <Setting id="CbRx" value="Enable"/>
+            <Setting id="CbTx" value="Enable"/>
+            <Setting id="ClkPha" value="Disable"/>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI10" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="Invert" value="InvNM"/>
+            <Setting id="DataRx" value="DataIsr"/>
+            <Setting id="Mode" value="MasterFull"/>
+            <Setting id="EriSci" value="Enable"/>
+            <Setting id="regBRR" value="14"/>
+            <Setting id="PriExSci" value="Level15"/>
+            <Setting id="Clock" value="ClkIn"/>
+            <Setting id="Direction" value="MSB"/>
+            <Setting id="Bitrate" value="30000"/>
+            <Setting id="Modulate" value="Disable"/>
+            <Setting id="CbErSci" value="Enable"/>
+            <Setting id="regCKS" value="Div1"/>
+            <Setting id="PriRx" value="Level15"/>
+            <Setting id="ClkPol" value="Disable"/>
+            <Setting id="regMDDR" value="239"/>
+            <Setting id="PriTx" value="Level15"/>
+            <Setting id="DataTx" value="DataIsr"/>
+            <Setting id="CbRx" value="Enable"/>
+            <Setting id="CbTx" value="Enable"/>
+            <Setting id="ClkPha" value="Disable"/>
         </Segment>
     </Segment>
 </QE>

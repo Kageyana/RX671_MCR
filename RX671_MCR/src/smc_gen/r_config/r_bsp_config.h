@@ -217,7 +217,7 @@ Configuration Options
    0 = Stop Oscillating the Sub Clock. (default)
    1 = Enable Oscillating the Sub Clock.
 */
-#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (0) /* Generated value. Do not edit this manually */
+#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (1) /* Generated value. Do not edit this manually */
 
 /* Select whether to oscillate the High Speed On-Chip Oscillator (HOCO).
    0 = Stop Oscillating the HOCO. (default)

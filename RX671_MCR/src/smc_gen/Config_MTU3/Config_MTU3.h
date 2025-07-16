@@ -27,10 +27,10 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define MTU3_PCLK_COUNTER_DIVISION      (1)
-#define _0E0F_TGRA3_VALUE               (0x0E0FU) /* TGRA3 value */
-#define _0000_TGRB3_VALUE               (0x0000U) /* TGRB3 value */
-#define _0E0F_TGRC3_VALUE               (0x0E0FU) /* TGRC3 value */
-#define _0000_TGRD3_VALUE               (0x0000U) /* TGRD3 value */
+#define _2EDF_TGRA3_VALUE               (0x2EDFU) /* TGRA3 value */
+#define _0064_TGRB3_VALUE               (0x0064U) /* TGRB3 value */
+#define _0064_TGRC3_VALUE               (0x0064U) /* TGRC3 value */
+#define _0064_TGRD3_VALUE               (0x0064U) /* TGRD3 value */
 
 /***********************************************************************************************************************
 Typedef definitions

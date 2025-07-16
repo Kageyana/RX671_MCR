@@ -5,10 +5,10 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_ICU.c
-* Component Version: 2.3.0
+* File Name        : Config_MTU6.c
+* Component Version: 1.12.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_ICU.
+* Description      : This file implements device driver for Config_MTU6.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -21,7 +21,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_ICU.h"
+#include "Config_MTU6.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -33,97 +33,79 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_Create
-* Description  : This function initializes the ICU module
+* Function Name: R_Config_MTU6_Create
+* Description  : This function initializes the MTU6 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_Create(void)
+void R_Config_MTU6_Create(void)
 {
-    /* Disable IRQ interrupts */
-    ICU.IER[0x08].BYTE = 0x00U;
-    ICU.IER[0x09].BYTE = 0x00U;
+    /* Release MTU channel 6 from stop state */
+    MSTP(MTU6) = 0U;
 
-    /* Disable software interrupt */
-    IEN(ICU,SWINT) = 0U;
-    IEN(ICU,SWINT2) = 0U;
+    /* Enable read/write to MTU6 registers */
+    MTU.TRWERB.BIT.RWE = 1U;
 
-    /* Disable IRQ digital filter */
-    ICU.IRQFLTE0.BYTE &= ~(_08_ICU_IRQ3_FILTER_ENABLE);
-    ICU.IRQFLTE1.BYTE &= ~(_02_ICU_IRQ9_FILTER_ENABLE);
+    /* Stop MTU channel 6 counter */
+    MTU.TSTRB.BIT.CST6 = 0U;
 
-    /* Set IRQ3 pin */
-    MPC.P33PFS.BYTE = 0x40U;
-    PORT3.PDR.BYTE &= 0xF7U;
-    PORT3.PMR.BYTE &= 0xF7U;
+    /* Set timer synchronous clear */
+    MTU6.TSYCR.BYTE = _00_MTU6_CL0A_OFF | _00_MTU6_CL0B_OFF | _00_MTU6_CL0C_OFF | _00_MTU6_CL0D_OFF | 
+                      _00_MTU6_CL1A_OFF | _00_MTU6_CL1B_OFF | _00_MTU6_CL2A_OFF | _00_MTU6_CL2B_OFF;
 
-    /* Set IRQ9 pin */
-    MPC.PE1PFS.BYTE = 0x40U;
-    PORTE.PDR.BYTE &= 0xFDU;
-    PORTE.PMR.BYTE &= 0xFDU;
+    /* MTU channel 6 is used as PWM mode 1 */
+    MTU.TSYRB.BIT.SYNC6 = 0U;
+    MTU6.TCR.BYTE = _00_MTU_PCLK_1 | _20_MTU_CKCL_A;
+    MTU6.TCR2.BYTE = _00_MTU_PCLK_1;
+    MTU6.TIER.BYTE = _00_MTU_TGIEA_DISABLE | _00_MTU_TGIEB_DISABLE | _00_MTU_TGIEC_DISABLE | _00_MTU_TGIED_DISABLE | 
+                     _00_MTU_TCIEV_DISABLE | _00_MTU_TTGE_DISABLE;
+    MTU6.TMDR1.BYTE = _02_MTU_PWM1;
+    MTU6.TIORH.BYTE = _01_MTU_IOA_LL | _50_MTU_IOB_HL;
+    MTU6.TIORL.BYTE = _01_MTU_IOC_LL | _50_MTU_IOD_HL;
+    MTU6.TGRA = _0E0F_TGRA6_VALUE;
+    MTU6.TGRB = _0064_TGRB6_VALUE;
+    MTU6.TGRC = _0064_TGRC6_VALUE;
+    MTU6.TGRD = _0064_TGRD6_VALUE;
 
-    /* Set IRQ detection type */
-    ICU.IRQCR[3].BYTE = _00_ICU_IRQ_EDGE_LOW_LEVEL;
-    ICU.IRQCR[9].BYTE = _00_ICU_IRQ_EDGE_LOW_LEVEL;
+    /* Disable read/write to MTU6 registers */
+    MTU.TRWERB.BIT.RWE = 0U;
 
-    /* Set IRQ priority level */
-    IPR(ICU,IRQ3) = _0F_ICU_PRIORITY_LEVEL15;
-    IPR(ICU,IRQ9) = _0F_ICU_PRIORITY_LEVEL15;
+    /* Set MTIOC6A pin */
+    MPC.PE7PFS.BYTE = 0x08U;
+    PORTE.PMR.BYTE |= 0x80U;
 
-    R_Config_ICU_Create_UserInit();
+    /* Set MTIOC6C pin */
+    MPC.PE6PFS.BYTE = 0x08U;
+    PORTE.PMR.BYTE |= 0x40U;
+
+    R_Config_MTU6_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ3_Start
-* Description  : This function enables IRQ3 interrupt
+* Function Name: R_Config_MTU6_Start
+* Description  : This function starts the MTU6 channel counter
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_IRQ3_Start(void)
+void R_Config_MTU6_Start(void)
 {
-    /* Enable IRQ3 interrupt */
-    IEN(ICU,IRQ3) = 1U;
+    /* Start MTU channel 6 counter */
+    MTU.TSTRB.BIT.CST6 = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ3_Stop
-* Description  : This function disables IRQ3 interrupt
+* Function Name: R_Config_MTU6_Stop
+* Description  : This function stops the MTU6 channel counter
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_ICU_IRQ3_Stop(void)
+void R_Config_MTU6_Stop(void)
 {
-    /* Disable IRQ3 interrupt */
-    IEN(ICU,IRQ3) = 0U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ9_Start
-* Description  : This function enables IRQ9 interrupt
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_ICU_IRQ9_Start(void)
-{
-    /* Enable IRQ9 interrupt */
-    IEN(ICU,IRQ9) = 1U;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_ICU_IRQ9_Stop
-* Description  : This function disables IRQ9 interrupt
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_ICU_IRQ9_Stop(void)
-{
-    /* Disable IRQ9 interrupt */
-    IEN(ICU,IRQ9) = 0U;
+    /* Stop MTU channel 6 counter */
+    MTU.TSTRB.BIT.CST6 = 0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */
