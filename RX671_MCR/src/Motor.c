@@ -83,37 +83,33 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	if( accelefL >= 0) DIR_FL = 1;
 	else DIR_FL = 0;
 	if ( accelefL == 1000 || accelefL == -1000 )pwmfl = TGR_MOTOR + 2;
-	MTU4.TGRA = TGR_MOTOR+1;
 	PWM_FL_OUT = pwmfl;
 	
 	// 右前輪
 	if( accelefR >= 0) DIR_FR = 1;
 	else DIR_FR = 0;
 	if ( accelefR == 1000 || accelefR == -1000 ) pwmfr = TGR_MOTOR + 2;
-	MTU4.TGRC = TGR_MOTOR+1;
 	PWM_FR_OUT = pwmfr;
 
 	// 左後輪
 	if( accelerL >= 0 ) DIR_RL = 1;
 	else DIR_RL = 0;
 	if ( accelerL == 1000 || accelerL == -1000 ) pwmrl = TGR_MOTOR + 2;
-	MTU0.TGRA = TGR_MOTOR+1;
 	PWM_RL_OUT = pwmrl;
 	
 	// 右後輪
 	if( accelerR >= 0 ) DIR_RR = 1;
 	else DIR_RR = 0;
 	if ( accelerR == 1000 || accelerR == -1000 ) pwmrr = TGR_MOTOR + 2;
-	MTU0.TGRC = TGR_MOTOR+1;
 	PWM_RR_OUT = pwmrr;
 }
 ///////////////////////////////////////////////////////////////////////////
-// モジュール名 ServoPwmOut
+// モジュール名 ServoPwmOut1
 // 処理概要     白線トレース時サーボのPWMの変更
 // 引数         servopwm(PWMを-1000～1000で指定)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void ServoPwmOut( int16_t servopwm )
+void ServoPwmOut1( int16_t servopwm )
 {
 	uint16_t pwm;
 	short angle;
@@ -142,4 +138,40 @@ void ServoPwmOut( int16_t servopwm )
 		DIR_SERVO = 0;
 	}
 	PWM_SERVO_OUT = pwm;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 ServoPwmOut2
+// 処理概要     白線トレース時サーボのPWMの変更
+// 引数         servopwm(PWMを-1000～1000で指定)
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void ServoPwmOut2( int16_t servopwm )
+{
+	uint16_t pwm;
+	short angle;
+	
+	sPwm = servopwm;		// ログ用変数に代入
+	//servopwm = -servopwm;		// 回転方向を変える
+	
+	// // サーボリミット制御
+	// angle = getServoAngle();
+	
+	// // 角度によるリミット制御
+	// if ( angle >= SERVO_LIMIT ) servopwm = -15;
+	// if ( angle <= -SERVO_LIMIT ) servopwm = 15;
+	
+	// // ポテンションメーターが外れていたら制御しない
+	// if ( angle > SERVO_LIMIT + 100 ) servopwm = 0;
+	// if ( angle < -SERVO_LIMIT - 100 ) servopwm = 0;
+
+	pwm = TGR_SERVO * abs(servopwm) / 1000;
+	// サーボモータ制御
+	if( servopwm > 0) {
+		// 正転
+		DIR_LANCER = 1;
+	} else {
+		// 逆転
+		DIR_LANCER = 0;
+	}
+	PWM_LANCER_OUT = pwm;
 }

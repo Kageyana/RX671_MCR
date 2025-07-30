@@ -41,6 +41,9 @@
     <listAttribute key="com.renesas.cdt.launch.dsf.externalFlashDownloadModules"/>
     <stringAttribute key="com.renesas.cdt.launch.dsf.launchSeqType" value="com.renesas.cdt.launch.dsf.launchSequence.e2GdbServer"/>
     <stringAttribute key="com.renesas.cdt.launch.dsf.serverPath" value="${renesas.support.targetLoc:rx-debug}\e2-server-gdb"/>
+    <listAttribute key="com.renesas.cdt.launch.ui.address.mruList.eventpointDataAccessAddress">
+        <listEntry value="0xc121c"/>
+    </listAttribute>
     <booleanAttribute key="com.renesas.hardwaredebug.rx.e2.E2LiteDebugToolSettingsTree.resetAfterReload" value="true"/>
     <booleanAttribute key="com.renesas.hardwaredebug.rx.e2lite.allow.change.startup_bank" value="false"/>
     <booleanAttribute key="com.renesas.hardwaredebug.rx.e2lite.allow.clock.source.internal" value="true"/>

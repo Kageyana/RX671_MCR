@@ -66,15 +66,15 @@ void R_Config_MTU4_Create(void)
     MTU4.TGRD = _0000_TGRD4_VALUE;
 
     /* Disable read/write to MTU4 registers */
-    MTU.TRWERA.BIT.RWE = 0U;
+    // MTU.TRWERA.BIT.RWE = 0U;
 
     /* Set MTIOC4A pin */
     MPC.PA0PFS.BYTE = 0x01U;
     PORTA.PMR.BYTE |= 0x01U;
 
     /* Set MTIOC4C pin */
-    MPC.PB1PFS.BYTE = 0x02U;
-    PORTB.PMR.BYTE |= 0x02U;
+    MPC.PE5PFS.BYTE = 0x01U;
+    PORTE.PMR.BYTE |= 0x20U;
 
     R_Config_MTU4_Create_UserInit();
 }

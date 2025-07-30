@@ -217,11 +217,15 @@ void main(void)
 
 		if(swValRotary == 0x0)
 		{
-			MotorPwmOut(-500, -500, -500, -500);
+			MotorPwmOut(-5, -5, -5, -5);
+			ServoPwmOut1(-5);
+			ServoPwmOut2(-5);
 		}
 		else if (swValRotary == 0x1) 
 		{
-			MotorPwmOut(500, 500, 500, 500);
+			MotorPwmOut(5, 5, 5, 5);
+			ServoPwmOut1(5);
+			ServoPwmOut2(5);
 		}
 
 		if(cnt0 > 10000 && loggingSDcard)

@@ -178,8 +178,8 @@ void R_Pins_Create(void)
     PORTA.PMR.BYTE |= 0x01U;
 
     /* Set MTIOC4C pin */
-    MPC.PB1PFS.BYTE = 0x02U;
-    PORTB.PMR.BYTE |= 0x02U;
+    MPC.PE5PFS.BYTE = 0x01U;
+    PORTE.PMR.BYTE |= 0x20U;
 
     /* Set MTIOC7C pin */
     MPC.P67PFS.BYTE = 0x08U;

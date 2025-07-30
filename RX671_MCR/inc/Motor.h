@@ -37,11 +37,11 @@
 #define PWM_RR_OUT	MTU0.TGRD
 #define GET_MOTORCURRENT_RR_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL11, &motorCurrentRR)
 // サーボ1
-#define DIR_SERVO		PORTB.PODR.BIT.B7
+#define DIR_SERVO		PORTB.PODR.BIT.B0
 #define PWM_SERVO_OUT	MTU3.TGRB
 #define GET_SERVO_CURRENT_F_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL3, &servoCurrentF)
 // サーボ2
-#define DIR_LANCER		PORTB.PODR.BIT.B7
+#define DIR_LANCER		PORT3.PODR.BIT.B3
 #define PWM_LANCER_OUT	MTU3.TGRD
 #define GET_SERVO_CURRENT_R_VAL	R_Config_S12AD1_Get_ValueResult(ADCHANNEL9, &servoCurrentR)
 
@@ -77,6 +77,7 @@ void InitMotor(void);
 void GetMotorADVal(void);
 void MotorPwmOut( int16_t accelefL, int16_t accelefR
 				, int16_t accelerL, int16_t accelerR );
-void ServoPwmOut( int16_t pwm );
+void ServoPwmOut1( int16_t servopwm );
+void ServoPwmOut2( int16_t servopwm );
 
 #endif // MOTOR_H_

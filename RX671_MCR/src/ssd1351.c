@@ -258,7 +258,7 @@ void SSD1351updateScreen(void)
 
 			bool changed = false;
 			// cntsameがSSD1351_WIDTH-1と同値であるか＝その列に前回と違うピクセルがあるか判定
-			for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
+ 			for (uint16_t x = 0; x < SSD1351_WIDTH; x++) {
 				if (SSD1351_Buffer.u16[offset + x] != SSD1351_BufferBefore.u16[offset + x]) {
 					changed = true;
 					break;
