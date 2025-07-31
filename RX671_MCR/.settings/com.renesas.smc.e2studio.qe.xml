@@ -49,6 +49,7 @@
         <Setting id="P17" value="P17"/>
         <Setting id="PJ3" value="MTIOC3C"/>
         <Setting id="PJ5" value="PJ5"/>
+        <Setting id="PB1" value="MTIOC4C"/>
         <Setting id="PB0" value="PB0"/>
         <Setting id="PB3" value="PB3"/>
         <Setting id="PB2" value="PB2"/>
@@ -101,7 +102,6 @@
         <Setting id="PE4" value="PE4"/>
         <Setting id="PE3" value="PE3"/>
         <Setting id="PE6" value="PE6"/>
-        <Setting id="PE5" value="MTIOC4C"/>
         <Setting id="P50" value="SMOSI2"/>
         <Setting id="P52" value="SMISO2"/>
         <Setting id="P51" value="SCK2"/>

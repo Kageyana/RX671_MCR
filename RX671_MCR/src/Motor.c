@@ -79,11 +79,14 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	pwmrl = TGR_MOTOR * abs(accelerL) / 1000;
 	pwmrr = TGR_MOTOR * abs(accelerR) / 1000;
 	
+	MTU.TRWERA.BIT.RWE = 1U; // MTUレジスタの読み書きを許可
+
 	// 左前輪
 	if( accelefL >= 0) DIR_FL = 1;
 	else DIR_FL = 0;
 	if ( accelefL == 1000 || accelefL == -1000 )pwmfl = TGR_MOTOR + 2;
 	PWM_FL_OUT = pwmfl;
+	
 	
 	// 右前輪
 	if( accelefR >= 0) DIR_FR = 1;
@@ -102,6 +105,8 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	else DIR_RR = 0;
 	if ( accelerR == 1000 || accelerR == -1000 ) pwmrr = TGR_MOTOR + 2;
 	PWM_RR_OUT = pwmrr;
+
+	MTU.TRWERA.BIT.RWE = 0U; // MTUレジスタの読み書きを禁止
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 ServoPwmOut1
@@ -137,7 +142,9 @@ void ServoPwmOut1( int16_t servopwm )
 		// 逆転
 		DIR_SERVO = 0;
 	}
+	MTU.TRWERA.BIT.RWE = 1U; // MTUレジスタの読み書きを許可
 	PWM_SERVO_OUT = pwm;
+	MTU.TRWERA.BIT.RWE = 0U; // MTUレジスタの読み書きを許可
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 ServoPwmOut2
@@ -173,5 +180,7 @@ void ServoPwmOut2( int16_t servopwm )
 		// 逆転
 		DIR_LANCER = 0;
 	}
+	MTU.TRWERA.BIT.RWE = 1U; // MTUレジスタの読み書きを許可
 	PWM_LANCER_OUT = pwm;
+	MTU.TRWERA.BIT.RWE = 0U; // MTUレジスタの読み書きを許可
 }

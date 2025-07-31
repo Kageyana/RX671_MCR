@@ -65,7 +65,7 @@ void R_Config_MTU3_Create(void)
     MTU3.TGRD = _0000_TGRD3_VALUE;
 
     /* Disable read/write to MTU3 registers */
-    // MTU.TRWERA.BIT.RWE = 0U;
+    MTU.TRWERA.BIT.RWE = 0U;
 
     /* Set MTIOC3A pin */
     MPC.PC1PFS.BYTE = 0x01U;

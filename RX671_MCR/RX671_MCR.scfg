@@ -572,7 +572,7 @@
         <pinItem allocation="A9" comments="" direction="None" id="AN101" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="B9" comments="" direction="None" id="AN103" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="E10" comments="" direction="None" id="MTIOC4A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D12" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J13" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="N2" comments="" direction="None" id="SMOSI0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="M7" comments="" direction="None" id="SMOSI2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="A5" comments="" direction="None" id="AN005" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
