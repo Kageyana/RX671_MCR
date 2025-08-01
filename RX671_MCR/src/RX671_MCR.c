@@ -122,42 +122,8 @@ void main(void)
 		}
 
 
-               // 画面表示処理
-               SetupUpdate();
-
-		// SSD1351setCursor(2,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);
-		// SSD1351setCursor(2,14);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"y:%4d",(int32_t)BMI088val.angle.y);
-		// SSD1351setCursor(2,26);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"z:%4d",(int32_t)BMI088val.angle.z);
-		// SSD1351setCursor(60,2);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"temp:%2d",(int32_t)BMI088val.temp);
-		// SSD1351setCursor(60,14);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5d",cnt0);
-		// SSD1351setCursor(2, 38);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"Rotary:%x",swValRotary);
-		// SSD1351setCursor(85, 38);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"5ax:%x",swValTact);
-		// SSD1351setCursor(2, 50);
-		// // SSD1351printf(Font_7x10,SSD1351_BLUE,"cnt:%5dms log:%d",cnt0, loggingSDcard);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"insertSD:%d",insertSDcard);
-		// SSD1351setCursor(2, 62);
-		// // SSD1351printf(Font_7x10,SSD1351_BLUE,"encoder:%5d current%3d",encTotal,encCurrent);
-		// SSD1351printf(Font_7x10,SSD1351_BLUE,"initSD:%d",initSDcard);
-
-		if(swValRotary == 0x0)
-		{
-			MotorPwmOut(-500, -500, -500, -500);
-			ServoPwmOut1(-500);
-			ServoPwmOut2(-500);
-		}
-		else if (swValRotary == 0x1) 
-		{
-			MotorPwmOut(500, 500, 500, 500);
-			ServoPwmOut1(500);
-			ServoPwmOut2(500);
-		}
+		// 画面表示処理
+		SetupUpdate();
 
 		if(cnt0 > 10000 && loggingSDcard)
 		{

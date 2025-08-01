@@ -50,7 +50,6 @@ static const uint8_t *menu2_items[] = {
 
 // SETTINGS ページ用のメニュー選択変数
 static uint8_t sel = 0xff;
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_wait
 // 処理概要     指定ミリ秒だけ待機する
@@ -62,7 +61,6 @@ void GUI_wait(uint32_t ms)
     cntGUI = 0;
     while(cntGUI < ms);
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowStartup
 // 処理概要     起動画面を表示する
@@ -75,7 +73,6 @@ void GUI_ShowStartup(void)
     SSD1351setCursor(10, 54);
     SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RX671_MCR");
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_ShowMenu
 // 処理概要     メニューを描画する
@@ -100,11 +97,10 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
         SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
     }
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_MenuSelect
 // 処理概要     スイッチ入力に応じてメニューをスクロールしながら選択する
-// 引数         items : 文字列配列
+// 引数         items : メニュー項目(文字列配列)
 //              count : 要素数
 // 戻り値       選択されたインデックス
 ///////////////////////////////////////////////////////////////////////////
@@ -163,7 +159,6 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 
     return 0xFF;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowStatusBar
 // 処理概要     ステータスバーにページ番号とバッテリー残量を表示する
@@ -181,7 +176,6 @@ void GUI_ShowStatusBar(uint8_t page)
     SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%3d%%", percent);
     SSD1351line(0, MENU_START_Y - 2, SSD1351_WIDTH - 1, MENU_START_Y - 2, SSD1351_WHITE);
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_DrawTestPattern
 // 処理概要     テレビのカラーバーを画面下部に表示する
@@ -208,7 +202,6 @@ void GUI_DrawTestPattern(uint8_t y_start)
         SSD1351fillRectangle(x1, y_start, x2, SSD1351_HEIGHT - 1, colors[i]);
     }
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_EditContrast
 // 処理概要     コントラストを編集する
@@ -303,7 +296,6 @@ bool GUI_EditContrast(void)
 
     return false;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_DisplayInverse
 // 処理概要     色反転のON/OFF
@@ -320,7 +312,6 @@ bool GUI_DisplayInverse(void)
 
     return true;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowQRcode
 // 処理概要     QRコードの表示
@@ -390,7 +381,6 @@ bool GUI_ShowQRcode(void)
     }
     return false;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowSensors
 // 処理概要     センサ値をメニューで選択して個別表示する
@@ -523,7 +513,6 @@ bool GUI_ShowSensors(void)
 
     return false;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 SetupUpdate
 // 処理概要     メニュー画面の更新処理
@@ -583,4 +572,3 @@ void SetupUpdate(void)
             break;
     }
 }
-
