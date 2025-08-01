@@ -25,13 +25,13 @@
 #include "SDcard.h"
 #include "encoder.h"
 #include "Motor.h"
-#include "gui.h"
 #include "timer.h"
 #include "linesensor.h"
+#include "setup.h"
 
 #define CMT_CHANNEL 0
 
-static uint8_t currentPage = 0;
+uint8_t currentPage = 0;
 
 void main(void);
 
@@ -108,29 +108,6 @@ void main(void)
 	currentPage = swValRotary;
 	GUI_ShowStatusBar(currentPage);
 
-	const uint8_t *menu1_items[] = {
-		  "START   "
-		, "SETTINGS"
-		, "INFO1   "
-		, "INFO2   "
-		, "INFO3   "
-		, "INFO4   "
-		, "INFO5   "
-		, "INFO6   "
-		, "INFO7   "
-		, "INFO8   "
-		, "INFO9   "
-		, "INFO10  "
-		, "INFO11  "
-		, "INFO12  "
-		, "INFO13  "
-	};
-    const uint8_t *menu2_items[] = {
-		  "Contrast"
-		, "Inverse "
-		, "QR code "
-    };
-    static uint8_t sel = 0xff; // SETTINGSページのメニュー選択
 
 	while (1)
 	{
@@ -145,54 +122,8 @@ void main(void)
 		}
 
 
-		// ステータスバー表示
-		if(swValRotary != currentPage)
-		{
-			SSD1351fill(SSD1351_BLACK);
-			currentPage = swValRotary;
-			GUI_ShowStatusBar(currentPage);
-			sel = 0xff;
-		}
-
-		// ページ表示
-		switch (currentPage) {
-			case 0x0:
-				// Startページ
-				GUI_MenuSelect(menu1_items, 14);
-				break;
-			case 0x1:
-				// Display settingページ
-				switch (sel) {
-					case 0:
-						if(GUI_EditContrast())
-						{
-							sel = 0xff; // メニュー選択をリセット
-						}
-						break;
-					case 1:
-						if(GUI_DisplayInverse())
-						{
-							sel = 0xff; // メニュー選択をリセット
-						}
-						break;
-					case 2:
-						if(GUI_ShowQRcode())
-						{
-							sel = 0xff; // メニュー選択をリセット
-						}
-						break;
-					default:
-						sel = GUI_MenuSelect(menu2_items, 3);
-						break;
-				}
-				break;
-			case 0x2:
-				// Sensorページ
-				GUI_ShowSensors();
-				break;
-			default:
-				break;
-		}
+               // 画面表示処理
+               SetupUpdate();
 
 		// SSD1351setCursor(2,2);
 		// SSD1351printf(Font_7x10,SSD1351_BLUE,"x:%4d",(int32_t)BMI088val.angle.x);

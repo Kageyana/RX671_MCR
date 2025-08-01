@@ -10,7 +10,7 @@
 #include "switch.h"
 #include "encoder.h"
 #include "battery.h"
-#include "gui.h"
+#include "setup.h"
 
 #include <stdio.h>
 #include <stdint.h>
