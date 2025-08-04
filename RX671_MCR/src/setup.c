@@ -22,6 +22,13 @@ typedef enum {
 static SensorState sensor_state = SENSOR_MENU;
 static uint8_t     sensor_sel   = 0xff;
 
+typedef struct {
+    const uint8_t **items; // メニュー項目配列へのポインタ
+    uint8_t         top;   // 表示オフセット
+} MenuState;
+
+static MenuState menu_states[MAX_MENU_STATE];
+static uint8_t menu_state_count = 0;
 // Start ページのメニュー項目
 static const uint8_t *menu1_items[] = {
     "START   ",
@@ -97,6 +104,37 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
         SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
     }
 }
+
+///////////////////////////////////////////////////////////////////////////
+// モジュール名  GetMenuTop
+// 処理概要     指定したメニュー項目のスクロール位置を取得する
+//              未登録のメニューは新規に登録し初期値0を返す
+// 引数         items : メニュー項目配列へのポインタ
+// 戻り値       top値へのポインタ
+///////////////////////////////////////////////////////////////////////////
+static uint8_t *GetMenuTop(const uint8_t **items)
+{
+    // 既存エントリを検索し、見つかればそのtopへのポインタを返す
+    for(uint8_t i = 0; i < menu_state_count; i++)
+    {
+        if(menu_states[i].items == items)
+        {
+            return &menu_states[i].top;
+        }
+    }
+
+    // 新規メニューなら空きスロットに登録して初期値0を返す
+    if(menu_state_count < MAX_MENU_STATE)
+    {
+        menu_states[menu_state_count].items = items;
+        menu_states[menu_state_count].top   = 0;
+        return &menu_states[menu_state_count++].top;
+    }
+
+    // これ以上登録できない場合は0番目を再利用する
+    return &menu_states[0].top;
+}
+
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_MenuSelect
 // 処理概要     スイッチ入力に応じてメニューをスクロールしながら選択する
@@ -107,7 +145,8 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
 uint8_t GUI_MenuSelect(const char **items, uint8_t count)
 {
     static uint8_t index = 0;
-    static uint8_t top   = 0;
+    uint8_t *top_ptr = GetMenuTop((const uint8_t **)items);
+    uint8_t top = *top_ptr;
 
     GUI_ShowMenu(items, count, index, top);
 
@@ -131,6 +170,7 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
                 }
             }
             GUI_ShowMenu(items, count, index, top);
+            *top_ptr = top;
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_DOWN:
@@ -148,6 +188,7 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
                 }
             }
             GUI_ShowMenu(items, count, index, top);
+            *top_ptr = top;
             R_BSP_SoftwareDelay(150, BSP_DELAY_MILLISECS);
             break;
         case SW_PUSH:
@@ -156,6 +197,8 @@ uint8_t GUI_MenuSelect(const char **items, uint8_t count)
         default:
             break;
     }
+
+    *top_ptr = top;
 
     return 0xFF;
 }

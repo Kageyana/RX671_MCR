@@ -20,6 +20,7 @@
 #define MENU_START_Y 12
 #define MENU_ITEM_HEIGHT 12
 #define MAX_VISIBLE_ITEMS (((SSD1351_HEIGHT - MENU_START_Y) / MENU_ITEM_HEIGHT) + 1)
+#define MAX_MENU_STATE 16
 
 //====================================//
 // グローバル変数の宣言
