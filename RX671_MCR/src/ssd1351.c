@@ -3,6 +3,7 @@
 //====================================//
 #include "ssd1351.h"
 #include <stdint.h>
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 //====================================//
@@ -405,14 +406,14 @@ void SSD1351setCursor(uint8_t x, uint8_t y)
 ////////////////////////////////////////////////////////////////////
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
 {
-	va_list argptr;
-	uint8_t str[SSD1351_WIDTH / 6]; // 最小フォント幅での最大文字数
+        va_list argptr;
+        uint8_t str[SSD1351_WIDTH + 1];
 
-	va_start(argptr, format);
-	vsprintf(str, format, argptr);
-	va_end(argptr);
+        va_start(argptr, format);
+        vsnprintf((char *)str, sizeof(str), (const char *)format, argptr);
+        va_end(argptr);
 
-	SSD1351writeString(str, Font, color);
+        SSD1351writeString(str, Font, color);
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351setDisplayOn
