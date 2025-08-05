@@ -418,6 +418,7 @@ bool GUI_ShowQRcode(void)
 ///////////////////////////////////////////////////////////////////////////
 bool GUI_ShowSensors(void)
 {
+    static bool sensor_menu_init = true;
     const uint8_t *sensor_items[] = {
         "Battery ",
         "IMU     ",
@@ -425,6 +426,13 @@ bool GUI_ShowSensors(void)
         "Line    ",
         "Motor   "
     };
+
+    if(sensor_state == SENSOR_MENU && sensor_menu_init)
+    {
+        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
+        sensor_menu_init = false;
+    }
 
     if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
     {
@@ -462,6 +470,9 @@ bool GUI_ShowSensors(void)
                 }
                 if(sensor_state != SENSOR_MENU)
                 {
+                    // メニューから各センサページへ移行した直後に
+                    // 押下状態が残らないようスイッチ入力をクリア
+                    swValTact = SW_NONE;
                     sensor_sel = 0xff;
                     SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
                                          SSD1351_HEIGHT - 1, SSD1351_BLACK);
@@ -472,14 +483,13 @@ bool GUI_ShowSensors(void)
         case SENSOR_BAT:
             GetBatteryVoltage();
             SSD1351setCursor(2, MENU_START_Y);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV",batteryVoltage);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4dV",(int16_t)batteryVoltage);
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                     SSD1351_HEIGHT - 1, SSD1351_BLACK);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
+                sensor_menu_init = true;
             }
             break;
 
@@ -505,10 +515,9 @@ bool GUI_ShowSensors(void)
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                     SSD1351_HEIGHT - 1, SSD1351_BLACK);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
+                sensor_menu_init = true;
             }
             break;
 
@@ -518,10 +527,9 @@ bool GUI_ShowSensors(void)
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                     SSD1351_HEIGHT - 1, SSD1351_BLACK);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
+                sensor_menu_init = true;
             }
             break;
 
@@ -536,10 +544,9 @@ bool GUI_ShowSensors(void)
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
-                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                     SSD1351_HEIGHT - 1, SSD1351_BLACK);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
+                sensor_menu_init = true;
             }
             break;
 
@@ -580,10 +587,9 @@ bool GUI_ShowSensors(void)
                     {
                         // デューティ0時はメニューへ戻る
                         GUI_wait(150);
-                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
-                                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
                         sensor_state = SENSOR_MENU;
                         sensor_sel   = 0xff;
+                        sensor_menu_init = true;
                         motor_run    = false;
                         MotorPwmOut(0,0,0,0);
                         ServoPwmOut1(0);
@@ -604,6 +610,11 @@ bool GUI_ShowSensors(void)
                     break;
                 default:
                     break;
+            }
+
+            if(sensor_state != SENSOR_MOTOR)
+            {
+                break;
             }
 
             SSD1351setCursor(2, MENU_START_Y);
