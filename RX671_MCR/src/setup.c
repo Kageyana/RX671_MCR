@@ -470,6 +470,9 @@ bool GUI_ShowSensors(void)
                 }
                 if(sensor_state != SENSOR_MENU)
                 {
+                    // メニューから各センサページへ移行した直後に
+                    // 押下状態が残らないようスイッチ入力をクリア
+                    swValTact = SW_NONE;
                     sensor_sel = 0xff;
                     SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
                                          SSD1351_HEIGHT - 1, SSD1351_BLACK);
