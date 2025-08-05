@@ -16,7 +16,8 @@ typedef enum {
     SENSOR_BAT,  // バッテリー電圧表示
     SENSOR_IMU,  // IMUの角度・温度・加速度表示
     SENSOR_ENC,  // エンコーダ値表示
-    SENSOR_LINE  // ラインセンサ値表示
+    SENSOR_LINE, // ラインセンサ値表示
+    SENSOR_MOTOR // モーター動作確認
 } SensorState;
 
 static SensorState sensor_state = SENSOR_MENU;
@@ -436,12 +437,13 @@ bool GUI_ShowSensors(void)
         "Battery ",
         "IMU     ",
         "Encoder ",
-        "Line    "
+        "Line    ",
+        "Motor   "
     };
 
     if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
     {
-        sensor_sel = GUI_MenuSelect(sensor_items, 4);
+        sensor_sel = GUI_MenuSelect(sensor_items, 5);
     }
 
     switch(sensor_state)
@@ -449,7 +451,7 @@ bool GUI_ShowSensors(void)
         case SENSOR_MENU:
             if(sensor_sel == 0xff)
             {
-                sensor_sel = GUI_MenuSelect(sensor_items, 4);
+                sensor_sel = GUI_MenuSelect(sensor_items, 5);
             }
             else
             {
@@ -466,6 +468,9 @@ bool GUI_ShowSensors(void)
                         break;
                     case 3:
                         sensor_state = SENSOR_LINE;
+                        break;
+                    case 4:
+                        sensor_state = SENSOR_MOTOR;
                         break;
                     default:
                         break;
@@ -552,6 +557,112 @@ bool GUI_ShowSensors(void)
                 sensor_sel   = 0xff;
             }
             break;
+
+        case SENSOR_MOTOR:
+        {
+            static uint8_t  motor_sel  = 0;   // 選択中のモーター/サーボ
+            static int16_t  motor_duty = 0;   // 出力デューティ
+            static bool     motor_run  = false; // 回転中フラグ
+            const uint8_t *motor_items[] = {
+                "MotorFrontLeft",
+                "MotorFrontRight",
+                "MotorRearLeft",
+                "MotorRearRight",
+                "ServoFront",
+                "ServoRear"
+            };
+
+            switch(swValTact)
+            {
+                case SW_UP: // デューティ増加
+                    if(motor_duty < 1000) motor_duty += 100;
+                    GUI_wait(150);
+                    break;
+                case SW_DOWN: // デューティ減少
+                    if(motor_duty > -1000) motor_duty -= 100;
+                    GUI_wait(150);
+                    break;
+                case SW_RIGHT: // モーター選択 次
+                    motor_sel = (motor_sel + 1) % 6;
+                    GUI_wait(150);
+                    break;
+                case SW_LEFT: // モーター選択 前
+                    motor_sel = (motor_sel + 5) % 6;
+                    GUI_wait(150);
+                    break;
+                case SW_PUSH:
+                    if(motor_duty == 0)
+                    {
+                        // デューティ0時はメニューへ戻る
+                        GUI_wait(150);
+                        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                        sensor_state = SENSOR_MENU;
+                        sensor_sel   = 0xff;
+                        motor_run    = false;
+                        MotorPwmOut(0,0,0,0);
+                        ServoPwmOut1(0);
+                        ServoPwmOut2(0);
+                    }
+                    else
+                    {
+                        // デューティ設定時は回転/停止をトグル
+                        motor_run = !motor_run;
+                        if(!motor_run)
+                        {
+                            MotorPwmOut(0,0,0,0);
+                            ServoPwmOut1(0);
+                            ServoPwmOut2(0);
+                        }
+                        GUI_wait(150);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            SSD1351setCursor(2, MENU_START_Y);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)motor_items[motor_sel]);
+            SSD1351setCursor(2, MENU_START_Y + 12);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"PWM:%4d%%", motor_duty / 10);
+            uint16_t current = 0;
+            switch(motor_sel)
+            {
+                case 0: current = motorCurrentFL; break;
+                case 1: current = motorCurrentFR; break;
+                case 2: current = motorCurrentRL; break;
+                case 3: current = motorCurrentRR; break;
+                case 4: current = servoCurrentF;  break;
+                case 5: current = servoCurrentR;  break;
+                default: break;
+            }
+            SSD1351setCursor(2, MENU_START_Y + 24);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"CUR:%4d", current);
+
+            SSD1351setCursor(2, MENU_START_Y + 36);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RUN:%s", motor_run ? "ON" : "OFF");
+
+            if(motor_run)
+            {
+                switch(motor_sel)
+                {
+                    case 0: MotorPwmOut(motor_duty, 0, 0, 0); break;
+                    case 1: MotorPwmOut(0, motor_duty, 0, 0); break;
+                    case 2: MotorPwmOut(0, 0, motor_duty, 0); break;
+                    case 3: MotorPwmOut(0, 0, 0, motor_duty); break;
+                    case 4: ServoPwmOut1(motor_duty); break;
+                    case 5: ServoPwmOut2(motor_duty); break;
+                    default: break;
+                }
+            }
+            else
+            {
+                MotorPwmOut(0,0,0,0);
+                ServoPwmOut1(0);
+                ServoPwmOut2(0);
+            }
+            break;
+        }
     }
 
     return false;

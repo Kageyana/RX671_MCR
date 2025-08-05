@@ -53,7 +53,9 @@ void GetMotorADVal(void)
 	GET_MOTORCURRENT_FL_VAL;	// 左前モーター電流値の取得
 	GET_MOTORCURRENT_FR_VAL;        // 右前モーター電流値の取得
 	GET_MOTORCURRENT_RL_VAL;	// 左後モーター電流値の取得
-	GET_MOTORCURRENT_RR_VAL;	// 右後モーター電流値の取得
+	GET_MOTORCURRENT_RR_VAL;        // 右後モーター電流値の取得
+        GET_SERVO_CURRENT_F_VAL;        // 前サーボ電流値の取得
+        GET_SERVO_CURRENT_R_VAL;        // 後サーボ電流値の取得
 
 	GET_POT_FRONT_VAL;	// 前ポテンションメーター値の取得
 	GET_POT_REAR_VAL;	// 後ポテンションメーター値の取得
