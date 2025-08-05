@@ -9,6 +9,7 @@
 #include "battery.h"
 #include "bmi088.h"
 #include "linesensor.h"
+#include "Motor.h"
 #include "encoder.h"
 #include <stdint.h>
 #include <stdbool.h>
