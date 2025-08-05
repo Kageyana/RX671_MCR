@@ -564,12 +564,12 @@ bool GUI_ShowSensors(void)
             static int16_t  motor_duty = 0;   // 出力デューティ
             static bool     motor_run  = false; // 回転中フラグ
             const uint8_t *motor_items[] = {
-                "MtrFL  ",
-                "MtrFR  ",
-                "MtrRL  ",
-                "MtrRR  ",
-                "ServoF ",
-                "ServoR "
+                "MotorFrontLeft",
+                "MotorFrontRight",
+                "MotorRearLeft",
+                "MotorRearRight",
+                "ServoFront",
+                "ServoRear"
             };
 
             switch(swValTact)
@@ -624,7 +624,7 @@ bool GUI_ShowSensors(void)
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)motor_items[motor_sel]);
             SSD1351setCursor(2, MENU_START_Y + 12);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"PWM:%4d", motor_duty);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"PWM:%4d%%", motor_duty / 10);
             uint16_t current = 0;
             switch(motor_sel)
             {
@@ -638,6 +638,9 @@ bool GUI_ShowSensors(void)
             }
             SSD1351setCursor(2, MENU_START_Y + 24);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"CUR:%4d", current);
+
+            SSD1351setCursor(2, MENU_START_Y + 36);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RUN:%s", motor_run ? "ON" : "OFF");
 
             if(motor_run)
             {
