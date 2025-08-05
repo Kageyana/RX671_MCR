@@ -33,20 +33,7 @@ static uint8_t menu_state_count = 0;
 // Start ページのメニュー項目
 static const uint8_t *menu1_items[] = {
     "START   ",
-    "SETTINGS",
-    "INFO1   ",
-    "INFO2   ",
-    "INFO3   ",
-    "INFO4   ",
-    "INFO5   ",
-    "INFO6   ",
-    "INFO7   ",
-    "INFO8   ",
-    "INFO9   ",
-    "INFO10  ",
-    "INFO11  ",
-    "INFO12  ",
-    "INFO13  "
+    "SETTINGS"
 };
 
 // Display 設定ページのメニュー項目
@@ -105,7 +92,6 @@ void GUI_ShowMenu(const char **items, uint8_t count, uint8_t selected, uint8_t o
         SSD1351printf(Font_7x10, color, (uint8_t*)items[idx]);
     }
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名  GetMenuTop
 // 処理概要     指定したメニュー項目のスクロール位置を取得する
@@ -135,7 +121,6 @@ static uint8_t *GetMenuTop(const uint8_t **items)
     // これ以上登録できない場合は0番目を再利用する
     return &menu_states[0].top;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名  GUI_MenuSelect
 // 処理概要     スイッチ入力に応じてメニューをスクロールしながら選択する
@@ -559,36 +544,36 @@ bool GUI_ShowSensors(void)
             break;
 
         case SENSOR_MOTOR:
-        {
+		{
             static uint8_t  motor_sel  = 0;   // 選択中のモーター/サーボ
             static int16_t  motor_duty = 0;   // 出力デューティ
             static bool     motor_run  = false; // 回転中フラグ
             const uint8_t *motor_items[] = {
-                "MotorFrontLeft",
+                "MotorFrontLeft ",
                 "MotorFrontRight",
-                "MotorRearLeft",
-                "MotorRearRight",
-                "ServoFront",
-                "ServoRear"
+                "MotorRearLeft  ",
+                "MotorRearRight ",
+                "ServoFront     ",
+                "ServoRear      "
             };
 
             switch(swValTact)
             {
                 case SW_UP: // デューティ増加
                     if(motor_duty < 1000) motor_duty += 100;
-                    GUI_wait(150);
+                    GUI_wait(250);
                     break;
                 case SW_DOWN: // デューティ減少
                     if(motor_duty > -1000) motor_duty -= 100;
-                    GUI_wait(150);
+                    GUI_wait(250);
                     break;
                 case SW_RIGHT: // モーター選択 次
                     motor_sel = (motor_sel + 1) % 6;
-                    GUI_wait(150);
+                    GUI_wait(250);
                     break;
                 case SW_LEFT: // モーター選択 前
                     motor_sel = (motor_sel + 5) % 6;
-                    GUI_wait(150);
+                    GUI_wait(250);
                     break;
                 case SW_PUSH:
                     if(motor_duty == 0)
@@ -614,7 +599,7 @@ bool GUI_ShowSensors(void)
                             ServoPwmOut1(0);
                             ServoPwmOut2(0);
                         }
-                        GUI_wait(150);
+                        GUI_wait(250);
                     }
                     break;
                 default:
@@ -624,7 +609,7 @@ bool GUI_ShowSensors(void)
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)motor_items[motor_sel]);
             SSD1351setCursor(2, MENU_START_Y + 12);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"PWM:%4d%%", motor_duty / 10);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"PWM:%5d%%", motor_duty / 10);
             uint16_t current = 0;
             switch(motor_sel)
             {
@@ -640,7 +625,7 @@ bool GUI_ShowSensors(void)
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"CUR:%4d", current);
 
             SSD1351setCursor(2, MENU_START_Y + 36);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RUN:%s", motor_run ? "ON" : "OFF");
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"RUN:%s", motor_run ? "ON " : "OFF");
 
             if(motor_run)
             {
@@ -661,8 +646,8 @@ bool GUI_ShowSensors(void)
                 ServoPwmOut1(0);
                 ServoPwmOut2(0);
             }
-            break;
-        }
+        	break;
+		}
     }
 
     return false;
