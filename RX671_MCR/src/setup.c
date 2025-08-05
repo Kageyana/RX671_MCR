@@ -483,7 +483,7 @@ bool GUI_ShowSensors(void)
         case SENSOR_BAT:
             GetBatteryVoltage();
             SSD1351setCursor(2, MENU_START_Y);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV",batteryVoltage);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4dV",(int16_t)batteryVoltage);
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
