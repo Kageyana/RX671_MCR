@@ -34,6 +34,14 @@ typedef enum {
 static DisplayState display_state = DISP_MENU; // ディスプレイ設定ページの状態
 static uint8_t      display_sel   = 0xff;      // メニュー選択結果
 
+typedef enum {
+    PID_MENU,  // PID調整メニュー
+    PID_EDIT   // PIDパラメータ編集
+} PIDState;
+
+static PIDState pid_state = PID_MENU;
+static uint8_t  pid_sel   = 0xff;
+
 typedef struct {
     const uint8_t **items; // メニュー項目配列へのポインタ
     uint8_t         top;   // 表示オフセット
@@ -321,6 +329,205 @@ bool GUI_EditContrast(void)
             bmi088_read_locked = false;
             init = false;
             return true;
+        default:
+            break;
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_EditPIDk
+// 処理概要     PID係数(KP/KI/KD)を描画し選択中は強調表示する
+// 引数         label   : 表示文字列
+//              value   : 表示する数値
+//              x       : 表示位置X座標
+//              selected: 選択中フラグ
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+static void GUI_EditPIDk(const uint8_t *label, int16_t value, uint8_t x, bool selected)
+{
+    uint16_t color = selected ? SSD1351_YELLOW : SSD1351_WHITE;
+    SSD1351setCursor(x, MENU_START_Y + 12);
+    SSD1351printf(Font_7x10, color, (uint8_t*)"%s:%4d", label, value);
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_EditPID
+// 処理概要     KP/KI/KDを選択し値を変更、押下で制御の開始/停止を切り替える
+// 引数         pid: 調整対象のPIDパラメータ
+// 戻り値       true:編集終了
+///////////////////////////////////////////////////////////////////////////
+static bool GUI_EditPID(pidParam *pid)
+{
+    static uint8_t param_index = 0;
+    static bool init = false;
+    static bool running = false;
+
+    if(!init)
+    {
+        // 編集開始時に表示エリアを初期化
+        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
+        init = true;
+    }
+
+    // パラメータ名を表示
+    SSD1351setCursor(2, MENU_START_Y);
+    SSD1351printf(Font_7x10, SSD1351_WHITE, pid->name);
+
+    // KP/KI/KD を描画し、選択中は強調表示
+    GUI_EditPIDk((uint8_t*)"KP", pid->kp, 2,  param_index == 0);
+    GUI_EditPIDk((uint8_t*)"KI", pid->ki, 42, param_index == 1);
+    GUI_EditPIDk((uint8_t*)"KD", pid->kd, 82, param_index == 2);
+
+    // PID出力値を表示
+    SSD1351setCursor(2, MENU_START_Y + 24);
+    SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"OUT:%4d", pid->pwm);
+
+    switch(swValTact)
+    {
+        case SW_LEFT:
+            // 左: 項目移動または終了
+            if(param_index == 0)
+            {
+                // 先頭で左の場合はメニューに戻る
+                init = false;
+                running = false;
+                MotorPwmOut(0,0,0,0);
+                ServoPwmOut1(0);
+                ServoPwmOut2(0);
+                GUI_wait(150);
+                return true;
+            }
+            else
+            {
+                // 左へ項目を移動
+                param_index--;
+                GUI_wait(150);
+            }
+            break;
+        case SW_RIGHT:
+            // 右: 項目を右へ移動
+            if(param_index < 2) param_index++;
+            GUI_wait(150);
+            break;
+        case SW_UP:
+            // 上: 選択中の係数を増加
+            if(param_index == 0) pid->kp++;
+            else if(param_index == 1) pid->ki++;
+            else pid->kd++;
+            GUI_wait(120);
+            break;
+        case SW_DOWN:
+            // 下: 選択中の係数を減少
+            if(param_index == 0 && pid->kp > 0) pid->kp--;
+            else if(param_index == 1 && pid->ki > 0) pid->ki--;
+            else if(param_index == 2 && pid->kd > 0) pid->kd--;
+            GUI_wait(120);
+            break;
+        case SW_PUSH:
+            // 押下: 制御の開始/停止を切り替え
+            running = !running;
+            if(!running)
+            {
+                // 停止時は出力をゼロにする
+                MotorPwmOut(0,0,0,0);
+                ServoPwmOut1(0);
+                ServoPwmOut2(0);
+            }
+            GUI_wait(200);
+            break;
+        default:
+            break;
+    }
+
+    if(running)
+    {
+        // 選択されたPID制御を実行
+        if(pid == &lineTraceCtrl)
+        {
+            // ライントレース制御
+            motorControlTrace();
+            ServoPwmOut1(lineTraceCtrl.pwm);
+        }
+        else if(pid == &veloCtrl)
+        {
+            // 速度制御
+            motorControlSpeed();
+            MotorPwmOut(veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm);
+        }
+        else if(pid == &angleCtrl)
+        {
+            // サーボ角度制御
+            motorControlAngle();
+            ServoPwmOut1(angleCtrl.pwm);
+        }
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_ShowPidTuning
+// 処理概要     PID調整メニューを表示し、選択した項目の編集画面を管理する
+// 引数         なし
+// 戻り値       true:編集終了
+///////////////////////////////////////////////////////////////////////////
+bool GUI_ShowPidTuning(void)
+{
+    static bool pid_menu_init = true;
+    const uint8_t *pid_items[] = {
+        "Trace",
+        "Speed",
+        "Servo"
+    };
+
+    if(pid_state == PID_MENU && pid_menu_init)
+    {
+        // メニュー表示時に画面をクリア
+        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
+        pid_menu_init = false;
+    }
+
+    if(pid_state == PID_MENU && pid_sel == 0xff)
+    {
+        // ロータリースイッチで項目を選択
+        pid_sel = GUI_MenuSelect((const char **)pid_items,
+                                 sizeof(pid_items)/sizeof(pid_items[0]));
+    }
+
+    switch(pid_state)
+    {
+        case PID_MENU:
+            if(pid_sel == 0xff)
+            {
+                // メニュー選択待ち
+                pid_sel = GUI_MenuSelect(pid_items,3);
+            }
+            else
+            {
+                // 項目が選択されたので編集モードへ遷移
+                pid_state = PID_EDIT;
+                swValTact = SW_NONE;
+                // 編集画面を初期化
+                SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                     SSD1351_HEIGHT - 1, SSD1351_BLACK);
+            }
+            break;
+        case PID_EDIT:
+        {
+            // 選択されたPIDの編集を実行
+            pidParam *pids[] = {&lineTraceCtrl, &veloCtrl, &angleCtrl};
+            if(GUI_EditPID(pids[pid_sel]))
+            {
+                // 編集終了でメニューに戻る
+                pid_state = PID_MENU;
+                pid_sel = 0xff;
+                pid_menu_init = true;
+            }
+            break;
+        }
         default:
             break;
     }
@@ -822,6 +1029,10 @@ void SetupUpdate(void)
         case 0x2:
             // Sensorページ
             GUI_ShowSensors();
+            break;
+        case 0x3:
+            // PID調整ページ
+            GUI_ShowPidTuning();
             break;
         default:
             break;

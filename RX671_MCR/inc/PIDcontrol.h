@@ -40,6 +40,7 @@ extern float 	targetAngle;    // 目標角度
 
 extern pidParam lineTraceCtrl;
 extern pidParam veloCtrl;
+extern pidParam angleCtrl;
 //====================================//
 // プロトタイプ宣言
 //====================================//

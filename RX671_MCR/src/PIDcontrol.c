@@ -114,12 +114,12 @@ void motorControlSpeed(void)
 	// targetSpeedBefore = targetSpeed; // 前回の目標値を記録
 }
 ///////////////////////////////////////////////////////////////////////////
-// モジュール名 motorControlYaw
-// 処理概要     角速度制御時の制御量の計算
+// モジュール名 motorControlAngle
+// 処理概要     角度制御時の制御量の計算
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void motorControlYaw(void)
+void motorControlAngle(void)
 {
 	// float iP, iI, iD, Dev, Dif;
 	// static float angleBefore;
@@ -128,14 +128,14 @@ void motorControlYaw(void)
 
 	// Dev = (targetAngle - BMI088val.angle.z) * 20; // 目標値-現在値
 	// // I成分積算
-	// yawCtrl.Int += Dev * 0.005;
-	// // 目標値を変更したらI成分リセット
-	// // if ( targetAngle != targetAngleBefore ) yawCtrl.Int = 0;
+        // angleCtrl.Int += Dev * 0.005;
+        // // 目標値を変更したらI成分リセット
+        // // if ( targetAngle != targetAngleBefore ) angleCtrl.Int = 0;
 	// Dif = (Dev - angleBefore) * 1; // dゲイン1/1000倍
 
-	// iP = yawCtrl.kp * Dev;		   // 比例
-	// iI = yawCtrl.ki * yawCtrl.Int; // 積分
-	// iD = yawCtrl.kd * Dif;		   // 微分
+	// iP = angleCtrl.kp * Dev;		   // 比例
+	// iI = angleCtrl.ki * angleCtrl.Int; // 積分
+	// iD = angleCtrl.kd * Dif;		   // 微分
 	// iRet = (int32_t)iP + iI + iD;
 	// iRet = iRet >> 2; // PWMを0～1000近傍に収める
 
@@ -145,7 +145,7 @@ void motorControlYaw(void)
 	// if (iRet < -900)
 	// 	iRet = -900;
 
-	// yawCtrl.pwm = iRet;
+	// angleCtrl.pwm = iRet;
 	// angleBefore = Dev;				 // 次回はこの値が1ms前の値となる
 	// targetAngleBefore = targetAngle; // 前回の目標値を記録
 }
