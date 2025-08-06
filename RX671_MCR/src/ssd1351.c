@@ -455,7 +455,7 @@ static void SSD1351_ftoa(double value, char *buffer, size_t buffer_size, uint8_t
 // 処理概要     SSD1351用の簡易printf
 // 引数         Font:フォントサイズ color:16bitカラーコード
 //              format:フォーマット文字列 ...:書式化する値
-//              ※%fの幅指定は整数部の桁数として扱い、小数点以下と小数点分は自動で確保する
+//              ※幅指定や精度指定は標準のprintfと同様に解釈される
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
@@ -541,21 +541,12 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
                         char tmp[32];
                         SSD1351_ftoa(val, tmp, sizeof(tmp), (uint8_t)precision);
                         size_t n = strnlen(tmp, sizeof(tmp));
-                        if (width > 0)
+                        if (width > 0 && (size_t)width > n)
                         {
-                                size_t required = width;
-                                if (precision > 0)
+                                size_t pad = (size_t)width - n;
+                                while (pad-- && (size_t)(dest - str) < SSD1351_WIDTH)
                                 {
-                                        /* 小数点以下と小数点の分を追加 */
-                                        required += precision + 1;
-                                }
-                                if (required > n)
-                                {
-                                        size_t pad = required - n;
-                                        while (pad-- && (size_t)(dest - str) < SSD1351_WIDTH)
-                                        {
-                                                *dest++ = ' ';
-                                        }
+                                        *dest++ = ' ';
                                 }
                         }
                         if ((size_t)(dest - str) + n > SSD1351_WIDTH)
