@@ -1,0 +1,28 @@
+# build files
+DefaultBuild/
+DepFiles/
+DepFilesTemp/
+DepFilesTmp/
+*.mtud
+HardwareDebug/
+build/
+
+# auto generation files
+trash/
+.metadata/
+output/
+.cache/
+e2studio_project.prefs
+
+# douments
+SmartManual Docs/
+doc/
+資料/
+
+# circuit
+Circuit/jlcpcb/
+Circuit/mcr_MotorDriver Ver.3-backups/
+Circuit/~_autosave*
+
+# smartconfigrator
+#src/smc_gen
