@@ -625,15 +625,19 @@ bool GUI_ShowSensors(void)
 
         case SENSOR_LINE: // ラインセンサ値の表示
             PowerLineSensors(1);
-            SSD1351setCursor(2, MENU_START_Y);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[0], lineSenVal[1], lineSenVal[2]);
-            SSD1351setCursor(2, MENU_START_Y + 12);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[3], lineSenVal[4], lineSenVal[5]);
+			SSD1351setCursor(32, MENU_START_Y);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d",lineSenVal[1], lineSenVal[4]);
+            SSD1351setCursor(14, MENU_START_Y + 12);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[0], lineSenVal[2], lineSenVal[5]);
             SSD1351setCursor(2, MENU_START_Y + 24);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Gate : %4d", lineSenVal[6]);
+			SSD1351setCursor(2, MENU_START_Y + 36);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Spare: %4d", lineSenVal[3]);
+
             if(swValTact == SW_PUSH)
             {
                 // PUSHでメニューへ戻る
+				PowerLineSensors(0);
                 GUI_wait(150);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;

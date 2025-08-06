@@ -643,7 +643,7 @@
             <Setting id="ANx02_Sampling" value="4"/>
             <Setting id="CMPAChk" value="Unuse"/>
             <Setting id="ANx05_CMPALEVEL" value="Ref0Larger"/>
-            <Setting id="Autoclean" value="EnAutoclean"/>
+            <Setting id="Autoclean" value="DisAutoclean"/>
             <Setting id="ANx07_Add" value="Use"/>
             <Setting id="WDFuntion" value="WDFUnuse"/>
             <Setting id="DDcharge" value="Unused"/>
