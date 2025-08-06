@@ -400,7 +400,11 @@ void SSD1351setCursor(uint8_t x, uint8_t y)
         SSD1351.CurrentY = y;
 }
 /////////////////////////////////////////////////////////////////////
-// 文字列変換: 簡易浮動小数点→文字列
+// モジュール名 SSD1351_ftoa
+// 処理概要     簡易浮動小数点を文字列に変換する
+// 引数         value:変換する値 buffer:出力先バッファ
+//              buffer_size:バッファサイズ precision:小数点以下桁数
+// 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 static void SSD1351_ftoa(double value, char *buffer, size_t buffer_size, uint8_t precision)
 {
@@ -449,6 +453,7 @@ static void SSD1351_ftoa(double value, char *buffer, size_t buffer_size, uint8_t
 // モジュール名 SSD1351printf
 // 処理概要     SSD1351用の簡易printf
 // 引数         Font:フォントサイズ color:16bitカラーコード
+//              format:フォーマット文字列 ...:書式化する値
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
