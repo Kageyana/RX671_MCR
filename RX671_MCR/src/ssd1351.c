@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <ctype.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -395,25 +396,152 @@ uint8_t SSD1351writeString(uint8_t *str, FontDef Font, uint16_t color)
 ////////////////////////////////////////////////////////////////////
 void SSD1351setCursor(uint8_t x, uint8_t y)
 {
-	SSD1351.CurrentX = x;
-	SSD1351.CurrentY = y;
+        SSD1351.CurrentX = x;
+        SSD1351.CurrentY = y;
+}
+/////////////////////////////////////////////////////////////////////
+// 文字列変換: 簡易浮動小数点→文字列
+////////////////////////////////////////////////////////////////////
+static void SSD1351_ftoa(double value, char *buffer, size_t buffer_size, uint8_t precision)
+{
+        if (precision > 6)
+        {
+                precision = 6;
+        }
+        if (buffer_size == 0)
+        {
+                return;
+        }
+
+        char *p = buffer;
+
+        if (value < 0.0)
+        {
+                *p++ = '-';
+                value = -value;
+        }
+
+        int int_part = (int)value;
+        double frac = value - (double)int_part;
+        size_t remain = buffer_size - (p - buffer);
+        int n = snprintf(p, remain, "%d", int_part);
+        if (n < 0)
+        {
+                buffer[0] = '\0';
+                return;
+        }
+        p += n;
+        if (precision > 0 && (size_t)(p - buffer) < buffer_size - 1)
+        {
+                *p++ = '.';
+                for (uint8_t i = 0; i < precision && (size_t)(p - buffer) < buffer_size - 1; i++)
+                {
+                        frac *= 10.0;
+                        int digit = (int)frac;
+                        *p++ = (char)('0' + digit);
+                        frac -= digit;
+                }
+        }
+
+        *p = '\0';
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351printf
-// 処理概要     SSD1351用のprintf
+// 処理概要     SSD1351用の簡易printf
 // 引数         Font:フォントサイズ color:16bitカラーコード
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
 {
         va_list argptr;
-        uint8_t str[SSD1351_WIDTH + 1];
-
         va_start(argptr, format);
-        vsnprintf((char *)str, sizeof(str), (const char *)format, argptr);
+
+        char str[SSD1351_WIDTH + 1];
+        char *dest = str;
+        const char *fmt = (const char *)format;
+
+        while (*fmt && (size_t)(dest - str) < SSD1351_WIDTH)
+        {
+                if (*fmt != '%')
+                {
+                        *dest++ = *fmt++;
+                        continue;
+                }
+
+                fmt++;
+                int precision = 2;
+                if (*fmt == '.')
+                {
+                        fmt++;
+                        precision = 0;
+                        while (isdigit((unsigned char)*fmt))
+                        {
+                                precision = precision * 10 + (*fmt - '0');
+                                fmt++;
+                        }
+                }
+
+                switch (*fmt)
+                {
+                case 'd':
+                {
+                        int val = va_arg(argptr, int);
+                        size_t remain = sizeof(str) - (size_t)(dest - str);
+                        int n = snprintf(dest, remain, "%d", val);
+                        if (n > 0)
+                        {
+                                dest += n;
+                        }
+                        break;
+                }
+                case 'x':
+                {
+                        int val = va_arg(argptr, int);
+                        size_t remain = sizeof(str) - (size_t)(dest - str);
+                        int n = snprintf(dest, remain, "%x", val);
+                        if (n > 0)
+                        {
+                                dest += n;
+                        }
+                        break;
+                }
+                case 's':
+                {
+                        const char *s = va_arg(argptr, const char *);
+                        while (*s && (size_t)(dest - str) < SSD1351_WIDTH)
+                        {
+                                *dest++ = *s++;
+                        }
+                        break;
+                }
+                case 'f':
+                {
+                        double val = va_arg(argptr, double);
+                        char tmp[32];
+                        SSD1351_ftoa(val, tmp, sizeof(tmp), (uint8_t)precision);
+                        size_t n = strnlen(tmp, sizeof(tmp));
+                        if ((size_t)(dest - str) + n > SSD1351_WIDTH)
+                        {
+                                n = SSD1351_WIDTH - (size_t)(dest - str);
+                        }
+                        memcpy(dest, tmp, n);
+                        dest += n;
+                        break;
+                }
+                case '%':
+                        *dest++ = '%';
+                        break;
+                default:
+                        *dest++ = *fmt;
+                        break;
+                }
+                fmt++;
+        }
+
+        *dest = '\0';
         va_end(argptr);
 
-        SSD1351writeString(str, Font, color);
+        SSD1351writeString((uint8_t *)str, Font, color);
 }
 /////////////////////////////////////////////////////////////////////
 // モジュール名 SSD1351setDisplayOn
