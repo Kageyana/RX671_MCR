@@ -23,6 +23,16 @@ typedef enum {
 static SensorState sensor_state = SENSOR_MENU;
 static uint8_t     sensor_sel   = 0xff;
 
+typedef enum {
+    DISP_MENU,     // トップメニュー
+    DISP_CONTRAST, // コントラスト設定
+    DISP_INVERSE,  // 反転表示設定
+    DISP_QR        // QRコード表示
+} DisplayState;
+
+static DisplayState display_state = DISP_MENU; // ディスプレイ設定ページの状態
+static uint8_t      display_sel   = 0xff;      // メニュー選択結果
+
 typedef struct {
     const uint8_t **items; // メニュー項目配列へのポインタ
     uint8_t         top;   // 表示オフセット
@@ -36,15 +46,6 @@ static const uint8_t *menu1_items[] = {
     "SETTINGS"
 };
 
-// Display 設定ページのメニュー項目
-static const uint8_t *menu2_items[] = {
-    "Contrast",
-    "Inverse ",
-    "QR code "
-};
-
-// SETTINGS ページ用のメニュー選択変数
-static uint8_t sel = 0xff;
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_wait
 // 処理概要     指定ミリ秒だけ待機する
@@ -410,6 +411,97 @@ bool GUI_ShowQRcode(void)
     }
     return false;
 }
+
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 GUI_ShowDisplaySetting
+// 処理概要     ディスプレイ設定ページの処理
+// 引数         なし
+// 戻り値       true:ページ終了
+///////////////////////////////////////////////////////////////////////////
+bool GUI_ShowDisplaySetting(void)
+{
+    static bool disp_menu_init = true; // 初期描画の有無
+    const uint8_t *disp_items[] = {
+        "Contrast",
+        "Inverse ",
+        "QR code "
+    };
+
+    // 初回のみメニュー領域をクリア
+    if(display_state == DISP_MENU && disp_menu_init)
+    {
+        SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                             SSD1351_HEIGHT - 1, SSD1351_BLACK);
+        disp_menu_init = false;
+    }
+
+    // メニュー選択が未確定なら入力を待つ
+    if(display_state == DISP_MENU && display_sel == 0xff)
+    {
+        display_sel = GUI_MenuSelect(disp_items, 3);
+    }
+
+    switch(display_state)
+    {
+        case DISP_MENU: // 設定項目の選択
+            if(display_sel == 0xff)
+            {
+                display_sel = GUI_MenuSelect(disp_items, 3);
+            }
+            else
+            {
+                // 選択結果に応じてサブメニューへ遷移
+                switch(display_sel)
+                {
+                    case 0: display_state = DISP_CONTRAST; break; // コントラスト設定
+                    case 1: display_state = DISP_INVERSE;  break; // 色反転設定
+                    case 2: display_state = DISP_QR;       break; // QRコード表示
+                    default: break;
+                }
+                if(display_state != DISP_MENU)
+                {
+                    // サブメニュー遷移時は入力と選択状態をリセット
+                    swValTact   = SW_NONE;
+                    display_sel = 0xff;
+                    SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
+                                         SSD1351_HEIGHT - 1, SSD1351_BLACK);
+                }
+            }
+            break;
+
+        case DISP_CONTRAST: // コントラスト調整処理
+            if(GUI_EditContrast())
+            {
+                display_state  = DISP_MENU;
+                display_sel    = 0xff;
+                disp_menu_init = true; // メニュー再描画
+            }
+            break;
+
+        case DISP_INVERSE: // 画面反転のON/OFF処理
+            if(GUI_DisplayInverse())
+            {
+                display_state  = DISP_MENU;
+                display_sel    = 0xff;
+                disp_menu_init = true;
+            }
+            break;
+
+        case DISP_QR: // QRコード表示処理
+            if(GUI_ShowQRcode())
+            {
+                display_state  = DISP_MENU;
+                display_sel    = 0xff;
+                disp_menu_init = true;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    return false;
+}
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_ShowSensors
 // 処理概要     センサ値をメニューで選択して個別表示する
@@ -418,7 +510,9 @@ bool GUI_ShowQRcode(void)
 ///////////////////////////////////////////////////////////////////////////
 bool GUI_ShowSensors(void)
 {
+    // センサページのメニュー初期化フラグ
     static bool sensor_menu_init = true;
+    // センサページで表示するメニュー項目
     const uint8_t *sensor_items[] = {
         "Battery ",
         "IMU     ",
@@ -427,6 +521,7 @@ bool GUI_ShowSensors(void)
         "Motor   "
     };
 
+    // メニュー表示状態で初回のみ表示領域をクリア
     if(sensor_state == SENSOR_MENU && sensor_menu_init)
     {
         SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
@@ -434,44 +529,36 @@ bool GUI_ShowSensors(void)
         sensor_menu_init = false;
     }
 
+    // センサー項目未選択時はメニュー選択処理を実行
     if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
     {
         sensor_sel = GUI_MenuSelect(sensor_items, 5);
     }
 
+    // 状態に応じて各センサページを制御
     switch(sensor_state)
     {
-        case SENSOR_MENU:
+        case SENSOR_MENU: // センサー種別を選択するメニュー表示
             if(sensor_sel == 0xff)
             {
+                // 選択値未決定時はメニュー操作を継続
                 sensor_sel = GUI_MenuSelect(sensor_items, 5);
             }
             else
             {
+                // 選択されたセンサーのページへ遷移
                 switch(sensor_sel)
                 {
-                    case 0:
-                        sensor_state = SENSOR_BAT;
-                        break;
-                    case 1:
-                        sensor_state = SENSOR_IMU;
-                        break;
-                    case 2:
-                        sensor_state = SENSOR_ENC;
-                        break;
-                    case 3:
-                        sensor_state = SENSOR_LINE;
-                        break;
-                    case 4:
-                        sensor_state = SENSOR_MOTOR;
-                        break;
-                    default:
-                        break;
+                    case 0: sensor_state = SENSOR_BAT;   break;
+                    case 1: sensor_state = SENSOR_IMU;   break;
+                    case 2: sensor_state = SENSOR_ENC;   break;
+                    case 3: sensor_state = SENSOR_LINE;  break;
+                    case 4: sensor_state = SENSOR_MOTOR; break;
+                    default: break;
                 }
                 if(sensor_state != SENSOR_MENU)
                 {
-                    // メニューから各センサページへ移行した直後に
-                    // 押下状態が残らないようスイッチ入力をクリア
+                    // 押下状態を残さず各ページの描画領域をクリア
                     swValTact = SW_NONE;
                     sensor_sel = 0xff;
                     SSD1351fillRectangle(0, MENU_START_Y, SSD1351_WIDTH - 1,
@@ -480,12 +567,13 @@ bool GUI_ShowSensors(void)
             }
             break;
 
-        case SENSOR_BAT:
+        case SENSOR_BAT: // バッテリー電圧の表示
             GetBatteryVoltage();
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4dV",(int16_t)batteryVoltage);
             if(swValTact == SW_PUSH)
             {
+                // PUSHでメニューへ戻る
                 GUI_wait(150);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
@@ -493,7 +581,7 @@ bool GUI_ShowSensors(void)
             }
             break;
 
-        case SENSOR_IMU:
+        case SENSOR_IMU: // IMU角度・加速度の表示
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG");
             SSD1351setCursor(2, MENU_START_Y + 12);
@@ -514,6 +602,7 @@ bool GUI_ShowSensors(void)
             SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Z:%4d",(int16_t)BMI088val.accele.z);
             if(swValTact == SW_PUSH)
             {
+                // PUSHでメニューへ戻る
                 GUI_wait(150);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
@@ -521,11 +610,12 @@ bool GUI_ShowSensors(void)
             }
             break;
 
-        case SENSOR_ENC:
+        case SENSOR_ENC: // エンコーダカウントの表示
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
             if(swValTact == SW_PUSH)
             {
+                // PUSHでメニューへ戻る
                 GUI_wait(150);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
@@ -533,7 +623,7 @@ bool GUI_ShowSensors(void)
             }
             break;
 
-        case SENSOR_LINE:
+        case SENSOR_LINE: // ラインセンサ値の表示
             PowerLineSensors(1);
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d %4d %4d",lineSenVal[0], lineSenVal[1], lineSenVal[2]);
@@ -543,6 +633,7 @@ bool GUI_ShowSensors(void)
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%4d", lineSenVal[6]);
             if(swValTact == SW_PUSH)
             {
+                // PUSHでメニューへ戻る
                 GUI_wait(150);
                 sensor_state = SENSOR_MENU;
                 sensor_sel   = 0xff;
@@ -550,11 +641,15 @@ bool GUI_ShowSensors(void)
             }
             break;
 
-        case SENSOR_MOTOR:
-		{
-            static uint8_t  motor_sel  = 0;   // 選択中のモーター/サーボ
-            static int16_t  motor_duty = 0;   // 出力デューティ
-            static bool     motor_run  = false; // 回転中フラグ
+        case SENSOR_MOTOR: // モーター・サーボの出力テスト
+                {
+            // 選択中のモーター/サーボ
+            static uint8_t  motor_sel  = 0;
+            // 出力デューティ（-1000〜1000）
+            static int16_t  motor_duty = 0;
+            // 実行中かどうか
+            static bool     motor_run  = false;
+            // モーター/サーボ名一覧
             const uint8_t *motor_items[] = {
                 "MotorFrontLeft ",
                 "MotorFrontRight",
@@ -564,6 +659,7 @@ bool GUI_ShowSensors(void)
                 "ServoRear      "
             };
 
+            // スイッチ操作でデューティや対象を変更
             switch(swValTact)
             {
                 case SW_UP: // デューティ増加
@@ -612,11 +708,13 @@ bool GUI_ShowSensors(void)
                     break;
             }
 
+            // メニューへ戻った場合は表示更新せず抜ける
             if(sensor_state != SENSOR_MOTOR)
             {
                 break;
             }
 
+            // 現在の選択情報と電流値を表示
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)motor_items[motor_sel]);
             SSD1351setCursor(2, MENU_START_Y + 12);
@@ -640,6 +738,7 @@ bool GUI_ShowSensors(void)
 
             if(motor_run)
             {
+                // 選択したモーター/サーボへデューティを出力
                 switch(motor_sel)
                 {
                     case 0: MotorPwmOut(motor_duty, 0, 0, 0); break;
@@ -653,12 +752,13 @@ bool GUI_ShowSensors(void)
             }
             else
             {
+                // 停止時は全出力をオフ
                 MotorPwmOut(0,0,0,0);
                 ServoPwmOut1(0);
                 ServoPwmOut2(0);
             }
-        	break;
-		}
+            break;
+        }
     }
 
     return false;
@@ -677,7 +777,9 @@ void SetupUpdate(void)
         SSD1351fill(SSD1351_BLACK);
         currentPage = swValRotary;
         GUI_ShowStatusBar(currentPage);
-        sel = 0xff;
+        // ページ切替時は表示設定ページの状態を初期化
+        display_state = DISP_MENU;
+        display_sel   = 0xff;
     }
 
     // ページ表示
@@ -689,30 +791,7 @@ void SetupUpdate(void)
             break;
         case 0x1:
             // Display settingページ
-            switch (sel) {
-                case 0:
-                    if(GUI_EditContrast())
-                    {
-                        sel = 0xff; // メニュー選択をリセット
-                    }
-                    break;
-                case 1:
-                    if(GUI_DisplayInverse())
-                    {
-                        sel = 0xff; // メニュー選択をリセット
-                    }
-                    break;
-                case 2:
-                    if(GUI_ShowQRcode())
-                    {
-                        sel = 0xff; // メニュー選択をリセット
-                    }
-                    break;
-                default:
-                    sel = GUI_MenuSelect((const char **)menu2_items,
-                                         sizeof(menu2_items)/sizeof(menu2_items[0]));
-                    break;
-            }
+            GUI_ShowDisplaySetting();
             break;
         case 0x2:
             // Sensorページ
