@@ -11,7 +11,7 @@
 // シンボル定義
 //====================================//
 #define SERVO_CENTER	2045	// サーボセンターのAD値
-#define SERVO_LIMIT		1500	// サーボリミットAD値±
+#define SERVO_LIMIT		1400	// サーボリミットAD値±
 #define TGR_MOTOR		3598	// ジェネラルレジスタ初期値(駆動モータ) TGRA初期値-1
 #define TGR_SERVO		3598	// ジェネラルレジスタ初期値(サーボ)	 TGRA初期値-1
 /*************************** 自動生成関数 **************************/
@@ -70,6 +70,8 @@ extern uint16_t servoCurrentR;	// 後ろサーボ電流値
 
 extern uint16_t potFrontVal;	// 前ポテンショメータの値
 extern uint16_t potRearVal;		// 後ポテンショメータの値
+
+extern uint16_t	Angle0;			// サーボセンター値
 //====================================//
 // プロトタイプ宣言
 //====================================//
@@ -79,5 +81,5 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 				, int16_t accelerL, int16_t accelerR );
 void ServoPwmOut1( int16_t servopwm );
 void ServoPwmOut2( int16_t servopwm );
-
+int16_t getServoAngle(void);
 #endif // MOTOR_H_

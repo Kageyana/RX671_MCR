@@ -12,12 +12,13 @@ uint8_t currentPage = 127; // 初期値は127(未設定)
 volatile uint32_t cntGUI; // GUI用カウンタ
 
 typedef enum {
-    SENSOR_MENU, // トップメニュー
-    SENSOR_BAT,  // バッテリー電圧表示
-    SENSOR_IMU,  // IMUの角度・温度・加速度表示
-    SENSOR_ENC,  // エンコーダ値表示
-    SENSOR_LINE, // ラインセンサ値表示
-    SENSOR_MOTOR // モーター動作確認
+    SENSOR_MENU,	// トップメニュー
+    SENSOR_BAT,		// バッテリー電圧表示
+    SENSOR_IMU,		// IMUの角度・温度・加速度表示
+    SENSOR_ENC,		// エンコーダ値表示
+	SENSOR_POT, 	// ポテンショメータ値表示
+    SENSOR_LINE,	// ラインセンサ値表示
+    SENSOR_MOTOR	// モーター動作確認
 } SensorState;
 
 static SensorState sensor_state = SENSOR_MENU;
@@ -438,7 +439,8 @@ bool GUI_ShowDisplaySetting(void)
     // メニュー選択が未確定なら入力を待つ
     if(display_state == DISP_MENU && display_sel == 0xff)
     {
-        display_sel = GUI_MenuSelect(disp_items, 3);
+        display_sel = GUI_MenuSelect((const char **)disp_items,
+									 sizeof(disp_items)/sizeof(disp_items[0]));
     }
 
     switch(display_state)
@@ -517,6 +519,7 @@ bool GUI_ShowSensors(void)
         "Battery ",
         "IMU     ",
         "Encoder ",
+		"Potentiometer",
         "Line    ",
         "Motor   "
     };
@@ -532,7 +535,8 @@ bool GUI_ShowSensors(void)
     // センサー項目未選択時はメニュー選択処理を実行
     if(sensor_state == SENSOR_MENU && sensor_sel == 0xff)
     {
-        sensor_sel = GUI_MenuSelect(sensor_items, 5);
+        sensor_sel = GUI_MenuSelect((const char **)sensor_items,
+									sizeof(sensor_items)/sizeof(sensor_items[0]));
     }
 
     // 状態に応じて各センサページを制御
@@ -552,8 +556,9 @@ bool GUI_ShowSensors(void)
                     case 0: sensor_state = SENSOR_BAT;   break;
                     case 1: sensor_state = SENSOR_IMU;   break;
                     case 2: sensor_state = SENSOR_ENC;   break;
-                    case 3: sensor_state = SENSOR_LINE;  break;
-                    case 4: sensor_state = SENSOR_MOTOR; break;
+					case 3: sensor_state = SENSOR_POT;   break;
+                    case 4: sensor_state = SENSOR_LINE;  break;
+                    case 5: sensor_state = SENSOR_MOTOR; break;
                     default: break;
                 }
                 if(sensor_state != SENSOR_MENU)
@@ -613,6 +618,25 @@ bool GUI_ShowSensors(void)
         case SENSOR_ENC: // エンコーダカウントの表示
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%7d", encTotal);
+            if(swValTact == SW_PUSH)
+            {
+                // PUSHでメニューへ戻る
+                GUI_wait(150);
+                sensor_state = SENSOR_MENU;
+                sensor_sel   = 0xff;
+                sensor_menu_init = true;
+            }
+            break;
+
+		case SENSOR_POT: // ポテンショメータ値の表示
+            SSD1351setCursor(2, MENU_START_Y);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Front:%4d", potFrontVal);
+			SSD1351setCursor(2, MENU_START_Y + 12);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Rear :%4d", potRearVal);
+			SSD1351setCursor(2, MENU_START_Y + 24);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ServoAngle:%5d", getServoAngle());
+			SSD1351setCursor(2, MENU_START_Y + 36);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Angle0:%4d", Angle0);
             if(swValTact == SW_PUSH)
             {
                 // PUSHでメニューへ戻る
@@ -777,7 +801,8 @@ void SetupUpdate(void)
     {
         SSD1351fill(SSD1351_BLACK);
         currentPage = swValRotary;
-        GUI_ShowStatusBar(currentPage);
+		GetBatteryVoltage();			// バッテリー電圧を取得
+        GUI_ShowStatusBar(currentPage);	// ステータスバーを更新
         // ページ切替時は表示設定ページの状態を初期化
         display_state = DISP_MENU;
         display_sel   = 0xff;

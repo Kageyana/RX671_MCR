@@ -1584,7 +1584,7 @@
                     <item id="Right" input="" vlaue="0"/>
                     <item id="Left" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="Autoclean" selection="EnAutoclean">
+                <option enabled="true" id="Autoclean" selection="DisAutoclean">
                     <item id="DisAutoclean" input="" vlaue="0"/>
                     <item id="EnAutoclean" input="" vlaue="0"/>
                 </option>

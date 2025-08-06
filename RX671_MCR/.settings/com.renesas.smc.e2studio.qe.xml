@@ -738,7 +738,7 @@
             <Setting id="ANx05_CMPALEVEL" value="Ref0Larger"/>
             <Setting id="Temperature_Add" value="Unuse"/>
             <Setting id="Internal_Sampling" value="5"/>
-            <Setting id="Autoclean" value="EnAutoclean"/>
+            <Setting id="Autoclean" value="DisAutoclean"/>
             <Setting id="ANx07_Add" value="Use"/>
             <Setting id="WDFuntion" value="WDFUnuse"/>
             <Setting id="ANx11_CMPALEVEL" value="Ref0Larger"/>

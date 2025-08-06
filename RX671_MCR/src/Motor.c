@@ -24,12 +24,13 @@ uint16_t motorCurrentFL;	// 左前モーター電流値
 uint16_t motorCurrentFR;	// 右前モーター電流値
 uint16_t motorCurrentRL;	// 左後モーター電流値
 uint16_t motorCurrentRR;	// 右後モーター電流値
-uint16_t servoCurrentF;	// 前サーボ電流値
-uint16_t servoCurrentR;	// 後ろサーボ電流値
+uint16_t servoCurrentF;		// 前サーボ電流値
+uint16_t servoCurrentR;		// 後ろサーボ電流値
 
 // ポテンショメータ値
-uint16_t potFrontVal;	// 前ポテンショメータの値
-uint16_t potRearVal;		// 後ポテンショメータの値
+uint16_t potFrontVal;			// 前ポテンショメータの値
+uint16_t potRearVal;			// 後ポテンショメータの値
+uint16_t Angle0 = SERVO_CENTER;	// サーボセンター値
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 InitMotor
 // 処理概要     モーターPWMの初期化
@@ -51,11 +52,11 @@ void InitMotor(void)
 void GetMotorADVal(void)
 {
 	GET_MOTORCURRENT_FL_VAL;	// 左前モーター電流値の取得
-	GET_MOTORCURRENT_FR_VAL;        // 右前モーター電流値の取得
+	GET_MOTORCURRENT_FR_VAL;	// 右前モーター電流値の取得
 	GET_MOTORCURRENT_RL_VAL;	// 左後モーター電流値の取得
-	GET_MOTORCURRENT_RR_VAL;        // 右後モーター電流値の取得
-        GET_SERVO_CURRENT_F_VAL;        // 前サーボ電流値の取得
-        GET_SERVO_CURRENT_R_VAL;        // 後サーボ電流値の取得
+	GET_MOTORCURRENT_RR_VAL;	// 右後モーター電流値の取得
+    GET_SERVO_CURRENT_F_VAL;	// 前サーボ電流値の取得
+    GET_SERVO_CURRENT_R_VAL;	// 後サーボ電流値の取得
 
 	GET_POT_FRONT_VAL;	// 前ポテンションメーター値の取得
 	GET_POT_REAR_VAL;	// 後ポテンションメーター値の取得
@@ -185,4 +186,14 @@ void ServoPwmOut2( int16_t servopwm )
 	MTU.TRWERA.BIT.RWE = 1U; // MTUレジスタの読み書きを許可
 	PWM_LANCER_OUT = pwm;
 	MTU.TRWERA.BIT.RWE = 0U; // MTUレジスタの読み書きを許可
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 getAnalogSensor
+// 処理概要     アナログセンサのアナログ値で取得
+// 引数         なし
+// 戻り値       センサ値
+/////////////////////////////////////////////////////////////////////
+int16_t getServoAngle(void)
+{
+	return  ( Angle0 - potFrontVal );
 }
