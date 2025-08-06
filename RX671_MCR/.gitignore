@@ -12,6 +12,7 @@ trash/
 .metadata/
 output/
 .cache/
+e2studio_project.prefs
 
 # douments
 SmartManual Docs/
