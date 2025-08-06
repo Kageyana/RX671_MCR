@@ -7,6 +7,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdarg.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -474,6 +475,12 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
                 }
 
                 fmt++;
+                int width = 0;
+                while (isdigit((unsigned char)*fmt))
+                {
+                        width = width * 10 + (*fmt - '0');
+                        fmt++;
+                }
                 int precision = 2;
                 if (*fmt == '.')
                 {
@@ -492,7 +499,11 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
                 {
                         int val = va_arg(argptr, int);
                         size_t remain = sizeof(str) - (size_t)(dest - str);
-                        int n = snprintf(dest, remain, "%d", val);
+                        int n;
+                        if (width > 0)
+                                n = snprintf(dest, remain, "%*d", width, val);
+                        else
+                                n = snprintf(dest, remain, "%d", val);
                         if (n > 0)
                         {
                                 dest += n;
@@ -503,7 +514,11 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
                 {
                         int val = va_arg(argptr, int);
                         size_t remain = sizeof(str) - (size_t)(dest - str);
-                        int n = snprintf(dest, remain, "%x", val);
+                        int n;
+                        if (width > 0)
+                                n = snprintf(dest, remain, "%*x", width, val);
+                        else
+                                n = snprintf(dest, remain, "%x", val);
                         if (n > 0)
                         {
                                 dest += n;
@@ -525,6 +540,14 @@ void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)
                         char tmp[32];
                         SSD1351_ftoa(val, tmp, sizeof(tmp), (uint8_t)precision);
                         size_t n = strnlen(tmp, sizeof(tmp));
+                        if (width > 0 && (size_t)width > n)
+                        {
+                                size_t pad = width - n;
+                                while (pad-- && (size_t)(dest - str) < SSD1351_WIDTH)
+                                {
+                                        *dest++ = ' ';
+                                }
+                        }
                         if ((size_t)(dest - str) + n > SSD1351_WIDTH)
                         {
                                 n = SSD1351_WIDTH - (size_t)(dest - str);
