@@ -4,7 +4,7 @@
 #include "setup.h"
 
 // 他ファイルで定義されている現在のページ番号
-extern uint8_t currentPage;
+uint8_t currentPage = 127; // 初期値は127(未設定)
 
 //====================================//
 // グローバル変数の宣言
