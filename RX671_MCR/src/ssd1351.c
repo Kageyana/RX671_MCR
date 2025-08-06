@@ -455,7 +455,6 @@ static void SSD1351_ftoa(double value, char *buffer, size_t buffer_size, uint8_t
 // 処理概要     SSD1351用の簡易printf
 // 引数         Font:フォントサイズ color:16bitカラーコード
 //              format:フォーマット文字列 ...:書式化する値
-//              ※幅指定や精度指定は標準のprintfと同様に解釈される
 // 戻り値       なし
 ////////////////////////////////////////////////////////////////////
 void SSD1351printf(FontDef Font, uint16_t color, uint8_t *format, ...)

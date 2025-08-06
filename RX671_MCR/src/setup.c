@@ -483,7 +483,7 @@ bool GUI_ShowSensors(void)
         case SENSOR_BAT:
             GetBatteryVoltage();
             SSD1351setCursor(2, MENU_START_Y);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4dV",(int16_t)batteryVoltage);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"BAT:%4.1fV",batteryVoltage);
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
@@ -497,21 +497,21 @@ bool GUI_ShowSensors(void)
             SSD1351setCursor(2, MENU_START_Y);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ANG");
             SSD1351setCursor(2, MENU_START_Y + 12);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"X:%4d",(int16_t)BMI088val.angle.x);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"X:%5.1f",BMI088val.angle.x);
             SSD1351setCursor(2, MENU_START_Y + 24);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Y:%4d",(int16_t)BMI088val.angle.y);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Y:%5.1f",BMI088val.angle.y);
             SSD1351setCursor(2, MENU_START_Y + 36);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Z:%4d",(int16_t)BMI088val.angle.z);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Z:%5.1f",BMI088val.angle.z);
             SSD1351setCursor(2, MENU_START_Y + 48);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"TEMP:%4d",(int16_t)BMI088val.temp);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"TEMP:%5.1f",BMI088val.temp);
             SSD1351setCursor(2, MENU_START_Y + 60);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ACC");
             SSD1351setCursor(2, MENU_START_Y + 72);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"X:%4d",(int16_t)BMI088val.accele.x);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"X:%5.1f",BMI088val.accele.x);
             SSD1351setCursor(2, MENU_START_Y + 84);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Y:%4d",(int16_t)BMI088val.accele.y);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Y:%5.1f",BMI088val.accele.y);
             SSD1351setCursor(2, MENU_START_Y + 96);
-            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Z:%4d",(int16_t)BMI088val.accele.z);
+            SSD1351printf(Font_7x10, SSD1351_WHITE,(uint8_t*)"Z:%5.1f",BMI088val.accele.z);
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
@@ -523,7 +523,7 @@ bool GUI_ShowSensors(void)
 
         case SENSOR_ENC:
             SSD1351setCursor(2, MENU_START_Y);
-            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%ld", encTotal);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"ENC:%7d", encTotal);
             if(swValTact == SW_PUSH)
             {
                 GUI_wait(150);
