@@ -642,13 +642,10 @@ bool GUI_ShowSensors(void)
             break;
 
         case SENSOR_MOTOR: // モーター・サーボの出力テスト
-                {
-            // 選択中のモーター/サーボ
-            static uint8_t  motor_sel  = 0;
-            // 出力デューティ（-1000〜1000）
-            static int16_t  motor_duty = 0;
-            // 実行中かどうか
-            static bool     motor_run  = false;
+		{
+            static uint8_t  motor_sel  = 0;		// 選択中のモーター/サーボ
+            static int16_t  motor_duty = 0;		// 出力デューティ（-1000〜1000）
+            static bool     motor_run  = false;	// 実行中かどうか
             // モーター/サーボ名一覧
             const uint8_t *motor_items[] = {
                 "MotorFrontLeft ",
