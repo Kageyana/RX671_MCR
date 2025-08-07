@@ -349,7 +349,9 @@ static void GUI_EditPIDk(const uint8_t *label, int16_t value, uint8_t x, bool se
 {
     uint16_t color = selected ? SSD1351_YELLOW : SSD1351_WHITE;
     SSD1351setCursor(x, MENU_START_Y + 12);
-    SSD1351printf(Font_7x10, color, (uint8_t*)"%s:%4d", label, value);
+    SSD1351printf(Font_7x10, color, (uint8_t*)"%s", label);
+	SSD1351setCursor(x, MENU_START_Y + 24);
+    SSD1351printf(Font_7x10, color, (uint8_t*)"%4d",value);
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_EditPID
@@ -381,9 +383,12 @@ static bool GUI_EditPID(pidParam *pid)
     GUI_EditPIDk((uint8_t*)"KD", pid->kd, 82, param_index == 2);
 
     // PID出力値を表示（制御中は色付け）
-    SSD1351setCursor(2, MENU_START_Y + 24);
+    SSD1351setCursor(2, MENU_START_Y + 36);
     SSD1351printf(Font_7x10, running ? SSD1351_GREEN : SSD1351_WHITE,
                   (uint8_t*)"OUT:%4d", pid->pwm);
+
+	SSD1351setCursor(2, MENU_START_Y + 48);
+	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%5d", getAnalogSensor());
 
     switch(swValTact)
     {
@@ -432,6 +437,7 @@ static bool GUI_EditPID(pidParam *pid)
             if(!running)
             {
                 // 停止時は出力をゼロにする
+				PowerLineSensors(0);
                 MotorPwmOut(0,0,0,0);
                 ServoPwmOut1(0);
                 ServoPwmOut2(0);
@@ -448,19 +454,21 @@ static bool GUI_EditPID(pidParam *pid)
         if(pid == &lineTraceCtrl)
         {
             // ライントレース制御
-            motorControlTrace();
+            // motorControlTrace();
+			PowerLineSensors(1);
             ServoPwmOut1(lineTraceCtrl.pwm);
         }
         else if(pid == &veloCtrl)
         {
             // 速度制御
-            motorControlSpeed();
+            // motorControlSpeed();
+			setTargetSpeed(0.0);
             MotorPwmOut(veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm);
         }
         else if(pid == &angleCtrl)
         {
             // サーボ角度制御
-            motorControlAngle();
+            // motorControlAngle();
             ServoPwmOut1(angleCtrl.pwm);
         }
     }
