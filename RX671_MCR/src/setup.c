@@ -351,7 +351,7 @@ static void GUI_EditPIDk(const uint8_t *label, int16_t value, uint8_t x, bool se
     SSD1351setCursor(x, MENU_START_Y + 12);
     SSD1351printf(Font_7x10, color, (uint8_t*)"%s", label);
 	SSD1351setCursor(x, MENU_START_Y + 24);
-    SSD1351printf(Font_7x10, color, (uint8_t*)"%4d",value);
+    SSD1351printf(Font_7x10, color, (uint8_t*)"%3d",value);
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 GUI_EditPID
@@ -454,21 +454,18 @@ static bool GUI_EditPID(pidParam *pid)
         if(pid == &lineTraceCtrl)
         {
             // ライントレース制御
-            // motorControlTrace();
 			PowerLineSensors(1);
             ServoPwmOut1(lineTraceCtrl.pwm);
         }
         else if(pid == &veloCtrl)
         {
             // 速度制御
-            // motorControlSpeed();
 			setTargetSpeed(0.0);
             MotorPwmOut(veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm);
         }
         else if(pid == &angleCtrl)
         {
             // サーボ角度制御
-            // motorControlAngle();
             ServoPwmOut1(angleCtrl.pwm);
         }
     }
