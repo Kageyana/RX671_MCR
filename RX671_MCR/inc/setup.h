@@ -11,6 +11,7 @@
 #include "linesensor.h"
 #include "Motor.h"
 #include "encoder.h"
+#include "PIDcontrol.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -41,6 +42,7 @@ bool GUI_DisplayInverse(void);
 bool GUI_ShowQRcode(void);
 bool GUI_ShowDisplaySetting(void);
 bool GUI_ShowSensors(void);
+bool GUI_ShowPidTuning(void);
 void SetupUpdate(void);
 
 #endif // SETUP_H_

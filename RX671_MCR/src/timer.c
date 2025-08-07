@@ -20,16 +20,20 @@ void interrupt1ms(void * pdata)
 	cnt10++;
 	cntGUI++;
 
-	if(!loggingSDcard && !display_update_locked)
+	if(!loggingSDcard && !display_update_locked && cnt10 != 1)
 	{
 		SSD1351updateScreen();
 	}
 	
-	GetSwitches();
-	R_SDC_SD_1msInterval();
-	GetEncoderVal();
+	GetSwitches();			// スイッチの状態取得
+	R_SDC_SD_1msInterval();	// SDカードの1ms間隔処理
+	GetEncoderVal();		// エンコーダ値の取得
 
-	GetLineSenADVal();
+	GetLineSenADVal();		// ラインセンサのAD値取得
+
+	motorControlTrace();	// ライントレース制御
+	motorControlSpeed();	// 速度制御
+	motorControlAngle();	// サーボ角度制御
 
 	switch (cnt10)
 	{
