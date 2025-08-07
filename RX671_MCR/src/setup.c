@@ -380,9 +380,10 @@ static bool GUI_EditPID(pidParam *pid)
     GUI_EditPIDk((uint8_t*)"KI", pid->ki, 42, param_index == 1);
     GUI_EditPIDk((uint8_t*)"KD", pid->kd, 82, param_index == 2);
 
-    // PID出力値を表示
+    // PID出力値を表示（制御中は色付け）
     SSD1351setCursor(2, MENU_START_Y + 24);
-    SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"OUT:%4d", pid->pwm);
+    SSD1351printf(Font_7x10, running ? SSD1351_GREEN : SSD1351_WHITE,
+                  (uint8_t*)"OUT:%4d", pid->pwm);
 
     switch(swValTact)
     {
