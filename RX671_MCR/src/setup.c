@@ -1056,8 +1056,17 @@ void SetupUpdate(void)
     switch (currentPage) {
         case 0x0:
             // Startページ
-            GUI_MenuSelect((const char **)menu1_items,
-                           sizeof(menu1_items)/sizeof(menu1_items[0]));
+            {
+                uint8_t sel = GUI_MenuSelect((const char **)menu1_items,
+                                             sizeof(menu1_items)/sizeof(menu1_items[0]));
+                if (sel == 0) {
+                    start = 1;
+                    modePushcart = 0;
+                } else if (sel == 1) {
+                    start = 1;
+                    modePushcart = 1;
+                }
+            }
             break;
         case 0x1:
             // Display settingページ
