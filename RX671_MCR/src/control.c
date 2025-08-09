@@ -2,13 +2,16 @@
 // インクルード
 //====================================//
 #include "control.h"
+#include "PIDcontrol.h"
+#include "ssd1351.h"
+#include <stdbool.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
 // モード関連
 uint8_t patternTrace = 0; // パターン番号
 // タイマ関連
-
+int16_t countdown;
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 systemInit
 // 処理概要     初期化処理
@@ -104,11 +107,72 @@ void loopSystem(void)
 	switch (patternTrace)
 	{
 	case 0:
+		// スタート前設定
 		SetupUpdate(); // メニュー画面の更新処理
+		if ( start && !modePushcart ) {
+			lineTraceCtrl.Int = 0;		// 積分リセット
+			
+			countdown = 5000;							  // カウントダウンスタート
+			SSD1351fillRectangle(0, 15, 127, 63, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"5");
+			cnt1 = 0;
+			patternTrace = 1;
+			break;
+		} else if ( start && modePushcart ) {
+			// 手押しモードの場合すぐに通常トレース
+			patternTrace = 11;
+			break;
+		}
 		break;
 
 	case 1:
+		ServoPwmOut1( lineTraceCtrl.pwm );
 		
+		if (countdown == 4000)
+		{
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+		}
+		if (countdown == 3000)
+		{
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+		}
+		if (countdown == 2000)
+		{
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+			calibratIMU = true;	// IMUキャリブレーション開始
+		}
+		if (countdown == 1000)
+		{
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+		}
+
+		// IMUのキャリブレーションが終了したら走行開始
+		if (!calibratIMU && countdown == 0)
+		{
+			PowerLineSensors(1);   // ラインセンサ点灯
+
+			// SDカードに変数保存
+			bmi088_read_locked = false;
+			display_update_locked = true;
+
+			// PIDゲインを記録
+			writePIDparameters(&lineTraceCtrl);
+			writePIDparameters(&veloCtrl);
+			writePIDparameters(&angleCtrl);
+
+			// 変数初期化
+
+			patternTrace = 11;
+		}
 		break;
 
 	case 11:
@@ -126,4 +190,15 @@ void loopSystem(void)
 	default:
 		break;
 	} // switch case
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 countDown
+// 処理概要     カウントダウン
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////////////////////////////
+void countDown(void)
+{
+	if (countdown > 0)
+		countdown--;
 }

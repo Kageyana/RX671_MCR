@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "setup.h"
+#include <stdint.h>
 
 // 他ファイルで定義されている現在のページ番号
 uint8_t currentPage = 127; // 初期値は127(未設定)
@@ -9,7 +10,9 @@ uint8_t currentPage = 127; // 初期値は127(未設定)
 //====================================//
 // グローバル変数の宣言
 //====================================//
-volatile uint32_t cntGUI; // GUI用カウンタ
+volatile uint32_t	cntGUI; // GUI用カウンタ
+uint8_t 			start = 0; // 0:セットアップ中	1:セットアップ完了
+uint8_t				modePushcart = 0; // 手押しモードフラグ
 
 typedef enum {
     SENSOR_MENU,	// トップメニュー
@@ -51,8 +54,8 @@ static MenuState menu_states[MAX_MENU_STATE];
 static uint8_t menu_state_count = 0;
 // Start ページのメニュー項目
 static const uint8_t *menu1_items[] = {
-    "START   ",
-    "SETTINGS"
+    "Start   ",
+    "Pushcart"
 };
 
 ///////////////////////////////////////////////////////////////////////////

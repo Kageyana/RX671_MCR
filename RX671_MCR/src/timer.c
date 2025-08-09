@@ -25,7 +25,6 @@ void interrupt1ms(void * pdata)
 		SSD1351updateScreen();
 	}
 	
-	GetSwitches();			// スイッチの状態取得
 	R_SDC_SD_1msInterval();	// SDカードの1ms間隔処理
 	GetEncoderVal();		// エンコーダ値の取得
 
@@ -34,6 +33,23 @@ void interrupt1ms(void * pdata)
 	motorControlTrace();	// ライントレース制御
 	motorControlSpeed();	// 速度制御
 	motorControlAngle();	// サーボ角度制御
+
+	// 走行前に処理
+	if (patternTrace < 10 || patternTrace > 100)
+	{
+		countDown();
+		GetSwitches();			// スイッチの状態取得
+	}
+	// 走行中に処理
+	if (patternTrace > 10 && patternTrace < 100)
+	{
+		// 緊急停止処理
+		// if (cntEmcStopAngleX()) emcStop = STOP_ANGLE_X;
+		if (cntEmcStopAngleY()) emcStop = STOP_ANGLE_Y;
+		if (cntEmcStopEncStop()) emcStop = STOP_ENCODER_STOP;
+		if (cntEmcStopLineSensor()) emcStop = STOP_LINESENSOR;
+		if (judgeOverSpeed()) emcStop = STOP_OVERSPEED;
+	}
 
 	switch (cnt10)
 	{
