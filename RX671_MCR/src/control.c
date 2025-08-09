@@ -9,9 +9,17 @@
 // グローバル変数の宣言
 //====================================//
 // モード関連
-uint8_t patternTrace = 0; // パターン番号
+uint8_t patternTrace = 0;	// パターン番号
+bool modeCurve = false;		// カーブモード
 // タイマ関連
 int16_t countdown;
+
+// 速度パラメータ関連
+speedParam tgtParam = {
+	PARAM_STRAIGHT,
+	PARAM_CURVE,
+	PARAM_STOP,
+};
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 systemInit
 // 処理概要     初期化処理
@@ -128,7 +136,7 @@ void loopSystem(void)
 
 	case 1:
 		ServoPwmOut1( lineTraceCtrl.pwm );
-		
+
 		if (countdown == 4000)
 		{
 			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
@@ -175,9 +183,45 @@ void loopSystem(void)
 		}
 		break;
 
-	case 11:
-		
-		break;
+		//-------------------------------------------------------------------
+		// 【010】トレース処理
+		//-------------------------------------------------------------------
+		case 11:
+			setTargetSpeed(tgtParam.straight);
+			
+			// クロスラインチェック
+			if ( checkCrossLine() ) {
+				enc1 = 0;
+				patternTrace = 21;
+				break;
+			}
+			// 右ハーフラインチェック
+	   		if ( checkRightLine() ) {
+				enc1 = 0;
+				patternTrace = 51;
+				break;
+			}
+			// 左ハーフラインチェック
+	   		if ( checkLeftLine() ) {
+				enc1 = 0;
+				patternTrace = 61;
+				break;
+			}
+			// 坂道チェック
+			/*if ( EncoderTotal >= 5609 ) {
+				if( checkSlope() == 1 || checkSlope() == -1 ) {
+					pattern = 71;
+					break;
+				}
+			}*/
+			// カーブチェック
+			if ( getServoAngle() >=  CURVE_R600_START || getServoAngle() <= -CURVE_R600_START ) {
+				enc1 = 0;
+				modeCurve = true;
+				patternTrace = 12;
+				break;
+			}
+			break;
 
 	case 12:
 		
@@ -201,4 +245,37 @@ void countDown(void)
 {
 	if (countdown > 0)
 		countdown--;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 checkCrossLine
+// 処理概要     クロスライン検知
+// 引数         なし
+// 戻り値       0:クロスラインなし 1:あり
+///////////////////////////////////////////////////////////////////////////
+bool checkCrossLine( void )
+{
+	if ( sensor_inp() == 0x7 || sensor_inp() == 0x5) return true;
+	else return false;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 checkRightLine
+// 処理概要     右ハーフライン検出処理
+// 引数         なし
+// 戻り値       0:右ハーフラインなし 1:あり
+///////////////////////////////////////////////////////////////////////////
+bool checkRightLine( void )
+{
+	if ( sensor_inp() == 0x3 ) return true;
+	else return false;
+}
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 checkLeftLine
+// 処理概要     左ハーフライン検出処理
+// 引数         なし
+// 戻り値       0:左ハーフラインなし 1:あり
+///////////////////////////////////////////////////////////////////////////
+bool checkLeftLine( void )
+{
+	if ( sensor_inp() == 0x6 ) return true;
+	else return false;
 }

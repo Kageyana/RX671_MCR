@@ -28,21 +28,38 @@
 //====================================//
 #define CMT_CHANNEL 0 // 1msタイマ割り込みに使用するCMTチャンネル番号
 
+// 速度パラメータ関連
+#define PARAM_STRAIGHT 2.0F
+#define PARAM_CURVE 1.5F
+#define PARAM_STOP 0.8F
+
+// カーブ関連
+#define CURVE_R600_START		120		// R600開始AD値
+#define CURVE_R450_START		600		// R450開始AD値
 //====================================//
 // グローバル変数の宣言
 //====================================//
 // パターン、モード関連
 extern uint8_t patternTrace; // パターン番号
-extern bool modeDSP;		 // LCD表示選択
-extern bool modeLOG;		 // ログ取得状況
-extern bool initMSD;		 // microSD初期化状況
-extern bool initLCD;		 // LCD初期化状況
-extern bool initIMU;		 // IMU初期化状況
-extern bool initCurrent;	 // 電流センサ初期化状況
+extern bool modeLOG;		// ログ取得状況
+extern bool modeCurve;		// カーブモード
+extern bool initMSD;		// microSD初期化状況
+extern bool initIMU;		// IMU初期化状況
 
 // タイマ関連
 extern uint32_t cntRun;
 extern int16_t countdown;
+
+// エンコーダ関連
+extern int32_t	enc1;				// 走行用距離カウント
+extern int32_t	enc_slope;			// 坂上距離カウント
+
+typedef struct
+{
+	float straight;
+	float curve;
+	float stop;
+} speedParam;
 //====================================//
 // プロトタイプ宣言
 //====================================//
@@ -53,5 +70,10 @@ void countDown(void);
 void setEncoderVal(void);
 void writeTgtspeeds(void);
 void readTgtspeeds(void);
+
+// マーカー関連
+bool checkCrossLine( void );
+bool checkRightLine( void );
+bool checkLeftLine( void );
 
 #endif // CONTROL_H_

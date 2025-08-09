@@ -52,3 +52,22 @@ void PowerLineSensors(bool power)
 		PWM_LINESENSORS_OUT = 0;
 	}
 }
+///////////////////////////////////////////////////////////////////////////
+// モジュール名 sensor_inp
+// 処理概要     デジタルセンサの値を16進数で取得
+// 引数         なし
+// 戻り値       センサ値0～
+///////////////////////////////////////////////////////////////////////////
+unsigned char sensor_inp(void) 
+{
+	char l, c, r;
+	
+	if (lineSenVal[5] < 350 ) r = 0x1;
+	else r = 0;
+	if (lineSenVal[2] < 350 ) c = 0x2;
+	else c = 0;
+	if (lineSenVal[0] < 350 ) l = 0x4;
+	else l = 0;
+	
+	return l+c+r;
+}

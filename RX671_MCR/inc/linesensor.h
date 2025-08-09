@@ -4,6 +4,7 @@
 // インクルード
 //====================================//
 #include "r_smc_entry.h"
+#include <stdint.h>
 //====================================//
 // シンボル定義
 //====================================//
@@ -25,5 +26,6 @@ extern uint16_t lineSenVal[LINESENSOR_NUM];
 void InitLineSensors(void);
 void GetLineSenADVal(void);
 void PowerLineSensors(bool power);
+uint8_t sensor_inp(void);
 
 #endif // LINESENSOR_H_

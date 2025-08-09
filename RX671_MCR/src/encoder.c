@@ -9,9 +9,8 @@ int16_t encCurrent = 0;
 int32_t encTotal = 0;
 
 // 外部変数
-int32_t enc1 = 0;
-int32_t encRightMarker = 0;
-int32_t encCurve = 0;
+int32_t enc1;				// 走行用距離カウント
+int32_t enc_slope;			// 坂上距離カウント
 /////////////////////////////////////////////////////////////////////
 // モジュール名 Encoderinit
 // 処理概要     ロータリエンコーダの初期化処理
@@ -40,6 +39,8 @@ void GetEncoderVal(void)
 	encCurrent = encRaw - encBuf;
 	// カウントの積算
 	encTotal += encCurrent;
+	enc1 += encCurrent;
+	enc_slope += encCurrent;
 	// 前回値を更新
 	encBuf = encRaw;
 }
