@@ -23,6 +23,8 @@
 #define SD_CARD_NO SDC_SD_CARD_NO0
 #define USE_DMA
 
+#define PATH_SETTING "/setting/"	// 設定ファイルのパス
+
 /************* 自動生成関数 **************/
 // CD pin
 #define SDCARD_POWER PORT7.PODR.BIT.B4 // SDカードの電源制御ピン

@@ -125,16 +125,16 @@ void ServoPwmOut1( int16_t servopwm )
 	sPwm = servopwm;		// ログ用変数に代入
 	//servopwm = -servopwm;		// 回転方向を変える
 	
-	// // サーボリミット制御
-	// angle = getServoAngle();
+	// サーボリミット制御
+	angle = getServoAngle();
 	
-	// // 角度によるリミット制御
-	// if ( angle >= SERVO_LIMIT ) servopwm = -15;
-	// if ( angle <= -SERVO_LIMIT ) servopwm = 15;
+	// 角度によるリミット制御
+	if ( angle >= SERVO_LIMIT ) servopwm = -15;
+	if ( angle <= -SERVO_LIMIT ) servopwm = 15;
 	
-	// // ポテンションメーターが外れていたら制御しない
-	// if ( angle > SERVO_LIMIT + 100 ) servopwm = 0;
-	// if ( angle < -SERVO_LIMIT - 100 ) servopwm = 0;
+	// ポテンションメーターが外れていたら制御しない
+	if ( angle > SERVO_LIMIT + 100 ) servopwm = 0;
+	if ( angle < -SERVO_LIMIT - 100 ) servopwm = 0;
 
 	pwm = TGR_SERVO * abs(servopwm) / 1000;
 	// サーボモータ制御

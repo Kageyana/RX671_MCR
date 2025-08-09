@@ -8,6 +8,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "linesensor.h"
+
+#include "SDcard.h"
 //====================================//
 // シンボル定義
 //====================================//
@@ -19,9 +21,9 @@
 #define KI2		100
 #define KD2		0
 
-#define KP3		38
-#define KI3		100
-#define KD3		8
+#define KP3		10
+#define KI3		0
+#define KD3		6
 
 typedef struct {
     uint8_t *name;
@@ -36,7 +38,7 @@ typedef struct {
 // グローバル変数の宣言
 //====================================//
 extern uint8_t	targetSpeed;	// 目標速度
-extern float 	targetAngle;    // 目標角度
+extern int16_t 	targetAngle;    // 目標角度
 
 extern pidParam lineTraceCtrl;
 extern pidParam veloCtrl;
@@ -46,7 +48,7 @@ extern pidParam angleCtrl;
 //====================================//
 int16_t getAnalogSensor(void);
 void setTargetSpeed (float speed);
-void setTargetAngle (float angle);
+void setTargetAngle (int16_t angle);
 void writePIDparameters(pidParam *pid);
 void readPIDparameters(pidParam *pid);
 void motorControlTrace(void);

@@ -387,8 +387,26 @@ static bool GUI_EditPID(pidParam *pid)
     SSD1351printf(Font_7x10, running ? SSD1351_GREEN : SSD1351_WHITE,
                   (uint8_t*)"OUT:%4d", pid->pwm);
 
-	SSD1351setCursor(2, MENU_START_Y + 48);
-	SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"%5d", getAnalogSensor());
+	// 選択されたPID制御の対象を表示
+	if(pid == &lineTraceCtrl)
+	{
+		// ライントレース制御対象
+		SSD1351setCursor(2, MENU_START_Y + 48);
+		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"target:%5d", getAnalogSensor());
+	}
+	else if(pid == &veloCtrl)
+	{
+		// 億度制御対象
+		SSD1351setCursor(2, MENU_START_Y + 48);
+		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"target:%5d", encCurrent);
+	}
+	else if(pid == &angleCtrl)
+	{
+		// サーボ角度制御対象
+		SSD1351setCursor(2, MENU_START_Y + 48);
+		SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"target:%5d", getServoAngle());
+	}
+	
 
     switch(swValTact)
     {
@@ -441,6 +459,15 @@ static bool GUI_EditPID(pidParam *pid)
                 MotorPwmOut(0,0,0,0);
                 ServoPwmOut1(0);
                 ServoPwmOut2(0);
+
+				// PIDパラメータをSDカードに保存
+				writePIDparameters(&lineTraceCtrl);
+				writePIDparameters(&veloCtrl);
+				writePIDparameters(&angleCtrl);
+
+				lineTraceCtrl.Int = 0; // ライントレース制御の積分値リセット
+				veloCtrl.Int = 0;      // 速度制御の積分値リセット
+				angleCtrl.Int = 0;     // 角度制御の積分リセット
             }
             GUI_wait(200);
             break;
@@ -466,6 +493,7 @@ static bool GUI_EditPID(pidParam *pid)
         else if(pid == &angleCtrl)
         {
             // サーボ角度制御
+			setTargetAngle(-1000);
             ServoPwmOut1(angleCtrl.pwm);
         }
     }

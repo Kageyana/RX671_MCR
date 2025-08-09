@@ -53,6 +53,10 @@ void initSystem(void)
 	}
 	if(initSDcard)
 	{
+		// PIDパラメータをSDカードから読み込み
+		readPIDparameters(&lineTraceCtrl);
+		readPIDparameters(&veloCtrl);
+		readPIDparameters(&angleCtrl);
 		// res = logCreate();
 		// if (res == FR_OK)
 		// {
@@ -79,7 +83,6 @@ void initSystem(void)
 	// setLED(3, 255, 0, 0);
 	// sendLED();
 	cnt0 = 0;
-	PORTB.PODR.BIT.B4 = 0;
 
 	SSD1351fill(SSD1351_BLACK);
 }

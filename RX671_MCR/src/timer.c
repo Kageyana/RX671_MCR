@@ -20,7 +20,7 @@ void interrupt1ms(void * pdata)
 	cnt10++;
 	cntGUI++;
 
-	if(!loggingSDcard && !display_update_locked && cnt10 != 1)
+	if(!loggingSDcard && !display_update_locked && cnt10 != 1 && cnt10 != 2)
 	{
 		SSD1351updateScreen();
 	}

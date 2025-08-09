@@ -92,7 +92,7 @@ sdc_sd_status_t SDcardinit(void)
 		initSDcard = 1;
 		fs = malloc(sizeof (FATFS)); // ファイルシステムオブジェクトのメモリ確保
 		fresult = f_mount(fs, "",0); // ファイルシステムのマウント
-		createDir("images"); // ホームディレクトリにimagesディレクトリを作成
+		createDir("setting"); // ホームディレクトリにsettingディレクトリを作成
 		return SDC_SD_SUCCESS; // 初期化成功
 	}
 	else
