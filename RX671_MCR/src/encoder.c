@@ -36,7 +36,7 @@ void GetEncoderVal(void)
 	encRaw = MTU_CHANNEL.TCNT;
 
 	// 1msあたりのカウント
-	encCurrent = encRaw - encBuf;
+	encCurrent = encBuf - encRaw;
 	// カウントの積算
 	encTotal += encCurrent;
 	enc1 += encCurrent;
@@ -50,7 +50,7 @@ void GetEncoderVal(void)
 // 引数         mm:変換する長さ[mm]
 // 戻り値       変換したパルス数
 ///////////////////////////////////////////////////////////////////////////
-int32_t encMM(int16_t mm)
+int32_t encMM(uint16_t mm)
 {
-	return PALSE_MILLIMETER * abs(mm);
+	return PALSE_MILLIMETER * mm;
 }

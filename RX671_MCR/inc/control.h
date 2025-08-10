@@ -33,6 +33,12 @@
 #define PARAM_CURVE 1.5F
 #define PARAM_STOP 0.8F
 
+// 角度
+#define ANGLE_RIGHTCLANK		1350	// 右クランク旋回角度
+#define ANGLE_LEFTCLANK		    -1350	// 左クランク旋回角度
+#define ANGLE_RIGHTCHANGE		700	// 右レーンチェンジ旋回角度
+#define ANGLE_LEFTCHANGE		-700	    // 右レーンチェンジ旋回角度
+
 // カーブ関連
 #define CURVE_R600_START		120		// R600開始AD値
 #define CURVE_R450_START		600		// R450開始AD値

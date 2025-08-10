@@ -2,7 +2,9 @@
 // インクルード
 //====================================//
 #include "control.h"
+#include "Motor.h"
 #include "PIDcontrol.h"
+#include "fonts.h"
 #include "ssd1351.h"
 #include <stdbool.h>
 //====================================//
@@ -109,6 +111,10 @@ void loopSystem(void)
 	// 緊急停止処理
 	if (patternTrace > 10 && patternTrace < 100 && emcStop > 0)
 	{
+		display_update_locked = false;
+		SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+		SSD1351setCursor(30, 28);
+		SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"End %d",emcStop);
 		patternTrace = 101;
 	}
 
@@ -121,14 +127,19 @@ void loopSystem(void)
 			lineTraceCtrl.Int = 0;		// 積分リセット
 			
 			countdown = 5000;							  // カウントダウンスタート
-			SSD1351fillRectangle(0, 15, 127, 63, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
 			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"5");
-			cnt1 = 0;
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"5");
+			PowerLineSensors(1);	// ラインセンサ点灯
+			encTotal = 0;			// エンコーダ値リセット
 			patternTrace = 1;
 			break;
 		} else if ( start && modePushcart ) {
 			// 手押しモードの場合すぐに通常トレース
+			PowerLineSensors(1);   // ラインセンサ点灯
+			encTotal = 0;		// エンコーダ値リセット
+			bmi088_read_locked = false;
+			// display_update_locked = true;
 			patternTrace = 11;
 			break;
 		}
@@ -141,33 +152,30 @@ void loopSystem(void)
 		{
 			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
 			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"4");
 		}
 		if (countdown == 3000)
 		{
 			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
 			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"3");
 		}
 		if (countdown == 2000)
 		{
 			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
 			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
-			calibratIMU = true;	// IMUキャリブレーション開始
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"2");
 		}
 		if (countdown == 1000)
 		{
 			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
 			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"4");
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"1");
 		}
 
-		// IMUのキャリブレーションが終了したら走行開始
-		if (!calibratIMU && countdown == 0)
+		
+		if (countdown <= 0)
 		{
-			PowerLineSensors(1);   // ラインセンサ点灯
-
 			// SDカードに変数保存
 			bmi088_read_locked = false;
 			display_update_locked = true;
@@ -179,56 +187,320 @@ void loopSystem(void)
 
 			// 変数初期化
 
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"11");
 			patternTrace = 11;
 		}
 		break;
 
-		//-------------------------------------------------------------------
-		// 【010】トレース処理
-		//-------------------------------------------------------------------
-		case 11:
-			setTargetSpeed(tgtParam.straight);
-			
-			// クロスラインチェック
-			if ( checkCrossLine() ) {
-				enc1 = 0;
-				patternTrace = 21;
-				break;
-			}
-			// 右ハーフラインチェック
-	   		if ( checkRightLine() ) {
-				enc1 = 0;
-				patternTrace = 51;
-				break;
-			}
-			// 左ハーフラインチェック
-	   		if ( checkLeftLine() ) {
-				enc1 = 0;
-				patternTrace = 61;
-				break;
-			}
-			// 坂道チェック
-			/*if ( EncoderTotal >= 5609 ) {
-				if( checkSlope() == 1 || checkSlope() == -1 ) {
-					pattern = 71;
-					break;
-				}
-			}*/
-			// カーブチェック
-			if ( getServoAngle() >=  CURVE_R600_START || getServoAngle() <= -CURVE_R600_START ) {
-				enc1 = 0;
-				modeCurve = true;
-				patternTrace = 12;
-				break;
-			}
-			break;
-
-	case 12:
+	//-------------------------------------------------------------------
+	// 【010】トレース処理
+	//-------------------------------------------------------------------
+	case 11:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
 		
+		// クロスラインチェック
+		if ( checkCrossLine() ) {
+			enc1 = 0;
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
+			patternTrace = 21;
+			break;
+		}
+		// 右ハーフラインチェック
+		if ( checkRightLine() ) {
+			enc1 = 0;
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"51");
+			patternTrace = 51;
+			break;
+		}
+		// 左ハーフラインチェック
+		if ( checkLeftLine() ) {
+			enc1 = 0;
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"61");
+			patternTrace = 61;
+			break;
+		}
+		// 坂道チェック
+		/*if ( EncoderTotal >= 5609 ) {
+			if( checkSlope() == 1 || checkSlope() == -1 ) {
+				pattern = 71;
+				break;
+			}
+		}*/
+		// // カーブチェック
+		// if ( getServoAngle() >=  CURVE_R600_START || getServoAngle() <= -CURVE_R600_START ) {
+		// 	enc1 = 0;
+		// 	modeCurve = true;
+		// 	patternTrace = 12;
+		// 	break;
+		// }
+		break;
+
+	//-------------------------------------------------------------------
+	//【020】クランク検出処理
+	//-------------------------------------------------------------------
+	case 21:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+
+		if( enc1 > encMM( 90 ) ) {		// 60mm進む
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"22");
+			enc1 = 0;
+			patternTrace = 22;
+			break;
+		}
+		break;
+		
+	case 22:
+		setTargetSpeed(tgtParam.curve);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		// 右クランクチェック
+		if( sensor_inp() ==  0x3 ) {
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"31");
+			enc1 = 0;
+			setTargetAngle(ANGLE_RIGHTCLANK);
+			patternTrace = 31;
+			break;
+		}
+		// 左クランクチェック
+		if( sensor_inp() ==  0x6 ) {
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"41");
+			enc1 = 0;
+			setTargetAngle(ANGLE_LEFTCLANK);
+			patternTrace = 41;
+			break;
+		}
+		
+		break;
+	//-------------------------------------------------------------------
+	//【030】右クランク処理
+	//-------------------------------------------------------------------
+	case 31:
+		setTargetSpeed(tgtParam.curve);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if (sensor_inp() == 0x2 ) {
+			enc1 = 0;
+			lineTraceCtrl.Int = 0;			// 積分リセット
+			patternTrace = 36;
+			break;
+		}
+		break;
+		
+	case 36:
+		// 復帰
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+
+		if( enc1 >= encMM( 600 ) ) {		// 安定するまで待つ(600mm)
+			enc1 = 0;
+			patternTrace = 11;
+			break;
+		}
+		break;
+	//-------------------------------------------------------------------
+	//【040】左クランク処理
+	//-------------------------------------------------------------------
+	case 41:
+		setTargetSpeed(tgtParam.curve);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if (sensor_inp() == 0x2 ) {
+			enc1 = 0;
+			lineTraceCtrl.Int = 0;			// 積分リセット
+			patternTrace = 46;
+			break;
+		}
+		break;
+		
+	case 46:
+		// 復帰
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+
+		if( enc1 >= encMM( 600 ) ) {		// 安定するまで待つ(600mm)
+			enc1 = 0;
+			patternTrace = 11;
+			break;
+		}
+		break;
+
+	//-------------------------------------------------------------------
+	//【050】右レーンチェンジ処理
+	//-------------------------------------------------------------------
+	case 51:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		
+		if( enc1 > encMM( 60 ) ) {
+			enc1 = 0;
+			patternTrace = 52;
+			break;
+		}
+		
+		if( checkCrossLine() ) {		// クロスラインチェック
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
+			enc1 = 0;
+			patternTrace = 21;
+			break;
+		}
+		break;
+		
+	case 52:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		
+		if( sensor_inp() == 0x0 ) {
+			enc1 = 0;
+			setTargetAngle(ANGLE_RIGHTCHANGE);
+			patternTrace = 53;
+			break;
+		}
+		break;
+		
+	case 53:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if( sensor_inp() == 0x1 ) {
+			enc1 = 0;
+			setTargetAngle(0);
+			patternTrace = 54;
+			break;
+		}
+		break;
+		
+	case 54:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if( sensor_inp() == 0x4 && enc1 >= encMM(60)) {
+			enc1 = 0;
+			patternTrace = 55;
+			break;
+		}
+		break;
+		
+	case 55:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( 700 );
+		
+		if( sensor_inp() == 0x2 ) {
+			enc1 = 0;
+			patternTrace = 56;
+			break;
+		}
+		break;
+		
+	case 56:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+
+		if( enc1 >= encMM( 400 ) ) {
+			enc1 = 0;
+			patternTrace = 11;
+			break;
+		}
+		break;
+	//-------------------------------------------------------------------
+	//【060】左レーンチェンジ処理
+	//-------------------------------------------------------------------
+	case 61:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		
+		if( enc1 > encMM( 60 ) ) {
+			enc1 = 0;
+			patternTrace = 62;
+			break;
+		}
+		
+		if( checkCrossLine() ) {		// クロスラインチェック
+			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
+			SSD1351setCursor(56, 28);
+			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
+			enc1 = 0;
+			patternTrace = 21;
+			break;
+		}
+		break;
+		
+	case 62:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		
+		if( sensor_inp() == 0x0 ) {
+			enc1 = 0;
+			setTargetAngle(ANGLE_LEFTCHANGE);
+			patternTrace = 63;
+			break;
+		}
+		break;
+		
+	case 63:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if( sensor_inp() == 0x4 ) {
+			enc1 = 0;
+			setTargetAngle(0);
+			patternTrace = 64;
+			break;
+		}
+		break;
+		
+	case 64:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( angleCtrl.pwm );
+		
+		if( sensor_inp() == 0x1 && enc1 >= encMM(60)) {
+			enc1 = 0;
+			patternTrace = 65;
+			break;
+		}
+		break;
+		
+	case 65:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( -700 );
+		
+		if( sensor_inp() == 0x2 ) {
+			enc1 = 0;
+			patternTrace = 66;
+			break;
+		}
+		break;
+		
+	case 66:
+		setTargetSpeed(tgtParam.straight);
+		ServoPwmOut1( lineTraceCtrl.pwm );
+
+		if( enc1 >= encMM( 400 ) ) {
+			enc1 = 0;
+			patternTrace = 11;
+			break;
+		}
 		break;
 
 	case 101:
-		
+		ServoPwmOut1( lineTraceCtrl.pwm );
+		MotorPwmOut(0, 0, 0, 0);
 		break;
 
 	default:

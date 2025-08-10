@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "linesensor.h"
+#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -58,15 +59,15 @@ void PowerLineSensors(bool power)
 // 引数         なし
 // 戻り値       センサ値0～
 ///////////////////////////////////////////////////////////////////////////
-unsigned char sensor_inp(void) 
+uint8_t sensor_inp(void) 
 {
-	char l, c, r;
+	uint8_t l, c, r;
 	
-	if (lineSenVal[5] < 350 ) r = 0x1;
+	if (lineSenVal[5] < 450 ) r = 0x1;
 	else r = 0;
-	if (lineSenVal[2] < 350 ) c = 0x2;
+	if (lineSenVal[2] < 450 ) c = 0x2;
 	else c = 0;
-	if (lineSenVal[0] < 350 ) l = 0x4;
+	if (lineSenVal[0] < 450 ) l = 0x4;
 	else l = 0;
 	
 	return l+c+r;

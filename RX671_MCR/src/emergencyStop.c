@@ -2,6 +2,8 @@
 // インクルード
 //====================================//
 #include "emergencyStop.h"
+#include "encoder.h"
+#include <stdbool.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -18,7 +20,7 @@ bool cntEmcStopAngleX(void)
 	static uint16_t cntAngleX;
 
 	// 緊急停止条件
-	if (fabs(BMI088val.gyro.x) > 2.0f)
+	if (fabs(BMI088val.angle.x) > 10.0f)
 	{
 		cntAngleX++;
 	}
@@ -48,7 +50,7 @@ bool cntEmcStopAngleY(void)
 	static uint16_t cntAngleY;
 
 	// 緊急停止条件
-	if (fabs(BMI088val.gyro.y) > 2.0f)
+	if (fabs(BMI088val.angle.y) > 18.0f)
 	{
 		cntAngleY++;
 	}
@@ -94,6 +96,24 @@ bool cntEmcStopEncStop(void)
 	}
 	else
 	{
+		return false;
+	}
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 cntEmcStopEncStop
+// 処理概要     緊急停止要因のカウント エンコーダストップ
+// 引数         なし
+// 戻り値       true:緊急停止 false:異常なし
+/////////////////////////////////////////////////////////////////////
+bool cntEmcStopDist(void)
+{
+	static uint16_t cntDist;
+
+	// 緊急停止条件
+	if (encTotal > encMM(STOP_COUNT_DISTANCE))
+	{
+		return true;
+	}else {
 		return false;
 	}
 }

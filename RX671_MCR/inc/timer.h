@@ -11,6 +11,7 @@
 #include "encoder.h"
 #include "battery.h"
 #include "setup.h"
+#include "control.h"
 
 #include <stdio.h>
 #include <stdint.h>

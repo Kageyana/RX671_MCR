@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "timer.h"
+#include "emergencyStop.h"
 //====================================//
 // グローバル変数の宣言
 //====================================//
@@ -44,11 +45,14 @@ void interrupt1ms(void * pdata)
 	if (patternTrace > 10 && patternTrace < 100)
 	{
 		// 緊急停止処理
-		// if (cntEmcStopAngleX()) emcStop = STOP_ANGLE_X;
-		if (cntEmcStopAngleY()) emcStop = STOP_ANGLE_Y;
-		if (cntEmcStopEncStop()) emcStop = STOP_ENCODER_STOP;
-		if (cntEmcStopLineSensor()) emcStop = STOP_LINESENSOR;
-		if (judgeOverSpeed()) emcStop = STOP_OVERSPEED;
+		if (cntEmcStopAngleX()) emcStop = STOP_ANGLE_X;
+		// if (cntEmcStopAngleY()) emcStop = STOP_ANGLE_Y;
+		// if (cntEmcStopEncStop()) emcStop = STOP_ENCODER_STOP;
+		// if (cntEmcStopLineSensor()) emcStop = STOP_LINESENSOR;
+		// if (judgeOverSpeed()) emcStop = STOP_OVERSPEED;
+		if (cntEmcStopDist()) emcStop = STOP_DISTANCE;
+
+		MotorPwmOut(veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm);
 	}
 
 	switch (cnt10)

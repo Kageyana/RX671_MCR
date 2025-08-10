@@ -2,16 +2,10 @@
 // インクルード
 //====================================//
 #include "Motor.h"
+#include "setup.h"
 //====================================//
 // グローバル変数の宣言
 //====================================//
-// エンコーダ関連
-static unsigned short 	cnt_Encoder;	// エンコーダ値の格納先
-static unsigned short	encbuff;		// 前回のエンコーダ値
-short					Encoder;			// 1msごとのパルス
-unsigned int			EncoderTotal;		// 総走行距離
-unsigned int			enc1;				// 走行用距離カウント
-unsigned int			enc_slope;			// 坂上距離カウント
 // モーター関連
 int16_t		accele_fR;		// 右前モーターPWM値
 int16_t		accele_fL;		// 左前モーターPWM値
@@ -70,17 +64,19 @@ void GetMotorADVal(void)
 void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	, int16_t accelerL, int16_t accelerR )
 {
-	uint16_t pwmfl, pwmfr, pwmrl, pwmrr;
+	uint16_t pwmfl = 0, pwmfr = 0, pwmrl = 0, pwmrr = 0;
 	
 	accele_fL = accelefL;
 	accele_fR = accelefR;
 	accele_rL = accelerL;
 	accele_rR = accelerR;
 	
-	pwmfl = TGR_MOTOR * abs(accelefL) / 1000;
-	pwmfr = TGR_MOTOR * abs(accelefR) / 1000;
-	pwmrl = TGR_MOTOR * abs(accelerL) / 1000;
-	pwmrr = TGR_MOTOR * abs(accelerR) / 1000;
+	if(!modePushcart) {
+		pwmfl = TGR_MOTOR * abs(accelefL) / 1000;
+		pwmfr = TGR_MOTOR * abs(accelefR) / 1000;
+		pwmrl = TGR_MOTOR * abs(accelerL) / 1000;
+		pwmrr = TGR_MOTOR * abs(accelerR) / 1000;
+	}
 	
 	MTU.TRWERA.BIT.RWE = 1U; // MTUレジスタの読み書きを許可
 
@@ -92,8 +88,8 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	
 	
 	// 右前輪
-	if( accelefR >= 0) DIR_FR = 1;
-	else DIR_FR = 0;
+	if( accelefR >= 0) DIR_FR = 0;
+	else DIR_FR = 1;
 	if ( accelefR == 1000 || accelefR == -1000 ) pwmfr = TGR_MOTOR + 2;
 	PWM_FR_OUT = pwmfr;
 
@@ -104,10 +100,15 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 	PWM_RL_OUT = pwmrl;
 	
 	// 右後輪
-	if( accelerR >= 0 ) DIR_RR = 1;
-	else DIR_RR = 0;
+	// if( accelerR >= 0 ) DIR_RR = 1;
+	// else DIR_RR = 0;
+	// if ( accelerR == 1000 || accelerR == -1000 ) pwmrr = TGR_MOTOR + 2;
+	// PWM_RR_OUT = pwmrr;
+	if( accelerR >= 0 ) DIR_LANCER = 1;
+	else DIR_LANCER = 0;
 	if ( accelerR == 1000 || accelerR == -1000 ) pwmrr = TGR_MOTOR + 2;
-	PWM_RR_OUT = pwmrr;
+	PWM_LANCER_OUT = pwmrr;
+
 
 	MTU.TRWERA.BIT.RWE = 0U; // MTUレジスタの読み書きを禁止
 }

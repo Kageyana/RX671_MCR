@@ -129,9 +129,9 @@ void motorControlAngle(void)
 
 	Dev = getServoAngle() - targetAngle; // 目標値-現在値
 	// I成分積算
-        angleCtrl.Int += Dev * 0.005;
-        // 目標値を変更したらI成分リセット
-        // if ( targetAngle != targetAngleBefore ) angleCtrl.Int = 0;
+	angleCtrl.Int += Dev * 0.005;
+	// 目標値を変更したらI成分リセット
+	if ( targetAngle != targetAngleBefore ) angleCtrl.Int = 0;
 	Dif = (Dev - angleBefore) * 1; // dゲイン1/1000倍
 
 	iP = angleCtrl.kp * Dev;		   // 比例

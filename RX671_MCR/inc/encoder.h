@@ -22,6 +22,6 @@ extern int32_t encTotal;
 //====================================//
 void InitEncoder(void);
 void GetEncoderVal(void);
-int32_t encMM(int16_t mm);
+int32_t encMM(uint16_t mm);
 
 #endif // ENCODER_H_

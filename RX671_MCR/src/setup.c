@@ -2,6 +2,8 @@
 // インクルード
 //====================================//
 #include "setup.h"
+#include "PIDcontrol.h"
+#include "linesensor.h"
 #include <stdint.h>
 
 // 他ファイルで定義されている現在のページ番号
@@ -901,6 +903,8 @@ bool GUI_ShowSensors(void)
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Gate : %4d", lineSenVal[6]);
 			SSD1351setCursor(2, MENU_START_Y + 36);
             SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"Spare: %4d", lineSenVal[3]);
+			SSD1351setCursor(2, MENU_START_Y + 48);
+            SSD1351printf(Font_7x10, SSD1351_WHITE, (uint8_t*)"digital: %4d", sensor_inp());
 
             if(swValTact == SW_PUSH)
             {
@@ -1023,7 +1027,7 @@ bool GUI_ShowSensors(void)
             {
                 // 停止時は全出力をオフ
                 MotorPwmOut(0,0,0,0);
-                ServoPwmOut1(0);
+                ServoPwmOut1(lineTraceCtrl.pwm);
                 ServoPwmOut2(0);
             }
             break;
