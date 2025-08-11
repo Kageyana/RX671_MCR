@@ -160,7 +160,7 @@ void writePIDparameters(pidParam *pid)
 {
 	FIL fil;
 	FRESULT fresult;
-	uint8_t fileName[20] = PATH_SETTING;
+	uint8_t fileName[20] = "";
 	// uint8_t fileName[20] ="";
 	int16_t ret = 0;
 

@@ -18,8 +18,8 @@
 #define KD1		100
 
 #define KP2		15
-#define KI2		100
-#define KD2		0
+#define KI2		20
+#define KD2		6
 
 #define KP3		10
 #define KI3		0

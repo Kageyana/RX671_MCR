@@ -187,9 +187,6 @@ void loopSystem(void)
 
 			// 変数初期化
 
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"11");
 			patternTrace = 11;
 		}
 		break;
@@ -204,27 +201,18 @@ void loopSystem(void)
 		// クロスラインチェック
 		if ( checkCrossLine() ) {
 			enc1 = 0;
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
 			patternTrace = 21;
 			break;
 		}
 		// 右ハーフラインチェック
 		if ( checkRightLine() ) {
 			enc1 = 0;
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"51");
 			patternTrace = 51;
 			break;
 		}
 		// 左ハーフラインチェック
 		if ( checkLeftLine() ) {
 			enc1 = 0;
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"61");
 			patternTrace = 61;
 			break;
 		}
@@ -252,9 +240,6 @@ void loopSystem(void)
 		ServoPwmOut1( lineTraceCtrl.pwm );
 
 		if( enc1 > encMM( 90 ) ) {		// 60mm進む
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"22");
 			enc1 = 0;
 			patternTrace = 22;
 			break;
@@ -266,9 +251,6 @@ void loopSystem(void)
 		ServoPwmOut1( lineTraceCtrl.pwm );
 		// 右クランクチェック
 		if( sensor_inp() ==  0x3 ) {
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"31");
 			enc1 = 0;
 			setTargetAngle(ANGLE_RIGHTCLANK);
 			patternTrace = 31;
@@ -276,9 +258,6 @@ void loopSystem(void)
 		}
 		// 左クランクチェック
 		if( sensor_inp() ==  0x6 ) {
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"41");
 			enc1 = 0;
 			setTargetAngle(ANGLE_LEFTCLANK);
 			patternTrace = 41;
@@ -353,9 +332,6 @@ void loopSystem(void)
 		}
 		
 		if( checkCrossLine() ) {		// クロスラインチェック
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
 			enc1 = 0;
 			patternTrace = 21;
 			break;
@@ -432,9 +408,6 @@ void loopSystem(void)
 		}
 		
 		if( checkCrossLine() ) {		// クロスラインチェック
-			SSD1351fillRectangle(0, 0, SSD1351_WIDTH - 1, SSD1351_HEIGHT -1, SSD1351_BLACK); // メイン表示空白埋め
-			SSD1351setCursor(56, 28);
-			SSD1351printf(Font_16x26, SSD1351_WHITE, (uint8_t*)"21");
 			enc1 = 0;
 			patternTrace = 21;
 			break;

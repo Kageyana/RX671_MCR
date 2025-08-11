@@ -45,7 +45,7 @@ void interrupt1ms(void * pdata)
 	if (patternTrace > 10 && patternTrace < 100)
 	{
 		// 緊急停止処理
-		if (cntEmcStopAngleX()) emcStop = STOP_ANGLE_X;
+		// if (cntEmcStopAngleX()) emcStop = STOP_ANGLE_X;
 		// if (cntEmcStopAngleY()) emcStop = STOP_ANGLE_Y;
 		// if (cntEmcStopEncStop()) emcStop = STOP_ENCODER_STOP;
 		// if (cntEmcStopLineSensor()) emcStop = STOP_LINESENSOR;

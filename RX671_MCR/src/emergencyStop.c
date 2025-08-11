@@ -3,6 +3,7 @@
 //====================================//
 #include "emergencyStop.h"
 #include "encoder.h"
+#include "linesensor.h"
 #include <stdbool.h>
 //====================================//
 // グローバル変数の宣言
@@ -50,7 +51,7 @@ bool cntEmcStopAngleY(void)
 	static uint16_t cntAngleY;
 
 	// 緊急停止条件
-	if (fabs(BMI088val.angle.y) > 18.0f)
+	if (fabs(BMI088val.angle.y) > 10.0f)
 	{
 		cntAngleY++;
 	}
@@ -128,7 +129,11 @@ bool cntEmcStopLineSensor(void)
 	static uint16_t cntLineSensor = 0;
 
 	// 緊急停止条件
-
+	if(sensor_inp() == 0x7) {
+		cntLineSensor++;
+	} else {
+		cntLineSensor = 0;
+	}
 	// 停止条件継続タイマ
 	if (cntLineSensor > STOP_COUNT_LINESENSOR)
 	{
