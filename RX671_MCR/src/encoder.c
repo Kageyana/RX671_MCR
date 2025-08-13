@@ -52,5 +52,5 @@ void GetEncoderVal(void)
 ///////////////////////////////////////////////////////////////////////////
 int32_t encMM(uint16_t mm)
 {
-	return PALSE_MILLIMETER * mm;
+	return PULSE_MILLIMETER * mm;
 }
