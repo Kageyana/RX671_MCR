@@ -12,6 +12,7 @@
 //====================================//
 #define SERVO_CENTER	2045	// サーボセンターのAD値
 #define SERVO_LIMIT		1400	// サーボリミットAD値±
+#define AD2DEG          0.0247F     // 1ADあたりの角度 サーボ最大切れ角[°]/サーボ最大切れ角時のAD値[]
 #define TGR_MOTOR		3598	// ジェネラルレジスタ初期値(駆動モータ) TGRA初期値-1
 #define TGR_SERVO		3598	// ジェネラルレジスタ初期値(サーボ)	 TGRA初期値-1
 /*************************** 自動生成関数 **************************/
@@ -82,4 +83,5 @@ void MotorPwmOut( int16_t accelefL, int16_t accelefR
 void ServoPwmOut1( int16_t servopwm );
 void ServoPwmOut2( int16_t servopwm );
 int16_t getServoAngle(void);
+void diff (int16_t pwm );
 #endif // MOTOR_H_

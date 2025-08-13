@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "timer.h"
+#include "Motor.h"
 #include "emergencyStop.h"
 //====================================//
 // グローバル変数の宣言
@@ -52,7 +53,7 @@ void interrupt1ms(void * pdata)
 		// if (judgeOverSpeed()) emcStop = STOP_OVERSPEED;
 		if (cntEmcStopDist()) emcStop = STOP_DISTANCE;
 
-		MotorPwmOut(veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm, veloCtrl.pwm);
+		diff(veloCtrl.pwm);	 // モータの回転差計算,出力
 	}
 
 	switch (cnt10)

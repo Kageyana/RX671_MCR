@@ -158,7 +158,7 @@ void motorControlAngle(void)
 ///////////////////////////////////////////////////////////////////////////
 void writePIDparameters(pidParam *pid)
 {
-	FIL fil;
+	volatile static FIL fil;
 	FRESULT fresult;
 	uint8_t fileName[20] = "";
 	// uint8_t fileName[20] ="";
@@ -184,7 +184,7 @@ void writePIDparameters(pidParam *pid)
 ///////////////////////////////////////////////////////////////////////////
 void readPIDparameters(pidParam *pid)
 {
-	FIL fil;
+	volatile static FIL fil;
 	FRESULT fresult;
 	uint8_t fileName[20] = PATH_SETTING;
 	TCHAR gain[20];
