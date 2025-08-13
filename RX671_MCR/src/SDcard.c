@@ -36,6 +36,8 @@ sdc_sd_status_t SDcardOpen(void)
 		cnt0 = 0;
 		while (R_SDC_SD_GetCardDetection(SD_CARD_NO) != SDC_SD_SUCCESS)
 		{
+			cnt0++;
+			R_BSP_SoftwareDelay(1, BSP_DELAY_MILLISECS);
 			if (cnt0 > 2000)
 			{
 				// SDカードが検出されない場合の処理
