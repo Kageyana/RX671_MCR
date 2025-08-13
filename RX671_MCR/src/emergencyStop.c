@@ -2,6 +2,7 @@
 // インクルード
 //====================================//
 #include "emergencyStop.h"
+#include "control.h"
 #include "encoder.h"
 #include "linesensor.h"
 #include <stdbool.h>
@@ -119,23 +120,58 @@ bool cntEmcStopDist(void)
 	}
 }
 /////////////////////////////////////////////////////////////////////
-// モジュール名 cntEmcStopLinesensor
-// 処理概要     緊急停止要因のカウント ラインセンサ飽和
+// モジュール名 cntEmcStopLineSensorLight
+// 処理概要     緊急停止要因のカウント ラインセンサ全灯
 // 引数         なし
 // 戻り値       true:緊急停止 false:異常なし
 /////////////////////////////////////////////////////////////////////
-bool cntEmcStopLineSensor(void)
+bool cntEmcStopLineSensorLight(void)
 {
-	static uint16_t cntLineSensor = 0;
+	static uint16_t cntLineSenLight = 0;
 
 	// 緊急停止条件
-	if(sensor_inp() == 0x7) {
-		cntLineSensor++;
-	} else {
-		cntLineSensor = 0;
+	if(patternTrace != 21)
+	{
+		if(sensor_inp() == 0x7 || sensor_inp() == 0x5)
+		{
+			cntLineSenLight++;
+		} else {
+			cntLineSenLight = 0;
+		}
 	}
+	
 	// 停止条件継続タイマ
-	if (cntLineSensor > STOP_COUNT_LINESENSOR)
+	if (cntLineSenLight > STOP_COUNT_LINESENSOR_LIGHT)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+/////////////////////////////////////////////////////////////////////
+// モジュール名 cntEmcStopLinesensorLightOff
+// 処理概要     緊急停止要因のカウント ラインセンサ消灯
+// 引数         なし
+// 戻り値       true:緊急停止 false:異常なし
+/////////////////////////////////////////////////////////////////////
+bool cntEmcStopLinesensorLightOff(void)
+{
+	static uint16_t cntLineSenEliminate = 0;
+
+	// 緊急停止条件
+	if(patternTrace != 53 && patternTrace != 63)
+	{
+		if(sensor_inp() == 0x0) {
+			cntLineSenEliminate++;
+		} else {
+			cntLineSenEliminate = 0;
+		}
+	}
+	
+	// 停止条件継続タイマ
+	if (cntLineSenEliminate > STOP_COUNT_LINESENSOR_LIGHT_OFF)
 	{
 		return true;
 	}
