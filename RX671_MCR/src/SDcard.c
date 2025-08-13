@@ -34,17 +34,17 @@ sdc_sd_status_t SDcardOpen(void)
 	{
 		// SDカードの検出を待機
 		cnt0 = 0;
-                while (R_SDC_SD_GetCardDetection(SD_CARD_NO) != SDC_SD_SUCCESS)
-                {
-                        cnt0++;
-                        R_BSP_SoftwareDelay(1, BSP_DELAY_MILLISECS);
-                        if (cnt0 > 2000)
-                        {
-                                // SDカードが検出されない場合の処理
-                                insertSDcard = 0; // SDカード挿入フラグをリセット
-                                return SDC_SD_ERR_NO_CARD;
-                        }
-                }
+		while (R_SDC_SD_GetCardDetection(SD_CARD_NO) != SDC_SD_SUCCESS)
+		{
+			cnt0++;
+			R_BSP_SoftwareDelay(1, BSP_DELAY_MILLISECS);
+			if (cnt0 > 2000)
+			{
+				// SDカードが検出されない場合の処理
+				insertSDcard = 0; // SDカード挿入フラグをリセット
+				return SDC_SD_ERR_NO_CARD;
+			}
+		}
 		insertSDcard = 1; // SDカード挿入フラグをセット
 
 		// SDカードの検出コールバック設定
