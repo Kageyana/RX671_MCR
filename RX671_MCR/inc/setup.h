@@ -7,7 +7,7 @@
 #include "ssd1351.h"
 #include "switch.h"
 #include "battery.h"
-#include "bmi088.h"
+#include "BMI088.h"
 #include "linesensor.h"
 #include "Motor.h"
 #include "encoder.h"
