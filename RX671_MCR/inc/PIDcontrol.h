@@ -1,5 +1,5 @@
-#ifndef LINETRACE_H_
-#define LINETRACE_H_
+#ifndef PIDCONTROL_H_
+#define PIDCONTROL_H_
 //====================================//
 // インクルード
 //====================================//
@@ -55,4 +55,4 @@ void motorControlTrace(void);
 void motorControlSpeed(void);
 void motorControlAngle(void);
 
-#endif // LINETRACE_H_
+#endif // PIDCONTROL_H_
