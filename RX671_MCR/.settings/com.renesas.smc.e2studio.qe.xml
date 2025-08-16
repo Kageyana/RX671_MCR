@@ -49,8 +49,9 @@
         <Setting id="PB1" value="SMOSI4"/>
         <Setting id="PB0" value="SMISO4"/>
         <Setting id="PB3" value="SCK4"/>
+        <Setting id="PB5" value="SCK9"/>
+        <Setting id="PB7" value="SMOSI9"/>
         <Setting id="RES#" value="RES#"/>
-        <Setting id="PB6" value="TIOCA5"/>
         <Setting id="P21" value="TIOCA3"/>
         <Setting id="P20" value="P20"/>
         <Setting id="P23" value="P23"/>
@@ -145,13 +146,13 @@
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_S12AD1" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
-        <Setting id="Config_TPU5" value="CG"/>
         <Setting id="Config_TPU4" value="CG"/>
         <Setting id="r_tfat_rx" value="FIT"/>
         <Setting id="Config_RSPI2" value="CG"/>
         <Setting id="Config_SCI1" value="CG"/>
         <Setting id="r_sdc_sdmem_rx" value="FIT"/>
         <Setting id="Config_ICU" value="CG"/>
+        <Setting id="Config_SCI9" value="CG"/>
         <Setting id="Config_MTU0" value="CG"/>
         <Setting id="Config_SCI4" value="CG"/>
         <Setting id="Config_SCI10" value="CG"/>
@@ -392,7 +393,7 @@
             <Setting id="SDHI_CFG_SDOPT_TOP" value="0x00e0u"/>
             <Setting id="SDHI_CFG_CH0_INCLUDED" value="1"/>
             <Setting id="SDHI_CFG_CH1_INCLUDED" value="0"/>
-            <Setting id="SDHI_CFG_CH0_INT_LEVEL" value="10"/>
+            <Setting id="SDHI_CFG_CH0_INT_LEVEL" value="15"/>
             <Setting id="SDHI_CFG_PARAM_CHECKING_ENABLE" value="1"/>
             <Setting id="SDHI_CFG_CH1_INT_LEVEL_DMADTC" value="10"/>
             <Setting id="SDHI_CFG_DIV_INIT_SPEED" value="SDHI_DIV_256"/>
@@ -1697,27 +1698,6 @@
                 </Segment>
             </Segment>
         </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_TPU5" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="ClrSrc" value="TGRA"/>
-            <Setting id="CntClk" value="Div1"/>
-            <Setting id="PrioA" value="Level15"/>
-            <Setting id="PrioB" value="Level15"/>
-            <Setting id="Tgib" value="Disable"/>
-            <Setting id="Unit" value="us"/>
-            <Setting id="Tgia" value="Enable"/>
-            <Setting id="IOBtgrb" value="Out0"/>
-            <Setting id="PrioV" value="Level15"/>
-            <Setting id="MultiIntTgiaEnable" value="Check"/>
-            <Setting id="TGRAValue" value="74"/>
-            <Setting id="PeriodValue" value="1.25"/>
-            <Setting id="MultiIntTgibEnable" value="UnCheck"/>
-            <Setting id="IOA" value="Out11"/>
-            <Setting id="Tciv" value="Disable"/>
-            <Setting id="Sync" value="Disable"/>
-            <Setting id="MultiIntTcivEnable" value="UnCheck"/>
-            <Setting id="ClkEdg" value="Rise"/>
-            <Setting id="TGRBValue" value="0"/>
-        </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_TPU4" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="ClrSrc" value="TGRA"/>
             <Setting id="CntClk" value="Div1"/>
@@ -1749,7 +1729,7 @@
             <Setting id="DataFx" value="DataIsr"/>
             <Setting id="SLNdelay" value="1RSPCK"/>
             <Setting id="OutMode" value="CMOS"/>
-            <Setting id="Bitrate" value="1000"/>
+            <Setting id="Bitrate" value="60000"/>
             <Setting id="CmdNum" value="1CMD1FR"/>
             <Setting id="NAdelay" value="1RSPCK2PCLK"/>
             <Setting id="AutoStp" value="Disable"/>
@@ -1921,6 +1901,23 @@
                 <Setting id="EnableIrq" value="Enable"/>
                 <Setting id="IrqPriority" value="Level15"/>
             </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI9" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="Invert" value="InvNM"/>
+            <Setting id="Mode" value="MasterTx"/>
+            <Setting id="regBRR" value="14"/>
+            <Setting id="PriExSci" value="Level15"/>
+            <Setting id="Clock" value="ClkIn"/>
+            <Setting id="Direction" value="MSB"/>
+            <Setting id="Bitrate" value="7500"/>
+            <Setting id="Modulate" value="Disable"/>
+            <Setting id="regCKS" value="Div1"/>
+            <Setting id="ClkPol" value="Disable"/>
+            <Setting id="regMDDR" value="239"/>
+            <Setting id="PriTx" value="Level15"/>
+            <Setting id="DataTx" value="DataIsr"/>
+            <Setting id="CbTx" value="Disable"/>
+            <Setting id="ClkPha" value="Disable"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.pwmmode" id="Config_MTU0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="CntClk" value="Div1"/>

@@ -51,6 +51,9 @@ void r_Config_SCI4_receive_interrupt(void) __attribute__ ((interrupt(".rvectors"
 /* SCI4 TXI4 */
 void r_Config_SCI4_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI4,TXI4))));
 
+/* SCI9 TXI9 */
+void r_Config_SCI9_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI9,TXI9))));
+
 /* SCI10 RXI10 */
 void r_Config_SCI10_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI10,RXI10))));
 
@@ -59,9 +62,6 @@ void r_Config_SCI10_transmit_interrupt(void) __attribute__ ((interrupt(".rvector
 
 /* RSPI2 SPTI2 */
 void r_Config_RSPI2_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(RSPI2,SPTI2))));
-
-/* TPU5 TGI5A */
-void r_Config_TPU5_tgi5a_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB164))));
 
 /* S12AD1 S12ADI1 */
 void r_Config_S12AD1_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(PERIB,INTB186))));

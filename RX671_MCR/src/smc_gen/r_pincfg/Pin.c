@@ -212,6 +212,10 @@ void R_Pins_Create(void)
     MPC.PB3PFS.BYTE = 0x0AU;
     PORTB.PMR.BYTE |= 0x08U;
 
+    /* Set SCK9 pin */
+    MPC.PB5PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x20U;
+
     /* Set SCK10 pin */
     MPC.P83PFS.BYTE = 0x0AU;
     PORT8.PMR.BYTE |= 0x08U;
@@ -259,6 +263,10 @@ void R_Pins_Create(void)
     MPC.PB1PFS.BYTE = 0x0AU;
     PORTB.PMR.BYTE |= 0x02U;
 
+    /* Set SMOSI9 pin */
+    MPC.PB7PFS.BYTE = 0x0AU;
+    PORTB.PMR.BYTE |= 0x80U;
+
     /* Set SMOSI10 pin */
     MPC.P82PFS.BYTE = 0x0AU;
     PORT8.PMR.BYTE |= 0x04U;
@@ -274,10 +282,6 @@ void R_Pins_Create(void)
     /* Set TIOCA4 pin */
     MPC.P25PFS.BYTE = 0x03U;
     PORT2.PMR.BYTE |= 0x20U;
-
-    /* Set TIOCA5 pin */
-    MPC.PB6PFS.BYTE = 0x03U;
-    PORTB.PMR.BYTE |= 0x40U;
 
     /* Set TIOCC3 pin */
     MPC.P22PFS.BYTE = 0x03U;

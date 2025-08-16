@@ -26,7 +26,6 @@ Includes
 #include "Config_MTU1.h"
 #include "Config_MTU2.h"
 #include "Config_MTU7.h"
-#include "Config_TPU5.h"
 #include "Config_S12AD0.h"
 #include "Config_TPU2.h"
 #include "Config_TPU3.h"
@@ -38,6 +37,7 @@ Includes
 #include "Config_MTU3.h"
 #include "Config_SCI4.h"
 #include "Config_RSPI2.h"
+#include "Config_SCI9.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

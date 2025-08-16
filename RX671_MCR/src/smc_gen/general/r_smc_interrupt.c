@@ -6,7 +6,7 @@
 
 /***********************************************************************************************************************
 * File Name        : r_smc_interrupt.c
-* Version          : 1.2.51
+* Version          : 1.2.52
 * Device(s)        : R5F5671EHxLE
 * Description      : This file implements interrupt setting.
 ***********************************************************************************************************************/
@@ -55,7 +55,7 @@ void R_Interrupt_Create(void)
     IPR(ICU,GROUPBL0) = _0F_ICU_PRIORITY_LEVEL15;
 
     /* Set group BL1 interrupt priority level */
-    IPR(ICU,GROUPBL1) = _0A_ICU_PRIORITY_LEVEL10;
+    IPR(ICU,GROUPBL1) = _0F_ICU_PRIORITY_LEVEL15;
 
     /* Set group AL0 interrupt priority level */
     IPR(ICU,GROUPAL0) = _0F_ICU_PRIORITY_LEVEL15;

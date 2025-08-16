@@ -35,7 +35,7 @@ Macro definitions
 #if (SDHI_CFG_CH0_INCLUDED == 1)
 #define SDHI_CFG_CH0_CD_ACTIVE          (1)         /* CD PORT ACTIVE */
 #define SDHI_CFG_CH0_WP_ACTIVE          (0)         /* WP PORT ACTIVE */
-#define SDHI_CFG_CH0_INT_LEVEL          (10)        /* SDHI channel 0 interrupt level */
+#define SDHI_CFG_CH0_INT_LEVEL          (15)        /* SDHI channel 0 interrupt level */
 #define SDHI_CFG_CH0_INT_LEVEL_DMADTC   (10)        /* SDHI channel 0 DMA/DTC interrupt level */
 #endif  /* #if (SDHI_CFG_CH0_INCLUDED == 1) */
 

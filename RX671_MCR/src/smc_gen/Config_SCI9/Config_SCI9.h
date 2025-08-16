@@ -5,19 +5,19 @@
 */
 
 /***********************************************************************************************************************
-* File Name        : Config_TPU5.h
+* File Name        : Config_SCI9.h
 * Component Version: 1.12.0
 * Device(s)        : R5F5671EHxLE
-* Description      : This file implements device driver for Config_TPU5.
+* Description      : This file implements device driver for Config_SCI9.
 ***********************************************************************************************************************/
 
-#ifndef CFG_Config_TPU5_H
-#define CFG_Config_TPU5_H
+#ifndef CFG_Config_SCI9_H
+#define CFG_Config_SCI9_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_tpu.h"
+#include "r_cg_sci.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -26,9 +26,6 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define TPU5_PCLK_COUNTER_DIVISION         (1)
-#define _004A_TGRA5_VALUE                  (0x004AU) /* TGRA5 value */
-#define _0000_TGRB5_VALUE                  (0x0000U) /* TGRB5 value */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -37,10 +34,12 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_TPU5_Create(void);
-void R_Config_TPU5_Create_UserInit(void);
-void R_Config_TPU5_Start(void);
-void R_Config_TPU5_Stop(void);
+void R_Config_SCI9_Create(void);
+void R_Config_SCI9_Create_UserInit(void);
+void R_Config_SCI9_Start(void);
+void R_Config_SCI9_Stop(void);
+MD_STATUS R_Config_SCI9_SPI_Master_Send(uint8_t * const tx_buf, uint16_t tx_num);
+void r_Config_SCI9_transmitend_interrupt(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

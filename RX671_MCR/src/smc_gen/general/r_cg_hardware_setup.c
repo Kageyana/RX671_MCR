@@ -28,7 +28,6 @@ Includes
 #include "Config_MTU1.h"
 #include "Config_MTU2.h"
 #include "Config_MTU7.h"
-#include "Config_TPU5.h"
 #include "Config_S12AD0.h"
 #include "Config_TPU2.h"
 #include "Config_TPU3.h"
@@ -40,6 +39,7 @@ Includes
 #include "Config_MTU3.h"
 #include "Config_SCI4.h"
 #include "Config_RSPI2.h"
+#include "Config_SCI9.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -101,7 +101,6 @@ void R_Systeminit(void)
     R_Config_MTU1_Create();
     R_Config_MTU2_Create();
     R_Config_MTU7_Create();
-    R_Config_TPU5_Create();
     R_Config_S12AD0_Create();
     R_Config_TPU2_Create();
     R_Config_TPU3_Create();
@@ -113,6 +112,7 @@ void R_Systeminit(void)
     R_Config_MTU3_Create();
     R_Config_SCI4_Create();
     R_Config_RSPI2_Create();
+    R_Config_SCI9_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();
@@ -143,6 +143,9 @@ void R_Systeminit(void)
 
     /* Register group AL0 interrupt SPII2 (RSPI2) */
     R_BSP_InterruptWrite(BSP_INT_SRC_AL0_RSPI2_SPII2,(bsp_int_cb_t)r_Config_RSPI2_idle_interrupt);
+
+    /* Register group BL1 interrupt TEI9 (SCI9) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_BL1_SCI9_TEI9,(bsp_int_cb_t)r_Config_SCI9_transmitend_interrupt);
 
     /* Disable writing to MPC pin function control registers */
     MPC.PWPR.BIT.PFSWE = 0U;
