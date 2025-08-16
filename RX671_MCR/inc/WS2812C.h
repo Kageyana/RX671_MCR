@@ -11,9 +11,9 @@
 // シンボル定義
 //====================================//
 #define MAX_LED 4
-#define RESET_LEN  300  // > 287us分
-#define PWM_0 21        // 0bit: High=0.4us
-#define PWM_1 48        // 1bit: High=0.8us
+#define RESET_LEN  270	// > 287us分
+#define PWM_0 	0b11100000		// 0bit: High=0.4us
+#define PWM_1 	0b11111100		// 1bit: High=0.8us
 
 typedef struct {
     uint8_t pattern;
@@ -31,7 +31,7 @@ extern volatile bool dma_done_flag;
 //====================================//
 void initLED(void);
 void ledDMAinterrupt(void);
-void setLED(int LEDnum, int Red, int Green, int Blue);
+void setLED(uint8_t LEDnum, uint8_t Red, uint8_t Green, uint8_t Blue);
 void sendLED(void);
 void fullColorLED(uint8_t brightness, uint8_t add);
 void r2b(RGBLED *led, uint8_t brightness, uint8_t add);

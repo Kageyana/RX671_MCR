@@ -57,7 +57,6 @@
         <Setting id="PB7" value="PB7"/>
         <Setting id="RES#" value="RES#"/>
         <Setting id="PB6" value="TIOCA5"/>
-        <Setting id="P21" value="SMISO0"/>
         <Setting id="P20" value="SMOSI0"/>
         <Setting id="P23" value="P23"/>
         <Setting id="P22" value="SCK0"/>
@@ -533,24 +532,19 @@
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="Invert" value="InvNM"/>
-            <Setting id="DataRx" value="DataIsr"/>
-            <Setting id="Mode" value="MasterFull"/>
-            <Setting id="EriSci" value="Enable"/>
+            <Setting id="Mode" value="MasterTx"/>
             <Setting id="regBRR" value="14"/>
             <Setting id="PriExSci" value="Level15"/>
             <Setting id="Clock" value="ClkIn"/>
-            <Setting id="Direction" value="LSB"/>
-            <Setting id="Bitrate" value="1000"/>
+            <Setting id="Direction" value="MSB"/>
+            <Setting id="Bitrate" value="7500"/>
             <Setting id="Modulate" value="Disable"/>
-            <Setting id="CbErSci" value="Enable"/>
             <Setting id="regCKS" value="Div1"/>
-            <Setting id="PriRx" value="Level15"/>
             <Setting id="ClkPol" value="Disable"/>
             <Setting id="regMDDR" value="239"/>
             <Setting id="PriTx" value="Level15"/>
-            <Setting id="DataTx" value="DataIsr"/>
-            <Setting id="CbRx" value="Enable"/>
-            <Setting id="CbTx" value="Enable"/>
+            <Setting id="DataTx" value="DataDma"/>
+            <Setting id="CbTx" value="Disable"/>
             <Setting id="ClkPha" value="Disable"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" id="Config_SCI2" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
@@ -1799,7 +1793,7 @@
             <Setting id="Tgia" value="Enable"/>
             <Setting id="IOBtgrb" value="Out0"/>
             <Setting id="PrioV" value="Level15"/>
-            <Setting id="MultiIntTgiaEnable" value="Check"/>
+            <Setting id="MultiIntTgiaEnable" value="UnCheck"/>
             <Setting id="TGRAValue" value="74"/>
             <Setting id="PeriodValue" value="1.25"/>
             <Setting id="MultiIntTgibEnable" value="UnCheck"/>

@@ -36,6 +36,12 @@ void interrupt1ms(void * pdata)
 	motorControlSpeed();	// 速度制御
 	motorControlAngle();	// サーボ角度制御
 
+	setLED(0, 0, 10, 0);
+	setLED(1, 0, 10, 0);
+	setLED(2, 0, 0, 10);
+	setLED(3, 0, 10, 0);
+	sendLED();
+
 	// 走行前に処理
 	if (patternTrace < 10 || patternTrace > 100)
 	{

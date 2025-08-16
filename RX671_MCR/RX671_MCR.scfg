@@ -339,7 +339,7 @@
         <Item currentVect="53" id="RIIC0_TXI0" priority="15" usedState="未使用"/>
         <Item currentVect="54" id="RIIC2_RXI2" priority="15" usedState="未使用"/>
         <Item currentVect="55" id="RIIC2_TXI2" priority="15" usedState="未使用"/>
-        <Item currentVect="58" id="SCI0_RXI0" priority="15" usedState="使用中"/>
+        <Item currentVect="58" id="SCI0_RXI0" priority="15" usedState="未使用"/>
         <Item currentVect="59" id="SCI0_TXI0" priority="15" usedState="使用中"/>
         <Item currentVect="60" id="SCI1_RXI1" priority="15" usedState="使用中"/>
         <Item currentVect="61" id="SCI1_TXI1" priority="15" usedState="使用中"/>
@@ -538,111 +538,110 @@
     </tool>
     <tool id="Pins" version="1.0.1.0">
         <pinItem allocation="E4" comments="" direction="None" id="EMLE" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M12" comments="" direction="None" id="MTIOC3A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="F3" comments="" direction="None" id="MTIOC3C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D8" comments="" direction="O" id="P60" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A11" comments="" direction="I" id="P62" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="G1" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D9" comments="" direction="O" id="P64" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A8" comments="" direction="None" id="AN105" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="E11" comments="" direction="O" id="P66" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C7" comments="" direction="None" id="AN106" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B8" comments="" direction="None" id="AN107" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C2" comments="" direction="None" id="AN109" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J4" comments="" direction="None" id="RXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="H1" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C9" comments="" direction="None" id="AN100" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A9" comments="" direction="None" id="AN101" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B9" comments="" direction="None" id="AN103" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="G4" comments="" direction="None" id="BSCANP" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="E10" comments="" direction="None" id="MTIOC4A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J13" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N13" comments="" direction="O" id="P74" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L12" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="G3" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="L3" comments="" direction="None" id="USB0_VBUS" isUsedBySoftware="false" locked="false" operationMode="" status="4"/>
         <pinItem allocation="M11" comments="" direction="None" id="IRQ14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N2" comments="" direction="None" id="SMOSI0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M7" comments="" direction="None" id="SMOSI2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K9" comments="" direction="O" id="P80" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="N7" comments="" direction="None" id="IRQ10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N3" comments="" direction="O" id="P87" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M3" comments="" direction="I" id="P86" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A5" comments="" direction="None" id="AN005" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C5" comments="" direction="None" id="AN006" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B6" comments="" direction="None" id="AN007" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D3" comments="" direction="I" id="P03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B3" comments="" direction="I" id="P05" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A2" comments="" direction="I" id="P07" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="K10$A" comments="" direction="None" id="SDHI_CMD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C4" comments="" direction="None" id="AN001" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A4" comments="" direction="None" id="AN002" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K12" comments="" direction="None" id="TIOCA5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B5" comments="" direction="None" id="AN003" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="E5" comments="" direction="None" id="AN004" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="M10$A" comments="" direction="None" id="SDHI_CLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="G10" comments="" direction="O" id="PA5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A6" comments="" direction="I" id="P90" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="H11" comments="" direction="O" id="PA7" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A7" comments="" direction="I" id="P92" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M9" comments="" direction="None" id="SDHI_CD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="B7" comments="" direction="I" id="P91" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D6" comments="" direction="I" id="P93" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="H4" comments="" direction="None" id="UPSEL" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M4" comments="" direction="I" id="P12" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N4" comments="" direction="O" id="P14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L5" comments="" direction="I" id="P13" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K4" comments="" direction="O" id="P15" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M2" comments="" direction="O" id="P17" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="E3" comments="" direction="I" id="PJ5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D4" comments="" direction="None" id="AN110" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L11$A" comments="" direction="None" id="SDHI_D3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D1" comments="" direction="None" id="AN111" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N12$A" comments="" direction="None" id="SDHI_D2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L10$A" comments="" direction="None" id="SDHI_D1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N11$A" comments="" direction="None" id="SDHI_D0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="H10" comments="" direction="O" id="PB0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="J10" comments="" direction="O" id="PB3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="J12" comments="" direction="O" id="PB2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="F11" comments="" direction="None" id="MTCLKA" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="E13" comments="" direction="None" id="MTIOC7C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="J11" comments="" direction="O" id="PB4" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="G11" comments="" direction="None" id="MTCLKB" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="K11" comments="" direction="O" id="PB7" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="G2" comments="" direction="None" id="RES#" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="F12" comments="" direction="None" id="MTCLKC" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="F10" comments="" direction="None" id="MTCLKD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N9" comments="" direction="None" id="UB" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L2" comments="" direction="I" id="P23" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N5" comments="" direction="None" id="USB0_DM" isUsedBySoftware="false" locked="false" operationMode="" status="4"/>
+        <pinItem allocation="L1" comments="" direction="O" id="P25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="N6" comments="" direction="None" id="USB0_DP" isUsedBySoftware="false" locked="false" operationMode="" status="4"/>
+        <pinItem allocation="L4" comments="" direction="I" id="P24" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K1" comments="" direction="O" id="P27" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="N10" comments="" direction="None" id="TXD10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="C12" comments="" direction="None" id="SDCLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="L9" comments="" direction="O" id="PC5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J1" comments="" direction="None" id="MTIOC0A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J3" comments="" direction="None" id="MTIOC0C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="J2" comments="" direction="O" id="P33" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K7" comments="" direction="None" id="SCK2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M1" comments="" direction="None" id="SCK0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="L7" comments="" direction="None" id="SMISO2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="K3" comments="" direction="None" id="IRQ1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="A3" comments="" direction="I" id="P40" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="K2" comments="" direction="None" id="TXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="C11" comments="" direction="I" id="PE0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="B12" comments="" direction="I" id="PE2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="A12" comments="" direction="I" id="PE1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="B13" comments="" direction="I" id="PE4" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="A13" comments="" direction="I" id="PE3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="D13" comments="" direction="I" id="PE6" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D2" comments="" direction="I" id="PF5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M12" comments="" direction="None" id="MTIOC3A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="F3" comments="" direction="None" id="MTIOC3C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A8" comments="" direction="None" id="AN105" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C7" comments="" direction="None" id="AN106" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B8" comments="" direction="None" id="AN107" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C2" comments="" direction="None" id="AN109" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="J4" comments="" direction="None" id="RXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C9" comments="" direction="None" id="AN100" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A9" comments="" direction="None" id="AN101" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B9" comments="" direction="None" id="AN103" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="E10" comments="" direction="None" id="MTIOC4A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="J13" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N2" comments="" direction="None" id="SMOSI0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M7" comments="" direction="None" id="SMOSI2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A5" comments="" direction="None" id="AN005" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C5" comments="" direction="None" id="AN006" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B6" comments="" direction="None" id="AN007" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C4" comments="" direction="None" id="AN001" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A4" comments="" direction="None" id="AN002" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B5" comments="" direction="None" id="AN003" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="E5" comments="" direction="None" id="AN004" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="E3" comments="" direction="I" id="PJ5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D4" comments="" direction="None" id="AN110" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D1" comments="" direction="None" id="AN111" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="F11" comments="" direction="None" id="MTCLKA" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="G11" comments="" direction="None" id="MTCLKB" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="F12" comments="" direction="None" id="MTCLKC" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="F10" comments="" direction="None" id="MTCLKD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="C12" comments="" direction="None" id="SDCLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="J1" comments="" direction="None" id="MTIOC0A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="J3" comments="" direction="None" id="MTIOC0C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K2" comments="" direction="None" id="TXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M8" comments="" direction="None" id="RXD10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="H1" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="G3" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D3" comments="" direction="I" id="P03" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B3" comments="" direction="I" id="P05" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A2" comments="" direction="I" id="P07" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M9" comments="" direction="None" id="SDHI_CD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M4" comments="" direction="I" id="P12" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N4" comments="" direction="O" id="P14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L5" comments="" direction="I" id="P13" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K4" comments="" direction="O" id="P15" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M2" comments="" direction="O" id="P17" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L11$A" comments="" direction="None" id="SDHI_D3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N12$A" comments="" direction="None" id="SDHI_D2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L10$A" comments="" direction="None" id="SDHI_D1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N11$A" comments="" direction="None" id="SDHI_D0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="E13" comments="" direction="None" id="MTIOC7C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N9" comments="" direction="None" id="UB" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L2" comments="" direction="I" id="P23" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L1" comments="" direction="O" id="P25" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L4" comments="" direction="I" id="P24" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K1" comments="" direction="O" id="P27" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="J2" comments="" direction="O" id="P33" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A3" comments="" direction="I" id="P40" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="K5" comments="" direction="I" id="P54" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="K6" comments="" direction="O" id="P53" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="L6" comments="" direction="I" id="P56" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D8" comments="" direction="O" id="P60" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A11" comments="" direction="I" id="P62" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D9" comments="" direction="O" id="P64" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="E11" comments="" direction="O" id="P66" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="G4" comments="" direction="None" id="BSCANP" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N13" comments="" direction="O" id="P74" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L12" comments="" direction="O" id="P73" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K9" comments="" direction="O" id="P80" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N3" comments="" direction="O" id="P87" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M3" comments="" direction="I" id="P86" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="K12" comments="" direction="None" id="TIOCA5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A6" comments="" direction="I" id="P90" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="A7" comments="" direction="I" id="P92" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="B7" comments="" direction="I" id="P91" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="D6" comments="" direction="I" id="P93" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="H4" comments="" direction="None" id="UPSEL" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="G2" comments="" direction="None" id="RES#" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N5" comments="" direction="None" id="USB0_DM" isUsedBySoftware="false" locked="false" operationMode="" status="4"/>
-        <pinItem allocation="N6" comments="" direction="None" id="USB0_DP" isUsedBySoftware="false" locked="false" operationMode="" status="4"/>
-        <pinItem allocation="K7" comments="" direction="None" id="SCK2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="M1" comments="" direction="None" id="SCK0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="N1" comments="" direction="None" id="SMISO0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="L7" comments="" direction="None" id="SMISO2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="M8" comments="" direction="None" id="RXD10" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="D2" comments="" direction="I" id="PF5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
@@ -4979,7 +4978,7 @@
             <allocatable id="SCI0">
                 <isocket id="PCLKB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
                 <isocket id="PCLKA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
-                <option enabled="true" id="Direction" selection="LSB">
+                <option enabled="true" id="Direction" selection="MSB">
                     <item id="LSB" input="" vlaue="0"/>
                     <item id="MSB" input="" vlaue="0"/>
                 </option>
@@ -4991,7 +4990,7 @@
                     <item id="ClkIn" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="Bitrate" selection="Bitrate">
-                    <item id="Bitrate" input="1000" vlaue="1000"/>
+                    <item id="Bitrate" input="7500" vlaue="1000"/>
                 </option>
                 <option enabled="true" id="Modulate" selection="Disable">
                     <item id="Disable" input="" vlaue="0"/>
@@ -5005,12 +5004,7 @@
                     <item id="Disable" input="" vlaue="0"/>
                     <item id="Enable" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="DataTx" selection="DataIsr">
-                    <item id="DataIsr" input="" vlaue="0"/>
-                    <item id="DataDma" input="" vlaue="0"/>
-                    <item id="DataDtc" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="DataRx" selection="DataIsr">
+                <option enabled="true" id="DataTx" selection="DataDma">
                     <item id="DataIsr" input="" vlaue="0"/>
                     <item id="DataDma" input="" vlaue="0"/>
                     <item id="DataDtc" input="" vlaue="0"/>
@@ -5033,28 +5027,6 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="PriRx" selection="Level15">
-                    <item id="Level0" input="" vlaue="0"/>
-                    <item id="Level1" input="" vlaue="0"/>
-                    <item id="Level2" input="" vlaue="0"/>
-                    <item id="Level3" input="" vlaue="0"/>
-                    <item id="Level4" input="" vlaue="0"/>
-                    <item id="Level5" input="" vlaue="0"/>
-                    <item id="Level6" input="" vlaue="0"/>
-                    <item id="Level7" input="" vlaue="0"/>
-                    <item id="Level8" input="" vlaue="0"/>
-                    <item id="Level9" input="" vlaue="0"/>
-                    <item id="Level10" input="" vlaue="0"/>
-                    <item id="Level11" input="" vlaue="0"/>
-                    <item id="Level12" input="" vlaue="0"/>
-                    <item id="Level13" input="" vlaue="0"/>
-                    <item id="Level14" input="" vlaue="0"/>
-                    <item id="Level15" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="EriSci" selection="Enable">
-                    <item id="Disable" input="" vlaue="0"/>
-                    <item id="Enable" input="" vlaue="0"/>
-                </option>
                 <option enabled="true" id="PriExSci" selection="Level15">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
@@ -5073,19 +5045,11 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="CbTx" selection="Enable">
+                <option enabled="true" id="CbTx" selection="Disable">
                     <item id="Disable" input="" vlaue="0"/>
                     <item id="Enable" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="CbRx" selection="Enable">
-                    <item id="Disable" input="" vlaue="0"/>
-                    <item id="Enable" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="CbErSci" selection="Enable">
-                    <item id="Disable" input="" vlaue="0"/>
-                    <item id="Enable" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="Mode" selection="MasterFull">
+                <option enabled="true" id="Mode" selection="MasterTx">
                     <item id="SlaveFull" input="" vlaue="0"/>
                     <item id="SlaveTx" input="" vlaue="0"/>
                     <item id="MasterFull" input="" vlaue="0"/>
@@ -5098,7 +5062,7 @@
                     <item id="Div64" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="regBRR" selection="regBRR">
-                    <item id="regBRR" input="14" vlaue="14"/>
+                    <item id="regBRR" input="14" vlaue="1"/>
                 </option>
                 <option enabled="true" id="regMDDR" selection="regMDDR">
                     <item id="regMDDR" input="239" vlaue="128"/>
@@ -5107,7 +5071,7 @@
             <component description="このソフトウェアコンポーネントは、RSPIまたはSCI、RSCI（簡易SPIバス）のSPIクロック同期式モードの構成を提供します。&#10;&#10;スレーブ送信/受信、スレーブ送信、マスタ送信/受信、マスタ送信の4つの転送モードを含みます。" detailDescription="" display="SPIクロック同期式モード(3線式)" id="com.renesas.smc.tools.swcomponent.codegenerator.spiclocksync" version="1.12.0"/>
             <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="SCI0" display="SCI0" id="com.renesas.smc.swc.cg.rx.spiclocksync.rx671.sci0" type="SCI">
                 <context>
-                    <option enabled="true" id="Mode" selection="MasterFull">
+                    <option enabled="true" id="Mode" selection="MasterTx">
                         <item enabled="true" id="SlaveFull"/>
                         <item enabled="true" id="SlaveTx"/>
                         <item enabled="true" id="SlaveRx"/>
@@ -7588,7 +7552,7 @@
                     <item id="Level14" input="" vlaue="0"/>
                     <item id="Level15" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="MultiIntTgiaEnable" selection="Check">
+                <option enabled="true" id="MultiIntTgiaEnable" selection="UnCheck">
                     <item id="Check" input="" vlaue="0"/>
                     <item id="UnCheck" input="" vlaue="0"/>
                 </option>

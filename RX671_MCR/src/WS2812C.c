@@ -2,14 +2,21 @@
 // インクルード
 //====================================//
 #include "WS2812C.h"
+#include "r_dmaca_rx_if.h"
+#include "sys/types.h"
+#include <stdbool.h>
+#include <stdint.h>
 //====================================//
 // グローバル変数の宣言
 //====================================//
 uint8_t LED_Data[MAX_LED][4];
-volatile uint16_t pwmData[(24 * MAX_LED) + RESET_LEN] = {0};
+volatile static uint8_t pwmData[(24 * MAX_LED) + RESET_LEN] = {0};
 volatile bool datasentflag = false;
-volatile bool dma_done_flag = false;
+volatile bool dma_done_flag = true;
 volatile bool lineflag = false;
+
+dmaca_transfer_data_cfg_t td_cfg;
+dmaca_stat_t dmac_status;
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 initLED
 // 処理概要     LEDの初期化
@@ -19,33 +26,17 @@ volatile bool lineflag = false;
 void initLED(void)
 {
 	volatile dmaca_return_t retDMA;
-	dmaca_transfer_data_cfg_t td_cfg;
+	
 
 	retDMA = R_DMACA_Open(DMACA_CH0); // DMAC0をオープン
-
-	td_cfg.transfer_mode = DMACA_TRANSFER_MODE_NORMAL;
-	td_cfg.repeat_block_side = DMACA_REPEAT_BLOCK_DISABLE;
-	td_cfg.data_size = DMACA_DATA_SIZE_WORD;
-	td_cfg.act_source = (dmaca_activation_source_t)164; // TPU5の割り込みを使用
-	td_cfg.request_source = DMACA_TRANSFER_REQUEST_PERIPHERAL;
-	td_cfg.dtie_request = DMACA_TRANSFER_END_INTERRUPT_ENABLE;
-	td_cfg.esie_request = DMACA_TRANSFER_ESCAPE_END_INTERRUPT_DISABLE;
-	td_cfg.rptie_request = DMACA_REPEAT_SIZE_END_INTERRUPT_DISABLE;
-	td_cfg.sarie_request = DMACA_SRC_ADDR_EXT_REP_AREA_OVER_INTERRUPT_DISABLE;
-	td_cfg.darie_request = DMACA_DES_ADDR_EXT_REP_AREA_OVER_INTERRUPT_DISABLE;
-	td_cfg.src_addr_mode = DMACA_SRC_ADDR_INCR;
-	td_cfg.src_addr_repeat_area = DMACA_SRC_ADDR_EXT_REP_AREA_NONE;
-	td_cfg.des_addr_mode = DMACA_DES_ADDR_FIXED;
-	td_cfg.des_addr_repeat_area = DMACA_DES_ADDR_EXT_REP_AREA_NONE;
-	td_cfg.offset_value = 0x00000000;
-	td_cfg.interrupt_sel = DMACA_CLEAR_INTERRUPT_FLAG_BEGINNING_TRANSFER;
-	td_cfg.p_src_addr = (void *)&pwmData;
-	td_cfg.p_des_addr = (void *)&TPU5.TGRB;
-	td_cfg.transfer_count = 326; // 24bit * 4LED + RESET_LEN
-
-	retDMA = R_DMACA_Create(DMACA_CH0, &td_cfg); // DMAC0の転送データ設定
-
 	retDMA = R_DMACA_Int_Callback(DMACA_CH0,ledDMAinterrupt); // DMAC0の割り込みコールバック関数設定
+	retDMA = R_DMACA_Int_Enable(DMACA_CH0,15);	 // 割り込み優先度を設定
+
+	// TPU5.TGRB = PWM_MAX;
+	// R_Config_TPU5_Start();   // PWM出力スタート
+
+	
+	// sendLED();
 
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -56,10 +47,14 @@ void initLED(void)
 ///////////////////////////////////////////////////////////////////////////
 void ledDMAinterrupt(void)
 {
+	volatile dmaca_return_t retDMA;
     if (DMAC0.DMSTS.BIT.DTIF == 1U)
-    {
-        DMAC0.DMSTS.BIT.DTIF = 0U;
-        dma_done_flag = true;
+    {	
+		R_Config_SCI0_Stop(); // SCI0をストップ
+		retDMA = R_DMACA_Control(DMACA_CH0, DMACA_CMD_ESIF_STATUS_CLR, &dmac_status); // DMAエスケープフラグクリア
+		retDMA = R_DMACA_Control(DMACA_CH0, DMACA_CMD_DTIF_STATUS_CLR, &dmac_status); // DMA転送完了フラグクリア
+		datasentflag = false; 	// データ送信フラグをクリア
+		
     }
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -68,7 +63,7 @@ void ledDMAinterrupt(void)
 // 引数         LEDnum:設定するLEDの番号(0から) rgb:色ごとの輝度(0～255)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void setLED(int LEDnum, int Red, int Green, int Blue)
+void setLED(uint8_t LEDnum, uint8_t Red, uint8_t Green, uint8_t Blue)
 {
     if (!datasentflag) {
         LED_Data[LEDnum][0] = LEDnum;
@@ -87,11 +82,17 @@ void sendLED(void)
 {
     volatile uint32_t index = 0;
     volatile uint32_t color;
-	dmaca_stat_t dmac_status;
 	volatile dmaca_return_t retDMA;
 
     if (!datasentflag)
     {
+		// リセットデータ
+		for (int i = 0; i < RESET_LEN; i++)
+		{
+			pwmData[index++] = 0x0;
+		}
+
+		// カラーデータ
         for (int i = 0; i < MAX_LED; i++)
         {
             color = ((LED_Data[i][1] << 16) | (LED_Data[i][2] << 8) | LED_Data[i][3]);
@@ -101,30 +102,34 @@ void sendLED(void)
             }
         }
 
-        for (int i = 0; i < RESET_LEN; i++)
-		{
-			pwmData[index++] = 0;
-		
-		}
+		td_cfg.transfer_mode = DMACA_TRANSFER_MODE_NORMAL; 							// 通常転送モード
+		td_cfg.repeat_block_side = DMACA_REPEAT_BLOCK_DISABLE;						// リピートブロック無効
+		td_cfg.data_size = DMACA_DATA_SIZE_BYTE;									// データサイズはワード
+		td_cfg.act_source = IR_SCI0_TXI0; 											// アクティベーションソースはSCI0のTXI0
+		td_cfg.request_source = DMACA_TRANSFER_REQUEST_PERIPHERAL;					// 転送要求はペリフェラル
+		td_cfg.dtie_request = DMACA_TRANSFER_END_INTERRUPT_ENABLE;	 				// 転送終了割り込み有効
+		td_cfg.esie_request = DMACA_TRANSFER_ESCAPE_END_INTERRUPT_DISABLE;	 		// エスケープ終了割り込み無効
+		td_cfg.rptie_request = DMACA_REPEAT_SIZE_END_INTERRUPT_DISABLE;	 			// リピートサイズ終了割り込み無効
+		td_cfg.sarie_request = DMACA_SRC_ADDR_EXT_REP_AREA_OVER_INTERRUPT_DISABLE;	// ソースアドレス拡張リピートエリアオーバー割り込み無効
+		td_cfg.darie_request = DMACA_DES_ADDR_EXT_REP_AREA_OVER_INTERRUPT_DISABLE;	// デスティネーションアドレス拡張リピートエリアオーバー割り込み無効
+		td_cfg.src_addr_mode = DMACA_SRC_ADDR_INCR;									// ソースアドレスはインクリメント
+		td_cfg.src_addr_repeat_area = DMACA_SRC_ADDR_EXT_REP_AREA_NONE;				// ソースアドレス拡張リピートエリアなし
+		td_cfg.des_addr_mode = DMACA_DES_ADDR_FIXED;								// デスティネーションアドレスは固定
+		td_cfg.des_addr_repeat_area = DMACA_DES_ADDR_EXT_REP_AREA_NONE;				// デスティネーションアドレス拡張リピートエリアなし
+		td_cfg.offset_value = 0x00000000;	 										// オフセット値は0
+		td_cfg.interrupt_sel = DMACA_CLEAR_INTERRUPT_FLAG_BEGINNING_TRANSFER;		// 割り込みフラグは転送開始時にクリア
+		td_cfg.p_src_addr = (void *)&pwmData;
+		td_cfg.p_des_addr = (void *)&SCI0.TDR;
+		td_cfg.transfer_count = index; // 24bit * 4LED + RESET_LEN
 
-        datasentflag = true;
-
-		DMAC0.DMCRA = index;
-		retDMA = R_DMACA_Int_Enable(DMACA_CH0,15);	 // 割り込み優先度を設定
+		retDMA = R_DMACA_Create(DMACA_CH0, &td_cfg); // DMAC0の転送データ設定
 		retDMA = R_DMACA_Control(DMACA_CH0, DMACA_CMD_ENABLE, &dmac_status); // DMA転送開始
-        // R_Config_DMAC0_Start();  // DMA転送開始（トリガは自動 or ソフト）
-        R_Config_TPU5_Start();   // PWM出力スタート
+		datasentflag = true;	// データ送信フラグをセット
+		R_Config_SCI0_Start(); // SCI0をスタート
+		R_Config_SCI0_SPI_Master_Send(pwmData, index); // SCI0でデータ送信開始	
+        
+        // DMA完了は割り込みで検知
 
-        // DMA完了はフラグまたは割り込みで検知
-		dma_done_flag = false;
-        while (!dma_done_flag);  // 割り込み内でセットされるフラグ
-
-        R_Config_TPU5_Stop();
-        // R_Config_DMAC0_Stop();
-		retDMA = R_DMACA_Control(DMACA_CH0, DMACA_CMD_DTIF_STATUS_CLR, &dmac_status); // DMA転送完了フラグクリア
-		retDMA = R_DMACA_Control(DMACA_CH0, DMACA_CMD_ESIF_STATUS_CLR, &dmac_status); // DMAエスケープフラグクリア
-
-        datasentflag = false;
     }
 }
 ///////////////////////////////////////////////////////////////////////////

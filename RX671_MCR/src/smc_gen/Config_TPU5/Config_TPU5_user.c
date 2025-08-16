@@ -54,9 +54,6 @@ void R_Config_TPU5_Create_UserInit(void)
 
 void r_Config_TPU5_tgi5a_interrupt(void)
 {
-    /* Set bit PSW.I = 1 to allow multiple interrupts */
-    R_BSP_SETPSW_I();
-
     /* Start user code for r_Config_TPU5_tgi5a_interrupt. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }

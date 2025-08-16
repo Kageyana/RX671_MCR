@@ -39,6 +39,8 @@ void initSystem(void)
 											, (cmt_priority_t)CMT_PRIORITY_5);
 	R_DMACA_Init(); // DMAC内部情報を初期化
 
+	initLED();
+
 	R_Config_SCI2_Start();
 	BMI088init();
 	SSD1351init();
@@ -89,12 +91,7 @@ void initSystem(void)
 	R_Config_S12AD1_Start(); // A/D変換開始
 	
 	// SSD1351drawImage(0, 0, 128, 128, imgQRgithub128x128);
-	// initLED();
-	// setLED(0, 255, 0, 0);
-	// setLED(1, 255, 0, 0);
-	// setLED(2, 255, 0, 0);
-	// setLED(3, 255, 0, 0);
-	// sendLED();
+	
 	cnt0 = 0;
 
 	SSD1351fill(SSD1351_BLACK);
