@@ -143,7 +143,7 @@ void sequenceColorLED(uint8_t brightness, uint8_t add)
     static RGBLED led[MAX_LED] = {1, 0, 0, 0};
     if (!lineflag) {
         for (int i = 0; i < MAX_LED; i++) {
-            led[MAX_LED - 1 - i].pattern = i + 1;
+            led[MAX_LED - 1 - i].pattern = ((i * 2) % 6) + 1;
         }
         lineflag = true;
     }
