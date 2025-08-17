@@ -33,8 +33,7 @@ void initLED(void);
 void ledDMAinterrupt(void);
 void setLED(uint8_t LEDnum, uint8_t Red, uint8_t Green, uint8_t Blue);
 void sendLED(void);
-void fullColorLED(uint8_t brightness, uint8_t add);
-void r2b(RGBLED *led, uint8_t brightness, uint8_t add);
+void sequenceColorLED(uint8_t brightness, uint8_t add);
 void led_out(uint8_t data);
 void clearLED(void);
 
