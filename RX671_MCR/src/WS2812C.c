@@ -142,7 +142,9 @@ void fullColorLED(uint8_t brightness, uint8_t add)
 {
     static RGBLED led[MAX_LED] = {1, 0, 0, 0};
     if (!lineflag) {
-        for (int i = 0; i < MAX_LED; i++) led[i].pattern = i + 1;
+        for (int i = 0; i < MAX_LED; i++) {
+            led[i].pattern = i + 1;
+        }
         lineflag = true;
     }
 
@@ -161,18 +163,59 @@ void fullColorLED(uint8_t brightness, uint8_t add)
 void r2b(RGBLED *led, uint8_t brightness, uint8_t add)
 {
     switch (led->pattern) {
-        case 1: led->r = brightness; led->g += add; led->b = 0;
-                if (led->g >= brightness) { led->g = brightness; led->pattern = 2; } break;
-        case 2: led->r -= add; led->g = brightness; led->b = 0;
-                if (led->r <= 0) { led->r = 0; led->pattern = 3; } break;
-        case 3: led->g = brightness; led->b += add;
-                if (led->b >= brightness) { led->b = brightness; led->pattern = 4; } break;
-        case 4: led->g -= add; led->b = brightness;
-                if (led->g <= 0) { led->g = 0; led->pattern = 5; } break;
-        case 5: led->r += add; led->b = brightness;
-                if (led->r >= brightness) { led->r = brightness; led->pattern = 6; } break;
-        case 6: led->r = brightness; led->b -= add;
-                if (led->b <= 0) { led->b = 0; led->pattern = 1; } break;
+        case 1:
+            led->r = brightness;
+            led->g += add;
+            led->b = 0;
+            if (led->g >= brightness) {
+                led->g = brightness;
+                led->pattern = 2;
+            }
+            break;
+        case 2:
+            led->g = brightness;
+            led->b = 0;
+            if (led->r <= add) {
+                led->r = 0;
+                led->pattern = 3;
+            } else {
+                led->r -= add;
+            }
+            break;
+        case 3:
+            led->g = brightness;
+            led->b += add;
+            if (led->b >= brightness) {
+                led->b = brightness;
+                led->pattern = 4;
+            }
+            break;
+        case 4:
+            led->b = brightness;
+            if (led->g <= add) {
+                led->g = 0;
+                led->pattern = 5;
+            } else {
+                led->g -= add;
+            }
+            break;
+        case 5:
+            led->r += add;
+            led->b = brightness;
+            if (led->r >= brightness) {
+                led->r = brightness;
+                led->pattern = 6;
+            }
+            break;
+        case 6:
+            led->r = brightness;
+            if (led->b <= add) {
+                led->b = 0;
+                led->pattern = 1;
+            } else {
+                led->b -= add;
+            }
+            break;
     }
 }
 ///////////////////////////////////////////////////////////////////////////
