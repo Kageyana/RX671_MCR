@@ -134,7 +134,7 @@ void sendLED(void)
 }
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 fullColorLED
-// 処理概要     4つのLEDの色を順番に変える
+// 処理概要     4つのLEDの色を右端から順番に変える
 // 引数         brightness:最大輝度(0～127) add 輝度の変化量
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ void fullColorLED(uint8_t brightness, uint8_t add)
     static RGBLED led[MAX_LED] = {1, 0, 0, 0};
     if (!lineflag) {
         for (int i = 0; i < MAX_LED; i++) {
-            led[i].pattern = i + 1;
+            led[MAX_LED - 1 - i].pattern = i + 1;
         }
         lineflag = true;
     }
