@@ -15,5 +15,6 @@
 "C_Cpp.intelliSenseEngineFallback": "enabled",
 "clangd.arguments": [
 	"--enable-config"
-]
+],
+"C_Cpp.intelliSenseEngine": "disabled"
 }
